@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dataset>
+
+    <fe_groups>
+        <uid>20</uid>
+        <pid>1</pid>
+        <title>test</title>
+        <tx_feregister_membership_mandatory_fields>tx_feregister_facebook_url</tx_feregister_membership_mandatory_fields>
+    </fe_groups>
+</dataset>

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2014-06-12T13:49:26Z" product-name="fe_register">
+		<header/>
+		<body>
+ 			<!-- tx_feregister_domain_model_encrypteddata -->
+            <trans-unit id="tx_feregister_domain_model_encrypteddata">
+                <source>FE Register: Encrypted Data (Data Protection)</source>
+            </trans-unit>
+
+            <!-- tx_feregister_domain_model_registration -->
+            <trans-unit id="tx_feregister_domain_model_optin">
+                <source>FE Register: Opt-In</source>
+            </trans-unit>
+
+            <!-- tx_feregister_domain_model_frontenduser -->
+            <trans-unit id="tx_feregister_domain_model_frontenduser">
+                <source>FE Register: Frontend-User</source>
+            </trans-unit>
+            <trans-unit id="tx_feregister_domain_model_frontenduser.socialmedia">
+                <source>Social Media</source>
+            </trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_mobile">
+				<source>Mobile</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_gender">
+				<source>Salutation</source>
+			</trans-unit>
+            <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.0">
+                <source>Mr.</source>
+            </trans-unit>
+            <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.1">
+                <source>Mrs.</source>
+            </trans-unit>
+            <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.99">
+                <source>Not set</source>
+            </trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_twitter_url">
+				<source>Twitter URL</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_facebook_url">
+				<source>Facebook URL</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_xing_url">
+				<source>XING URL</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_register_remote_ip">
+				<source>Register Remote Ip</source>
+            </trans-unit>
+            <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_login_error_count">
+                <source>Login Error Count</source>
+            </trans-unit>
+            <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_language_key">
+                <source>Language Key</source>
+            </trans-unit>
+            <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_title">
+                <source>Title</source>
+            </trans-unit>
+            <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_title.I.neutral">
+                <source>Please choose</source>
+            </trans-unit>
+          	<trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_consent">
+				<source>Consent to data protection</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.title">
+				<source>Title (overridden)</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.consent_terms">
+				<target>Einwilligung zu Nutzungsbedingungen erteilt</target>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.consent_marketing">
+				<target>Einwilligung zum Marketing erteilt</target>
+			</trans-unit>
+
+
+            <!-- tx_feregister_domain_model_frontendusergroup -->
+            <trans-unit id="tx_feregister_domain_model_frontendusergroup.tx_feregister_is_membership">
+                <source>Membership</source>
+            </trans-unit>
+            <trans-unit id="tx_feregister_domain_model_frontendusergroup.tx_feregister_is_membership.I.enabled">
+                <source>Group allows membership via the frontend</source>
+            </trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontendusergroup.tx_feregister_membership_opening_date">
+				<source>Start date for possibility of membership</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontendusergroup.tx_feregister_membership_closing_date">
+				<source>End date for possibility of membership</source>
+			</trans-unit>
+            <trans-unit id="tx_feregister_domain_model_frontendusergroup.tx_feregister_membership_mandatory_fields">
+                <source>Mandatory fields in FE-User for membership</source>
+            </trans-unit>
+            <trans-unit id="tx_feregister_domain_model_frontendusergroup.tx_feregister_membership_admins">
+                <source>Admins for the approval of a membership</source>
+            </trans-unit>
+            <trans-unit id="tx_feregister_domain_model_frontendusergroup.tx_feregister_membership_pid">
+                <source>Link to the group when unlocked</source>
+            </trans-unit>
+
+
+            <!-- tx_feregister_domain_model_consent -->
+            <trans-unit id="tx_feregister_domain_model_consent">
+                <source>FE Register: Privacy</source>
+            </trans-unit>
+			<trans-unit id="tx_feregister_domain_model_consent.frontend_user">
+				<source>FrontendUser</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_consent.registration">
+				<source>Registration</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_consent.child">
+				<source>Child</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_consent.crdate">
+				<source>Create date</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_consent.foreign_table">
+				<source>Foreign table</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_consent.foreign_uid">
+				<source>Foreign uid</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_consent.ip_address">
+				<source>Ip address</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_consent.user_agent">
+				<source>UserAgent</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_consent.extension_name">
+				<source>Extension name</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_consent.plugin_name">
+				<source>Plugin name</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_consent.controller_name">
+				<source>Controller name</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_consent.action_name">
+				<source>Action name</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_consent.comment">
+				<source>Comment</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_consent.server_host">
+				<source>Server host name</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_consent.server_uri">
+				<source>Server URI</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_consent.server_referer_url">
+				<source>Server referer</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_consent.consent_privacy">
+				<source>Consent to data storage</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_consent.consent_terms">
+				<source>Consent to Terms of Use given</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_consent.consent_marketing">
+				<source>Consent to marketing given</source>
+			</trans-unit>
+
+
+            <!-- tx_feregister_domain_model_shippingaddress -->
+            <trans-unit id="tx_feregister_domain_model_shippingaddress">
+				<source>FE Register: Shipping Address</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_shippingaddress.frontend_user">
+				<source>Frontend User</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_shippingaddress.frontend_user.pleaseSelect">
+				<source>Please Select</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_shippingaddress.gender">
+				<source>Salutation</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_shippingaddress.gender.I.man">
+				<source>Mr.</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_shippingaddress.gender.I.woman">
+				<source>Mrs.</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_shippingaddress.gender.I.neutral">
+				<source>Please Select</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_shippingaddress.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_shippingaddress.title.pleaseSelect">
+				<source>Please Select</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_shippingaddress.first_name">
+				<source>First Name</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_shippingaddress.last_name">
+				<source>Last Name</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_shippingaddress.company">
+				<source>Company</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_shippingaddress.address">
+				<source>Address</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_shippingaddress.zip">
+				<source>Zip</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_shippingaddress.city">
+				<source>City</source>
+			</trans-unit>
+
+
+			<!-- tx_feregister_domain_model_title -->
+			<trans-unit id="tx_feregister_domain_model_title">
+				<source>FE Register: Title</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_title.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_title.name_long">
+				<source>Name long</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_title.name_female">
+				<source>Name (female)</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_title.name_female_long">
+				<source>Name long (female)</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_title.is_title_after">
+				<source>Is title after</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_title.is_included_in_salutation">
+			    <source>Is included in salutation</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_title.is_checked">
+			    <source>Title is approved</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

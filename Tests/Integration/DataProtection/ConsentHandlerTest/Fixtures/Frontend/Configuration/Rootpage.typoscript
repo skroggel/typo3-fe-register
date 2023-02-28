@@ -1,0 +1,43 @@
+config.tx_extbase.persistence {
+
+	classes {
+
+		Madj2k\FeRegister\Domain\Model\FrontendUser {
+            newRecordStoragePid = 88
+		}
+
+        Madj2k\FeRegister\Domain\Model\GuestUser {
+            newRecordStoragePid = 88
+        }
+
+        Madj2k\FeRegister\Domain\Model\FrontendUserGroup {
+            newRecordStoragePid = 88
+        }
+
+        Madj2k\FeRegister\Domain\Model\OptIn {
+            newRecordStoragePid = 88
+        }
+
+        Madj2k\FeRegister\Domain\Model\Title {
+            newRecordStoragePid = 88
+        }
+
+		Madj2k\FeRegister\Domain\Model\Consent {
+			newRecordStoragePid = 88
+		}
+	}
+}
+
+plugin.tx_feregister  {
+    persistence {
+        // cat=plugin.tx_feregister_feregister//a; type=string; label=Default storage PID
+        storagePid = 88
+    }
+
+    settings {
+
+    }
+}
+
+// for cronjob
+module.tx_feregister < plugin.tx_feregister

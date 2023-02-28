@@ -1,0 +1,772 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2014-06-12T13:49:26Z" product-name="fe_register">
+		<header/>
+		<body>
+			<!-- tx_feregister_domain_model_frontenduser -->
+			<trans-unit id="tx_feregister_domain_model_frontenduser">
+				<source>FE Register: FrontendUser</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.username">
+				<source>Username</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.password">
+				<source>Password</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.email">
+				<source>E-Mail</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.first_name">
+				<source>Firstname</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.last_name">
+				<source>Lastname</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.company">
+				<source>Company</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.address">
+				<source>Address</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.zip">
+				<source>ZIP</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.city">
+				<source>City</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.telephone">
+				<source>Telephone</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.fax">
+				<source>Fax</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.www">
+				<source>Website</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_mobile">
+				<source>Mobile</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_gender">
+				<source>Salutation</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.0">
+				<source>Mr.</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.1">
+				<source>Mrs.</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.99">
+				<source>-- Please select --</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_twitter_url">
+				<source>Twitter URL</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_facebook_url">
+				<source>Facebook URL</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_xing_url">
+				<source>XING URL</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_register_remote_ip">
+				<source>Register Remote Ip</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.password_old">
+				<source>Old Password</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.password_new">
+				<source>New Password</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.password_new_repeat">
+				<source>Repeat New Password</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_title.I.neutral">
+				<source>Please choose</source>
+			</trans-unit>
+
+
+			<!-- Fields of Model/Service -->
+			<trans-unit id="tx_feregister_domain_model_membership">
+				<source>FE Register: Memberships</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_membership.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_membership.description">
+				<source>Description</source>
+			</trans-unit>
+
+
+			<!-- Form-errors -->
+			<trans-unit id="form.error.frontendUser.salutation">
+				<source>Salutation</source>
+			</trans-unit>
+			<trans-unit id="form.error.frontendUser.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="form.error.frontendUser.email">
+				<source>E-Mail</source>
+			</trans-unit>
+			<trans-unit id="form.error.frontendUser.firstName">
+				<source>First Name</source>
+			</trans-unit>
+			<trans-unit id="form.error.frontendUser.lastName">
+				<source>Last Name</source>
+			</trans-unit>
+			<trans-unit id="form.error.frontendUser.company">
+				<source>Company</source>
+			</trans-unit>
+			<trans-unit id="form.error.frontendUser.address">
+				<source>Address</source>
+			</trans-unit>
+			<trans-unit id="form.error.frontendUser.zip">
+				<source>ZIP</source>
+			</trans-unit>
+			<trans-unit id="form.error.frontendUser.city">
+				<source>City</source>
+			</trans-unit>
+			<trans-unit id="form.error.frontendUser.telephone">
+				<source>Telephone</source>
+			</trans-unit>
+			<trans-unit id="form.error.frontendUser.fax">
+				<source>Fax</source>
+			</trans-unit>
+			<trans-unit id="form.error.frontendUser.txFeregisterMobile">
+				<source>Mobile</source>
+			</trans-unit>
+			<trans-unit id="form.error.frontendUser.www">
+				<source>Website</source>
+			</trans-unit>
+			<trans-unit id="form.error.frontendUser.txFeregisterFacebookUrl">
+				<source>Facebook URL</source>
+			</trans-unit>
+			<trans-unit id="form.error.frontendUser.txFeregisterTwitterUrl">
+				<source>Twitter URL</source>
+			</trans-unit>
+
+
+			<!-- Validators -->
+			<trans-unit id="validator.emailAlreadyAssigned" approved="yes">
+				<source>Hm, apparently the email address you entered is already in use by someone else. Please choose another email address.</source>
+			</trans-unit>
+			<trans-unit id="validator.emailInvalid">
+				<source>The email address you entered seems to be incomplete. Please check it again.</source>
+			</trans-unit>
+			<trans-unit id="validator.fieldNotFilled">
+				<source>Something is missing: Please fill in the field '%s'.</source>
+			</trans-unit>
+			<trans-unit id="validator.passwordTooShort">
+				<source>Better safe than sorry: your password should be at least %s characters long.</source>
+			</trans-unit>
+			<trans-unit id="validator.passwordTooLong">
+				<source>Too much of a good thing: Your password should be at most %s characters long.</source>
+			</trans-unit>
+			<trans-unit id="validator.passwordMissingSigns">
+				<source>Because a little more complicated is much more secure: Your password should contain letters and numbers.</source>
+			</trans-unit>
+			<trans-unit id="validator.oldPasswordNotSet">
+				<source>Please enter your current password.</source>
+			</trans-unit>
+			<trans-unit id="validator.passwordsNotAllSet">
+				<source>Please enter the desired new password twice.</source>
+			</trans-unit>
+			<trans-unit id="validator.passwordsNotIdentical">
+				<source>Hm, unfortunately the two versions of the new password don't quite match. Please have a look at it again.</source>
+			</trans-unit>
+			<trans-unit id="validator.passwordOldWrong">
+				<source>Did you perhaps make a mistake when entering your current password?</source>
+			</trans-unit>
+			<trans-unit id="validator.remainingAttempts">
+				<source>Note: You have %s attempt(s) left before your user account will be locked for security reasons.</source>
+			</trans-unit>
+			<trans-unit id="validator.zip.incorrect">
+				<source>Hm, the postal code does not seem to be correct. Is it perhaps too long or too short?</source>
+			</trans-unit>
+			<trans-unit id="validator.gender.empty">
+				<source>Please indicate your salutation.</source>
+			</trans-unit>
+			<trans-unit id="validator.zip.incorrect">
+				<source>Unfortunately, the postal code is not correct.</source>
+			</trans-unit>
+
+
+			<trans-unit id="loginValidator.error.login_noUsername">
+				<source>No username given. Please enter username.</source>
+			</trans-unit>
+			<trans-unit id="loginValidator.error.login_no_password">
+				<source>No password given. Please enter password.</source>
+			</trans-unit>
+
+
+			<trans-unit id="termsValidator.error.acceptTerms">
+				<source>Unfortunately, this has to be: To use this offer, you must agree to our terms of use.</source>
+			</trans-unit>
+
+
+			<trans-unit id="privacyValidator.error.acceptPrivacy">
+				<source>The protection of your data is important to us. Therefore we ask you to agree to the storage of your personal data.</source>
+			</trans-unit>
+
+
+			<trans-unit id="frontendUserValidator.error.usernameExists">
+				<source>A login already exists with this email address. Have you possibly registered before?</source>
+			</trans-unit>
+
+			<!-- Abstract Controller -->
+			<trans-unit id="abstractController.warning.missingData">
+				<source>In order for you to be able to use all functions without restrictions, we still need a few details from you. And don't worry: this will all remain between us.</source>
+			</trans-unit>
+			<trans-unit id="abstractController.error.userNotLoggedIn">
+				<source>Please log in.</source>
+			</trans-unit>
+
+
+			<!-- AuthController -->
+			<trans-unit id="authController.notice.loginMessage">
+				<source><![CDATA[Please login here or <a href="%s">register</a> for free.]]></source>
+			</trans-unit>
+			<trans-unit id="authController.message.login_welcome">
+				<source>Welcome! You are logged in with your e-mail-address "%s".</source>
+			</trans-unit>
+			<trans-unit id="authController.message.guest_login_welcome">
+				<source>Welcome! You are logged in as guest.</source>
+			</trans-unit>
+			<trans-unit id="authController.message.logoutMessage">
+				<source>Woohoo! You have been successfully logged out.</source>
+			</trans-unit>
+			<trans-unit id="authController.error.wrongLogin">
+				<source>Hm, unfortunately email or password are wrong. Please check the information again.</source>
+			</trans-unit>
+			<trans-unit id="authController.error.loginBlocked">
+				<source><![CDATA[Now, unfortunately, it has happened: For security reasons, your profile has been locked after failed %s attempts. Please contact our <a href="mailto:service@example.de">Support</a> to unlock your account again.]]></source>
+			</trans-unit>
+
+
+			<!-- AuthGuestController -->
+			<trans-unit id="authGuestController.error.invalidGuestToken">
+				<source>Sorry, the login link is invalid or expired. Please use a new guest account or register for free.</source>
+			</trans-unit>
+			<trans-unit id="authGuestController.error.guestLoginImpossible">
+				<source>Login as guest was not possible. If you are already logged in, please log out before using a login link.</source>
+			</trans-unit>
+
+
+			<!-- FrontendUserController -->
+			<trans-unit id="frontendUserController.notice.newIntroduction">
+				<source>Register here for free.</source>
+			</trans-unit>
+			<trans-unit id="frontendUserController.message.loggedIn">
+				<source>You are logged in with the e-mail address "%s".</source>
+			</trans-unit>
+			<trans-unit id="frontendUserController.message.guestLink">
+				<source><![CDATA[Copy the link below and keep it safe. Only with this link you can log in again at a later time. The link is valid %s days.<br><br> %s]]></source>
+			</trans-unit>
+			<trans-unit id="frontendUserController.notice.editIntroduction">
+				<source>Please provide your current contact information below. Voluntary information is marked accordingly.</source>
+			</trans-unit>
+			<trans-unit id="frontendUserController.message.registrationWatchForEmail">
+				<source><![CDATA[Almost there! To make sure you are really you, we have just sent you an email to the address you provided. Please confirm your registration via the link in the email. If you do not receive an email from us within the next 2-3 minutes, please check your spam filter. Our <a href="mailto:service@example.de">Support</a> will be happy to help you if you have any problems.]]></source>
+			</trans-unit>
+			<trans-unit id="frontendUserController.message.updateSuccessful">
+				<source>Woohoo! Your profile data has been updated.</source>
+			</trans-unit>
+			<trans-unit id="frontendUserController.message.deletedSuccessful">
+				<source>It is a pity that you are leaving us. Your profile has been successfully deleted, but of course we would be happy if you still visit us from time to time.</source>
+			</trans-unit>
+			<trans-unit id="frontendUserController.message.registrationSuccessful">
+				<source><![CDATA[Woohoo! You have been successfully registered. The password for login is on its way to you by e-mail. If you do not receive an email from us within the next 2-3 minutes, please check your spam filter. Our <a href="mailto:service@example.de">Support</a> will be happy to help you if you have any problems.]]></source>
+			</trans-unit>
+			<trans-unit id="frontendUserController.message.registrationCanceled">
+				<source>Too bad... Your registration was canceled.</source>
+			</trans-unit>
+			<trans-unit id="frontendUserController.warning.showIntroduction">
+				<source>Please note that all your data will be deleted. Do you really want to delete your profile?</source>
+			</trans-unit>
+			<trans-unit id="frontendUserController.error.registrationError">
+				<source>Oops, something must have gone wrong. Have you perhaps already confirmed your registration?</source>
+			</trans-unit>
+
+
+			<!-- FrontendUserGroupController -->
+			<trans-unit id="frontendUserGroupController.notice.selectGroup">
+				<source>Please select which group you want to join or change your membership status here.</source>
+			</trans-unit>
+			<trans-unit id="frontendUserGroupController.message.registrationWatchForEmail">
+				<source><![CDATA[Almost there! To make sure you are really you, we have just sent you an email to the address you provided. Please confirm your wish to join the group via the link in the email. If you do not receive an email from us within the next 2-3 minutes, please check your spam filter. Our <a href="mailto:service@example.de">Support</a> will be happy to help you if you have any problems.]]></source>
+			</trans-unit>
+			<trans-unit id="frontendUserGroupController.message.successful">
+				<source>Woohoo! Joining the group was successfully confirmed.</source>
+			</trans-unit>
+			<trans-unit id="frontendUserGroupController.message.canceled">
+				<source>Too bad... The group joining was canceled.</source>
+			</trans-unit>
+			<trans-unit id="frontendUserGroupController.warning.cancelingFinished">
+				<source>Joining the group has already been successfully canceled</source>
+			</trans-unit>
+			<trans-unit id="frontendUserGroupController.warning.successfulFinished">
+				<source>Joining the group has already been successfully confirmed.</source>
+			</trans-unit>
+			<trans-unit id="frontendUserGroupController.warning.canceledByAdmin">
+				<source>Confirmation of joining the group is currently not possible. Unfortunately, the group moderation has rejected the group membership.</source>
+			</trans-unit>
+			<trans-unit id="frontendUserGroupController.warning.canceledByUser">
+				<source>Confirmation of joining the group is currently not possible. The wish to join the group has been withdrawn.</source>
+			</trans-unit>
+			<trans-unit id="frontendUserGroupController.message.membershipEnded">
+				<source>A real pity... but they have successfully left the group. But of course you can join the group again at any time.</source>
+			</trans-unit>
+			<trans-unit id="frontendUserGroupController.warning.noMembershipableGroups">
+				<source>Unfortunately, there are currently no open groups that you can join. Please try again at a later date.</source>
+			</trans-unit>
+			<trans-unit id="frontendUserGroupController.warning.successfulButWaitingForAdmin">
+				<source>Thank you for the confirmation! As soon as the group moderation has also confirmed the group membership on their part, the group joining is completed.</source>
+			</trans-unit>
+			<trans-unit id="frontendUserGroupController.warning.successfulButWaitingForUser">
+				<source>Thank you for the confirmation! As soon as the requesting person has also confirmed the group membership on their part, the group joining is completed.</source>
+			</trans-unit>
+			<trans-unit id="frontendUserGroupController.error.unexpected">
+				<source>Oops, something must have gone wrong. It is possible that group membership has already been confirmed.</source>
+			</trans-unit>
+
+
+
+			<!-- Password Controller -->
+			<trans-unit id="passwordController.notice.newIntroduction">
+				<source>Please enter the e-mail address of your account here.</source>
+			</trans-unit>
+			<trans-unit id="passwordController.notice.editIntroduction">
+				<source>Please enter your old password here first and then enter the desired new password twice below.</source>
+			</trans-unit>
+			<trans-unit id="passwordController.message.newPassword">
+				<source><![CDATA[If a user with this e-mail address exists, we have just emailed you your new password. If you do not receive an email from us within the next 2-3 minutes, please check your spam filter. Our <a href="mailto:service@example.de">Support</a> will be happy to help you with any problems.]]></source>
+			</trans-unit>
+			<trans-unit id="passwordController.message.updatedPassword">
+				<source>Woohoo! Your password has been changed. Please use the new password for login from now on.</source>
+			</trans-unit>
+			<trans-unit id="passwordController.error.lockedAccount">
+				 <source><![CDATA[For security reasons, your access has been blocked due to repeated incorrect password entry. Please contact our <a href="mailto:service@example.de">support</a>.]]></source>
+			</trans-unit>
+			<trans-unit id="passwordController.error.noUsername">
+				<source>Please enter your e-mail address.</source>
+			</trans-unit>
+			<trans-unit id="passwordController.error.passwordNotUpdated">
+				<source><![CDATA[Something went wrong! The password could not be changed. Please contact our <a href="mailto:service@example.de">Support</a>.]]></source>
+			</trans-unit>
+
+
+			<!-- Templates/Auth/Index.html -->
+			<trans-unit id="templates_auth_index.orHeadline">
+				<source>or</source>
+			</trans-unit>
+			<trans-unit id="templates_auth_index.guest">
+				<source>Continue as guest</source>
+			</trans-unit>
+
+
+			<!-- Partials/Auth/Login.html -->
+			<trans-unit id="partials_auth_login.labelLogin">
+				<source>Login</source>
+			</trans-unit>
+			<trans-unit id="partials_auth_login.passwordForgot">
+				<source>Forgotten password?</source>
+			</trans-unit>
+			<trans-unit id="templates_auth_login.registerNow">
+				<source>Register now</source>
+			</trans-unit>
+
+
+			<!-- Templates/FrontendUser/Edit.html -->
+			<trans-unit id="templates_frontendUser_edit.headline">
+				<source>Edit Profile</source>
+			</trans-unit>
+			<trans-unit id="templates_frontendUser_edit.labelSave">
+				<source>Save</source>
+			</trans-unit>
+			<trans-unit id="templates_frontendUser_edit.labelBack">
+				<source>Back</source>
+			</trans-unit>
+
+
+		   <!-- Templates/FrontendUser/Show.html -->
+			<trans-unit id="templates_frontendUser_new.headline">
+				<source>Register</source>
+			</trans-unit>
+			<trans-unit id="templates_frontendUser_new.labelRegister">
+				<source>Register</source>
+			</trans-unit>
+
+
+
+			<!-- Templates/FrontendUser/Show.html -->
+			<trans-unit id="templates_frontendUser_show.headline">
+				<source>Delete Profile</source>
+			</trans-unit>
+			<trans-unit id="templates_frontendUser_show.labelDelete">
+				<source>Yes, please delete</source>
+			</trans-unit>
+			<trans-unit id="templates_frontendUser_show.labelBack">
+				<source>No, not after all</source>
+			</trans-unit>
+
+
+			<!-- Templates/FrontendUser/Welcome.html -->
+			<trans-unit id="templates_frontendUser_welcome.headline">
+				<source>Welcome %s %s!</source>
+			</trans-unit>
+			<trans-unit id="templates_frontendUser_welcome.continue">
+				<source>Continue</source>
+			</trans-unit>
+
+
+			<!-- Templates/Password/Edit.html -->
+			<trans-unit id="templates_password_edit.headline">
+				<source>Edit Password</source>
+			</trans-unit>
+			<trans-unit id="templates_password_edit.labelSave">
+				<source>Save</source>
+			</trans-unit>
+			<trans-unit id="templates_password_edit.labelBack">
+				<source>Back</source>
+			</trans-unit>
+
+
+			 <!-- Templates/Registration/PasswordForgotShow.html -->
+			<trans-unit id="templates_password_new.headline">
+				<source>Request Password</source>
+			</trans-unit>
+			<trans-unit id="partials_password_forgot.labelSend">
+				<source>Send new password</source>
+			</trans-unit>
+			<trans-unit id="partials_password_forgot.labelBack">
+				<source>Back</source>
+			</trans-unit>
+
+
+			<!-- Templates/FrontendUserGroup/List.html -->
+			<trans-unit id="templates_frontendUserGroup_list.headline">
+				<source>All groups at a glance</source>
+			</trans-unit>
+			<trans-unit id="templates_frontendUserGroup_list.becomeMember">
+				<source>Become a member</source>
+			</trans-unit>
+			<trans-unit id="templates_frontendUserGroup_list.cancelMembership">
+				<source>Cancel Membership</source>
+			</trans-unit>
+			<trans-unit id="templates_frontendUserGroup_list.membershipRequested" approved="no">
+				<source>Membership requested</source>
+			</trans-unit>
+			<trans-unit id="templates_frontendUserGroup_list.membershipComingSoon">
+				<source>from:</source>
+			</trans-unit>
+			<trans-unit id="templates_frontendUserGroup_list.startNow">
+				<source>Start Now</source>
+			</trans-unit>
+
+
+			<!-- Templates/ViewHelpers/Consent/Privacy.html -->
+			<trans-unit id="templates_viewHelpers_consent_privacy.default.partOne">
+				<source>Yes, I agree that %s will use my personal data for the above purpose and to create a free user account. Furthermore, I have read and agree to the extended notes in the</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.default.partTwo">
+				<source>data protection declaration</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.default.partThree">
+				<source>. This consent can be revoked at any time.</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.defaultAlternative.partOne">
+				<source>Yes, I agree that %s will use my personal data for the above purpose. Furthermore, I have read and agree to the extended notes in the</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.defaultAlternative.partTwo">
+				<source>data protection declaration</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.defaultAlternative.partThree">
+				<source>. This consent can be revoked at any time.</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.registration.partOne" approved="no">
+				<source>Yes, I agree that %s uses my personal data to create a free user account. I have also read the extended notes in the</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.registration.partTwo">
+				<source>data protection declaration</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.registration.partThree">
+				<source>. This consent can be revoked at any time.</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.events.partOne" approved="no">
+				<source>Yes, I agree that %s uses my personal data and the personal data of the other participants listed below for my/our participation in the event, as well as for event follow-up and to create a free user account. I have also read the extended notes in the</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.events.partTwo">
+				<source>data protection declaration</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.events.partThree">
+				<source>. This consent can be revoked at any time.</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.order.partOne" approved="no">
+				<source>Yes, I agree that %s uses my personal data to process my order and to create a free user account. Furthermore, I have read and agree to the extended notes in the</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.order.partTwo">
+				<source>data protection declaration</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.order.partThree">
+				<source>. This consent can be revoked at any time.</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.newsletter.partOne" approved="no">
+				<source>Yes, I agree that %s uses my personal data for the newsletter dispatch, as well as for the production of a free user account. Furthermore I have read the extended hints in the</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.newsletter.partTwo">
+				<source>data protection declaration</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.newsletter.partThree">
+				<source>. This consent can be revoked at any time.</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.survey.partOne">
+				<source>Yes, I agree that %s will use my personal data to contact me. Furthermore, I have read the extended information in the</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.survey.partTwo">
+				<source>data protection declaration</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.survey.partThree">
+				<source>. This consent can be revoked at any time.</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.form.partOne">
+				<source>Yes, I agree that %s will use my personal data for the above purpose. Furthermore, I have read and agree to the extended notes in the</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.form.partTwo">
+				<source>data protection declaration</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.form.partThree">
+				<source>. This consent can be revoked at any time.</source>
+			</trans-unit>
+
+
+			<!-- Templates/ViewHelpers/Consent/Terms.html -->
+			<trans-unit id="templates_viewHelpers_consent_terms.default.partOne">
+				<source>I accept the</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_terms.default.partTwo">
+				<source>terms</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_terms.default.partThree">
+				<source>and</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_terms.default.partFour">
+				<source>conditions</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_terms.default.partFive">
+				<source></source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_terms.events.partOne">
+				<source>I accept the</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_terms.events.partTwo">
+				<source>terms</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_terms.events.partThree">
+				<source>and</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_terms.events.partFour">
+				<source>conditions</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_terms.events.partFive">
+				<source>We would like to point out that images, sound and video recordings may be made at this event and published in various media for the purposes of event reporting and general public relations. You will receive further information on this and your rights directly at the start of the event.</source>
+			</trans-unit>
+
+
+			<!-- Templates/ViewHelpers/Consent/Marketing.html -->
+			<trans-unit id="templates_viewHelpers_consent_marketing.default">
+				<source><![CDATA[I expressly consent to receive advertising about interesting products and survey requests from %s by e-mail. My consent is voluntary and can be revoked at any time with effect for the future by email to <a href="mailto:service@example.de">service@example.de</a> with effect for the future.]]></source>
+			</trans-unit>
+
+
+			<!-- Partials/LabelSuffix.html -->
+			<trans-unit id="partials_labelSuffix.labelOptional">
+				<source>(Optional)</source>
+			</trans-unit>
+			<trans-unit id="partials_labelSuffix.labelRequired">
+				<source>(Required)</source>
+			</trans-unit>
+
+
+            <!-- Partials/Captcha.html -->
+            <trans-unit id="partials_captcha.label">
+                <source>Spam-Protection</source>
+            </trans-unit>
+            <trans-unit id="partials_captcha.labelRequired">
+                <source>(Required)</source>
+            </trans-unit>
+
+
+			<!-- Templates/Email/OptIn.html -->
+			<trans-unit id="templates_email_optin.headline">
+				<source>Nearly done</source>
+			</trans-unit>
+			<trans-unit id="templates_email_optin.text1">
+				<source>We are pleased that you have registered on our website! One last click and you can use all the functions of the login-section in full.</source>
+			</trans-unit>
+			<trans-unit id="templates_email_optin.textOptIn">
+				<source>To complete your registration, please click on the following link:</source>
+			</trans-unit>
+			<trans-unit id="templates_email_optin.textOptInLinkLabel">
+				<source>Yes, I would like to register</source>
+			</trans-unit>
+			<trans-unit id="templates_email_optin.textOptOut">
+				<source>You have changed your mind? After %s days your data will be deleted automatically. To delete your data directly, please click on the following link:</source>
+			</trans-unit>
+			<trans-unit id="templates_email_optin.textOptOutLinkLabel">
+				<source>Cancel Registration</source>
+			</trans-unit>
+
+
+			<!-- Templates/Email/Confirmation.html -->
+			<trans-unit id="templates_email_confirmation.headline">
+				<source>And here we go</source>
+			</trans-unit>
+			<trans-unit id="templates_email_confirmation.teaser">
+				<source>With the free account for the login-section you can now manage all memberships around our website yourself.</source>
+			</trans-unit>
+			<trans-unit id="templates_email_confirmation.text1">
+				<source>Your personal login is</source>
+			</trans-unit>
+			<trans-unit id="templates_email_confirmation.username" approved="no">
+				<source>Username</source>
+				<target state="final" phase-name="approval-1">Nutzendenname</target>
+			</trans-unit>
+			<trans-unit id="templates_email_confirmation.password">
+				<source>Password</source>
+			</trans-unit>
+			<trans-unit id="templates_email_confirmation.text2">
+				<source>Please change it after login.</source>
+			</trans-unit>
+			<trans-unit id="templates_email_confirmation.loginLabel">
+				<source>To login</source>
+			</trans-unit>
+
+
+			<!-- Templates/Email/Group/OptIn.html -->
+			<trans-unit id="templates_email_group_optin.headline">
+				<source>Nearly done</source>
+			</trans-unit>
+			<trans-unit id="templates_email_group_optin.text1">
+				<source>You want to join the "%s" group.</source>
+			</trans-unit>
+			<trans-unit id="templates_email_group_optin.textOptIn">
+				<source>To confirm your membership, please click on the following link:</source>
+			</trans-unit>
+			<trans-unit id="templates_email_group_optin.textOptInLinkLabel">
+				<source>Yes, I would like to join the group</source>
+			</trans-unit>
+			<trans-unit id="templates_email_group_optin.textOptOut">
+				<source>You have changed your mind? After %s days your request will be deleted automatically. If you want to delete it directly, please click on the following link:</source>
+			</trans-unit>
+			<trans-unit id="templates_email_group_optin.textOptOutLinkLabel">
+				<source>No, I do not want to join the group</source>
+			</trans-unit>
+
+
+			<!-- Templates/Email/Group/OptInAdmin.html -->
+			<trans-unit id="templates_email_group_optinAdmin.headline">
+				<source>Please review request to join a group</source>
+			</trans-unit>
+			<trans-unit id="templates_email_group_optinAdmin.text1">
+				<source>The person below would like to join the group "%s". If more than one group administrator is specified, the first person to click determines the group membership of the person making the request.</source>
+			</trans-unit>
+			<trans-unit id="templates_email_group_optinAdmin.textOptIn">
+				<source>To confirm joining the group, please click on the following link:</source>
+			</trans-unit>
+			<trans-unit id="templates_email_group_optinAdmin.textOptInLinkLabel">
+				<source>Yes, approve group membership</source>
+			</trans-unit>
+			<trans-unit id="templates_email_group_optinAdmin.textOptOut">
+				<source>After %s days the request will be deleted automatically. If you want to delete it directly, please click on the following link:</source>
+			</trans-unit>
+			<trans-unit id="templates_email_group_optinAdmin.textOptOutLinkLabel">
+				<source>No, reject group membership</source>
+			</trans-unit>
+
+
+			<!-- Templates/Email/Group/OptInWithdrawAdmin.html -->
+			<trans-unit id="templates_email_group_optinWithdrawAdmin.headline">
+				<source>Request to join a group has been withdrawn</source>
+			</trans-unit>
+			<trans-unit id="templates_email_group_optinWithdrawAdmin.text1">
+				<source>The person below has withdrawn their request to join the %s group. This email is for your information only. No further action is required.</source>
+			</trans-unit>
+
+
+			<!-- Templates/Email/Group/OptInDenial.html -->
+			<trans-unit id="templates_email_group_optinDenial.headline">
+				<source>Request to join a group has been withdrawn</source>
+			</trans-unit>
+			<trans-unit id="templates_email_group_optinDenial.text1">
+				<source>Unfortunately, your request to join the "%s" group has been denied by the group moderation. To get more information, please contact our support.</source>
+			</trans-unit>
+
+
+			<!-- Templates/Email/Group/Confirmation.html -->
+			<trans-unit id="templates_email_group_confirmation.headline">
+				<source>Your group membership was confirmed</source>
+			</trans-unit>
+			<trans-unit id="templates_email_group_confirmation.teaser">
+				<source>We welcome you as a new member of the group "%s". </source>
+			</trans-unit>
+			<trans-unit id="templates_email_group_confirmation.text1">
+				<source>To use all functions of this group, simply log in with your existing login on the website.</source>
+			</trans-unit>
+			<trans-unit id="templates_email_group_confirmation.text2">
+				<source>We wish you a lot of fun!</source>
+			</trans-unit>
+			<trans-unit id="templates_email_group_confirmation.loginLabel">
+				<source>To login</source>
+			</trans-unit>
+
+
+			<!-- Templates/Email/PasswordReset.html -->
+			<trans-unit id="templates_email_passwordReset.headline">
+				<source>Your new password</source>
+			</trans-unit>
+			<trans-unit id="templates_email_passwordReset.text1">
+				<source>your new password for the login is: %s</source>
+			</trans-unit>
+			<trans-unit id="templates_email_passwordReset.text2">
+				<source>Please change it after login.</source>
+			</trans-unit>
+			<trans-unit id="templates_email_passwordReset.loginLabel">
+				<source>To login</source>
+			</trans-unit>
+
+
+			<!-- Subject for e-mails -->
+			<trans-unit id="mailService.optIn.subject">
+				<source>Confirm registration</source>
+			</trans-unit>
+			<trans-unit id="mailService.confirmation.subject">
+				<source>Registration successfull</source>
+			</trans-unit>
+			<trans-unit id="mailService.resetPassword.subject">
+				<source>New Password</source>
+			</trans-unit>
+			<trans-unit id="mailService.group.optIn.subject">
+				<source>Confirm group membership</source>
+			</trans-unit>
+			<trans-unit id="mailService.group.optInAdmin.subject">
+				<source>Confirm group membership application</source>
+			</trans-unit>
+			<trans-unit id="mailService.group.optInAdmin.subject">
+				<source>Approve group membership application</source>
+			</trans-unit>
+			<trans-unit id="mailService.group.optInWithdrawAdmin.subject">
+				<source>Request to join group withdrawn</source>
+			</trans-unit>
+			<trans-unit id="mailService.group.optInDenial.subject">
+				<source>Request to join group rejected</source>
+			</trans-unit>
+			<trans-unit id="mailService.group.confirmation.subject">
+				<source>Welcome to the group</source>
+			</trans-unit>
+        </body>
+	</file>
+</xliff>

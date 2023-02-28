@@ -1,0 +1,363 @@
+// #########################################################
+// Extbase Configuration
+// #########################################################
+
+config.tx_extbase.persistence {
+
+	classes {
+
+        Madj2k\CoreExtended\Domain\Model\BackendUser {
+            subclasses {
+                Tx_FeRegister_BackendUser = Madj2k\FeRegister\Domain\Model\BackendUser
+            }
+        }
+
+		Madj2k\FeRegister\Domain\Model\BackendUser {
+			mapping {
+
+				# tablename
+				tableName = be_users
+
+				# if we set an value, we filter by it
+				# if do not set anything, all records are found
+				recordType =
+
+			}
+		}
+
+        #===============================================
+
+        Madj2k\CoreExtended\Domain\Model\FrontendUser {
+            subclasses {
+                Tx_FeRegister_FrontendUser = Madj2k\FeRegister\Domain\Model\FrontendUser
+                Tx_FeRegister_GuestUser = Madj2k\FeRegister\Domain\Model\GuestUser
+            }
+        }
+
+		Madj2k\FeRegister\Domain\Model\FrontendUser {
+
+            // storage for new records in cross-extension-context
+            newRecordStoragePid = {$plugin.tx_feregister.persistence.storagePid}
+
+			mapping {
+
+				# tablename
+				tableName = fe_users
+
+				# if we set an value, we filter by it
+				# if do not set anything, all records are found
+				recordType = 0
+
+				# mapping to properties of class
+				columns {
+                    tstamp.mapOnProperty = tstamp
+                    starttime.mapOnProperty = starttime
+                    endtime.mapOnProperty = endtime
+                    crdate.mapOnProperty = crdate
+                    disable.mapOnProperty = disable
+                    deleted.mapOnProperty = deleted
+                    password.mapOnProperty = password
+                    tx_extbase_type.mapOnProperty = txExtbaseType
+				}
+			}
+		}
+
+        Madj2k\FeRegister\Domain\Model\GuestUser {
+
+            // storage for new records in cross-extension-context
+            newRecordStoragePid = {$plugin.tx_feregister.persistence.storagePid}
+
+            mapping {
+
+                # tablename
+                tableName = fe_users
+
+                # if we set an value, we filter by it
+                # if do not set anything, all records are found
+                recordType = \Madj2k\FeRegister\Domain\Model\GuestUser
+
+                # mapping to properties of class
+                columns {
+                    tstamp.mapOnProperty = tstamp
+                    starttime.mapOnProperty = starttime
+                    endtime.mapOnProperty = endtime
+                    crdate.mapOnProperty = crdate
+                    disable.mapOnProperty = disable
+                    deleted.mapOnProperty = deleted
+                    password.mapOnProperty = password
+                    tx_extbase_type.mapOnProperty = txExtbaseType
+                }
+            }
+        }
+
+
+		#===============================================
+
+        \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup {
+            subclasses {
+                Tx_FeRegister_FrontendUserGroup = Madj2k\FeRegister\Domain\Model\FrontendUserGroup
+            }
+        }
+
+        Madj2k\FeRegister\Domain\Model\FrontendUserGroup {
+
+            // storage for new records in cross-extension-context
+            newRecordStoragePid = {$plugin.tx_feregister.persistence.storagePid}
+
+            mapping {
+
+                # tablename
+                tableName = fe_groups
+
+                # if we set an value, we filter by it
+                # if we do not set anything, all records are found
+                recordType =
+
+                # mapping to properties of class
+                columns {
+                    tstamp.mapOnProperty = tstamp
+                    crdate.mapOnProperty = crdate
+                    hidden.mapOnProperty = hidden
+                    deleted.mapOnProperty = deleted
+                }
+            }
+        }
+
+        #===============================================
+
+        Madj2k\FeRegister\Domain\Model\OptIn {
+
+            // storage for new records in cross-extension-context
+            newRecordStoragePid = {$plugin.tx_feregister.persistence.storagePid}
+
+            mapping {
+                columns {
+                    deleted.mapOnProperty = deleted
+                }
+            }
+        }
+
+        #===============================================
+
+        Madj2k\FeRegister\Domain\Model\Title {
+
+            // storage for new records in cross-extension-context
+            newRecordStoragePid = {$plugin.tx_feregister.persistence.storagePid}
+
+            mapping {
+                columns {
+                    crdate.mapOnProperty = crdate
+                    tstamp.mapOnProperty = tstamp
+                    hidden.mapOnProperty = hidden
+                    deleted.mapOnProperty = deleted
+                }
+            }
+        }
+
+
+        #===============================================
+
+		# very important to set the storagePid explicit - otherwise it will add to the pid of related objects
+		Madj2k\FeRegister\Domain\Model\Consent {
+			newRecordStoragePid = {$plugin.tx_feregister.persistence.storagePid}
+		}
+
+        #===============================================
+
+        # very important to set the storagePid explicit - otherwise it will add to the pid of related objects
+        Madj2k\FeRegister\Domain\Model\Title {
+            newRecordStoragePid = {$plugin.tx_feregister.persistence.storagePid}
+        }
+	}
+}
+
+// #########################################################
+// Plugin Configuration
+// #########################################################
+plugin.tx_feregister {
+
+	view {
+		layoutRootPaths {
+			0 = EXT:fe_register/Resources/Private/Layouts/
+			1 = {$plugin.tx_feregister.view.layoutRootPath}
+		}
+		templateRootPaths {
+			0 = EXT:fe_register/Resources/Private/Templates/
+            1 = {$plugin.tx_feregister.view.templateRootPath}
+        }
+		partialRootPaths {
+			0 = EXT:fe_register/Resources/Private/Partials/
+			1 = {$plugin.tx_feregister.view.partialRootPath}
+        }
+		widget {
+			TYPO3\CMS\Fluid\ViewHelpers\Widget\AutocompleteViewHelper {
+				templateRootPath = EXT:fe_register/Resources/Private/Templates/
+			}
+		}
+	}
+
+	persistence {
+		storagePid = {$plugin.tx_feregister.persistence.storagePid}
+	}
+
+	features {
+	  	# uncomment the following line to enable the new Property Mapper.
+		# rewrittenPropertyMapper = 1
+	}
+
+	settings {
+
+        loginPid = {$plugin.tx_feregister.settings.loginPid}
+        logoutPid = {$plugin.tx_feregister.settings.logoutPid}
+        registrationPid = {$plugin.tx_feregister.settings.registrationPid}
+        welcomePid = {$plugin.tx_feregister.settings.welcomePid}
+        welcomeGuestPid = {$plugin.tx_feregister.settings.welcomeGuestPid}
+        editUserPid = {$plugin.tx_feregister.settings.editUserPid}
+        groupsListPid = {$plugin.tx_feregister.settings.groupsListPid}
+
+        consent {
+            termsPid = {$plugin.tx_feregister.settings.termsPid}
+            terms2Pid = {$plugin.tx_feregister.settings.terms2Pid}
+            privacyPid = {$plugin.tx_feregister.settings.privacyPid}
+            marketingPid = {$plugin.tx_feregister.settings.marketingPid}
+            companyName = {$plugin.tx_feregister.settings.companyName}
+        }
+
+        users {
+
+            allowGuestLogin = {$plugin.tx_feregister.settings.users.allowGuestLogin}
+            lifetime = {$plugin.tx_feregister.settings.users.lifetime}
+            loginText = {$plugin.tx_feregister.settings.users.loginText}
+
+            anonymizeAfterDays = {$plugin.tx_feregister.settings.users.anonymizeAfterDays}
+            groupsOnRegister = {$plugin.tx_feregister.settings.users.groupsOnRegister}
+            languageKeyOnRegister = {$plugin.tx_feregister.settings.users.languageKeyOnRegister}
+            daysForOptIn = {$plugin.tx_feregister.settings.users.daysForOptIn}
+            maxLoginErrors = {$plugin.tx_feregister.settings.users.maxLoginErrors}
+            requiredFormFields = {$plugin.tx_feregister.settings.users.requiredFormFields}
+
+            # security settings for password changes by the user
+            passwordSettings {
+                minLength = {$plugin.tx_feregister.settings.users.passwordSettings.minLength}
+                maxLength = {$plugin.tx_feregister.settings.users.passwordSettings.maxLength}
+                alphaNum = {$plugin.tx_feregister.settings.users.passwordSettings.alphaNum}
+            }
+
+            guest {
+                lifetime = {$plugin.tx_feregister.settings.users.guest.lifetime}
+                groupsOnRegister = {$plugin.tx_feregister.settings.users.guest.groupsOnRegister}
+            }
+        }
+
+        dataProtection {
+            classes {
+                Madj2k\FeRegister\Domain\Model\FrontendUser {
+                    mappingField =
+                    fields {
+                        username = anonymous{UID}@example.de
+                        email = anonymous{UID}@example.de
+                        name = Anonymous Anonymous
+                        firstName = Anonymous
+                        middleName =
+                        lastName = Anonymous
+                        address =
+                        telephone =
+                        fax =
+                        title =
+                        zip =
+                        city =
+                        country =
+                        www =
+                        company =
+                        txFeregisterMobile =
+                        txFeregisterGender = 99
+                        txFeregisterFacebookUrl =
+                        txFeregisterTwitterUrl =
+                        txFeregisterXingUrl =
+                        txFeregisterFacebookId =
+                        txFeregisterTwitterId = 0
+                    }
+                }
+
+                Madj2k\FeRegister\Domain\Model\ShippingAddress {
+                    mappingField = frontendUser
+                    fields {
+                        gender = 99
+                        firstName = Anonymous
+                        lastName = Anonymous
+                        company =
+                        address =
+                        zip =
+                        city =
+                    }
+                }
+
+                Madj2k\FeRegister\Domain\Model\Consent {
+                    mappingField = frontendUser
+                    fields {
+                        ipAddress = 127.0.0.1
+                        userAgent = Anonymous 1.0
+                    }
+                }
+
+                RKW\RkwShop\Domain\Model\Order {
+                    mappingField = frontendUser
+                    fields {
+                        email = anonymous{UID}@example.de
+                    }
+                }
+
+                RKW\RkwEvents\Domain\Model\EventReservation {
+                    mappingField = feUser
+                    fields {
+                        salutation = 99
+                        firstName = Anonymous
+                        lastName = Anonymous
+                        company =
+                        address =
+                        zip =
+                        city =
+                        phone =
+                        fax =
+                        email = anonymous{UID}@example.de
+
+                    }
+                }
+
+                RKW\RkwEvents\Domain\Model\EventReservationAddPerson {
+                    mappingField = feUser
+                    fields {
+                        salutation = 99
+                        firstName = Anonymous
+                        lastName = Anonymous
+                    }
+                }
+            }
+        }
+	}
+}
+
+// set settings to every plugin
+// ! Hint: Do not remove following plugin entries. Is used by GetAllFlashMessageIdentifierViewHelper !
+plugin.tx_feregister_auth < plugin.tx_feregister
+plugin.tx_feregister_logout < plugin.tx_feregister
+plugin.tx_feregister_password < plugin.tx_feregister
+plugin.tx_feregister_welcome < plugin.tx_feregister
+plugin.tx_feregister_useredit < plugin.tx_feregister
+plugin.tx_feregister_userdelete < plugin.tx_feregister
+plugin.tx_feregister_group < plugin.tx_feregister
+plugin.tx_feregister_info < plugin.tx_feregister
+
+
+// for cronjob
+module.tx_feregister < plugin.tx_feregister
+
+// Add jquery if not disabled
+[globalVar = LIT:1 = {$plugin.tx_feregister.settings.includeJQuery}]
+	page.includeJSFooterlibs.jquery = EXT:fe_register/Resources/Public/Scripts/jquery-1.11.1.min.js
+[global]
+
+[globalVar = LIT:1 = {$plugin.tx_feregister.settings.includeJQueryUi}]
+	page.includeJSFooterlibs.jqueryUi = EXT:fe_register/Resources/Public/Scripts/jquery-ui.js
+[global]
+

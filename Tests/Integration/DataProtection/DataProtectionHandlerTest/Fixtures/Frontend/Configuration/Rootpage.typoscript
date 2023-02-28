@@ -1,0 +1,22 @@
+plugin.tx_feregister  {
+    persistence {
+        // cat=plugin.tx_reregister//a; type=string; label=Default storage PID
+        storagePid = 1
+    }
+
+    settings {
+
+        dataProtection {
+
+            classes {
+
+                Madj2k\FeRegister\Domain\Model\Service {
+                    mappingField = usergroup
+                }
+            }
+        }
+    }
+}
+
+// for cronjob
+module.tx_feregister < plugin.tx_feregister

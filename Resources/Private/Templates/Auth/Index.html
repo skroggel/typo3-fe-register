@@ -1,0 +1,37 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:feRegister="http://typo3.org/ns/Madj2k/FeRegister/ViewHelpers"
+    data-namespace-typo3-fluid="true">
+
+    <f:layout name="Default" />
+    <f:section name="main">
+
+        <f:render partial="FlashMessages" arguments="{_all}" />
+        <f:render partial="FormErrors" arguments="{for:frontendUser}" />
+
+        <f:security.ifAuthenticated>
+            <f:else>
+                <div class="alternatives">
+                    <div class="alternatives__item">
+                        <f:render partial="Auth/Login" arguments="{_all}" />
+                    </div>
+
+                    <f:if condition="{settings.users.allowGuestLogin}">
+                        <div class="alternatives__item alternatives__item--between">
+                            <f:translate key="templates_auth_index.orHeadline" />
+                        </div>
+    
+                        <div class="alternatives__item">
+                            <f:link.action
+                                class="mt-1 btn btn--primary"
+                                action="login"
+                                controller="AuthGuest"
+                            >
+                                <f:translate key="templates_auth_index.guest" />
+                            </f:link.action>
+                        </div>
+                    </f:if>
+            </f:else>
+        </f:security.ifAuthenticated>
+
+    </f:section>
+</html>

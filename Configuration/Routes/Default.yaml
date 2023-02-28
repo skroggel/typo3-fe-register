@@ -1,0 +1,119 @@
+routeEnhancers:
+  FeRegister:
+    type: Extbase
+    namespace: 'tx_feregister_auth'
+    routes:
+      - routePath: '/fe-register/auth'
+        _controller: 'Auth::index'
+      - routePath: '/fe-register/login'
+        _controller: 'Auth::login'
+      - routePath: '/fe-register/logout'
+        _controller: 'Auth::logout'
+      - routePath: '/fe-register/redirect'
+        _controller: 'Auth::logoutRedirect'
+      - routePath: '/fe-register/login-guest'
+        _controller: 'AuthGuest::login'
+      - routePath: '/fe-register/login-guest/{token}'
+        _controller: 'AuthGuest::login'
+      - routePath: '/fe-register/login-hint'
+        _controller: 'AuthGuest::loginHint'
+      - routePath: '/fe-register/user'
+        _controller: 'FrontendUser::index'
+      - routePath: '/fe-register/new'
+        _controller: 'FrontendUser::new'
+      - routePath: '/fe-register/create'
+        _controller: 'FrontendUser::create'
+      - routePath: '/fe-register/new'
+        _controller: 'FrontendUser::new'
+      - routePath: '/fe-register/optin/{user}/{token}'
+        _controller: 'FrontendUser::optIn'
+      - routePath: '/fe-register/group-optin/{user}/{token}'
+        _controller: 'FrontendUserGroup::optIn'
+      - routePath: '/fe-register/new-password'
+        _controller: 'Password::new'
+      - routePath: '/fe-register/create-password'
+        _controller: 'Password::create'
+    defaultController: 'Auth::index'
+    requirements:
+      user: '[a-zA-Z0-9]{30}'
+      token: '[a-zA-Z0-9]{30}'
+
+  FeRegister1:
+    type: Extbase
+    namespace: 'tx_feregister_logout'
+    routes:
+      - routePath: '/fe-register1/auth'
+        _controller: 'Auth::index'
+      - routePath: '/fe-register1/logout'
+        _controller: 'Auth::logout'
+      - routePath: '/fe-register1/redirect'
+        _controller: 'Auth::logoutRedirect'
+    defaultController: 'Auth::index'
+
+  FeRegister2:
+    type: Extbase
+    namespace: 'tx_feregister_password'
+    routes:
+      - routePath: '/fe-register/edit-password'
+        _controller: 'Password::edit'
+      - routePath: '/fe-register/update-password'
+        _controller: 'Password::update'
+    defaultController: 'Auth::index'
+
+  FeRegister3:
+    type: Extbase
+    namespace: 'tx_feregister_welcome'
+    routes:
+      - routePath: '/fe-register/welcome'
+        _controller: 'FrontendUser::welcome'
+      - routePath: '/fe-register/welcome/{redirectToReferrer}'
+        _controller: 'FrontendUser::welcome'
+    defaultController: 'Auth::index'
+    requirements:
+      redirectToReferrer: '[01]{1}'
+
+  FeRegister4:
+    type: Extbase
+    namespace: 'tx_feregister_useredit'
+    routes:
+      - routePath: '/fe-register/edit/{frontendUser}'
+        _controller: 'FrontendUser::edit'
+      - routePath: '/fe-register/update/{frontendUser}'
+        _controller: 'FrontendUser::update'
+    defaultController: 'Auth::index'
+    requirements:
+      frontendUser: '[0-9]{1,10000}'
+
+  FeRegister5:
+    type: Extbase
+    namespace: 'tx_feregister_userdelete'
+    routes:
+      - routePath: '/fe-register/show'
+        _controller: 'FrontendUser::show'
+      - routePath: '/fe-register/delete'
+        _controller: 'FrontendUser::delete'
+    defaultController: 'Auth::index'
+
+  FeRegister6:
+    type: Extbase
+    namespace: 'tx_feregister_group'
+    routes:
+      - routePath: '/fe-register/group-list'
+        _controller: 'FrontendUserGroup::list'
+      - routePath: '/fe-register/group-show/{frontendUserGroup}'
+        _controller: 'FrontendUserGroup::show'
+      - routePath: '/fe-register/group-create/{frontendUserGroup}'
+        _controller: 'FrontendUserGroup::create'
+      - routePath: '/fe-register/group-delete/{frontendUserGroup}'
+        _controller: 'FrontendUserGroup::delete'
+    defaultController: 'Auth::index'
+    requirements:
+      frontendUserGroup: '[0-9]{1,10000}'
+
+  FeRegister7:
+    type: Extbase
+    namespace: 'tx_feregister_info'
+    routes:
+      - routePath: '/fe-register/logininfo'
+        _controller: 'Info::loginInfo'
+    defaultController: 'Info::index'

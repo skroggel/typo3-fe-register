@@ -1,0 +1,13 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:feRegister="http://typo3.org/ns/Madj2k/FeRegister/ViewHelpers"
+    data-namespace-typo3-fluid="true">
+
+    <div class="form__field width50 ui-front">
+        <label class="form-label" for="title">
+            <f:translate key="tx_feregister_domain_model_frontenduser.tx_feregister_title" />
+            <f:render partial="LabelSuffix" arguments="{field: 'txFeregisterTitle', frontendUser: frontendUser}" />
+        </label>
+        <f:form.textfield property="txFeregisterTitle.name" id="title" additionalAttributes="{autocomplete: 'off'}"/>
+        <f:widget.autocomplete objects="{titles}" for="title" searchProperty="name"></f:widget.autocomplete>
+    </div>
+</html>

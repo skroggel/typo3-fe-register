@@ -1,0 +1,64 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:feRegister="http://typo3.org/ns/Madj2k/FeRegister/ViewHelpers"
+    data-namespace-typo3-fluid="true">
+
+    <div class="form__field width50 break-after">
+        <label class="form-label" for="gender">
+            <f:translate key="tx_feregister_domain_model_frontenduser.tx_feregister_gender" />
+            <f:render partial="LabelSuffix" arguments="{field: 'gender', frontendUser: frontendUser}" />
+        </label>
+        <f:form.select
+            id="gender"
+            class="select-field select-field--longer"
+            property="txFeregisterGender"
+            options="{99: '{f:translate(key:\"tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.99\")}', 0: '{f:translate(key:\"tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.0\")}', 1: '{f:translate(key:\"tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.1\")}'}" optionValueField="uid" optionLabelField="name"
+        />
+    </div>
+
+    <f:if condition="<feRegister:titleList />">
+        <f:render partial="Registration/SingleFields/TitleField" arguments="{_all}" />
+    </f:if>
+
+    <div class="form__field width100">
+        <label for="firstName">
+            <f:translate key="tx_feregister_domain_model_frontenduser.first_name" />
+            <f:if condition="<feRegister:isMandatoryField frontendUser='{frontendUser}' fieldName='firstName' /> == 0">
+                <span class="optional">&nbsp;<f:translate key="partials_labelSuffix.labelOptional" /></span>
+            </f:if>
+        </label>
+        <f:form.textfield
+            property="firstName"
+            id="firstName"
+            additionalAttributes="{autocomplete:'fname'}"
+        />
+    </div>
+
+    <div class="form__field width100">
+        <label for="lastName">
+            <f:translate key="tx_feregister_domain_model_frontenduser.last_name" />
+            <f:if condition="<feRegister:isMandatoryField frontendUser='{frontendUser}' fieldName='lastName' /> == 0">
+                <span class="optional">&nbsp;<f:translate key="partials_labelSuffix.labelOptional" /></span>
+            </f:if>
+        </label>
+        <f:form.textfield
+            property="lastName"
+            id="lastName"
+            additionalAttributes="{autocomplete:'lname'}"
+        />
+    </div>
+
+    <div class="form__field width100">
+        <label for="email">
+            <f:translate key="tx_feregister_domain_model_frontenduser.email" />
+            <f:if condition="<feRegister:isMandatoryField frontendUser='{frontendUser}' fieldName='email' /> == 0">
+                <span class="optional">&nbsp;<f:translate key="partials_labelSuffix.labelOptional" /></span>
+            </f:if>
+        </label>
+        <f:form.textfield
+            property="email"
+            id="email"
+            type="email"
+            additionalAttributes="{autocomplete:'email'}"
+        />
+    </div>
+</html>

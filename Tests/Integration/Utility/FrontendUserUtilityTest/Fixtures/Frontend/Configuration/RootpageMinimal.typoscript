@@ -1,0 +1,19 @@
+plugin.tx_feregister  {
+    persistence {
+        // cat=plugin.tx_feregister//a; type=string; label=Default storage PID
+        storagePid = 1
+    }
+
+    settings {
+
+    }
+}
+
+// for cronjob
+module.tx_feregister < plugin.tx_feregister
+
+page = PAGE
+page {
+    10 = TEXT
+    10.value = Hallo Welt!
+}

@@ -1,0 +1,114 @@
+plugin.tx_feregister {
+	view {
+		# cat=plugin.tx_feregister/file; type=string; label=Path to template root (FE)
+		templateRootPath  = EXT:fe_register/Resources/Private/Templates/
+
+		# cat=plugin.tx_feregister/file; type=string; label=Path to template partials (FE)
+		partialRootPath = EXT:fe_register/Resources/Private/Partials/
+
+		# cat=plugin.tx_feregister/file; type=string; label=Path to template layouts (FE)
+		layoutRootPath  = EXT:fe_register/Resources/Private/Layouts/
+	}
+
+	persistence {
+		# cat=plugin.tx_feregister//a; type=string; label=Default storage PID
+		storagePid =
+	}
+
+	settings {
+
+		# cat=plugin.tx_feregister//a; type=boolean; label=Include jQuery?
+		includeJQuery = 0
+
+		# cat=plugin.tx_feregister//a; type=boolean; label=Include jQueryUi?
+		includeJQueryUi = 0
+
+        # cat=plugin.tx_feregister//a; type=integer; label=Pid of login mask
+        loginPid =
+
+        # cat=plugin.tx_feregister//a; type=integer; label=Pid of logout mask
+        logoutPid =
+
+        # cat=plugin.tx_feregister//a; type=integer; label=Pid of registration mask
+        registrationPid =
+
+        # cat=plugin.tx_feregister//a; type=integer; label=Pid of welcome page
+        welcomePid =
+
+        # cat=plugin.tx_feregister//a; type=integer; label=Pid of welcome page for guests
+        welcomeGuestPid =
+
+        # cat=plugin.tx_feregister//a; type=integer; label=Pid of edit user mask
+        editUserPid =
+
+        # cat=plugin.tx_feregister//a; type=integer; label=Pid of groups list
+        groupsListPid =
+
+        consent {
+
+            # cat=plugin.tx_feregister//a; type=integer; label=Pid of terms of use
+            termsPid =
+
+            # cat=plugin.tx_feregister//a; type=integer; label=Pid of terms & conditions
+            terms2Pid =
+
+            # cat=plugin.tx_feregister//a; type=integer; label=Pid of privacy & conditions
+            privacyPid =
+
+            # cat=plugin.tx_feregister//a; type=integer; label=Pid for marketing conditions
+            marketingPid =
+
+            # cat=plugin.tx_feregister//a; type=string; label=Company name for consent
+            companyName =
+        }
+
+        users {
+
+            # cat=plugin.tx_feregister//a; type=boolean; label=Allow guest login
+            allowGuestLogin = 1
+
+            # cat=plugin.tx_feregister//a; type=string; label=Anonymize after days
+            anonymizeAfterDays =
+
+			# cat=plugin.tx_feregister//a; type=string; label=Groups a user is added to when registering
+			groupsOnRegister =
+
+			# cat=plugin.tx_feregister//a; type=string; label=Language-key on registering (default:default)
+			languageKeyOnRegister =
+
+			# cat=plugin.tx_feregister//a; type=integer; label=How many days a user has to opt in via email
+			daysForOptIn = 7
+
+			# cat=plugin.tx_feregister//a; type=integer; label=How many times a user can try to login before his user is disabled
+            maxLoginErrors = 10
+
+            # cat=plugin.tx_feregister//a; type=integer; label=Lifetime of registered users (default = 0 = unlimited)
+            lifetime = 0
+
+            # cat=plugin.tx_feregister//a; type=string; label=Login text
+            loginText = Logged in
+
+            # cat=plugin.tx_feregister//a; type=string; label=Register mandatory fields, values must be comma-separated
+            requiredFormFields = email
+
+            passwordSettings {
+                # cat=plugin.tx_feregister//a; type=integer; label=Minimum password length (default = 8)
+                minLength = 8
+
+                # cat=plugin.tx_feregister//a; type=integer; label=Maximum password length (default = 100)
+                maxLength = 100
+
+                # cat=plugin.tx_feregister//a; type=boolean; label=Password must contain letters and numbers (default = false)
+                alphaNum = 1
+            }
+
+            guest {
+                # cat=plugin.tx_feregister//a; type=integer; label=Lifetime of registered guest users (default = 7776000 = 90 days)
+                lifetime = 7776000
+
+                # cat=plugin.tx_feregister//a; type=string; label=Groups a user is added to when registering as guest
+                groupsOnRegister =
+            }
+        }
+	}
+}

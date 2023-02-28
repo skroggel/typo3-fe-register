@@ -1,0 +1,189 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:feRegister="http://typo3.org/ns/Madj2k/FeRegister/ViewHelpers"
+    data-namespace-typo3-fluid="true">
+
+
+    <f:comment><!-- Hidden field for temporary groups --></f:comment>
+    <f:form.hidden
+        property="tempFrontendUserGroup"
+        value="{frontendUser.tempFrontendUserGroup}"
+    />
+
+    <div class="form__field width50 break-after">
+        <label for="gender">
+            <f:translate key="tx_feregister_domain_model_frontenduser.tx_feregister_gender" />
+            <f:render partial="LabelSuffix" arguments="{field: 'gender', frontendUser: frontendUser}" />
+        </label>
+        <f:form.select
+            id="gender"
+            class="select-field"
+            property="txFeregisterGender"
+            options="{99: '{f:translate(key:\"tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.99\")}', 0: '{f:translate(key:\"tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.0\")}', 1: '{f:translate(key:\"tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.1\")}'}" optionValueField="uid" optionLabelField="name"
+        />
+    </div>
+
+    <f:comment>
+        <!--
+        <f:if condition="<feRegister:titleList />">
+            <f:render partial="FrontendUser/SingleFields/TitleField" arguments="{_all}" />
+        </f:if> -->
+    </f:comment>
+
+    <div class="form__field width50">
+        <label for="firstname">
+            <f:translate key="tx_feregister_domain_model_frontenduser.first_name" />
+            <f:render partial="LabelSuffix" arguments="{field: 'firstName', frontendUser: frontendUser}" />
+        </label>
+        <f:form.textfield
+            id="firstname"
+            property="firstName"
+            value="{frontendUser.firstName}"
+            additionalAttributes="{autocomplete:'fname'}"
+        />
+    </div>
+
+    <div class="form__field width50">
+        <label for="lastname">
+            <f:translate key="tx_feregister_domain_model_frontenduser.last_name" />
+            <f:render partial="LabelSuffix" arguments="{field: 'lastName', frontendUser: frontendUser}" />
+        </label>
+        <f:form.textfield
+            id="lastname"
+            property="lastName"
+            value="{frontendUser.lastName}"
+            additionalAttributes="{autocomplete:'lname'}"
+        />
+    </div>
+
+    <div class="form__field width50">
+        <label for="email">
+            <f:translate key="tx_feregister_domain_model_frontenduser.email" />
+            <f:render partial="LabelSuffix" arguments="{field: 'email', frontendUser: frontendUser}" />
+        </label>
+        <f:form.textfield
+            id="email"
+            property="email"
+            value="{frontendUser.email}"
+            additionalAttributes="{autocomplete:'email'}"
+            type="email"
+        />
+    </div>
+
+    <div class="form__field width50">
+        <label for="company">
+            <f:translate key="tx_feregister_domain_model_frontenduser.company" />
+            <f:render partial="LabelSuffix" arguments="{field: 'company', frontendUser: frontendUser}" />
+        </label>
+        <f:form.textfield
+            id="company"
+            property="company"
+            value="{frontendUser.company}"
+        />
+    </div>
+
+    <div class="form__field width50">
+        <label for="address">
+            <f:translate key="tx_feregister_domain_model_frontenduser.address" />
+            <f:render partial="LabelSuffix" arguments="{field: 'address', frontendUser: frontendUser}" />
+        </label>
+        <f:form.textfield
+            id="address"
+            property="address"
+            value="{frontendUser.address}"
+            additionalAttributes="{autocomplete:'address'}"
+        />
+    </div>
+
+    <div class="form__field width50">
+        <label for="zip">
+            <f:translate key="tx_feregister_domain_model_frontenduser.zip" />
+            <f:render partial="LabelSuffix" arguments="{field: 'zip', frontendUser: frontendUser}" />
+        </label>
+        <f:form.textfield
+            id="zip"
+            property="zip"
+            value="{frontendUser.zip}"
+            additionalAttributes="{autocomplete:'zip'}"
+        />
+    </div>
+
+    <div class="form__field width50">
+        <label for="city">
+            <f:translate key="tx_feregister_domain_model_frontenduser.city" />
+            <f:render partial="LabelSuffix" arguments="{field: 'city', frontendUser: frontendUser}" />
+        </label>
+        <f:form.textfield
+            id="city"
+            property="city"
+            value="{frontendUser.city}"
+            additionalAttributes="{autocomplete:'city'}"
+        />
+    </div>
+
+    <!--
+    <div class="form__field width50">
+        <label for="telephone">
+            <f:translate key="tx_feregister_domain_model_frontenduser.telephone" />
+            <f:render partial="LabelSuffix" arguments="{field: 'telephone', frontendUser: frontendUser}" />
+        </label>
+        <f:form.textfield id="telephone" property="telephone" value="{frontendUser.telephone}" type="tel" additionalAttributes="{autocomplete:'phone'}"/>
+    </div>
+
+    <div class="form__field width50">
+        <label for="fax">
+            <f:translate key="tx_feregister_domain_model_frontenduser.fax" />
+            <f:render partial="LabelSuffix" arguments="{field: 'fax', frontendUser: frontendUser}" />
+        </label>
+        <f:form.textfield id="fax" property="fax" value="{frontendUser.fax}" name="frontendUser.fax" type="tel" />
+    </div>
+
+    <div class="form__field width50">
+        <label for="mobile">
+            <f:translate key="tx_feregister_domain_model_frontenduser.tx_feregister_mobile" />
+            <f:render partial="LabelSuffix" arguments="{field: 'mobile', frontendUser: frontendUser}" />
+        </label>
+        <f:form.textfield id="mobile" property="txFeregisterMobile" value="{frontendUser.txFeregisterMobile}" type="tel" additionalAttributes="{autocomplete:'mobile'}"/>
+    </div>
+    -->
+
+    <div class="form__field width50">
+        <label for="www">
+            <f:translate key="tx_feregister_domain_model_frontenduser.www" />
+            <f:render partial="LabelSuffix" arguments="{field: 'www', frontendUser: frontendUser}" />
+        </label>
+        <f:form.textfield
+            id="www"
+            property="www"
+            value="{frontendUser.www}"
+            name="frontendUser.www"
+            type="text"
+        />
+    </div>
+
+    <div class="form__field width50">
+        <label for="facebook">
+            <f:translate key="tx_feregister_domain_model_frontenduser.tx_feregister_facebook_url" />
+            <f:render partial="LabelSuffix" arguments="{field: 'txFeregisterFacebookUrl', frontendUser: frontendUser}" />
+        </label>
+        <f:form.textfield
+            id="facebook"
+            property="txFeregisterFacebookUrl"
+            value="{frontendUser.txFeregisterFacebookUrl}"
+            type="text"
+        />
+    </div>
+
+    <div class="form__field width50">
+        <label for="twitter">
+            <f:translate key="tx_feregister_domain_model_frontenduser.tx_feregister_twitter_url" />
+            <f:render partial="LabelSuffix" arguments="{field: 'txFeregisterTwitterUrl', frontendUser: frontendUser}" />
+        </label>
+        <f:form.textfield
+            id="twitter"
+            property="txFeregisterTwitterUrl"
+            value="{frontendUser.txFeregisterTwitterUrl}"
+            type="text"
+        />
+    </div>
+
+</html>
