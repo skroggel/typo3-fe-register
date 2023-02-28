@@ -250,14 +250,27 @@ An opt-in procedure is usually not carried out for logged-in frontend users. If 
     );
 ```
 
-# Upgrade to v9.5
-
-## Update Database
+## When migrating from rkw_registration to fe_register
+Execute the following MySQL-queries BEFORE install!
 ```
-RENAME TABLE `tx_feregister_domain_model_privacy` TO `tx_feregister_domain_model_consent`;
-ALTER TABLE `tx_feregister_domain_model_consent` CHANGE `registration_user_sha1` `frontend_user_token` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT '';
-ALTER TABLE `tx_feregister_domain_model_consent` ADD `consent_privacy` INT DEFAULT 0 NOT NULL;
-ALTER TABLE `tx_feregister_domain_model_consent` ADD `consent_terms` INT DEFAULT 0 NOT NULL;
-ALTER TABLE `tx_feregister_domain_model_consent` ADD `consent_marketing` INT DEFAULT 0 NOT NULL;
+RENAME TABLE `tx_rkwregistation_domain_model_privacy` TO `tx_feregister_domain_model_consent`;
+RENAME TABLE `tx_rkwregistration_domain_model_encrypteddata` TO `tx_feregister_domain_model_encrypteddata`;
+RENAME TABLE `tx_rkwregistration_domain_model_shippingaddress` TO `tx_feregister_domain_model_shippingaddress`;
+RENAME TABLE `tx_rkwregistration_domain_model_title` TO `tx_feregister_domain_model_title`;
+```
+
+Execute the following MySQL-queries AFTER install!
+```
+UPDATE fe_users SET tx_feregister_title = tx_rkwregistration_title;
+UPDATE fe_users SET tx_feregister_gender = tx_rkwregistration_gender;
+UPDATE fe_users SET tx_feregister_mobile = tx_rkwregistration_mobile;
+UPDATE fe_users SET tx_feregister_twitter_url = tx_rkwregistration_twitter_url;
+UPDATE fe_users SET tx_feregister_facebook_url = tx_rkwregistration_facebook_url;
+UPDATE fe_users SET tx_feregister_xing_url = tx_rkwregistration_xing_url;
+UPDATE fe_users SET tx_feregister_register_remote_ip = tx_rkwregistration_register_remote_ip;
+UPDATE fe_users SET tx_feregister_language_key  = tx_rkwregistration_language_key;
+UPDATE fe_users SET tx_feregister_login_error_count = tx_rkwregistration_login_error_count;
+UPDATE fe_users SET tx_feregister_data_protection_status = tx_rkwregistration_data_protection_status;
+
 UPDATE `tx_feregister_domain_model_consent` SET `consent_privacy` = 1;
 ```
