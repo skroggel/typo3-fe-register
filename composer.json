@@ -32,6 +32,9 @@
 		"madj2k/t3-postmaster": "~9.5.0",
 		"sjbr/sr-freecap": "~2.5.0"
 	},
+	"replace": {
+		"rkw/rkw-registration":">=9.5.0"
+	},
     "autoload": {
         "psr-4": {
             "Madj2k\\FeRegister\\": "Classes/"
