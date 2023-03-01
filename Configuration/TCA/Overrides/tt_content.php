@@ -55,5 +55,6 @@ call_user_func(
             'Info',
             'FE Register: Info'
         );
-    }
+    },
+    'fe_register'
 );
