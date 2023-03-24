@@ -55,6 +55,20 @@ call_user_func(
             'Info',
             'FE Register: Info'
         );
+
+        //=================================================================
+        // Add Flexforms
+        //=================================================================
+        $pluginName = strtolower('Auth');
+        $extensionName = strtolower(\TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($extKey));
+        $pluginSignature = $extensionName . '_' . $pluginName;
+        $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages';
+        $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
+            $pluginSignature,
+            'FILE:EXT:' . $extKey . '/Configuration/FlexForms/Login.xml'
+        );
+
     },
     'fe_register'
 );

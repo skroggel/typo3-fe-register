@@ -44,6 +44,9 @@ plugin.tx_feregister {
         # cat=plugin.tx_feregister//a; type=integer; label=Pid of groups list
         groupsListPid =
 
+        # cat=plugin.tx_feregister//a; type=string; label=Company email for support
+        companyEmail =
+
         consent {
 
             # cat=plugin.tx_feregister//a; type=integer; label=Pid of terms of use
@@ -60,6 +63,9 @@ plugin.tx_feregister {
 
             # cat=plugin.tx_feregister//a; type=string; label=Company name for consent
             companyName =
+
+            # cat=plugin.tx_feregister//a; type=string; label=Company email for revocation of consent
+            companyEmail =
         }
 
         users {

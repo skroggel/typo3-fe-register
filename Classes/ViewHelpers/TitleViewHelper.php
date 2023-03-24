@@ -15,6 +15,8 @@ namespace Madj2k\FeRegister\ViewHelpers;
  * The TYPO3 project - inspiring people to share!
  */
 
+use Madj2k\FeRegister\Domain\Model\FrontendUser;
+use Madj2k\FeRegister\Domain\Model\Title;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 
@@ -30,23 +32,17 @@ class TitleViewHelper extends AbstractViewHelper
 {
 
     /**
-     * Return the title
+     * Initialize arguments.
      *
-     * @param \Madj2k\FeRegister\Domain\Model\Title|null $title
-     * @param bool $titleAfter
-     * @return string $string
+     * @return void
+     * @throws \TYPO3Fluid\Fluid\Core\ViewHelper\Exception
      */
-    public function render(\Madj2k\FeRegister\Domain\Model\Title $title = null, bool $titleAfter = false): string
+    public function initializeArguments(): void
     {
+        parent::initializeArguments();
+        $this->registerArgument('title', Title::class, 'The title-object.', false, null);
+        $this->registerArgument('titleAfter', 'bool', 'Add the part of the title after the name?', false, false);
 
-        return static::renderStatic(
-            [
-                'title'      => $title,
-                'titleAfter' => $titleAfter,
-            ],
-            $this->buildRenderChildrenClosure(),
-            $this->renderingContext
-        );
     }
 
 
@@ -66,6 +62,8 @@ class TitleViewHelper extends AbstractViewHelper
 
         /** @var \Madj2k\FeRegister\Domain\Model\Title $title */
         $title = $arguments['title'];
+
+        /** @var bool $titleAfter */
         $titleAfter = $arguments['titleAfter'];
 
         if ($title instanceof \Madj2k\FeRegister\Domain\Model\Title) {

@@ -195,7 +195,10 @@ class EncryptedData extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function getEncryptedData(): array
     {
-        return unserialize($this->encryptedData);
+        if ($result = unserialize($this->encryptedData)){
+            return $result;
+        }
+        return [];
     }
 
 }

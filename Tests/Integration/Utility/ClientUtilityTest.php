@@ -38,10 +38,24 @@ class ClientUtilityTest extends FunctionalTestCase
     /**
      * @var string[]
      */
+    protected $coreExtensionsToLoad = [
+        'saltedpasswords',
+        'filemetadata',
+        'extensionmanager'
+    ];
+
+
+    /**
+     * @var string[]
+     */
     protected $testExtensionsToLoad = [
         'typo3conf/ext/ajax_api',
         'typo3conf/ext/core_extended',
+        'typo3conf/ext/accelerator',
+        'typo3conf/ext/postmaster',
         'typo3conf/ext/fe_register',
+        'typo3conf/ext/persisted_sanitized_routing',
+        'typo3conf/ext/sr_freecap'
     ];
 
 
@@ -75,52 +89,52 @@ class ClientUtilityTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function isReferrerValidReturnsFalse ()
+    public function isReferrerPidValidReturnsFalse ()
     {
         /**
          * Scenario:
          *
-         * Given a referrer that does not match the current domain
+         * Given a pid as referrer that does not exist
          * When the method is called
          * Then false is returned
          */
 
-        self::assertFalse(ClientUtility::isReferrerValid('https://www.google.de'));
+        self::assertFalse(ClientUtility::isReferrerPidValid(999));
     }
 
 
     /**
      * @test
      */
-    public function isReferrerValidReturnsTrue ()
+    public function isReferrerPidValidReturnsTrue ()
     {
         /**
          * Scenario:
          *
-         * Given a referrer that does match the current domain
+         * Given a pid as referrer that does exist
          * When the method is called
          * Then true is returned
          */
 
-        self::assertTrue(ClientUtility::isReferrerValid('http://www.example.com/'));
+        self::assertTrue(ClientUtility::isReferrerPidValid(2));
     }
 
 
     /**
      * @test
      */
-    public function isReferrerValidReturnsTrueAndIgnoresProtocol ()
+    public function isReferrerPidValidReturnsTrueAndIgnoresAccess ()
     {
         /**
          * Scenario:
          *
-         * Given a referrer that does match the current domain
-         * Given the referrer uses another protocol than the current domain
+         * Given a pid as referrer that does exist
+         * Given that pid is restricted to logged in users
          * When the method is called
          * Then true is returned
          */
 
-        self::assertTrue(ClientUtility::isReferrerValid('https://www.example.com/'));
+        self::assertTrue(ClientUtility::isReferrerPidValid(3));
     }
 
     #==============================================================================

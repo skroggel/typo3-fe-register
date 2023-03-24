@@ -280,6 +280,22 @@ class FrontendUserUtility
 
 
     /**
+     * Checks if a given frontendUser is a guest user
+     *
+     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser|null $frontendUser
+     * @return boolean
+     */
+    public static function isGuestUser(FrontendUser $frontendUser = null): bool
+    {
+        if ($frontendUser instanceof \Madj2k\FeRegister\Domain\Model\GuestUser) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /**
      * Returns TYPO3 settings
      *
      * @return array

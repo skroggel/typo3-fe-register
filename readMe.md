@@ -49,8 +49,8 @@ public function optIn (
 
     if ($settings['view']['templateRootPaths']) {
 
-        /** @var \Madj2k\Postmaster\Service\MailService $mailService */
-        $mailService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(MailService::class);
+        /** @var \Madj2k\Postmaster\Mail\MailMessage $mailService */
+        $mailService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(MailMessage::class);
 
         // send new user an email with token
         $mailService->setTo($frontendUser, array(
@@ -106,17 +106,17 @@ The opt-in-email may look like this:
 
 	<!-- PLAINTEXT -->
 	<f:section name="Plaintext"><postmaster:email.plaintextLineBreaks>
-	    <postmaster:email.translate key="templates_email_optInAlertUser.textOptInLinkLabel" languageKey="{frontendUser.txFeregisterLanguageKey}" extensionName="yourExtension"/>:\n
+	    <postmaster:email.translate key="templates_email_optInAlertUser.textOptInLinkLabel" languageKey="{queueRecipient.languageCode}" extensionName="yourExtension"/>:\n
 	    <postmaster:email.uri.action action="optIn" controller="Alert" extensionName="yourExtension" pluginName="yourExtension" absolute="true" pageUid="{pageUid}" additionalParams="{tx_yourextenion_plugin: {token: optIn.tokenYes, tokenUser: optIn.tokenUser}}" section="your-extension" />\n\n
 
-        <postmaster:email.translate key="templates_email_optInAlertUser.textOptOutLinkLabel" languageKey="{frontendUser.txFeregisterLanguageKey}" extensionName="yourExtension"/>:\n
+        <postmaster:email.translate key="templates_email_optInAlertUser.textOptOutLinkLabel" languageKey="{queueRecipient.languageCode}" extensionName="yourExtension"/>:\n
         <postmaster:email.uri.action action="optIn" controller="Alert" extensionName="yourExtension" pluginName="yourExtension" absolute="true" pageUid="{pageUid}" additionalParams="{tx_yourextenion_plugin: {token: optIn.tokenNo, tokenUser: optIn.tokenUser}}" section="your-extension" />
     </postmaster:email.plaintextLineBreaks></f:section>
 
 	<!-- HTML -->
 	<f:section name="Html">
-		<a href="<postmaster:email.uri.action action='optIn' controller='Alert' extensionName='yourExtension' pluginName='yourExtension' absolute='true' pageUid='{pageUid}' additionalParams='{tx_yourextenion_plugin: {token: optIn.tokenYes, tokenUser: optIn.tokenUser}}' section='your-extension' />"><postmaster:email.translate key="templates_email_optInAlertUser.textOptInLinkLabel" languageKey="{frontendUser.txFeregisterLanguageKey}" extensionName="yourExtension"/></a>
-		<a href="<postmaster:email.uri.action action='optIn' controller='Alert' extensionName='yourExtension' pluginName='yourExtension' absolute='true' pageUid='{pageUid}' additionalParams='{tx_yourextenion_plugin: {token: optIn.tokenNo, tokenUser: optIn.tokenUser}}' section='your-extension' />"><postmaster:email.translate key="templates_email_optInAlertUser.textOptOutLinkLabel" languageKey="{frontendUser.txFeregisterLanguageKey}" extensionName="yourExtension"/></a>
+		<a href="<postmaster:email.uri.action action='optIn' controller='Alert' extensionName='yourExtension' pluginName='yourExtension' absolute='true' pageUid='{pageUid}' additionalParams='{tx_yourextenion_plugin: {token: optIn.tokenYes, tokenUser: optIn.tokenUser}}' section='your-extension' />"><postmaster:email.translate key="templates_email_optInAlertUser.textOptInLinkLabel" languageKey="{queueRecipient.languageCode}" extensionName="yourExtension"/></a>
+		<a href="<postmaster:email.uri.action action='optIn' controller='Alert' extensionName='yourExtension' pluginName='yourExtension' absolute='true' pageUid='{pageUid}' additionalParams='{tx_yourextenion_plugin: {token: optIn.tokenNo, tokenUser: optIn.tokenUser}}' section='your-extension' />"><postmaster:email.translate key="templates_email_optInAlertUser.textOptOutLinkLabel" languageKey="{queueRecipient.languageCode}" extensionName="yourExtension"/></a>
 	</f:section>
 
 </html>
@@ -229,9 +229,9 @@ Only the corresponding validators are included here. They always refer to the fo
      * @return void
      * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
      * @throws \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
-     * @TYPO3\CMS\Extbase\Annotation\Validate("\Madj2k\FeRegister\Validation\Consent\TermsValidator", param="alert")
-     * @TYPO3\CMS\Extbase\Annotation\Validate("\Madj2k\FeRegister\Validation\Consent\PrivacyValidator", param="alert")
-     * @TYPO3\CMS\Extbase\Annotation\Validate("\Madj2k\FeRegister\Validation\Consent\MarketingValidator", param="alert")
+     * @TYPO3\CMS\Extbase\Annotation\Validate("Madj2k\FeRegister\Validation\Consent\TermsValidator", param="alert")
+     * @TYPO3\CMS\Extbase\Annotation\Validate("Madj2k\FeRegister\Validation\Consent\PrivacyValidator", param="alert")
+     * @TYPO3\CMS\Extbase\Annotation\Validate("Madj2k\FeRegister\Validation\Consent\MarketingValidator", param="alert")
      */
     public function createAction(
         \Your\Extension\Domain\Model\Alert $alert,
@@ -273,4 +273,16 @@ UPDATE fe_users SET tx_feregister_login_error_count = tx_rkwregistration_login_e
 UPDATE fe_users SET tx_feregister_data_protection_status = tx_rkwregistration_data_protection_status;
 
 UPDATE `tx_feregister_domain_model_consent` SET `consent_privacy` = 1;
+
+UPDATE tt_content SET list_type = 'feregister_auth' WHERE list_type = 'rkwregistration_rkwregistration' AND pi_flexform LIKE '%<value index=\"vDEF\">Registration-&gt;loginShow;%';
+UPDATE tt_content SET list_type = 'feregister_auth' WHERE list_type = 'rkwregistration_rkwregistration' AND pi_flexform LIKE '%<value index=\"vDEF\">Registration-&gt;registerShow;%';
+UPDATE tt_content SET list_type = 'feregister_welcome' WHERE list_type = 'rkwregistration_rkwregistration' AND pi_flexform LIKE '%<value index=\"vDEF\">Registration-&gt;welcome;%';
+UPDATE tt_content SET list_type = 'feregister_useredit' WHERE list_type = 'rkwregistration_rkwregistration' AND pi_flexform LIKE '%<value index=\"vDEF\">Registration-&gt;editUser;%';
+UPDATE tt_content SET list_type = 'feregister_userdelete'WHERE list_type = 'rkwregistration_rkwregistration' AND pi_flexform LIKE '%<value index=\"vDEF\">Registration-&gt;deleteUserShow;%';
+UPDATE tt_content SET list_type = 'feregister_password' WHERE list_type = 'rkwregistration_rkwregistration' AND pi_flexform LIKE '%<value index=\"vDEF\">Registration-&gt;editPassword;%';
+UPDATE tt_content SET list_type = 'feregister_group' WHERE list_type = 'rkwregistration_rkwregistration' AND pi_flexform LIKE '%<value index=\"vDEF\">Service-&gt;list;%';
+UPDATE tt_content SET list_type = 'feregister_auth' WHERE list_type = 'rkwregistration_rkwregistration' AND pi_flexform LIKE '%<value index=\"vDEF\">Service-&gt;optIn;%';
+UPDATE tt_content SET list_type = 'feregister_logout' WHERE list_type = 'rkwregistration_rkwregistration' AND pi_flexform LIKE '%<value index=\"vDEF\">Registration-&gt;logout;%';
+UPDATE tt_content SET pi_flexform = '' WHERE list_type LIKE 'feregister%';
+
 ```

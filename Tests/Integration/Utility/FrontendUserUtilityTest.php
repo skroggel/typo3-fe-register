@@ -13,6 +13,7 @@ namespace Madj2k\FeRegister\Tests\Integration\Utility;
  * The TYPO3 project - inspiring people to share!
  */
 
+use Madj2k\FeRegister\Domain\Model\GuestUser;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use Madj2k\CoreExtended\Utility\FrontendSimulatorUtility;
 use Madj2k\FeRegister\Domain\Model\FrontendUser;
@@ -40,9 +41,13 @@ class FrontendUserUtilityTest extends FunctionalTestCase
 
 
     /**
-     * @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository
+     * @var string[]
      */
-    private $frontendUserRepository;
+    protected $coreExtensionsToLoad = [
+        'saltedpasswords',
+        'filemetadata',
+        'extensionmanager'
+    ];
 
 
     /**
@@ -51,8 +56,18 @@ class FrontendUserUtilityTest extends FunctionalTestCase
     protected $testExtensionsToLoad = [
         'typo3conf/ext/ajax_api',
         'typo3conf/ext/core_extended',
+        'typo3conf/ext/accelerator',
+        'typo3conf/ext/postmaster',
         'typo3conf/ext/fe_register',
+        'typo3conf/ext/persisted_sanitized_routing',
+        'typo3conf/ext/sr_freecap'
     ];
+
+
+    /**
+     * @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository
+     */
+    private $frontendUserRepository;
 
 
     /**
@@ -188,7 +203,7 @@ class FrontendUserUtilityTest extends FunctionalTestCase
         $result = FrontendUserUtility::convertObjectToArray($frontendUser);
 
         self::assertIsArray($result);
-        self::assertCount(40, $result);
+        self::assertCount(41, $result);
         self::assertEquals('test', $result['username']);
         self::assertEquals(123456, $result['zip']);
     }
@@ -776,6 +791,51 @@ class FrontendUserUtilityTest extends FunctionalTestCase
         self::assertEquals('zip', $result[4]);
         self::assertEquals('city', $result[5]);
 
+    }
+
+    #====================================================================================================
+
+    /**
+     * @test
+     * @throws \Exception
+     */
+    public function isGuestUserReturnsFalse ()
+    {
+
+        /**
+         * Scenario:
+         *
+         * Given a persisted frontendUser
+         * Given this frontendUser is an instance of \Madj2k\FeRegister\Domain\Model\FrontendUser
+         * When the method is called
+         * Then false is returned
+         */
+
+        /** @var  \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
+        $frontendUser = GeneralUtility::makeInstance(FrontendUser::class);
+        self::assertFalse(FrontendUserUtility::isGuestUser($frontendUser));
+    }
+
+
+    /**
+     * @test
+     * @throws \Exception
+     */
+    public function isGuestUserReturnsTrue ()
+    {
+
+        /**
+         * Scenario:
+         *
+         * Given a persisted frontendUser
+         * Given this frontendUser is an instance of \Madj2k\FeRegister\Domain\Model\GuestUser
+         * When the method is called
+         * Then true is returned
+         */
+
+        /** @var  \Madj2k\FeRegister\Domain\Model\GuestUser $frontendUser */
+        $frontendUser = GeneralUtility::makeInstance(GuestUser::class);
+        self::assertTrue(FrontendUserUtility::isGuestUser($frontendUser));
     }
 
     #==============================================================================

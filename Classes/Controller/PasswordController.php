@@ -65,7 +65,10 @@ class PasswordController extends AbstractController
                 [
                     'flashMessageToInject' => LocalizationUtility::translate(
                         'passwordController.error.lockedAccount',
-                        $this->extensionName
+                        $this->extensionName,
+                        [
+                            $this->settings['companyEmail']
+                        ]
                     )
                 ],
                 $this->settings['loginPid']
@@ -140,14 +143,18 @@ class PasswordController extends AbstractController
             $this->signalSlotDispatcher->dispatch(
                 __CLASS__,
                 self::SIGNAL_AFTER_USER_PASSWORD_RESET,
-                [$frontendUser, $plaintextPassword, $this->referrer]
+                [$frontendUser, $plaintextPassword, $this->referrerPid]
             );
         }
 
         // Either user exists or not: Send user back with message
         $this->addFlashMessage(
             LocalizationUtility::translate(
-                'passwordController.message.newPassword', $this->extensionName
+                'passwordController.message.newPassword',
+                $this->extensionName,
+                [
+                    $this->settings['companyEmail']
+                ]
             )
         );
 
@@ -197,7 +204,7 @@ class PasswordController extends AbstractController
      * action update password
      *
      * @param array $passwordNew
-     * @TYPO3\CMS\Extbase\Annotation\Validate("\Madj2k\FeRegister\Validation\PasswordValidator", param="passwordNew")
+     * @TYPO3\CMS\Extbase\Annotation\Validate("Madj2k\FeRegister\Validation\PasswordValidator", param="passwordNew")
      * @return void
      * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
      * @throws \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
@@ -243,7 +250,11 @@ class PasswordController extends AbstractController
         // SOMETHING WENT WRONG
         $this->addFlashMessage(
             LocalizationUtility::translate(
-                'passwordController.error.passwordNotUpdated', $this->extensionName
+                'passwordController.error.passwordNotUpdated',
+                $this->extensionName,
+                [
+                    $this->settings['companyEmail']
+                ]
             ),
             '',
             AbstractMessage::ERROR

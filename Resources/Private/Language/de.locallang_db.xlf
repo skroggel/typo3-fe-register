@@ -302,6 +302,17 @@
 			    <target>Titel ist zur Auswahl freigegeben</target>
 			</trans-unit>
 
+
+			<!-- FlexForms -->
+			<trans-unit id="flexform.login">
+			    <source>Login</source>
+			    <target>Login</target>
+			</trans-unit>
+			<trans-unit id="flexform.login.referrerPid">
+			    <source>Load this page after login</source>
+			    <target>Lade diese Seite nach Login</target>
+			</trans-unit>
+
         </body>
 	</file>
 </xliff>

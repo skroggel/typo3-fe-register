@@ -233,6 +233,15 @@
 			<trans-unit id="tx_feregister_domain_model_title.is_checked">
 			    <source>Title is approved</source>
 			</trans-unit>
+
+
+			<!-- FlexForms -->
+			<trans-unit id="flexform.login">
+			    <source>Login</source>
+			</trans-unit>
+			<trans-unit id="flexform.login.referrerPid">
+			    <source>Load this page after login</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

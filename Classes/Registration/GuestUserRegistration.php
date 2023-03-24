@@ -16,9 +16,11 @@ namespace Madj2k\FeRegister\Registration;
  */
 
 use Madj2k\CoreExtended\Utility\GeneralUtility;
+use Madj2k\FeRegister\Domain\Model\FrontendUser;
 use Madj2k\FeRegister\Domain\Model\GuestUser;
 use Madj2k\FeRegister\Exception;
 use Madj2k\FeRegister\Utility\FrontendUserSessionUtility;
+use Madj2k\FeRegister\Utility\FrontendUserUtility;
 use \Madj2k\FeRegister\Utility\PasswordUtility;
 
 /**
@@ -46,6 +48,31 @@ class GuestUserRegistration extends AbstractRegistration
         /** @var \Madj2k\FeRegister\Domain\Model\GuestUser $guestUser */
         $guestUser = GeneralUtility::makeInstance(GuestUser::class);
         $this->setFrontendUser($guestUser);
+    }
+
+
+    /**
+     * Sets the frontendUser
+     *
+     * @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
+     * @return self
+     * @throws Exception
+     * @throws \TYPO3\CMS\Core\Context\Exception\AspectNotFoundException
+     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     */
+    public function setFrontendUser(FrontendUser $frontendUser): self
+    {
+        // check if a user is of the right type - only GuestUsers allowed here
+        if (! FrontendUserUtility::isGuestUser($frontendUser)) {
+
+            throw new Exception(
+                'The given frontendUser is not an instance of GuestUser.',
+                1678359847
+            );
+        }
+
+        return parent::setFrontendUser($frontendUser);
     }
 
 

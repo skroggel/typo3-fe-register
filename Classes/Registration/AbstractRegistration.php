@@ -15,6 +15,7 @@ namespace Madj2k\FeRegister\Registration;
  */
 
 use Madj2k\CoreExtended\Utility\GeneralUtility;
+use Madj2k\CoreExtended\Utility\SiteUtility;
 use Madj2k\FeRegister\DataProtection\ConsentHandler;
 use Madj2k\FeRegister\Domain\Model\BackendUser;
 use Madj2k\FeRegister\Domain\Model\FrontendUser;
@@ -31,6 +32,7 @@ use Madj2k\FeRegister\Utility\FrontendUserSessionUtility;
 use Madj2k\FeRegister\Utility\FrontendUserUtility;
 use Madj2k\FeRegister\Utility\PasswordUtility;
 use Madj2k\FeRegister\Utility\TitleUtility;
+use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Log\Logger;
 use TYPO3\CMS\Core\Log\LogLevel;
 use TYPO3\CMS\Core\Log\LogManager;
@@ -261,6 +263,7 @@ abstract class AbstractRegistration implements RegistrationInterface
 
 
     /**
+     * Sets the frontendUser
      *
      * @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
      * @return self
@@ -272,7 +275,11 @@ abstract class AbstractRegistration implements RegistrationInterface
     public function setFrontendUser(FrontendUser $frontendUser): self
     {
         // check if a user is logged in. In this case the given user has to be same!
-        if ($frontendUserUid = FrontendUserSessionUtility::getLoggedInUserId()) {
+        // but only, if it is a "real" frontendUser and not a faggot guestUser
+        if (
+            ($frontendUserUid = FrontendUserSessionUtility::getLoggedInUserId())
+            && (! FrontendUserUtility::isGuestUser(FrontendUserSessionUtility::getLoggedInUser()))
+        ){
 
             if ($frontendUser->getUid() != $frontendUserUid) {
                 throw new Exception(
@@ -316,7 +323,11 @@ abstract class AbstractRegistration implements RegistrationInterface
     public function setFrontendUserToken(string $frontendUserToken): self
     {
         // check if a user is logged in. In this case the given user has to be same!
-        if ($frontendUserUid = FrontendUserSessionUtility::getLoggedInUserId()) {
+        // but only, if it is a "real" frontendUser and not a faggot guestUser
+        if (
+            ($frontendUserUid = FrontendUserSessionUtility::getLoggedInUserId())
+            && (! FrontendUserUtility::isGuestUser(FrontendUserSessionUtility::getLoggedInUser()))
+        ){
 
             /** @var \Madj2k\FeRegister\Domain\Model\OptIn optIn */
             $optIn = $this->optInRepository->findOneByTokenUserIncludingDeleted($frontendUserToken);
@@ -686,7 +697,7 @@ abstract class AbstractRegistration implements RegistrationInterface
             }
 
             // override if it's a GuestUser
-            if ($frontendUserPersisted instanceof GuestUser) {
+            if (FrontendUserUtility::isGuestUser($frontendUserPersisted)) {
                 // set guestUser lifetime
                 if (intval($settings['users']['guest']['lifetime'])) {
                     $frontendUserPersisted->setEndtime(time() + intval($settings['users']['guest']['lifetime']));
@@ -695,7 +706,7 @@ abstract class AbstractRegistration implements RegistrationInterface
 
             // set user-groups!
             $userGroups = $settings['users']['groupsOnRegister'];
-            if ($frontendUserPersisted instanceof GuestUser) {
+            if (FrontendUserUtility::isGuestUser($frontendUserPersisted)) {
                 $userGroups = $settings['users']['guest']['groupsOnRegister'];
             }
 
@@ -873,7 +884,7 @@ abstract class AbstractRegistration implements RegistrationInterface
      */
     public function getContextAwareFrontendUserRepository(): FrontendUserRepository
     {
-        if ($this->frontendUser instanceof GuestUser) {
+        if (FrontendUserUtility::isGuestUser($this->frontendUser)) {
             return $this->guestUserRepository;
         }
 
@@ -898,7 +909,7 @@ abstract class AbstractRegistration implements RegistrationInterface
         $this->frontendUser->setEmail(strtolower($this->frontendUser->getEmail()));
         $this->frontendUser->setUsername(strtolower($this->frontendUser->getUsername()));
 
-        if ($this->frontendUser instanceof GuestUser) {
+        if (FrontendUserUtility::isGuestUser($this->frontendUser)) {
 
             // clear email-address and set random username
             $this->frontendUser->setEmail('');
@@ -928,11 +939,9 @@ abstract class AbstractRegistration implements RegistrationInterface
             $this->frontendUser->setTitle('');
         }
 
-        // set languageKey
-        if (!$this->frontendUser->getTxFeregisterLanguageKey()
-            && $settings['users']['languageKeyOnRegister']
-        ) {
-            $this->frontendUser->setTxFeregisterLanguageKey($settings['users']['languageKeyOnRegister']);
+        // set languageKey of current site!
+        if (!$this->frontendUser->getTxFeregisterLanguageKey()) {
+            $this->frontendUser->setTxFeregisterLanguageKey(SiteUtility::getCurrentTypo3Language());
         }
 
         // things we only do with new frontendUser-objects
@@ -966,7 +975,7 @@ abstract class AbstractRegistration implements RegistrationInterface
     protected function dispatchSignalSlot (string $name, string $category = '')
     {
         // no emails for GuestUser!
-        if ($this->getFrontendUserPersisted() instanceof GuestUser) {
+        if (FrontendUserUtility::isGuestUser($this->getFrontendUserPersisted())) {
             return;
         }
 

@@ -7,5 +7,19 @@
         <doktype>1</doktype>
         <perms_everybody>15</perms_everybody>
     </pages>
-
+    <pages>
+        <uid>2</uid>
+        <pid>1</pid>
+        <title>Sub-Page</title>
+        <doktype>1</doktype>
+        <perms_everybody>15</perms_everybody>
+    </pages>
+    <pages>
+        <uid>3</uid>
+        <pid>1</pid>
+        <title>Sub-Page</title>
+        <doktype>1</doktype>
+        <perms_everybody>15</perms_everybody>
+        <fe_group>-2</fe_group>
+    </pages>
 </dataset>

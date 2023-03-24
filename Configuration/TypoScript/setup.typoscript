@@ -93,7 +93,7 @@ config.tx_extbase.persistence {
 
 		#===============================================
 
-        \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup {
+        Madj2k\CoreExtended\Domain\Model\FrontendUserGroup {
             subclasses {
                 Tx_FeRegister_FrontendUserGroup = Madj2k\FeRegister\Domain\Model\FrontendUserGroup
             }
@@ -188,6 +188,7 @@ plugin.tx_feregister {
 		partialRootPaths {
 			0 = EXT:fe_register/Resources/Private/Partials/
 			1 = {$plugin.tx_feregister.view.partialRootPath}
+			2 = {$plugin.tx_coreextended.view.partialRootPath}
         }
 		widget {
 			TYPO3\CMS\Fluid\ViewHelpers\Widget\AutocompleteViewHelper {
@@ -214,13 +215,15 @@ plugin.tx_feregister {
         welcomeGuestPid = {$plugin.tx_feregister.settings.welcomeGuestPid}
         editUserPid = {$plugin.tx_feregister.settings.editUserPid}
         groupsListPid = {$plugin.tx_feregister.settings.groupsListPid}
+        companyEmail = {$plugin.tx_feregister.settings.companyEmail}
 
         consent {
-            termsPid = {$plugin.tx_feregister.settings.termsPid}
-            terms2Pid = {$plugin.tx_feregister.settings.terms2Pid}
-            privacyPid = {$plugin.tx_feregister.settings.privacyPid}
-            marketingPid = {$plugin.tx_feregister.settings.marketingPid}
-            companyName = {$plugin.tx_feregister.settings.companyName}
+            termsPid = {$plugin.tx_feregister.settings.consent.termsPid}
+            terms2Pid = {$plugin.tx_feregister.settings.consent.terms2Pid}
+            privacyPid = {$plugin.tx_feregister.settings.consent.privacyPid}
+            marketingPid = {$plugin.tx_feregister.settings.consent.marketingPid}
+            companyName = {$plugin.tx_feregister.settings.consent.companyName}
+            companyEmail = {$plugin.tx_feregister.settings.consent.companyEmail}
         }
 
         users {
@@ -353,11 +356,11 @@ plugin.tx_feregister_info < plugin.tx_feregister
 module.tx_feregister < plugin.tx_feregister
 
 // Add jquery if not disabled
-[globalVar = LIT:1 = {$plugin.tx_feregister.settings.includeJQuery}]
+[{$plugin.tx_feregister.settings.includeJQuery} == 1]
 	page.includeJSFooterlibs.jquery = EXT:fe_register/Resources/Public/Scripts/jquery-1.11.1.min.js
-[global]
+[END]
 
-[globalVar = LIT:1 = {$plugin.tx_feregister.settings.includeJQueryUi}]
+[{$plugin.tx_feregister.settings.includeJQueryUi} == 1]
 	page.includeJSFooterlibs.jqueryUi = EXT:fe_register/Resources/Public/Scripts/jquery-ui.js
-[global]
+[END]
 

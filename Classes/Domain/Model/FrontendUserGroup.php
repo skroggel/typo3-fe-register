@@ -25,32 +25,8 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  * @package Madj2k_FeRegister
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class FrontendUserGroup extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
+class FrontendUserGroup extends \Madj2k\CoreExtended\Domain\Model\FrontendUserGroup
 {
-
-    /**
-     * @var int
-     */
-    protected int $crdate;
-
-
-    /**
-     * @var int
-     */
-    protected int $tstamp;
-
-
-    /**
-     * @var bool
-     */
-    protected bool $hidden = true;
-
-
-    /**
-     * @var bool
-     */
-    protected bool $deleted = false;
-
 
     /**
      * @var bool
@@ -112,54 +88,6 @@ class FrontendUserGroup extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGrou
     protected function initStorageObjects()
     {
         $this->txFeregisterMembershipAdmins = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-    }
-
-
-    /**
-     * Returns the crdate value
-     *
-     * @return int
-     * @api
-     */
-    public function getCrdate(): int
-    {
-        return $this->crdate;
-    }
-
-
-    /**
-     * Returns the tstamp value
-     *
-     * @return int
-     * @api
-     */
-    public function getTstamp(): int
-    {
-        return $this->tstamp;
-    }
-
-
-    /**
-     * Returns the hidden value
-     *
-     * @return bool
-     * @api
-     */
-    public function getHidden(): bool
-    {
-        return $this->hidden;
-    }
-
-
-    /**
-     * Returns the deleted value
-     *
-     * @return bool
-     * @api
-     */
-    public function getDeleted(): bool
-    {
-        return $this->deleted;
     }
 
 

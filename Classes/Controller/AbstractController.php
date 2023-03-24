@@ -20,6 +20,7 @@ use Madj2k\FeRegister\Domain\Model\GuestUser;
 use Madj2k\FeRegister\Domain\Repository\FrontendUserRepository;
 use Madj2k\FeRegister\Utility\ClientUtility;
 use Madj2k\FeRegister\Utility\FrontendUserSessionUtility;
+use Madj2k\FeRegister\Utility\FrontendUserUtility;
 use Madj2k\FeRegister\Validation\FrontendUserValidator;
 use TYPO3\CMS\Core\Log\Logger;
 use TYPO3\CMS\Core\Log\LogManager;
@@ -28,7 +29,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
@@ -50,9 +50,9 @@ abstract class AbstractController extends \Madj2k\AjaxApi\Controller\AjaxAbstrac
     const SESSION_KEY_REFERRER = 'tx_feregister_referrer';
 
     /**
-     * @var string
+     * @var int
      */
-    protected string $referrer = '';
+    protected int $referrerPid = 0;
 
 
     /**
@@ -66,6 +66,7 @@ abstract class AbstractController extends \Madj2k\AjaxApi\Controller\AjaxAbstrac
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected FrontendUserRepository $frontendUserRepository;
+
 
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
@@ -96,28 +97,30 @@ abstract class AbstractController extends \Madj2k\AjaxApi\Controller\AjaxAbstrac
             && ($this->getRequest()->getControllerName() == 'Auth')
             && ($this->getRequest()->getControllerActionName() == 'index')
         ) {
-            // referrer via variable always takes precedence
-            if (ClientUtility::isReferrerValid(GeneralUtility::_GP('referrer'))) {
-                $this->referrer = GeneralUtility::_GP('referrer');
 
-            // take referrer from $_SERVER - but only if no referrer has been set yet
-            } else if (
-                (ClientUtility::isReferrerValid($_SERVER['HTTP_REFERER']))
-                && (! $GLOBALS['TSFE']->fe_user->getSessionData(self::SESSION_KEY_REFERRER))
-            ) {
-                // may lead to unwanted behavior - what if I only want to log in to change my personal data?
-                // $this->referrer = $_SERVER['HTTP_REFERER'];
+            // take referrer from settings
+            if (
+                ($referrerPid = intval($this->settings['referrerPid']))
+                && (ClientUtility::isReferrerPidValid($referrerPid))
+            ){
+                $this->referrerPid = $referrerPid;
             }
 
-            if ($this->referrer) {
-                $GLOBALS['TSFE']->fe_user->setAndSaveSessionData(self::SESSION_KEY_REFERRER, $this->referrer);
+            // referrer via variable always takes precedence
+            if (ClientUtility::isReferrerPidValid(GeneralUtility::_GP('referrerPid'))) {
+                $this->referrerPid = GeneralUtility::_GP('referrerPid');
+            }
+
+            // save referrer to current session
+            if ($this->referrerPid) {
+                $GLOBALS['TSFE']->fe_user->setAndSaveSessionData(self::SESSION_KEY_REFERRER, $this->referrerPid);
             }
         }
 
         // set this->referrer based on session data and assign it to all actions
-        $this->referrer = $GLOBALS['TSFE']->fe_user->getSessionData(self::SESSION_KEY_REFERRER) ?: '';
-        if ($this->referrer) {
-            $this->view->assign('referrer', $this->referrer);
+        $this->referrerPid = intval($GLOBALS['TSFE']->fe_user->getSessionData(self::SESSION_KEY_REFERRER)) ?: 0;
+        if ($this->referrerPid) {
+            $this->view->assign('referrer', $this->referrerPid);
         }
     }
 
@@ -197,7 +200,7 @@ abstract class AbstractController extends \Madj2k\AjaxApi\Controller\AjaxAbstrac
         if (!$this->getFrontendUser()) {
             $this->redirectToLogin();
 
-        } else if ($this->getFrontendUser() instanceof GuestUser) {
+        } else if (FrontendUserUtility::isGuestUser($this->getFrontendUser())) {
             $this->redirectToWelcome();
         }
     }
@@ -307,10 +310,20 @@ abstract class AbstractController extends \Madj2k\AjaxApi\Controller\AjaxAbstrac
     {
         if (
             (!$newGuestLogin)
-            && (ClientUtility::isReferrerValid($this->referrer))
+            && (ClientUtility::isReferrerPidValid($this->referrerPid))
         ){
             $GLOBALS['TSFE']->fe_user->setAndSaveSessionData(self::SESSION_KEY_REFERRER, '');
-            $this->redirectToUri($this->referrer);
+
+            /** @var \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder */
+            $uriBuilder = $this->objectManager->get(UriBuilder::class);
+
+            $url = $uriBuilder
+                ->reset()
+                ->setTargetPageUid($this->referrerPid)
+                ->setLinkAccessRestrictedPages(1)
+                ->build();
+
+            $this->redirectToUri($url);
         }
     }
 
