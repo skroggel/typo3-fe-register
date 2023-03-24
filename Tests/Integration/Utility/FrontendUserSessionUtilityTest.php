@@ -52,6 +52,7 @@ class FrontendUserSessionUtilityTest extends FunctionalTestCase
     protected $coreExtensionsToLoad = [
         'saltedpasswords',
         'filemetadata',
+        'seo',
         'extensionmanager'
     ];
 

@@ -2,7 +2,7 @@
 <dataset>
 
     <fe_users>
-        <uid>31</uid>
+        <uid>200</uid>
         <pid>88</pid>
         <crdate>10</crdate>
         <disable>0</disable>
@@ -20,7 +20,7 @@
         <fax>069/123456789</fax>
         <title>Dr. Prof.</title>
         <www>https://www.spd.de</www>
-        <usergroup>31</usergroup>
+        <usergroup>200</usergroup>
         <tx_feregister_gender>1</tx_feregister_gender>
         <tx_feregister_title>0</tx_feregister_title>
         <tx_feregister_language_key>de</tx_feregister_language_key>
@@ -29,7 +29,7 @@
     </fe_users>
 
     <fe_groups>
-        <uid>31</uid>
+        <uid>200</uid>
         <pid>88</pid>
         <title>Test-Gruppe</title>
     </fe_groups>

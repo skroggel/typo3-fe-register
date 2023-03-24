@@ -43,6 +43,7 @@ class TitleUtilityTest extends FunctionalTestCase
     protected $coreExtensionsToLoad = [
         'saltedpasswords',
         'filemetadata',
+        'seo',
         'extensionmanager'
     ];
 

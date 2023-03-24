@@ -119,7 +119,8 @@ class GuestUserRegistrationTest extends FunctionalTestCase
                 'EXT:fe_register/Configuration/TypoScript/setup.txt',
                 'EXT:fe_register/Configuration/TypoScript/constants.txt',
                 self::FIXTURE_PATH . '/Frontend/Configuration/Rootpage.typoscript',
-            ]
+            ],
+            ['example.com' => self::FIXTURE_PATH .  '/Frontend/Configuration/config.yaml']
         );
 
         /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
@@ -139,6 +140,9 @@ class GuestUserRegistrationTest extends FunctionalTestCase
 
         /** @var \Madj2k\FeRegister\Domain\Repository\OptInRepository optInRepository */
         $this->optInRepository = $this->objectManager->get(OptInRepository::class);
+
+        FrontendSimulatorUtility::simulateFrontendEnvironment(1, 2);
+
     }
 
     #==============================================================================
@@ -268,7 +272,7 @@ class GuestUserRegistrationTest extends FunctionalTestCase
          * Given is guestUser-object
          * Given this object has no value for the languageKey-property set
          * When the method is called
-         * Then the languageKey-property of the guestUser-object is set to the current time
+         * Then the languageKey-property of the guestUser-object is set to the current site-language
          */
 
         /** @var \Madj2k\FeRegister\Domain\Model\GuestUser $guestUser */
