@@ -103,7 +103,7 @@ class AuthController extends AbstractController
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
      * @throws \TYPO3\CMS\Core\Context\Exception\AspectNotFoundException
-     * @TYPO3\CMS\Extbase\Annotation\Validate("\Madj2k\FeRegister\Validation\LoginValidator", param="login")
+     * @TYPO3\CMS\Extbase\Annotation\Validate("Madj2k\FeRegister\Validation\LoginValidator", param="login")
      */
     public function loginAction(array $login): void
     {
@@ -134,7 +134,10 @@ class AuthController extends AbstractController
             $this->addFlashMessage(
                 LocalizationUtility::translate(
                     'authController.error.loginBlocked', $this->extensionName,
-                    [$maxErrors]
+                    [
+                        $maxErrors,
+                        $this->settings['companyEmail']
+                    ]
                 ),
                 '',
                 AbstractMessage::ERROR

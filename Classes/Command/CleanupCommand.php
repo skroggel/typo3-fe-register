@@ -151,6 +151,7 @@ class CleanupCommand extends Command
 
             $io->error($message);
             $this->getLogger()->log(LogLevel::ERROR, $message);
+            $result = 1;
         }
 
         $io->writeln('Done');

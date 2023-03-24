@@ -80,11 +80,11 @@ class EncryptionKeyCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $result = 0;
 
         $io = new SymfonyStyle($input, $output);
         $io->title($this->getDescription());
 
+        $result = 0;
         try {
 
             // Generate a 256-bit encryption key
@@ -103,6 +103,7 @@ class EncryptionKeyCommand extends Command
 
             $io->error($message);
             $this->getLogger()->log(LogLevel::ERROR, $message);
+            $result = 1;
         }
 
         $io->writeln('Done');

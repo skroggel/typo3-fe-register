@@ -14,7 +14,7 @@
                fallbackText="{postmaster:email.translate(key:'templates_email_group_optinWithdrawAdmin.headline', languageKey='{queueRecipient.languageCode}', extensionName:'feRegister')}!"
         />\n\n
 
-        <postmaster:email.translate key="templates_email_group_optinWithdrawAdmin.text1" languageKey="{frontendUser.txFeregisterLanguageKey}" extensionName="feRegister" arguments="{0: frontendUserGroup.title}" />\n\n
+        <postmaster:email.translate key="templates_email_group_optinWithdrawAdmin.text1" languageKey="{queueRecipient.languageCode}" extensionName="feRegister" arguments="{0: frontendUserGroup.title}" />\n\n
         
         {frontendUser.firstName} {frontendUser.lastName} ({frontendUser.email}) \n\n
     </postmaster:email.plaintextLineBreaks></f:section>
@@ -29,7 +29,7 @@
                    fallbackText="{postmaster:email.translate(key:'templates_email_group_optinWithdrawAdmin.headline', languageKey='{queueRecipient.languageCode}', extensionName:'feRegister')}!"
             />
         </h1>
-        <p><postmaster:email.translate key="templates_email_group_optinWithdrawAdmin.text1" languageKey="{frontendUser.txFeregisterLanguageKey}" extensionName="feRegister" arguments="{0: frontendUserGroup.title}" /></p>
+        <p><postmaster:email.translate key="templates_email_group_optinWithdrawAdmin.text1" languageKey="{queueRecipient.languageCode}" extensionName="feRegister" arguments="{0: frontendUserGroup.title}" /></p>
         <p><strong>{frontendUser.firstName} {frontendUser.lastName} ({frontendUser.email})</strong></p>
     </f:section>
 </html>

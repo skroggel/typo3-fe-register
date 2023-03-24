@@ -57,6 +57,7 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
     protected $testExtensionsToLoad = [
         'typo3conf/ext/ajax_api',
         'typo3conf/ext/core_extended',
+        'typo3conf/ext/accelerator',
         'typo3conf/ext/postmaster',
         'typo3conf/ext/fe_register',
     ];
@@ -129,7 +130,9 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
                 'EXT:fe_register/Configuration/TypoScript/setup.typoscript',
                 'EXT:fe_register/Configuration/TypoScript/constants.typoscript',
                 self::FIXTURE_PATH . '/Frontend/Configuration/Rootpage.typoscript',
-            ]
+            ],
+            ['rkw-kompetenzzentrum.local' => self::FIXTURE_PATH .  '/Frontend/Configuration/config.yaml']
+
         );
 
         /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
@@ -253,7 +256,7 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
          * Given a frontendUser-object
          * Given this object has a valid value for the email-property set
          * Given this object has no value for the username-property set
-         * Given another frontendUser is logged in
+         * Given another frontendUser of instance \Madj2k\FeRegister\Domain\Model\FrontendUser is logged in
          * When the method is called
          * Then the exception is an instance of \Madj2k\FeRegister\Exception
          * Then the exception has the code 1666014579
@@ -277,6 +280,68 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
         $this->fixture->setFrontendUser($frontendUser);
 
         FrontendSimulatorUtility::resetFrontendEnvironment();
+    }
+
+
+    /**
+     * @test
+     * @throws \Exception
+     */
+    public function setFrontendUserThrowsNoExceptionIfAnotherGuestUserLoggedIn ()
+    {
+        /**
+         * Scenario:
+         *
+         * Given a frontendUser-object
+         * Given this object has a valid value for the email-property set
+         * Given this object has no value for the username-property set
+         * Given another frontendUser of instance \Madj2k\FeRegister\Domain\Model\GuestUser is logged in
+         * When the method is called
+         * Then self is returned
+         */
+        $this->importDataSet(self::FIXTURE_PATH .'/Database/Check30.xml');
+
+        /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
+        $frontendUser = $this->frontendUserRepository->findByIdentifier(30);
+        $frontendUserGroup = $this->frontendUserGroupRepository->findByIdentifier(30);
+
+        FrontendSimulatorUtility::simulateFrontendEnvironment(1);
+        FrontendUserSessionUtility::simulateLogin($frontendUser, $frontendUserGroup);
+
+        /** @var \Madj2k\FeRegister\Domain\Model\GuestUser $frontendUser */
+        $frontendUser = GeneralUtility::makeInstance(GuestUser::class);
+        $frontendUser->setEmail('test@example.de');
+
+        self::assertInstanceOf(FrontendUserRegistration::class, $this->fixture->setFrontendUser($frontendUser));
+
+        FrontendSimulatorUtility::resetFrontendEnvironment();
+    }
+
+
+    /**
+     * @test
+     * @throws \Exception
+     */
+    public function setFrontendUserThrowsExceptionOnGuestUser ()
+    {
+        /**
+         * Scenario:
+         *
+         * Given a frontendUser-object
+         * Given the frontendUser is an instance \Madj2k\FeRegister\Domain\Model\GuestUser
+         * Given this object has a valid value for the email-property set
+         * When the method is called
+         * Then the exception is an instance of \Madj2k\FeRegister\Exception
+         * Then the exception has the code 1407312134
+         */
+        static::expectException(\Madj2k\FeRegister\Exception::class);
+        static::expectExceptionCode(1678359846);
+
+        /** @var \Madj2k\FeRegister\Domain\Model\GuestUser $frontendUser */
+        $frontendUser = GeneralUtility::makeInstance(GuestUser::class);
+        $frontendUser->setEmail('test@test.de');
+
+        $this->fixture->setFrontendUser($frontendUser);
     }
 
 
@@ -349,7 +414,7 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
          * Given this object has a valid value for the email-property set
          * Given this object has no value for the languageKey-property set
          * When the method is called
-         * Then the languageKey-property of the frontendUser-object is set to the current time
+         * Then the languageKey-property of the frontendUser-object is set to the value of the current page
          */
 
         /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
@@ -357,7 +422,7 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
         $frontendUser->setEmail('test@test.de');
 
         $this->fixture->setFrontendUser($frontendUser);
-        self::assertEquals('ru', $frontendUser->getTxFeregisterLanguageKey());
+        self::assertEquals('de', $frontendUser->getTxFeregisterLanguageKey());
 
     }
 
@@ -1878,8 +1943,8 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
     /**
      * @test
      * @throws \Exception
-
-    public function startRegistrationThrowsExceptionIfNewRegistrationForLoggedInUser ()
+     */
+    public function startRegistrationThrowsExceptionIfNewRegistrationWithLoggedInUser ()
     {
         /**
          * Scenario:
@@ -1889,24 +1954,24 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
          * Given this object has a valid value for the username-property set
          * Given setFrontendUser has been called with this frontendUser-object as parameter
          * Given setData has not been called before
-         * Given a frontendUser is logged in
+         * Given a frontendUser of instance \Madj2k\FeRegister\Domain\Model\FrontendUser is logged in
          * When the method is called
          * Then the exception is an instance of \Madj2k\FeRegister\Exception
          * Then the exception has the code 1659691717
-
+         */
         static::expectException(\Madj2k\FeRegister\Exception::class);
         static::expectExceptionCode(1659691717);
 
         $this->importDataSet(self::FIXTURE_PATH .'/Database/Check30.xml');
 
-        /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
+        /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
         $frontendUser = $this->frontendUserRepository->findByIdentifier(30);
         $frontendUserGroup = $this->frontendUserGroupRepository->findByIdentifier(30);
 
         FrontendSimulatorUtility::simulateFrontendEnvironment(1);
         FrontendUserSessionUtility::simulateLogin($frontendUser, $frontendUserGroup);
 
-        /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
+        /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
         $frontendUser = GeneralUtility::makeInstance(FrontendUser::class);
         $frontendUser->setEmail('test@example.de');
 
@@ -1915,7 +1980,46 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
 
         FrontendSimulatorUtility::resetFrontendEnvironment();
 
-    }*/
+    }
+
+
+    /**
+     * @test
+     * @throws \Exception
+     */
+    public function startRegistrationReturnsTrueIfNewRegistrationWithLoggedInGuestUser ()
+    {
+        /**
+         * Scenario:
+         *
+         * Given a non-persistent frontendUser-object
+         * Given this object has a valid value for the email-property set
+         * Given this object has a valid value for the username-property set
+         * Given setFrontendUser has been called with this frontendUser-object as parameter
+         * Given setData has not been called before
+         * Given a frontendUser of instance \Madj2k\FeRegister\Domain\Model\GuestUser is logged in
+         * When the method is called
+         * Then true is returned
+         */
+        $this->importDataSet(self::FIXTURE_PATH .'/Database/Check31.xml');
+
+        /** @var \Madj2k\FeRegister\Domain\Model\GuestUser $frontendUser */
+        $frontendUser = $this->frontendUserRepository->findByIdentifier(31);
+        $frontendUserGroup = $this->frontendUserGroupRepository->findByIdentifier(31);
+
+        FrontendSimulatorUtility::simulateFrontendEnvironment(1);
+        FrontendUserSessionUtility::simulateLogin($frontendUser, $frontendUserGroup);
+
+        /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
+        $frontendUser = GeneralUtility::makeInstance(FrontendUser::class);
+        $frontendUser->setEmail('test@example.de');
+
+        $this->fixture->setFrontendUser($frontendUser);
+        self::assertTrue($this->fixture->startRegistration());
+
+        FrontendSimulatorUtility::resetFrontendEnvironment();
+
+    }
 
 
     /**

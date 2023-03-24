@@ -15,6 +15,7 @@ namespace Madj2k\FeRegister\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
+use Madj2k\FeRegister\Utility\FrontendUserUtility;
 use Madj2k\Postmaster\UriBuilder\EmailUriBuilder;
 use Madj2k\FeRegister\Domain\Model\FrontendUser;
 use Madj2k\FeRegister\Domain\Model\FrontendUserGroup;
@@ -106,9 +107,9 @@ class FrontendUserController extends AbstractController
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\NotImplementedException
      * @TYPO3\CMS\Extbase\Annotation\Validate("Madj2k\FeRegister\Validation\FrontendUserValidator", param="frontendUser")
-     * @TYPO3\CMS\Extbase\Annotation\Validate("\Madj2k\FeRegister\Validation\Consent\TermsValidator", param="frontendUser")
-     * @TYPO3\CMS\Extbase\Annotation\Validate("\Madj2k\FeRegister\Validation\Consent\PrivacyValidator", param="frontendUser")
-     * @TYPO3\CMS\Extbase\Annotation\Validate("\Madj2k\FeRegister\Validation\Consent\MarketingValidator", param="frontendUser")
+     * @TYPO3\CMS\Extbase\Annotation\Validate("Madj2k\FeRegister\Validation\Consent\TermsValidator", param="frontendUser")
+     * @TYPO3\CMS\Extbase\Annotation\Validate("Madj2k\FeRegister\Validation\Consent\PrivacyValidator", param="frontendUser")
+     * @TYPO3\CMS\Extbase\Annotation\Validate("Madj2k\FeRegister\Validation\Consent\MarketingValidator", param="frontendUser")
      */
     public function createAction(FrontendUser $frontendUser): void
     {
@@ -124,6 +125,9 @@ class FrontendUserController extends AbstractController
             LocalizationUtility::translate(
                 'frontendUserController.message.registrationWatchForEmail',
                 $this->extensionName
+                [
+                    $this->settings['companyEmail']
+                ]
             )
         );
 
@@ -177,7 +181,10 @@ class FrontendUserController extends AbstractController
             $this->addFlashMessage(
                 LocalizationUtility::translate(
                     'frontendUserController.message.registrationSuccessful',
-                    $this->extensionName
+                    $this->extensionName,
+                    [
+                        $this->settings['companyEmail']
+                    ]
                 )
             );
 
@@ -236,7 +243,7 @@ class FrontendUserController extends AbstractController
         }
 
         // add corresponding flash message
-        if ($this->getFrontendUser() instanceof GuestUser) {
+        if (FrontendUserUtility::isGuestUser($this->getFrontendUser())) {
 
             // generate link for copy&paste
             /** @var \Madj2k\Postmaster\UriBuilder\EmailUriBuilder $uriBuilder */
@@ -256,9 +263,13 @@ class FrontendUserController extends AbstractController
                 ->build();
 
             // show link with token to anonymous user
+            $translationKey = (intval($GLOBALS['TSFE']->id) == intval($this->settings['welcomeGuestPid']))
+                ? 'guestLink'
+                : 'guestLink2';
+
             $this->addFlashMessage(
                 LocalizationUtility::translate(
-                    'frontendUserController.message.guestLink',
+                    'frontendUserController.message.' . $translationKey,
                     $this->extensionName,
                     [
                         intval(intval($this->settings['users']['guest']['lifetime']) / 60 / 60 / 24),
@@ -285,7 +296,7 @@ class FrontendUserController extends AbstractController
         $this->view->assignMultiple(
             [
                 'frontendUser'    => $this->getFrontendUser(),
-                'showContinue'    => ($this->referrer || ($currentPageUid !== intval($this->settings['welcomePid'])))
+                'showContinue'    => ($this->referrerPid || ($currentPageUid !== intval($this->settings['welcomePid'])))
             ]
         );
     }

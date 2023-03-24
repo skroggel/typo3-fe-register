@@ -177,7 +177,10 @@ class FrontendUserGroupController extends AbstractController
         $this->addFlashMessage(
             LocalizationUtility::translate(
                 'frontendUserGroupController.message.registrationWatchForEmail',
-                $this->extensionName
+                $this->extensionName,
+                [
+                    $this->settings['companyEmail']
+                ]
             )
         );
 

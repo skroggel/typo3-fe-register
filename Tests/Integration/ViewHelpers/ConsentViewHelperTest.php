@@ -41,6 +41,7 @@ class ConsentViewHelperTest extends FunctionalTestCase
     protected $testExtensionsToLoad = [
         'typo3conf/ext/ajax_api',
         'typo3conf/ext/core_extended',
+        'typo3conf/ext/accelerator',
         'typo3conf/ext/fe_register'
     ];
 

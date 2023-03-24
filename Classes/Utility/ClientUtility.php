@@ -33,10 +33,10 @@ class ClientUtility extends \Madj2k\CoreExtended\Utility\ClientUtility
     /**
      * Checks if the given referrer is part of the current domain
      *
-     * @param string|null $referrer
+     * @param int|null $referrerPid
      * @return bool
      */
-    public static function isReferrerValid(?string $referrer): bool
+    public static function isReferrerPidValid(?int $referrerPid): bool
     {
 
         /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
@@ -45,15 +45,15 @@ class ClientUtility extends \Madj2k\CoreExtended\Utility\ClientUtility
         /** @var \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder */
         $uriBuilder = $objectManager->get(UriBuilder::class);
 
-        $url = $uriBuilder
-            ->reset()
-            ->setTargetPageUid(1)
-            ->setCreateAbsoluteUri(true)
-            ->build();
+        $url = '';
+        if ($referrerPid) {
+            $url = $uriBuilder
+                ->reset()
+                ->setTargetPageUid($referrerPid)
+                ->setLinkAccessRestrictedPages(1)
+                ->build();
+        }
 
-        $parsedUrl = parse_url($url);
-        $parsedReferer = parse_url($referrer);
-
-        return ($parsedReferer['host'] == $parsedUrl['host']);
+        return (bool) $url;
     }
 }

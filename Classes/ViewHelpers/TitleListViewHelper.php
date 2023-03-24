@@ -14,8 +14,10 @@ namespace Madj2k\FeRegister\ViewHelpers;
  * The TYPO3 project - inspiring people to share!
  */
 
+use Madj2k\FeRegister\Domain\Model\Title;
 use Madj2k\FeRegister\Domain\Repository\TitleRepository;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 
 /**
  * Class TitleListViewHelper
@@ -30,25 +32,51 @@ class TitleListViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractView
 {
 
     /**
+     * Initialize arguments.
+     *
+     * @return void
+     * @throws \TYPO3Fluid\Fluid\Core\ViewHelper\Exception
+     */
+    public function initializeArguments(): void
+    {
+        parent::initializeArguments();
+        $this->registerArgument('showTitleBefore', 'bool', 'Show title before name?', false, true);
+        $this->registerArgument('showTitleAfter ', 'bool', 'Show title after name?', false, false);
+        $this->registerArgument('returnArray ', 'bool', 'Return titles as array?', false, false);
+        $this->registerArgument('returnJson', 'bool', 'Return titles as JSON?', false, false);
+        $this->registerArgument('mapProperty', 'string', 'Property for mapping', false, '');
+    }
+
+
+    /**
      * Returns a list of user title options
      *
-     * This example is equal to a findAll: <feRegister:titleList showTitleAfter='true' />
-     * Shorthand for showing only title after: <feRegister:titleList showTitleBefore='false' />
-     *
-     * @param bool $showTitleBefore
-     * @param bool $showTitleAfter
-     * @param bool $returnArray
-     * @param bool $returnJson
-     * @param string $mapProperty
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     * @return string
      */
-    public function render(
-        bool $showTitleBefore = true,
-        bool $showTitleAfter = false,
-        bool $returnArray = false,
-        bool $returnJson = false,
-        string $mapProperty = ''
-    ) {
+    static public function renderStatic(
+        array $arguments,
+        \Closure $renderChildrenClosure,
+        RenderingContextInterface $renderingContext
+    ): string {
+
+        /** @var bool $showTitleBefore */
+        $showTitleBefore = $arguments['showTitleBefore'];
+
+        /** @var bool $showTitleAfter */
+        $showTitleAfter = $arguments['showTitleAfter'];
+
+        /** @var bool $returnArray */
+        $returnArray = $arguments['returnArray'];
+
+        /** @var bool $returnJson */
+        $returnJson = $arguments['returnJson'];
+
+        /** @var string $mapProperty */
+        $mapProperty = $arguments['mapProperty'];
+
         // a) This avoids possible empty results by calling <feRegister:titleList showTitleBefore='false' showTitleAfter='false' />
         // b) Makes a shorter invoke possible for showing up only "isTitleAfter"-Elements (see PHPdocs example above)
         if (!$showTitleBefore) {

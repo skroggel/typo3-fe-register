@@ -14,7 +14,7 @@
                fallbackText="{postmaster:email.translate(key:'templates_email_group_optinDenial.headline', languageKey='{queueRecipient.languageCode}', extensionName:'feRegister')}!"
         />\n\n
 
-        <postmaster:email.translate key="templates_email_group_optinDenial.text1" languageKey="{frontendUser.txFeregisterLanguageKey}" extensionName="feRegister" arguments="{0: frontendUserGroup.title}" />\n\n
+        <postmaster:email.translate key="templates_email_group_optinDenial.text1" languageKey="{queueRecipient.languageCode}" extensionName="feRegister" arguments="{0: frontendUserGroup.title}" />\n\n
     </postmaster:email.plaintextLineBreaks></f:section>
 
 
@@ -27,6 +27,6 @@
                    fallbackText="{postmaster:email.translate(key:'templates_email_group_optinDenial.headline', languageKey='{queueRecipient.languageCode}', extensionName:'feRegister')}!"
             />
         </h1>
-        <p><postmaster:email.translate key="templates_email_group_optinDenial.text1" languageKey="{frontendUser.txFeregisterLanguageKey}" extensionName="feRegister" arguments="{0: frontendUserGroup.title}" /></p>
+        <p><postmaster:email.translate key="templates_email_group_optinDenial.text1" languageKey="{queueRecipient.languageCode}" extensionName="feRegister" arguments="{0: frontendUserGroup.title}" /></p>
     </f:section>
 </html>

@@ -313,8 +313,8 @@
 				<target>Hm, leider sind E-Mail oder Passwort falsch. Bitte prüfen Sie die Angaben noch mal.</target>
 			</trans-unit>
 			<trans-unit id="authController.error.loginBlocked">
-				<source><![CDATA[Now, unfortunately, it has happened: For security reasons, your profile has been locked after failed %s attempts. Please contact our <a href="mailto:service@example.de">Support</a> to unlock your account again.]]></source>
-				<target><![CDATA[Nun ist es leider passiert: Aus Sicherheitsgründen wurde Ihr Profil nach %s Fehlversuchen gesperrt. Bitte wenden Sie sich an unseren <a href="mailto:service@example.de">Support</a>, um Ihren Account wieder freizuschalten.]]></target>
+				<source><![CDATA[Now, unfortunately, it has happened: For security reasons, your profile has been locked after failed %s attempts. Please contact our <a href="mailto:%s">Support</a> to unlock your account again.]]></source>
+				<target><![CDATA[Nun ist es leider passiert: Aus Sicherheitsgründen wurde Ihr Profil nach %s Fehlversuchen gesperrt. Bitte wenden Sie sich an unseren <a href="mailto:%s">Support</a>, um Ihren Account wieder freizuschalten.]]></target>
 			</trans-unit>
 
 
@@ -343,8 +343,8 @@
                 <target>Geben Sie untenstehend bitte Ihre aktuellen Kontaktdaten an. Freiwillige Angaben sind entsprechend gekennzeichnet.</target>
             </trans-unit>
   			<trans-unit id="frontendUserController.message.registrationWatchForEmail">
-                <source><![CDATA[Almost there! To make sure you are really you, we have just sent you an email to the address you provided. Please confirm your registration via the link in the email. If you do not receive an email from us within the next 2-3 minutes, please check your spam filter. Our <a href="mailto:service@example.de">Support</a> will be happy to help you if you have any problems.]]></source>
-                <target><![CDATA[Fast geschafft! Um sicherzustellen, dass Sie auch wirklich Sie sind, haben wir Ihnen gerade eine E-Mail an die angegebene Adresse geschickt. Bitte bestätigen Sie über den Link in der E-Mail Ihre Registrierung. Sollten Sie innerhalb der nächsten 2-3 Minuten keine E-Mail von uns erhalten, prüfen Sie bitte Ihren Spam-Filter. Unser <a href="mailto:service@example.de">Support</a> hilft Ihnen bei Problemen gerne weiter.]]></target>
+                <source><![CDATA[Almost there! To make sure you are really you, we have just sent you an email to the address you provided. Please confirm your registration via the link in the email. If you do not receive an email from us within the next 2-3 minutes, please check your spam filter. Our <a href="mailto:%s">Support</a> will be happy to help you if you have any problems.]]></source>
+                <target><![CDATA[Fast geschafft! Um sicherzustellen, dass Sie auch wirklich Sie sind, haben wir Ihnen gerade eine E-Mail an die angegebene Adresse geschickt. Bitte bestätigen Sie über den Link in der E-Mail Ihre Registrierung. Sollten Sie innerhalb der nächsten 2-3 Minuten keine E-Mail von uns erhalten, prüfen Sie bitte Ihren Spam-Filter. Unser <a href="mailto:%s">Support</a> hilft Ihnen bei Problemen gerne weiter.]]></target>
             </trans-unit>
 			<trans-unit id="frontendUserController.message.updateSuccessful">
                 <source>Woohoo! Your profile data has been updated.</source>
@@ -355,8 +355,8 @@
                 <target>Schade, dass Sie uns verlassen. Ihr Profil wurde erfolgreich gelöscht, wir würden uns aber natürlich freuen, wenn Sie uns trotzdem hin und wieder besuchen.</target>
             </trans-unit>
             <trans-unit id="frontendUserController.message.registrationSuccessful">
-                <source><![CDATA[Woohoo! You have been successfully registered. The password for login is on its way to you by e-mail. If you do not receive an email from us within the next 2-3 minutes, please check your spam filter. Our <a href="mailto:service@example.de">Support</a> will be happy to help you if you have any problems.]]></source>
-                <target><![CDATA[Woohoo! Sie wurden erfolgreich registriert. Das Passwort für den Login ist per E-Mail auf dem Weg zu Ihnen. Sollten Sie innerhalb der nächsten 2-3 Minuten keine E-Mail von uns erhalten, prüfen Sie bitte Ihren Spam-Filter. Unser <a href="mailto:service@example.de">Support</a> hilft Ihnen bei Problemen gerne weiter.]]></target>
+                <source><![CDATA[Woohoo! You have been successfully registered. The password for login is on its way to you by e-mail. If you do not receive an email from us within the next 2-3 minutes, please check your spam filter. Our <a href="mailto:%s">Support</a> will be happy to help you if you have any problems.]]></source>
+                <target><![CDATA[Woohoo! Sie wurden erfolgreich registriert. Das Passwort für den Login ist per E-Mail auf dem Weg zu Ihnen. Sollten Sie innerhalb der nächsten 2-3 Minuten keine E-Mail von uns erhalten, prüfen Sie bitte Ihren Spam-Filter. Unser <a href="mailto:%s">Support</a> hilft Ihnen bei Problemen gerne weiter.]]></target>
             </trans-unit>
             <trans-unit id="frontendUserController.message.registrationCanceled">
                 <source>Too bad... Your registration was canceled.</source>
@@ -381,9 +381,13 @@
                 <source><![CDATA[Copy the link below and keep it safe. Only with this link you can log in again at a later time. The link is valid %s days.<br><br> %s]]></source>
                 <target><![CDATA[Kopieren Sie den nachstehenden Link und heben Sie ihn gut auf. Nur mit diesem Link können Sie sich zu einem späteren Zeitpunkt erneut einloggen. Der Link ist %s Tage gültig.<br><br> %s]]></target>
             </trans-unit>
+            <trans-unit id="frontendUserController.message.guestLink2">
+                <source><![CDATA[You are logged in as a guest. Please note that you can only use a limited range of functions with guest access. If you have full access, please log out as a guest first.<br><br>Below you will find your personal guest link, which you can use to log in again at a later time. The link is valid %s days.<br><br> %s]]></source>
+                <target><![CDATA[Sie sind als Gast eingeloggt. Bitte beachten Sie, dass Sie mit dem Gastzugang nur einen begrenzten Funktionsumfang nutzen können. Wenn Sie über einen vollwertigen Zugang verfügen, loggen Sie sich bitte zunächst als Gast aus.<br><br>Untenstehend finden Sie Ihren persönlichen Gast-Link, mit dem Sie sich zu einem späteren Zeitpunkt erneut einloggen können. Der Link ist %s Tage gültig.<br><br> %s]]></target>
+            </trans-unit>
   			<trans-unit id="frontendUserGroupController.message.registrationWatchForEmail">
-                <source><![CDATA[Almost there! To make sure you are really you, we have just sent you an email to the address you provided. Please confirm your wish to join the group via the link in the email. If you do not receive an email from us within the next 2-3 minutes, please check your spam filter. Our <a href="mailto:service@example.de">Support</a> will be happy to help you if you have any problems.]]></source>
-                <target><![CDATA[Fast geschafft! Um sicherzustellen, dass Sie auch wirklich Sie sind, haben wir Ihnen gerade eine E-Mail an die angegebene Adresse geschickt. Bitte bestätigen Sie über den Link in der E-Mail Ihren Wunsch des Gruppenbeitritts. Sollten Sie innerhalb der nächsten 2-3 Minuten keine E-Mail von uns erhalten, prüfen Sie bitte Ihren Spam-Filter. Unser <a href="mailto:service@example.de">Support</a> hilft Ihnen bei Problemen gerne weiter.]]></target>
+                <source><![CDATA[Almost there! To make sure you are really you, we have just sent you an email to the address you provided. Please confirm your wish to join the group via the link in the email. If you do not receive an email from us within the next 2-3 minutes, please check your spam filter. Our <a href="mailto:%s">Support</a> will be happy to help you if you have any problems.]]></source>
+                <target><![CDATA[Fast geschafft! Um sicherzustellen, dass Sie auch wirklich Sie sind, haben wir Ihnen gerade eine E-Mail an die angegebene Adresse geschickt. Bitte bestätigen Sie über den Link in der E-Mail Ihren Wunsch des Gruppenbeitritts. Sollten Sie innerhalb der nächsten 2-3 Minuten keine E-Mail von uns erhalten, prüfen Sie bitte Ihren Spam-Filter. Unser <a href="mailto:%s>Support</a> hilft Ihnen bei Problemen gerne weiter.]]></target>
             </trans-unit>
             <trans-unit id="frontendUserGroupController.message.successful">
                 <source>Woohoo! Joining the group was successfully confirmed.</source>
@@ -442,24 +446,24 @@
 				<target>Bitte tragen Sie hier zunächst Ihr altes Passwort und dann darunter zwei Mal das gewünschte neue Passwort ein.</target>
 			</trans-unit>
 			<trans-unit id="passwordController.message.newPassword">
-				<source><![CDATA[If a user with this e-mail address exists, we have just emailed you your new password. If you do not receive an email from us within the next 2-3 minutes, please check your spam filter. Our <a href="mailto:service@example.de">Support</a> will be happy to help you with any problems.]]></source>
-				<target><![CDATA[Sofern ein Nutzer mit dieser E-Mail Adresse existiert, haben wir Ihnen Ihr neues Passwort soeben per E-Mail zugesendet. Sollten Sie innerhalb der nächsten 2-3 Minuten keine E-Mail von uns erhalten, prüfen Sie bitte Ihren Spam-Filter. Unser <a href="mailto:service@example.de">Support</a> hilft Ihnen bei Problemen gerne weiter.]]></target>
+				<source><![CDATA[If a user with this e-mail address exists, we have just emailed you your new password. If you do not receive an email from us within the next 2-3 minutes, please check your spam filter. Our <a href="%s">Support</a> will be happy to help you with any problems.]]></source>
+				<target><![CDATA[Sofern ein Nutzer mit dieser E-Mail Adresse existiert, haben wir Ihnen Ihr neues Passwort soeben per E-Mail zugesendet. Sollten Sie innerhalb der nächsten 2-3 Minuten keine E-Mail von uns erhalten, prüfen Sie bitte Ihren Spam-Filter. Unser <a href="mailto:%s">Support</a> hilft Ihnen bei Problemen gerne weiter.]]></target>
 			</trans-unit>
 			<trans-unit id="passwordController.message.updatedPassword">
 				<source>Woohoo! Your password has been changed. Please use the new password for login from now on.</source>
 				<target>Woohoo! Ihr Passwort wurde geändert. Bitte benutzen Sie ab sofort das neue Passwort für den Login.</target>
 			</trans-unit>
             <trans-unit id="passwordController.error.lockedAccount">
-                 <source><![CDATA[For security reasons, your access has been blocked due to repeated incorrect password entry. Please contact our <a href="mailto:service@example.de">support</a>.]]></source>
-                 <target><![CDATA[Aus Sicherheitsgründen wurde Ihr Zugang aufgrund wiederholt falscher Passworteingabe gesperrt. Bitte wenden Sie sich an unseren <a href="mailto:service@example.de">Support</a>.]]></target>
+                 <source><![CDATA[For security reasons, your access has been blocked due to repeated incorrect password entry. Please contact our <a href="mailto:%s">support</a>.]]></source>
+                 <target><![CDATA[Aus Sicherheitsgründen wurde Ihr Zugang aufgrund wiederholt falscher Passworteingabe gesperrt. Bitte wenden Sie sich an unseren <a href="mailto:%s">Support</a>.]]></target>
             </trans-unit>
 			<trans-unit id="passwordController.error.noUsername">
 				<source>Please enter your e-mail address.</source>
 				<target>Bitte geben Sie Ihre E-Mail-Adresse ein.</target>
 			</trans-unit>
             <trans-unit id="passwordController.error.passwordNotUpdated">
-                <source><![CDATA[Something went wrong! The password could not be changed. Please contact our <a href="mailto:service@example.de">Support</a>.]]></source>
-                <target><![CDATA[Da ist etwas schief gelaufen! Das Passwort konnte nicht geändert werden. Wenden Sie sich bitte an unseren <a href="mailto:service@example.de">Support</a>.]]></target>
+                <source><![CDATA[Something went wrong! The password could not be changed. Please contact our <a href="mailto:%s">Support</a>.]]></source>
+                <target><![CDATA[Da ist etwas schief gelaufen! Das Passwort konnte nicht geändert werden. Wenden Sie sich bitte an unseren <a href="mailto:%s">Support</a>.]]></target>
             </trans-unit>
 
 
@@ -744,8 +748,8 @@
 
             <!-- Templates/ViewHelpers/Consent/Marketing.html -->
 			<trans-unit id="templates_viewHelpers_consent_marketing.default">
-				<source><![CDATA[I expressly consent to receive advertising about interesting products and survey requests from %s by e-mail. My consent is voluntary and can be revoked at any time with effect for the future by email to <a href="mailto:service@example.de">service@example.de</a> with effect for the future.]]></source>
-				<target><![CDATA[Ich willige ausdrücklich ein, von %s Werbung über interessante Produkte und Umfrageanfragen per E-Mail zu erhalten. Meine Einwilligung ist freiwillig und kann jederzeit mit Wirkung für die Zukunft per Mail an <a href="mailto:service@example.de">service@example.de</a> widerrufen werden.]]></target>
+				<source><![CDATA[I expressly consent to receive advertising about interesting products and survey requests from %s by e-mail. My consent is voluntary and can be revoked at any time with effect for the future by email to <a href="mailto:%s">%2$s</a> with effect for the future.]]></source>
+				<target><![CDATA[Ich willige ausdrücklich ein, dass %s mir Werbung über interessante Produkte und Umfrageanfragen per E-Mail zusendet. Meine Einwilligung ist freiwillig und kann jederzeit mit Wirkung für die Zukunft per Mail an <a href="mailto:%s">%2$s</a> widerrufen werden.]]></target>
 			</trans-unit>
 
 

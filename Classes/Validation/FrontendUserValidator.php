@@ -53,9 +53,11 @@ class FrontendUserValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abst
     /**
      * validation
      *
-     * @var \Madj2k\FeRegister\Domain\Model\FrontendUser $value
      * @return boolean
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     * @throws \TYPO3\CMS\Core\Context\Exception\AspectNotFoundException
+     * @throws \TYPO3\CMS\Core\Context\Exception\AspectNotFoundException
+     * @var \Madj2k\FeRegister\Domain\Model\FrontendUser $value
      */
     public function isValid($value): bool
     {

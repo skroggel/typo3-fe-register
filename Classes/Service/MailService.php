@@ -15,7 +15,8 @@ namespace Madj2k\FeRegister\Service;
  */
 
 use Madj2k\CoreExtended\Utility\GeneralUtility;
-use Madj2k\Postmaster\Service\MailService as PostmasterMailService;
+use Madj2k\Postmaster\Mail\MailMassage;
+use Madj2k\Postmaster\Mail\MailMessage;
 use Madj2k\Postmaster\Utility\FrontendLocalizationUtility;
 use Madj2k\FeRegister\Domain\Model\FrontendUser;
 use Madj2k\FeRegister\Domain\Model\OptIn;
@@ -53,8 +54,8 @@ class MailService implements \TYPO3\CMS\Core\SingletonInterface
 
         if ($settings['view']['templateRootPaths']) {
 
-            /** @var \Madj2k\Postmaster\Service\MailService $mailService */
-            $mailService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(PostmasterMailService::class);
+            /** @var \Madj2k\Postmaster\Mail\MailMessage $mailService */
+            $mailService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(MailMessage::class);
 
             // send new user an email with token
             $mailService->setTo($frontendUser, array(
@@ -104,8 +105,8 @@ class MailService implements \TYPO3\CMS\Core\SingletonInterface
         $settingsDefault = $this->getSettings();
         if ($settings['view']['templateRootPaths']) {
 
-            /** @var \Madj2k\Postmaster\Service\MailService $mailService */
-            $mailService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(PostmasterMailService::class);
+            /** @var \Madj2k\Postmaster\Mail\MailMessage $mailService */
+            $mailService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(MailMessage::class);
 
             // send new user an email with token
             $mailService->setTo(
@@ -156,8 +157,8 @@ class MailService implements \TYPO3\CMS\Core\SingletonInterface
 
         if ($settings['view']['templateRootPaths']) {
 
-            /** @var \Madj2k\Postmaster\Service\MailService $mailService */
-            $mailService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(PostmasterMailService::class);
+            /** @var \Madj2k\Postmaster\Mail\MailMessage $mailService */
+            $mailService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(MailMessage::class);
 
             // send new user an email with token
             $mailService->setTo($frontendUser, array(
@@ -213,8 +214,8 @@ class MailService implements \TYPO3\CMS\Core\SingletonInterface
             && (count($approvals))
         ){
 
-            /** @var \Madj2k\Postmaster\Service\MailService $mailService */
-            $mailService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(PostmasterMailService::class);
+            /** @var \Madj2k\Postmaster\Mail\MailMessage $mailService */
+            $mailService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(MailMessage::class);
 
             /** @var \Madj2k\FeRegister\Domain\Model\BackendUser $backendUser */
             foreach ($approvals as $backendUser) {
@@ -276,8 +277,8 @@ class MailService implements \TYPO3\CMS\Core\SingletonInterface
 
         if ($settings['view']['templateRootPaths']) {
 
-            /** @var \Madj2k\Postmaster\Service\MailService $mailService */
-            $mailService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(PostmasterMailService::class);
+            /** @var \Madj2k\Postmaster\Mail\MailMessage $mailService */
+            $mailService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(MailMessage::class);
 
             // send new user an email with token
             $mailService->setTo($frontendUser, array(
@@ -334,8 +335,8 @@ class MailService implements \TYPO3\CMS\Core\SingletonInterface
             && (count($approvals))
         ){
 
-            /** @var \Madj2k\Postmaster\Service\MailService $mailService */
-            $mailService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(PostmasterMailService::class);
+            /** @var \Madj2k\Postmaster\Mail\MailMessage $mailService */
+            $mailService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(MailMessage::class);
 
             /** @var \Madj2k\FeRegister\Domain\Model\BackendUser $backendUser */
             foreach ($approvals as $backendUser) {
@@ -394,8 +395,8 @@ class MailService implements \TYPO3\CMS\Core\SingletonInterface
 
         if ($settings['view']['templateRootPaths']) {
 
-            /** @var \Madj2k\Postmaster\Service\MailService $mailService */
-            $mailService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(PostmasterMailService::class);
+            /** @var \Madj2k\Postmaster\Mail\MailMessage $mailService */
+            $mailService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(MailMessage::class);
 
             // send new user an email with token
             $mailService->setTo($frontendUser, array(
@@ -449,8 +450,8 @@ class MailService implements \TYPO3\CMS\Core\SingletonInterface
 
         if ($settings['view']['templateRootPaths']) {
 
-            /** @var \Madj2k\Postmaster\Service\MailService $mailService */
-            $mailService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(PostmasterMailService::class);
+            /** @var \Madj2k\Postmaster\Mail\MailMessage $mailService */
+            $mailService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(MailMessage::class);
 
             // send new user an email with token
             $mailService->setTo(

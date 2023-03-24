@@ -406,11 +406,30 @@ class DataProtectionHandler
                 if (
                     ($repository = $this->getRepositoryByModelClassName($encryptedData->getForeignClass()))
                     && ($object = $this->getRepositoryResults($repository, 'uid', $encryptedData->getForeignUid())->getFirst())
+                    && ($tempObject =  GeneralUtility::makeInstance($encryptedData->getForeignClass()))
                 ){
+
                     foreach ($data as $property => $value) {
                         $setter = 'set' . ucfirst($property);
-                        if(method_exists($object, $setter)) {
-                            $object->$setter($this->getDecryptedString($value, $email));
+                        $getter = 'get' . ucfirst($property);
+                        if (
+                            (method_exists($object, $setter))
+                            && (method_exists($object, $getter))
+                        ) {
+
+                            $decryptedValue = $this->getDecryptedString($value, $email);
+                            switch (gettype($tempObject->$getter())) {
+                                case 'boolean':
+                                    $decryptedValue = boolval($decryptedValue);
+                                    break;
+                                case 'integer':
+                                    $decryptedValue = intval($decryptedValue);
+                                    break;
+                                case 'double':
+                                    $decryptedValue = floatval($decryptedValue);
+                                    break;
+                            }
+                            $object->$setter($decryptedValue);
                         }
                     }
                     return $object;

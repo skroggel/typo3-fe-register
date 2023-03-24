@@ -14,15 +14,15 @@
             fallbackText="<postmaster:email.translate key='templates_email_confirmation.headline' languageKey='{queueRecipient.languageCode}' extensionName='feRegister' />" 
             />\n\n
         
-        <postmaster:email.translate key="templates_email_confirmation.teaser" languageKey="{frontendUser.txFeregisterLanguageKey}" extensionName="feRegister" />\n\n
+        <postmaster:email.translate key="templates_email_confirmation.teaser" languageKey="{queueRecipient.languageCode}" extensionName="feRegister" />\n\n
         
-        <postmaster:email.translate key="templates_email_confirmation.text1" languageKey="{frontendUser.txFeregisterLanguageKey}" extensionName="feRegister"/>:\n
-        <postmaster:email.translate key="templates_email_confirmation.username" languageKey="{frontendUser.txFeregisterLanguageKey}" extensionName="feRegister"/>: {frontendUser.username}\n
-        <postmaster:email.translate key="templates_email_confirmation.password" languageKey="{frontendUser.txFeregisterLanguageKey}" extensionName="feRegister"/>: {plaintextPasswordForMail}\n
+        <postmaster:email.translate key="templates_email_confirmation.text1" languageKey="{queueRecipient.languageCode}" extensionName="feRegister"/>:\n
+        <postmaster:email.translate key="templates_email_confirmation.username" languageKey="{queueRecipient.languageCode}" extensionName="feRegister"/>: {frontendUser.username}\n
+        <postmaster:email.translate key="templates_email_confirmation.password" languageKey="{queueRecipient.languageCode}" extensionName="feRegister"/>: {plaintextPasswordForMail}\n
         
-        <postmaster:email.translate key="templates_email_confirmation.text2" languageKey="{frontendUser.txFeregisterLanguageKey}" extensionName="feRegister" />\n\n
+        <postmaster:email.translate key="templates_email_confirmation.text2" languageKey="{queueRecipient.languageCode}" extensionName="feRegister" />\n\n
         
-        <postmaster:email.translate key="templates_email_passwordReset.loginLabel" languageKey="{frontendUser.txFeregisterLanguageKey}" extensionName="feRegister" />:\n
+        <postmaster:email.translate key="templates_email_passwordReset.loginLabel" languageKey="{queueRecipient.languageCode}" extensionName="feRegister" />:\n
         <postmaster:email.uri.page pageUid="{settings.loginPid}" noCacheHash="true"/>
     </postmaster:email.plaintextLineBreaks></f:section>
     
@@ -34,16 +34,16 @@
             appendText="!"
             fallbackText="<postmaster:email.translate key='templates_email_confirmation.headline' languageKey='{queueRecipient.languageCode}' extensionName='feRegister' />"
         /></h1>
-        <p><postmaster:email.translate key="templates_email_confirmation.teaser" languageKey="{frontendUser.txFeregisterLanguageKey}" extensionName="feRegister"/></p>
+        <p><postmaster:email.translate key="templates_email_confirmation.teaser" languageKey="{queueRecipient.languageCode}" extensionName="feRegister"/></p>
         <p>
-            <postmaster:email.translate key="templates_email_confirmation.text1" languageKey="{frontendUser.txFeregisterLanguageKey}" extensionName="feRegister"/>:<br/>
-            <postmaster:email.translate key="templates_email_confirmation.username" languageKey="{frontendUser.txFeregisterLanguageKey}" extensionName="feRegister"/>: <strong>{frontendUser.username}</strong><br/>
-            <postmaster:email.translate key="templates_email_confirmation.password" languageKey="{frontendUser.txFeregisterLanguageKey}" extensionName="feRegister"/>: <strong>{plaintextPasswordForMail}</strong>
+            <postmaster:email.translate key="templates_email_confirmation.text1" languageKey="{queueRecipient.languageCode}" extensionName="feRegister"/>:<br/>
+            <postmaster:email.translate key="templates_email_confirmation.username" languageKey="{queueRecipient.languageCode}" extensionName="feRegister"/>: <strong>{frontendUser.username}</strong><br/>
+            <postmaster:email.translate key="templates_email_confirmation.password" languageKey="{queueRecipient.languageCode}" extensionName="feRegister"/>: <strong>{plaintextPasswordForMail}</strong>
         </p>
-        <p><postmaster:email.translate key="templates_email_confirmation.text2" languageKey="{frontendUser.txFeregisterLanguageKey}" extensionName="feRegister" /></p>
+        <p><postmaster:email.translate key="templates_email_confirmation.text2" languageKey="{queueRecipient.languageCode}" extensionName="feRegister" /></p>
         <p>
             <a href="{postmaster:email.uri.page(pageUid: settings.loginPid, noCacheHash: true)}">
-                <postmaster:email.translate key="templates_email_passwordReset.loginLabel" languageKey="{frontendUser.txFeregisterLanguageKey}" extensionName="feRegister" />
+                <postmaster:email.translate key="templates_email_passwordReset.loginLabel" languageKey="{queueRecipient.languageCode}" extensionName="feRegister" />
             </a>
         </p>
     </f:section>

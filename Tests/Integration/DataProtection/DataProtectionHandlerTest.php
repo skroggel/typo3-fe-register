@@ -49,6 +49,7 @@ class DataProtectionHandlerTest extends FunctionalTestCase
     protected $testExtensionsToLoad = [
         'typo3conf/ext/ajax_api',
         'typo3conf/ext/core_extended',
+        'typo3conf/ext/accelerator',
         'typo3conf/ext/fe_register',
     ];
 
@@ -644,6 +645,8 @@ class DataProtectionHandlerTest extends FunctionalTestCase
 
         self::assertCount(20, $encryptedDataArray);
         self::assertEquals(49, strlen($encryptedDataArray['username']));
+
+        var_dump(serialize($encryptedDataArray));
 
     }
 

@@ -1,6 +1,6 @@
 <?php
-
 namespace Madj2k\FeRegister\Registration;
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -15,8 +15,10 @@ namespace Madj2k\FeRegister\Registration;
  */
 
 use Madj2k\FeRegister\DataProtection\ConsentHandler;
+use Madj2k\FeRegister\Domain\Model\FrontendUser;
 use Madj2k\FeRegister\Exception;
 use Madj2k\FeRegister\Utility\FrontendUserSessionUtility;
+use Madj2k\FeRegister\Utility\FrontendUserUtility;
 use Madj2k\FeRegister\Utility\PasswordUtility;
 use TYPO3\CMS\Core\Log\LogLevel;
 
@@ -30,6 +32,30 @@ use TYPO3\CMS\Core\Log\LogLevel;
  */
 class FrontendUserRegistration extends AbstractRegistration
 {
+
+    /**
+     * Sets the frontendUser
+     *
+     * @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
+     * @return self
+     * @throws Exception
+     * @throws \TYPO3\CMS\Core\Context\Exception\AspectNotFoundException
+     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     */
+    public function setFrontendUser(FrontendUser $frontendUser): self
+    {
+        // check if a user is of the right type - no GuestUsers allowed here
+        if (FrontendUserUtility::isGuestUser($frontendUser)) {
+
+            throw new Exception(
+                'The given frontendUser is an instance of GuestUser. This is not allowed here.',
+                1678359846
+            );
+        }
+
+        return parent::setFrontendUser($frontendUser);
+    }
 
 
     /**
@@ -79,7 +105,11 @@ class FrontendUserRegistration extends AbstractRegistration
         }
 
         // check if a user is logged in. In this case no registration is possible!
-        if (FrontendUserSessionUtility::getLoggedInUserId()) {
+        // except for those faggot GuestUsers
+        if (
+            (FrontendUserSessionUtility::getLoggedInUserId())
+            && (! FrontendUserUtility::isGuestUser(FrontendUserSessionUtility::getLoggedInUser()))
+        ){
             throw new Exception(
                 'It is not possible to register a new user when already logged in.',
                 1659691717

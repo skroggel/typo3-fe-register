@@ -195,6 +195,44 @@ call_user_func(
         );
 
         //=================================================================
+        // AuthService
+        //=================================================================
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService(
+            $extKey,
+            'auth',
+            \Madj2k\FeRegister\Service\FrontendUserAuthenticationService::class,
+            [
+                'title' => 'Authentication Service for fe_users as normal users',
+                'description' => 'Authentication Service for fe_users as normal users',
+                'subtype' => 'getUserFE, authUserFE, getGroupsFE, processLoginDataFE',
+                'available' => true,
+                'priority' => 90,
+                'quality' => 50,
+                'os' => '',
+                'exec' => '',
+                'className' => \Madj2k\FeRegister\Service\FrontendUserAuthenticationService::class
+            ]
+        );
+
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService(
+            $extKey,
+            'auth',
+            \Madj2k\FeRegister\Service\GuestUserAuthenticationService::class,
+            [
+                'title' => 'Authentication Service for fe_users as guests',
+                'description' => 'Authentication Service for fe_users as guests',
+                'subtype' => 'getUserFE, authUserFE, getGroupsFE, processLoginDataFE',
+                'available' => true,
+                'priority' => 80,
+                'quality' => 50,
+                'os' => '',
+                'exec' => '',
+                'className' => \Madj2k\FeRegister\Service\GuestUserAuthenticationService::class
+            ]
+        );
+
+
+        //=================================================================
         // Register Logger
         //=================================================================
         $GLOBALS['TYPO3_CONF_VARS']['LOG']['Madj2k']['FeRegister']['writerConfiguration'] = [
@@ -205,54 +243,11 @@ call_user_func(
                 // add a FileWriter
                 'TYPO3\\CMS\\Core\\Log\\Writer\\FileWriter' => [
                     // configuration for the writer
-                    'logFile' => 'typo3temp/var/logs/tx_feregister.log'
+                    'logFile' => \TYPO3\CMS\Core\Core\Environment::getVarPath()  . '/log/tx_feregister.log'
                 ]
             ],
         ];
 
-
-        //=================================================================
-        // AuthService
-        //=================================================================
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService(
-            $_EXTKEY,
-            'auth',
-            \Madj2k\FeRegister\Service\FrontendUserAuthenticationService::class,
-            [
-                'title' => 'Authentication Service for fe_users',
-                'description' => 'Authentication Service for fe_users',
-                'subtype' => 'getUserFE, authUserFE, getGroupsFE, processLoginDataFE',
-                'available' => true,
-                'priority' => 90,
-                'quality' => 90,
-                'os' => '',
-                'exec' => '',
-                'className' => \Madj2k\FeRegister\Service\FrontendUserAuthenticationService::class
-            ]
-        );
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService(
-            $_EXTKEY,
-            'auth',
-            \Madj2k\FeRegister\Service\GuestUserAuthenticationService::class,
-            [
-                'title' => 'Authentication Service for fe_users',
-                'description' => 'Authentication Service for fe_users',
-                'subtype' => 'getUserFE, authUserFE, getGroupsFE, processLoginDataFE',
-                'available' => true,
-                'priority' => 80,
-                'quality' => 80,
-                'os' => '',
-                'exec' => '',
-                'className' => \Madj2k\FeRegister\Service\GuestUserAuthenticationService::class
-            ]
-        );
-
-        //=================================================================
-        // XClasses
-        //=================================================================
-        $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication::class] = [
-            'className' => Madj2k\FeRegister\XClasses\Frontend\Authentication\FrontendUserAuthentication::class
-        ];
 
     },
     $_EXTKEY

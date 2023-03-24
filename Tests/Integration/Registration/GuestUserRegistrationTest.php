@@ -51,6 +51,7 @@ class GuestUserRegistrationTest extends FunctionalTestCase
     protected $testExtensionsToLoad = [
         'typo3conf/ext/ajax_api',
         'typo3conf/ext/core_extended',
+        'typo3conf/ext/accelerator',
         'typo3conf/ext/postmaster',
         'typo3conf/ext/fe_register'
     ];
@@ -184,6 +185,33 @@ class GuestUserRegistrationTest extends FunctionalTestCase
     }
 
     #==============================================================================
+
+    /**
+     * @test
+     * @throws \Exception
+     */
+    public function setFrontendUserThrowsExceptionOnNormalUser ()
+    {
+        /**
+         * Scenario:
+         *
+         * Given a frontendUser-object
+         * Given the frontendUser is an instance \Madj2k\FeRegister\Domain\Model\FrontendUser
+         * Given this object has a random username set
+         * When the method is called
+         * Then the exception is an instance of \Madj2k\FeRegister\Exception
+         * Then the exception has the code 1407312134
+         */
+        static::expectException(\Madj2k\FeRegister\Exception::class);
+        static::expectExceptionCode(1678359847);
+
+        /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
+        $frontendUser = GeneralUtility::makeInstance(FrontendUser::class);
+        $frontendUser->setUsername('RandomValue');
+
+        $this->fixture->setFrontendUser($frontendUser);
+    }
+
 
     /**
      * @test

@@ -42,14 +42,13 @@ class FrontendUser extends \Madj2k\CoreExtended\Domain\Model\FrontendUser
     /**
      * !!!! THIS SHOULD NEVER BE PERSISTED !!!!
      *
-     * @var \Madj2k\FeRegister\Domain\Model\FrontendUserGroup
+     * @var \Madj2k\FeRegister\Domain\Model\FrontendUserGroup|null
      */
-    protected string $_tempFrontendUserGroup;
+    protected ?FrontendUserGroup $_tempFrontendUserGroup = null;
 
 
     /**
      * @var string
-     * @validate \SJBR\SrFreecap\Validation\Validator\CaptchaValidator
      */
     protected string $captchaResponse = '';
 

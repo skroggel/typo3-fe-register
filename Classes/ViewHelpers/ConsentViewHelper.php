@@ -58,7 +58,8 @@ class ConsentViewHelper extends AbstractViewHelper
         $this->registerArgument('pageUid', 'int', 'The pid of the first page which will be linked.', false, '0');
         $this->registerArgument('pageUid2', 'int', 'The pid of the second page which will be linked.', false, '0');
         $this->registerArgument('type', 'string', 'The type. Allowed values are: privacy, terms, marketing.', false, 'privacy');
-        $this->registerArgument('companyName', 'string', 'The name of the company. This is inserted into the texts.', false, 'Example Company');
+        $this->registerArgument('companyName', 'string', 'The name of the company. This is inserted into the texts.', false, '');
+        $this->registerArgument('companyEmail', 'string', 'The email of the company for revocation of consent. This is inserted into the texts.', false, '');
 
     }
 
@@ -86,6 +87,12 @@ class ConsentViewHelper extends AbstractViewHelper
         $companyName = $this->arguments['companyName'];
         if (!$companyName) {
             $companyName = $settings['settings']['consent']['companyName'];
+        }
+
+        /** @var string $companyEmail */
+        $companyEmail = $this->arguments['companyEmail'];
+        if (!$companyEmail) {
+            $companyEmail = $settings['settings']['consent']['companyEmail'];
         }
 
         $formData = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP(self::NAMESPACE);
@@ -120,7 +127,8 @@ class ConsentViewHelper extends AbstractViewHelper
                 'checked' => $checked,
                 'pageUid'  => $pageUid,
                 'pageUid2'  => $pageUid2,
-                'companyName' => $companyName
+                'companyName' => $companyName,
+                'companyEmail' => $companyEmail
             ]
         );
 

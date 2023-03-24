@@ -1,11 +1,13 @@
 module.tx_feregister {
     settings {
 
-        # cat=plugin.tx_feregister//a; type=integer; label=Pid of terms of use
-        termsPid = 2
+        consent {
+            # cat=plugin.tx_feregister//a; type=integer; label=Pid of terms of use
+            termsPid = 2
 
-        # cat=plugin.tx_feregister//a; type=integer; label=Pid of terms & conditions
-        terms2Pid = 3
+            # cat=plugin.tx_feregister//a; type=integer; label=Pid of terms & conditions
+            terms2Pid = 3
+        }
     }
 }
 

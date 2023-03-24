@@ -243,7 +243,7 @@
 				<source>Hm, unfortunately email or password are wrong. Please check the information again.</source>
 			</trans-unit>
 			<trans-unit id="authController.error.loginBlocked">
-				<source><![CDATA[Now, unfortunately, it has happened: For security reasons, your profile has been locked after failed %s attempts. Please contact our <a href="mailto:service@example.de">Support</a> to unlock your account again.]]></source>
+				<source><![CDATA[Now, unfortunately, it has happened: For security reasons, your profile has been locked after failed %s attempts. Please contact our <a href="mailto:%s">Support</a> to unlock your account again.]]></source>
 			</trans-unit>
 
 
@@ -266,11 +266,14 @@
 			<trans-unit id="frontendUserController.message.guestLink">
 				<source><![CDATA[Copy the link below and keep it safe. Only with this link you can log in again at a later time. The link is valid %s days.<br><br> %s]]></source>
 			</trans-unit>
+            <trans-unit id="frontendUserController.message.guestLink2">
+                <source><![CDATA[You are logged in as a guest. This is your personal login link, which you can use to log in again at a later time. The link is valid %s days.<br><br> %s]]></source>
+            </trans-unit>
 			<trans-unit id="frontendUserController.notice.editIntroduction">
 				<source>Please provide your current contact information below. Voluntary information is marked accordingly.</source>
 			</trans-unit>
 			<trans-unit id="frontendUserController.message.registrationWatchForEmail">
-				<source><![CDATA[Almost there! To make sure you are really you, we have just sent you an email to the address you provided. Please confirm your registration via the link in the email. If you do not receive an email from us within the next 2-3 minutes, please check your spam filter. Our <a href="mailto:service@example.de">Support</a> will be happy to help you if you have any problems.]]></source>
+				<source><![CDATA[Almost there! To make sure you are really you, we have just sent you an email to the address you provided. Please confirm your registration via the link in the email. If you do not receive an email from us within the next 2-3 minutes, please check your spam filter. Our <a href="mailto:%s">Support</a> will be happy to help you if you have any problems.]]></source>
 			</trans-unit>
 			<trans-unit id="frontendUserController.message.updateSuccessful">
 				<source>Woohoo! Your profile data has been updated.</source>
@@ -279,7 +282,7 @@
 				<source>It is a pity that you are leaving us. Your profile has been successfully deleted, but of course we would be happy if you still visit us from time to time.</source>
 			</trans-unit>
 			<trans-unit id="frontendUserController.message.registrationSuccessful">
-				<source><![CDATA[Woohoo! You have been successfully registered. The password for login is on its way to you by e-mail. If you do not receive an email from us within the next 2-3 minutes, please check your spam filter. Our <a href="mailto:service@example.de">Support</a> will be happy to help you if you have any problems.]]></source>
+				<source><![CDATA[Woohoo! You have been successfully registered. The password for login is on its way to you by e-mail. If you do not receive an email from us within the next 2-3 minutes, please check your spam filter. Our <a href="mailto:%s">Support</a> will be happy to help you if you have any problems.]]></source>
 			</trans-unit>
 			<trans-unit id="frontendUserController.message.registrationCanceled">
 				<source>Too bad... Your registration was canceled.</source>
@@ -297,7 +300,7 @@
 				<source>Please select which group you want to join or change your membership status here.</source>
 			</trans-unit>
 			<trans-unit id="frontendUserGroupController.message.registrationWatchForEmail">
-				<source><![CDATA[Almost there! To make sure you are really you, we have just sent you an email to the address you provided. Please confirm your wish to join the group via the link in the email. If you do not receive an email from us within the next 2-3 minutes, please check your spam filter. Our <a href="mailto:service@example.de">Support</a> will be happy to help you if you have any problems.]]></source>
+				<source><![CDATA[Almost there! To make sure you are really you, we have just sent you an email to the address you provided. Please confirm your wish to join the group via the link in the email. If you do not receive an email from us within the next 2-3 minutes, please check your spam filter. Our <a href="mailto:%s">Support</a> will be happy to help you if you have any problems.]]></source>
 			</trans-unit>
 			<trans-unit id="frontendUserGroupController.message.successful">
 				<source>Woohoo! Joining the group was successfully confirmed.</source>
@@ -343,19 +346,19 @@
 				<source>Please enter your old password here first and then enter the desired new password twice below.</source>
 			</trans-unit>
 			<trans-unit id="passwordController.message.newPassword">
-				<source><![CDATA[If a user with this e-mail address exists, we have just emailed you your new password. If you do not receive an email from us within the next 2-3 minutes, please check your spam filter. Our <a href="mailto:service@example.de">Support</a> will be happy to help you with any problems.]]></source>
+				<source><![CDATA[If a user with this e-mail address exists, we have just emailed you your new password. If you do not receive an email from us within the next 2-3 minutes, please check your spam filter. Our <a href="mailto:%s">Support</a> will be happy to help you with any problems.]]></source>
 			</trans-unit>
 			<trans-unit id="passwordController.message.updatedPassword">
 				<source>Woohoo! Your password has been changed. Please use the new password for login from now on.</source>
 			</trans-unit>
 			<trans-unit id="passwordController.error.lockedAccount">
-				 <source><![CDATA[For security reasons, your access has been blocked due to repeated incorrect password entry. Please contact our <a href="mailto:service@example.de">support</a>.]]></source>
+				 <source><![CDATA[For security reasons, your access has been blocked due to repeated incorrect password entry. Please contact our <a href="mailto:%s">support</a>.]]></source>
 			</trans-unit>
 			<trans-unit id="passwordController.error.noUsername">
 				<source>Please enter your e-mail address.</source>
 			</trans-unit>
 			<trans-unit id="passwordController.error.passwordNotUpdated">
-				<source><![CDATA[Something went wrong! The password could not be changed. Please contact our <a href="mailto:service@example.de">Support</a>.]]></source>
+				<source><![CDATA[Something went wrong! The password could not be changed. Please contact our <a href="mailto:%s">Support</a>.]]></source>
 			</trans-unit>
 
 
@@ -578,7 +581,7 @@
 
 			<!-- Templates/ViewHelpers/Consent/Marketing.html -->
 			<trans-unit id="templates_viewHelpers_consent_marketing.default">
-				<source><![CDATA[I expressly consent to receive advertising about interesting products and survey requests from %s by e-mail. My consent is voluntary and can be revoked at any time with effect for the future by email to <a href="mailto:service@example.de">service@example.de</a> with effect for the future.]]></source>
+				<source><![CDATA[I expressly consent to receive advertising about interesting products and survey requests from %s by e-mail. My consent is voluntary and can be revoked at any time with effect for the future by email to <a href="mailto:%s">%2$s</a> with effect for the future.]]></source>
 			</trans-unit>
 
 

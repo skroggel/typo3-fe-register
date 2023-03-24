@@ -8,4 +8,11 @@
         <perms_everybody>15</perms_everybody>
     </pages>
 
+    <pages>
+        <uid>88</uid>
+        <pid>1</pid>
+        <title>Data Storage</title>
+        <doktype>1</doktype>
+        <perms_everybody>15</perms_everybody>
+    </pages>
 </dataset>

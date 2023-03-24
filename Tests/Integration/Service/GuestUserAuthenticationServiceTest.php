@@ -14,6 +14,7 @@ namespace Madj2k\FeRegister\Tests\Integration\Service;
  * The TYPO3 project - inspiring people to share!
  */
 
+use Madj2k\FeRegister\Domain\Repository\GuestUserRepository;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use Madj2k\CoreExtended\Utility\FrontendSimulatorUtility;
 use Madj2k\FeRegister\Controller\AuthGuestController;
@@ -41,6 +42,7 @@ class GuestUserAuthenticationServiceTest extends FunctionalTestCase
      */
     const FIXTURE_PATH = __DIR__ . '/GuestUserAuthenticationService/Fixtures';
 
+
     /**
      * @var string[]
      */
@@ -50,14 +52,18 @@ class GuestUserAuthenticationServiceTest extends FunctionalTestCase
         'extensionmanager'
     ];
 
+
     /**
      * @var string[]
      */
     protected $testExtensionsToLoad = [
         'typo3conf/ext/ajax_api',
         'typo3conf/ext/core_extended',
+        'typo3conf/ext/accelerator',
         'typo3conf/ext/postmaster',
-        'typo3conf/ext/fe_register'
+        'typo3conf/ext/fe_register',
+        'typo3conf/ext/persisted_sanitized_routing',
+        'typo3conf/ext/sr_freecap'
     ];
 
 
@@ -71,6 +77,12 @@ class GuestUserAuthenticationServiceTest extends FunctionalTestCase
      * @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository|null
      */
     private ?FrontendUserRepository $frontendUserRepository = null;
+
+
+    /**
+     * @var \Madj2k\FeRegister\Domain\Repository\GuestRepository|null
+     */
+    private ?GuestUserRepository $guestUserRepository = null;
 
 
     /**
@@ -93,11 +105,16 @@ class GuestUserAuthenticationServiceTest extends FunctionalTestCase
             ]
         );
 
+        FrontendSimulatorUtility::simulateFrontendEnvironment(1);
+
         /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
         $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 
         /** @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository frontendUserRepository */
         $this->frontendUserRepository = $this->objectManager->get(FrontendUserRepository::class);
+
+        /** @var \Madj2k\FeRegister\Domain\Repository\GuestUserRepository guestUserRepository */
+        $this->guestUserRepository = $this->objectManager->get(GuestUserRepository::class);
 
     }
 
@@ -116,14 +133,12 @@ class GuestUserAuthenticationServiceTest extends FunctionalTestCase
          * Given that frontendUser is enabled
          * Given that frontendUser has a random string as username
          * Given that username matches AbstractRegistration::RANDOM_STRING_LENGTH
-         * Given that frontendUser is not an instance of \Madj2k\FeRegister\Domain\Model\GuestUser
+         * Given that frontendUser is NOT an instance of \Madj2k\FeRegister\Domain\Model\GuestUser
          * When the frontendUser is logging in using only the username
          * Then the login fails
          * Then no login-session is generated
          */
         $this->importDataSet(self::FIXTURE_PATH .'/Database/Check10.xml');
-
-        FrontendSimulatorUtility::simulateFrontendEnvironment(1);
 
         /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
         $frontendUser = $this->frontendUserRepository->findByIdentifier(10);
@@ -141,7 +156,6 @@ class GuestUserAuthenticationServiceTest extends FunctionalTestCase
         $persistenceManager = $this->objectManager->get(PersistenceManager::class);
         $persistenceManager->clearState();
 
-        FrontendSimulatorUtility::resetFrontendEnvironment();
     }
 
 
@@ -157,20 +171,18 @@ class GuestUserAuthenticationServiceTest extends FunctionalTestCase
          * Given a persisted frontendUser
          * Given that frontendUser is enabled
          * Given that frontendUser has an email-address as username
-         * Given that frontendUser is not an instance of \Madj2k\FeRegister\Domain\Model\GuestUser
+         * Given that frontendUser IS an instance of \Madj2k\FeRegister\Domain\Model\GuestUser
          * When the frontendUser is logging in using only the username
          * Then the login fails
          * Then no login-session is generated
          */
-        $this->importDataSet(self::FIXTURE_PATH .'/Database/Check10.xml');
+        $this->importDataSet(self::FIXTURE_PATH .'/Database/Check20.xml');
 
-        FrontendSimulatorUtility::simulateFrontendEnvironment(1);
-
-        /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
-        $frontendUser = $this->frontendUserRepository->findByIdentifier(10);
+        /** @var \Madj2k\FeRegister\Domain\Model\GuestUser $guestUser */
+        $guestUser = $this->guestUserRepository->findByIdentifier(20);
 
         $_POST['logintype'] = 'login';
-        $_POST['user'] = $frontendUser->getUsername();
+        $_POST['user'] = $guestUser->getUsername();
         $_POST['pass'] = '';
 
         $authService = GeneralUtility::makeInstance(FrontendUserAuthentication::class);
@@ -182,7 +194,6 @@ class GuestUserAuthenticationServiceTest extends FunctionalTestCase
         $persistenceManager = $this->objectManager->get(PersistenceManager::class);
         $persistenceManager->clearState();
 
-        FrontendSimulatorUtility::resetFrontendEnvironment();
     }
 
 
@@ -199,20 +210,18 @@ class GuestUserAuthenticationServiceTest extends FunctionalTestCase
          * Given that frontendUser is enabled
          * Given that frontendUser has a random string as username
          * Given that username does not match AbstractRegistration::RANDOM_STRING_LENGTH
-         * Given that frontendUser is not an instance of \Madj2k\FeRegister\Domain\Model\GuestUser
+         * Given that frontendUser IS an instance of \Madj2k\FeRegister\Domain\Model\GuestUser
          * When the frontendUser is logging in using only the username
          * Then the login fails
          * Then no login-session is generated
          */
-        $this->importDataSet(self::FIXTURE_PATH .'/Database/Check10.xml');
+        $this->importDataSet(self::FIXTURE_PATH .'/Database/Check30.xml');
 
-        FrontendSimulatorUtility::simulateFrontendEnvironment(1);
-
-        /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
-        $frontendUser = $this->frontendUserRepository->findByIdentifier(10);
+        /** @var \Madj2k\FeRegister\Domain\Model\GuestUser $guestUser */
+        $guestUser = $this->guestUserRepository->findByIdentifier(30);
 
         $_POST['logintype'] = 'login';
-        $_POST['user'] = AuthGuestController::
+        $_POST['user'] = $guestUser->getUsername();
         $_POST['pass'] = '';
 
         $authService = GeneralUtility::makeInstance(FrontendUserAuthentication::class);
@@ -224,7 +233,6 @@ class GuestUserAuthenticationServiceTest extends FunctionalTestCase
         $persistenceManager = $this->objectManager->get(PersistenceManager::class);
         $persistenceManager->clearState();
 
-        FrontendSimulatorUtility::resetFrontendEnvironment();
     }
 
 
@@ -241,20 +249,18 @@ class GuestUserAuthenticationServiceTest extends FunctionalTestCase
          * Given that frontendUser is enabled
          * Given that frontendUser has a random string as username
          * Given that username matches AbstractRegistration::RANDOM_STRING_LENGTH
-         * Given that frontendUser is an instance of \Madj2k\FeRegister\Domain\Model\GuestUser
+         * Given that frontendUser is instance of \Madj2k\FeRegister\Domain\Model\GuestUser
          * When the frontendUser is logging in using only the username
          * Then the login succeeds
          * Then a login-session is generated
          */
         $this->importDataSet(self::FIXTURE_PATH .'/Database/Check40.xml');
 
-        FrontendSimulatorUtility::simulateFrontendEnvironment(1);
-
-        /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
-        $frontendUser = $this->frontendUserRepository->findByIdentifier(40);
+        /** @var \Madj2k\FeRegister\Domain\Model\GuestUser $guestUser */
+        $guestUser = $this->guestUserRepository->findByIdentifier(40);
 
         $_POST['logintype'] = 'login';
-        $_POST['user'] = $frontendUser->getUsername();
+        $_POST['user'] = $guestUser->getUsername();
         $_POST['pass'] = '';
 
         $authService = GeneralUtility::makeInstance(FrontendUserAuthentication::class);
@@ -266,7 +272,6 @@ class GuestUserAuthenticationServiceTest extends FunctionalTestCase
         $persistenceManager = $this->objectManager->get(PersistenceManager::class);
         $persistenceManager->clearState();
 
-        FrontendSimulatorUtility::resetFrontendEnvironment();
     }
 
     #==============================================================================
@@ -277,6 +282,9 @@ class GuestUserAuthenticationServiceTest extends FunctionalTestCase
     protected function teardown(): void
     {
         parent::tearDown();
+
+        FrontendSimulatorUtility::resetFrontendEnvironment();
+
     }
 
 }

@@ -35,7 +35,7 @@ class ShippingAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * @var int
-     * @TYPO3\CMS\Extbase\Annotation\Validate("\Madj2k\FeRegister\Validation\GenderValidator")
+     * @TYPO3\CMS\Extbase\Annotation\Validate("Madj2k\FeRegister\Validation\GenderValidator")
      */
     protected int $gender = 99;
 
@@ -78,7 +78,7 @@ class ShippingAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("\Madj2k\FeRegister\Validation\ZipValidator")
+     * @TYPO3\CMS\Extbase\Annotation\Validate("Madj2k\FeRegister\Validation\ZipValidator")
      */
     protected string $zip = '';
 
