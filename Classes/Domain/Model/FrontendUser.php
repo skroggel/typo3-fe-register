@@ -50,12 +50,6 @@ class FrontendUser extends \Madj2k\CoreExtended\Domain\Model\FrontendUser
     /**
      * @var string
      */
-    protected string $captchaResponse = '';
-
-
-    /**
-     * @var string
-     */
     protected string $txFeregisterMobile = '';
 
 
@@ -174,27 +168,6 @@ class FrontendUser extends \Madj2k\CoreExtended\Domain\Model\FrontendUser
     public function setTempFrontendUserGroup(FrontendUserGroup $tempFrontendUserGroup): void
     {
         $this->_tempFrontendUserGroup = $tempFrontendUserGroup;
-    }
-
-
-    /**
-     * Sets the captchaResponse
-     *
-     * @param string $captchaResponse
-     * @return void
-     */
-    public function setCaptchaResponse(string $captchaResponse): void {
-        $this->captchaResponse = $captchaResponse;
-    }
-
-
-    /**
-     * Getter for captchaResponse
-     *
-     * @return string
-     */
-    public function getCaptchaResponse(): string {
-        return $this->captchaResponse;
     }
 
 

@@ -54,25 +54,25 @@ class TitleListViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractView
      * @param array $arguments
      * @param \Closure $renderChildrenClosure
      * @param RenderingContextInterface $renderingContext
-     * @return string
+     * @return mixed
      */
     static public function renderStatic(
         array $arguments,
         \Closure $renderChildrenClosure,
         RenderingContextInterface $renderingContext
-    ): string {
+    ) {
 
         /** @var bool $showTitleBefore */
-        $showTitleBefore = $arguments['showTitleBefore'];
+        $showTitleBefore = (bool) $arguments['showTitleBefore'];
 
         /** @var bool $showTitleAfter */
-        $showTitleAfter = $arguments['showTitleAfter'];
+        $showTitleAfter = (bool) $arguments['showTitleAfter'];
 
         /** @var bool $returnArray */
-        $returnArray = $arguments['returnArray'];
+        $returnArray = (bool) $arguments['returnArray'];
 
         /** @var bool $returnJson */
-        $returnJson = $arguments['returnJson'];
+        $returnJson = (bool) $arguments['returnJson'];
 
         /** @var string $mapProperty */
         $mapProperty = $arguments['mapProperty'];

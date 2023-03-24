@@ -110,6 +110,7 @@ class FrontendUserController extends AbstractController
      * @TYPO3\CMS\Extbase\Annotation\Validate("Madj2k\FeRegister\Validation\Consent\TermsValidator", param="frontendUser")
      * @TYPO3\CMS\Extbase\Annotation\Validate("Madj2k\FeRegister\Validation\Consent\PrivacyValidator", param="frontendUser")
      * @TYPO3\CMS\Extbase\Annotation\Validate("Madj2k\FeRegister\Validation\Consent\MarketingValidator", param="frontendUser")
+     * @TYPO3\CMS\Extbase\Annotation\Validate("Madj2k\CoreExtended\Validation\CaptchaValidator", param="frontendUser")
      */
     public function createAction(FrontendUser $frontendUser): void
     {
@@ -124,7 +125,7 @@ class FrontendUserController extends AbstractController
         $this->addFlashMessage(
             LocalizationUtility::translate(
                 'frontendUserController.message.registrationWatchForEmail',
-                $this->extensionName
+                $this->extensionName,
                 [
                     $this->settings['companyEmail']
                 ]
