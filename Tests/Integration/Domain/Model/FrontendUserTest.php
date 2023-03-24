@@ -62,8 +62,7 @@ class FrontendUserTest extends FunctionalTestCase
         'typo3conf/ext/accelerator',
         'typo3conf/ext/postmaster',
         'typo3conf/ext/fe_register',
-        'typo3conf/ext/persisted_sanitized_routing',
-        'typo3conf/ext/sr_freecap'
+        'typo3conf/ext/persisted_sanitized_routing'
     ];
 
 
