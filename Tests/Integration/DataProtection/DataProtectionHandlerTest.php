@@ -646,8 +646,6 @@ class DataProtectionHandlerTest extends FunctionalTestCase
         self::assertCount(20, $encryptedDataArray);
         self::assertEquals(49, strlen($encryptedDataArray['username']));
 
-        var_dump(serialize($encryptedDataArray));
-
     }
 
     //===================================================================

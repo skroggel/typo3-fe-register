@@ -47,6 +47,7 @@ class UniqueEmailValidatorTest extends FunctionalTestCase
     protected $coreExtensionsToLoad = [
         'saltedpasswords',
         'filemetadata',
+        'seo',
         'extensionmanager'
     ];
 

@@ -38,7 +38,6 @@ module.tx_feregister  {
     settings {
         users {
             storagePid = 99
-            languageKeyOnRegister = ru
             daysForOptIn = 7
             lifetime = 10000
             groupsOnRegister = 20,21

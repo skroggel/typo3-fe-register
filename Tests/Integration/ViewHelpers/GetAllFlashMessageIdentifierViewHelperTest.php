@@ -41,6 +41,7 @@ class GetAllFlashMessageIdentifierViewHelperTest extends FunctionalTestCase
     protected $coreExtensionsToLoad = [
         'saltedpasswords',
         'filemetadata',
+        'seo',
         'extensionmanager'
     ];
 

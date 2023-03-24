@@ -15,10 +15,10 @@ namespace Madj2k\FeRegister\Tests\Integration\Registration;
  *
  */
 
+use Madj2k\FeRegister\Domain\Repository\GuestUserRepository;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use Madj2k\CoreExtended\Utility\FrontendSimulatorUtility;
 use Madj2k\FeRegister\Domain\Model\FrontendUser;
-use Madj2k\FeRegister\Domain\Model\FrontendUserGroup;
 use Madj2k\FeRegister\Domain\Model\GuestUser;
 use Madj2k\FeRegister\Domain\Model\OptIn;
 use Madj2k\FeRegister\Domain\Repository\BackendUserRepository;
@@ -28,7 +28,6 @@ use Madj2k\FeRegister\Domain\Repository\OptInRepository;
 use Madj2k\FeRegister\Domain\Repository\ConsentRepository;
 use Madj2k\FeRegister\Registration\FrontendUserRegistration;
 use Madj2k\FeRegister\Utility\FrontendUserSessionUtility;
-use Madj2k\FeRegister\Utility\FrontendUserUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -75,6 +74,12 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
      * @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository|null
      */
     private ?FrontendUserRepository $frontendUserRepository;
+
+
+    /**
+     * @var \Madj2k\FeRegister\Domain\Repository\GuestUserRepository|null
+     */
+    private ?GuestUserRepository $guestUserRepository;
 
 
     /**
@@ -131,8 +136,7 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
                 'EXT:fe_register/Configuration/TypoScript/constants.typoscript',
                 self::FIXTURE_PATH . '/Frontend/Configuration/Rootpage.typoscript',
             ],
-            ['rkw-kompetenzzentrum.local' => self::FIXTURE_PATH .  '/Frontend/Configuration/config.yaml']
-
+            ['example.com' => self::FIXTURE_PATH .  '/Frontend/Configuration/config.yaml']
         );
 
         /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
@@ -143,6 +147,9 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
 
         /** @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository frontendUserRepository */
         $this->frontendUserRepository = $this->objectManager->get(FrontendUserRepository::class);
+
+        /** @var \Madj2k\FeRegister\Domain\Repository\GuestUserRepository guestUserRepository */
+        $this->guestUserRepository = $this->objectManager->get(GuestUserRepository::class);
 
         /** @var \Madj2k\FeRegister\Domain\Repository\FrontendUserGroupRepository frontendUserGroupRepository */
         $this->frontendUserGroupRepository = $this->objectManager->get(FrontendUserGroupRepository::class);
@@ -159,7 +166,7 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = 'mail@example.com';
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'] = 'Default';
 
-        FrontendSimulatorUtility::simulateFrontendEnvironment(1);
+        FrontendSimulatorUtility::simulateFrontendEnvironment(1, 2);
 
     }
 
@@ -299,17 +306,17 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
          * When the method is called
          * Then self is returned
          */
-        $this->importDataSet(self::FIXTURE_PATH .'/Database/Check30.xml');
-
-        /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
-        $frontendUser = $this->frontendUserRepository->findByIdentifier(30);
-        $frontendUserGroup = $this->frontendUserGroupRepository->findByIdentifier(30);
-
-        FrontendSimulatorUtility::simulateFrontendEnvironment(1);
-        FrontendUserSessionUtility::simulateLogin($frontendUser, $frontendUserGroup);
+        $this->importDataSet(self::FIXTURE_PATH .'/Database/Check200.xml');
 
         /** @var \Madj2k\FeRegister\Domain\Model\GuestUser $frontendUser */
-        $frontendUser = GeneralUtility::makeInstance(GuestUser::class);
+        $guestUser = $this->guestUserRepository->findByIdentifier(200);
+        $frontendUserGroup = $this->frontendUserGroupRepository->findByIdentifier(200);
+
+        FrontendSimulatorUtility::simulateFrontendEnvironment(1);
+        FrontendUserSessionUtility::simulateLogin($guestUser, $frontendUserGroup);
+
+        /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
+        $frontendUser = GeneralUtility::makeInstance(FrontendUser::class);
         $frontendUser->setEmail('test@example.de');
 
         self::assertInstanceOf(FrontendUserRegistration::class, $this->fixture->setFrontendUser($frontendUser));
@@ -422,7 +429,7 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
         $frontendUser->setEmail('test@test.de');
 
         $this->fixture->setFrontendUser($frontendUser);
-        self::assertEquals('de', $frontendUser->getTxFeregisterLanguageKey());
+        self::assertEquals('ru', $frontendUser->getTxFeregisterLanguageKey());
 
     }
 
@@ -1960,7 +1967,7 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
          * Then the exception has the code 1659691717
          */
         static::expectException(\Madj2k\FeRegister\Exception::class);
-        static::expectExceptionCode(1659691717);
+        static::expectExceptionCode(1666014579);
 
         $this->importDataSet(self::FIXTURE_PATH .'/Database/Check30.xml');
 
@@ -2001,14 +2008,14 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
          * When the method is called
          * Then true is returned
          */
-        $this->importDataSet(self::FIXTURE_PATH .'/Database/Check31.xml');
+        $this->importDataSet(self::FIXTURE_PATH .'/Database/Check200.xml');
 
-        /** @var \Madj2k\FeRegister\Domain\Model\GuestUser $frontendUser */
-        $frontendUser = $this->frontendUserRepository->findByIdentifier(31);
-        $frontendUserGroup = $this->frontendUserGroupRepository->findByIdentifier(31);
+        /** @var \Madj2k\FeRegister\Domain\Model\GuestUser $guestUser */
+        $guestUser = $this->guestUserRepository->findByIdentifier(200);
+        $frontendUserGroup = $this->frontendUserGroupRepository->findByIdentifier(200);
 
         FrontendSimulatorUtility::simulateFrontendEnvironment(1);
-        FrontendUserSessionUtility::simulateLogin($frontendUser, $frontendUserGroup);
+        FrontendUserSessionUtility::simulateLogin($guestUser, $frontendUserGroup);
 
         /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
         $frontendUser = GeneralUtility::makeInstance(FrontendUser::class);
