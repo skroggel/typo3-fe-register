@@ -15,6 +15,7 @@ namespace Madj2k\FeRegister\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
+use Madj2k\FeRegister\Registration\GuestUserRegistration;
 use Madj2k\FeRegister\Utility\FrontendUserUtility;
 use Madj2k\Postmaster\UriBuilder\EmailUriBuilder;
 use Madj2k\FeRegister\Domain\Model\FrontendUser;
@@ -43,6 +44,13 @@ class FrontendUserController extends AbstractController
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected FrontendUserRegistration $frontendUserRegistration;
+
+
+    /**
+     * @var \Madj2k\FeRegister\Registration\GuestUserRegistration
+     * @TYPO3\CMS\Extbase\Annotation\Inject
+     */
+    protected GuestUserRegistration $guestUserRegistration;
 
 
     /**
@@ -421,7 +429,7 @@ class FrontendUserController extends AbstractController
     public function showAction(): void
     {
         // for logged-in users only!
-        $this->redirectIfUserNotLoggedInOrGuest();
+        $this->redirectIfUserNotLoggedIn();
 
         $this->addFlashMessage(
             LocalizationUtility::translate(
@@ -453,15 +461,24 @@ class FrontendUserController extends AbstractController
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\NotImplementedException
      * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
      * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
     public function deleteAction(): void
     {
         // for logged-in users only!
-        $this->redirectIfUserNotLoggedInOrGuest();
+        $this->redirectIfUserNotLoggedIn();
 
-        $this->frontendUserRegistration->setFrontendUser($this->getFrontendUser())
-            ->setRequest($this->request)
-            ->endRegistration();
+        if (FrontendUserUtility::isGuestUser($this->getFrontendUser())) {
+            $this->guestUserRegistration->setFrontendUser($this->getFrontendUser())
+                ->setRequest($this->request)
+                ->endRegistration();
+
+        } else {
+            $this->frontendUserRegistration->setFrontendUser($this->getFrontendUser())
+                ->setRequest($this->request)
+                ->endRegistration();
+        }
+
 
         $this->addFlashMessage(
             LocalizationUtility::translate(

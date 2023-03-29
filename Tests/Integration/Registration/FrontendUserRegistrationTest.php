@@ -3335,7 +3335,7 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
          * Scenario:
          *
          * Given a persisted frontendUser-object
-         * Given that frontendUser is disabled
+         * Given that frontendUser is not disabled
          * Given the email-address of the object has been changed during object-lifetime without persisting
          * Given this object has a valid value for the email-property set
          * Given setFrontendUser has been called with this frontendUser-object as parameter

@@ -27,6 +27,7 @@ use Madj2k\FeRegister\Registration\GuestUserRegistration;
 use Madj2k\FeRegister\Utility\FrontendUserSessionUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 /**
  * GuestUserRegisterTest
@@ -726,6 +727,190 @@ class GuestUserRegistrationTest extends FunctionalTestCase
         self::assertEmpty($guestUserDatabase->getTempPlaintextPassword());
         self::assertEquals(0, $this->consentRepository->countAll());
 
+    }
+
+    #==============================================================================
+
+    /**
+     * @test
+     * @throws \Exception
+     */
+    public function endRegistrationThrowsExceptionIfNoFrontendUserPersisted ()
+    {
+
+
+        /**
+         * Scenario:
+         *
+         * Given a non-persisted guestUser-object
+         * Given setFrontendUser has been called with this frontendUser-object as parameter
+         * When the method is called
+         * Then the exception is an instance of \Madj2k\FeRegister\Exception
+         * Then the exception has the code 1661163918
+         */
+        static::expectException(\Madj2k\FeRegister\Exception::class);
+        static::expectExceptionCode(1661163918);
+
+        $frontendUser = GeneralUtility::makeInstance(GuestUser::class);
+
+        $this->fixture->setFrontendUser($frontendUser);
+        $this->fixture->endRegistration();
+
+    }
+
+
+    /**
+     * @test
+     * @throws \Exception
+     */
+    public function endRegistrationReturnsTrueAndPerformsLogoutForLoggedInUser ()
+    {
+
+        /**
+         * Scenario:
+         *
+         * Given a persisted guestUser-object
+         * Given this guestUser-object is not disabled
+         * Given a persisted userGroup
+         * Given simulateLogin has been called with both as parameters before
+         * Given simulateLogin has returned true
+         * When the method is called
+         * Then true is returned
+         * Then the guestUser is logged out
+         */
+
+        $this->importDataSet(self::FIXTURE_PATH . '/Database/Check30.xml');
+
+        /** @var \Madj2k\FeRegister\Domain\Model\GuestUser $guestUser */
+        $guestUser = $this->guestUserRepository->findByUid(30);
+
+        /** @var \Madj2k\FeRegister\Domain\Model\FrontendUserGroup $frontendUserGroup */
+        $frontendUserGroup = $this->frontendUserGroupRepository->findByUid(30);
+
+        FrontendSimulatorUtility::simulateFrontendEnvironment(1);
+        self::assertTrue(FrontendUserSessionUtility::simulateLogin($guestUser, $frontendUserGroup));
+        $this->fixture->setFrontendUser($guestUser);
+
+        self::assertTrue($this->fixture->endRegistration());
+        self::assertFalse(FrontendUserSessionUtility::isUserLoggedIn($guestUser));
+
+        FrontendSimulatorUtility::resetFrontendEnvironment();
+
+    }
+
+
+    /**
+     * @test
+     * @throws \Exception
+     */
+    public function endRegistrationReturnsTrueMarksFrontendUserAsDeleted ()
+    {
+
+        /**
+         * Scenario:
+         *
+         * Given a persisted guestUser-object
+         * Given this guestUser-object is not disabled
+         * Given a persisted userGroup
+         * When the method is called
+         * Then true is returned
+         * Then the frontendUser is marked as deleted
+         */
+
+        $this->importDataSet(self::FIXTURE_PATH . '/Database/Check10.xml');
+
+        /** @var \Madj2k\FeRegister\Domain\Model\GuestUser $frontendUser */
+        $guestUser = $this->guestUserRepository->findByUid(10);
+
+        $this->fixture->setFrontendUser($guestUser);
+        self::assertTrue($this->fixture->endRegistration());
+
+        $persistenceManager = $this->objectManager->get(PersistenceManager::class);
+        $persistenceManager->clearState();
+
+        /** @var \Madj2k\FeRegister\Domain\Model\GuestUser $guestUser */
+        $guestUser = $this->guestUserRepository->findByIdentifierIncludingDeleted(10);
+        self::assertTrue($guestUser->getDeleted());
+
+    }
+
+
+    /**
+     * @test
+     * @throws \Exception
+     */
+    public function endRegistrationReturnsFalseOnDisabledUser ()
+    {
+
+        /**
+         * Scenario:
+         *
+         * Given a persisted guestUser-object
+         * Given this guestUser-object is disabled
+         * Given a persisted userGroup
+         * When the method is called
+         * Then false is returned
+         * Then the frontendUser is not marked as deleted
+         */
+
+        $this->importDataSet(self::FIXTURE_PATH . '/Database/Check40.xml');
+
+        /** @var \Madj2k\FeRegister\Domain\Model\GuestUser $guestUser */
+        $guestUser = $this->guestUserRepository->findByIdentifierIncludingDisabled(40);
+
+        $this->fixture->setFrontendUser($guestUser);
+        self::assertFalse($this->fixture->endRegistration());
+
+        $persistenceManager = $this->objectManager->get(PersistenceManager::class);
+        $persistenceManager->clearState();
+
+        /** @var \Madj2k\FeRegister\Domain\Model\GuestUser $guestUser */
+        $guestUser = $this->guestUserRepository->findByIdentifierIncludingDeleted(40);
+        self::assertFalse($guestUser->getDeleted());
+
+    }
+
+
+    /**
+     * @test
+     * @throws \Exception
+     */
+    public function endRegistrationReturnsTrueAndUpdatesRawFrontendUser ()
+    {
+        /**
+         * Scenario:
+         *
+         * Given a persisted guestUser-object
+         * Given that guestUser-object is not disabled
+         * Given the email-address of the object has been changed during object-lifetime without persisting
+         * Given this object has a valid value for the email-property set
+         * Given setFrontendUser has been called with this guestUser-object as parameter
+         * When the method is called
+         * Then true is returned
+         * Then the guestUser-object is marked as deleted
+         * Then getFrontendUser returns the same object as getFrontendUserPersisted
+         * Then the changed email-address is dismissed
+         */
+        $this->importDataSet(self::FIXTURE_PATH . '/Database/Check10.xml');
+
+        /** @var \Madj2k\FeRegister\Domain\Model\GuestUser $guestUser */
+        $guestUser = $this->guestUserRepository->findByUid(10);
+        $guestUser->setEmail('merz@cdu.de');
+
+        $this->fixture->setFrontendUser($guestUser);
+        self::assertTrue($this->fixture->endRegistration());
+
+        $persistenceManager = $this->objectManager->get(PersistenceManager::class);
+        $persistenceManager->clearState();
+
+        /** @var \Madj2k\FeRegister\Domain\Model\GuestUser $guestUser */
+        $guestUser = $this->guestUserRepository->findByIdentifierIncludingDeleted(10);
+        self::assertTrue($guestUser->getDeleted());
+
+        $guestUserPersisted = $this->fixture->getFrontendUserPersisted();
+        $frontendUserRaw = $this->fixture->getFrontendUser();
+
+        self::assertSame($guestUserPersisted, $frontendUserRaw);
     }
 
     #==============================================================================
