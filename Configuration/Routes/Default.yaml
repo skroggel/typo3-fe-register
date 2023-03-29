@@ -88,6 +88,8 @@ routeEnhancers:
         _controller: 'FrontendUser::show'
       - routePath: '/fe-register/delete'
         _controller: 'FrontendUser::delete'
+      - routePath: '/fe-register/index'
+        _controller: 'Auth::index'
     defaultController: 'Auth::index'
 
   FeRegister6:
