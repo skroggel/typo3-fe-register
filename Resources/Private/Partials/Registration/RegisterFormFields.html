@@ -15,9 +15,11 @@
         />
     </div>
 
-    <f:if condition="<feRegister:titleList />">
-        <f:render partial="Registration/SingleFields/TitleField" arguments="{_all}" />
-    </f:if>
+    <f:comment>
+        <f:if condition="<feRegister:titleList />">
+            <f:render partial="FrontendUser/SingleFields/TitleField" arguments="{_all}" />
+        </f:if>
+    </f:comment>
 
     <div class="form__field width100">
         <label for="firstName">
