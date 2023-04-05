@@ -39,6 +39,10 @@
                 <source>Mrs.</source>
                 <target>Frau</target>
             </trans-unit>
+            <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.2">
+                <source>Mx.</source>
+                <target>Divers</target>
+            </trans-unit>
             <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.99">
                 <source>Not set</source>
                 <target>Nicht gesetzt</target>
@@ -79,6 +83,10 @@
 			<trans-unit id="tx_feregister_domain_model_frontenduser.title">
 				<source>Title (overridden)</source>
 				<target>Titel (wird überschrieben)</target>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.consent_privacy">
+				<source>Consent to Privacy policy</source>
+				<target>Einwilligung zur Datenschutzerklärung erteilt</target>
 			</trans-unit>
 			<trans-unit id="tx_feregister_domain_model_frontenduser.consent_terms">
 				<source>Consent to Terms of Use given</source>

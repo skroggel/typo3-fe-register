@@ -58,6 +58,7 @@ CREATE TABLE fe_users
 	tx_feregister_login_error_count      tinyint(4) DEFAULT '0' NOT NULL,
 
 	tx_feregister_consent	    			    varchar(255) DEFAULT ''        NOT NULL,
+	tx_feregister_consent_privacy			  tinyint(1) DEFAULT '0' NOT NULL,
 	tx_feregister_consent_terms				  tinyint(1) DEFAULT '0' NOT NULL,
 	tx_feregister_consent_marketing      tinyint(1) DEFAULT '0' NOT NULL,
 	tx_feregister_data_protection_status tinyint(4) DEFAULT '0' NOT NULL,

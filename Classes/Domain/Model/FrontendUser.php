@@ -104,6 +104,12 @@ class FrontendUser extends \Madj2k\CoreExtended\Domain\Model\FrontendUser
     /**
      * @var bool
      */
+    protected bool $txFeregisterConsentPrivacy = false;
+
+
+    /**
+     * @var bool
+     */
     protected bool $txFeregisterConsentTerms = false;
 
 
@@ -392,6 +398,30 @@ class FrontendUser extends \Madj2k\CoreExtended\Domain\Model\FrontendUser
     {
         return $this->txFeregisterDataProtectionStatus;
     }
+
+
+    /**
+     * Sets the txFeregisterConsentTerms value
+     *
+     * @param bool $txFeregisterConsentPrivacy
+     * @return void
+     *
+     */
+    public function setTxFeregisterConsentPrivacy(bool $txFeregisterConsentPrivacy): void
+    {
+        $this->txFeregisterConsentPrivacy = $txFeregisterConsentPrivacy;
+    }
+
+
+    /**
+     * Returns the txFeregisterConsentPrivacyvalue
+     * @return bool
+     */
+    public function getTxFeregisterConsentPrivacy(): bool
+    {
+        return $this->txFeregisterConsentPrivacy;
+    }
+
 
 
     /**

@@ -30,6 +30,11 @@ config.tx_extbase.persistence {
         Madj2k\CoreExtended\Domain\Model\FrontendUser {
             subclasses {
                 Tx_FeRegister_FrontendUser = Madj2k\FeRegister\Domain\Model\FrontendUser
+            }
+        }
+
+        Madj2k\FeRegister\Domain\Model\FrontendUser {
+            subclasses {
                 Tx_FeRegister_GuestUser = Madj2k\FeRegister\Domain\Model\GuestUser
             }
         }

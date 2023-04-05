@@ -605,6 +605,7 @@ class ConsentHandlerTest extends FunctionalTestCase
          * Given the method has been called before with the optIn-object as referenceObject-parameter
          * When the method is called with optIn-object as referenceObject-parameter and final-parameter equals true
          * Then an instance of Madj2k\FeRegister\Domain\Model\Consent is returned
+         * Then txFeRegisterConsentPrivcay-property of the frontendUser is set to true*
          * Then txFeRegisterConsentTerms-property of the frontendUser is set to true
          * Then txFeRegisterConsentMarketing-property of the frontendUser is set to true
          */
@@ -648,6 +649,7 @@ class ConsentHandlerTest extends FunctionalTestCase
 
         self::assertInstanceOf(Consent::class, $result);
 
+        self::assertEquals(true, $frontendUser->getTxFeregisterConsentPrivacy());
         self::assertEquals(true, $frontendUser->getTxFeregisterConsentTerms());
         self::assertEquals(true, $frontendUser->getTxFeregisterConsentMarketing());
 
@@ -672,6 +674,7 @@ class ConsentHandlerTest extends FunctionalTestCase
          * Given the _POST-superglobal has the tx_feregister[marketing]-argument set to 1
          * When the method is called with the shippingAddress-object as referenceObject
          * Then an instance of Madj2k\FeRegister\Domain\Model\Consent is returned
+         * Then txFeRegisterConsentPrivacy-property of the frontendUser is set to true*
          * Then txFeRegisterConsentTerms-property of the frontendUser is set to true
          * Then txFeRegisterConsentMarketing-property of the frontendUser is set to true
          */
@@ -705,6 +708,7 @@ class ConsentHandlerTest extends FunctionalTestCase
 
         self::assertInstanceOf(Consent::class, $result);
 
+        self::assertEquals(true, $frontendUser->getTxFeregisterConsentPrivacy());
         self::assertEquals(true, $frontendUser->getTxFeregisterConsentTerms());
         self::assertEquals(true, $frontendUser->getTxFeregisterConsentMarketing());
     }
