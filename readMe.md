@@ -271,9 +271,8 @@ UPDATE fe_users SET tx_feregister_register_remote_ip = tx_rkwregistration_regist
 UPDATE fe_users SET tx_feregister_language_key  = tx_rkwregistration_language_key;
 UPDATE fe_users SET tx_feregister_login_error_count = tx_rkwregistration_login_error_count;
 UPDATE fe_users SET tx_feregister_data_protection_status = tx_rkwregistration_data_protection_status;
-
-UPDATE `tx_feregister_domain_model_consent` SET `consent_privacy` = 1;
-
+UPDATE fe_users INNER JOIN tx_feregister_domain_model_consent ON fe_users.uid = tx_feregister_domain_model_consent.frontend_user AND tx_feregister_domain_model_consent.parent = 0 SET fe_users.tx_feregister_consent_privacy = 1, fe_users.tx_feregister_consent_terms = 1;
+UPDATE tx_feregister_domain_model_consent SET consent_privacy = 1, consent_terms = 1  WHERE parent = 0;
 UPDATE tt_content SET list_type = 'feregister_auth' WHERE list_type = 'rkwregistration_rkwregistration' AND pi_flexform LIKE '%<value index=\"vDEF\">Registration-&gt;loginShow;%';
 UPDATE tt_content SET list_type = 'feregister_auth' WHERE list_type = 'rkwregistration_rkwregistration' AND pi_flexform LIKE '%<value index=\"vDEF\">Registration-&gt;registerShow;%';
 UPDATE tt_content SET list_type = 'feregister_welcome' WHERE list_type = 'rkwregistration_rkwregistration' AND pi_flexform LIKE '%<value index=\"vDEF\">Registration-&gt;welcome;%';

@@ -136,6 +136,7 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
                 // set consent in frontendUser
                 /** @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository $frontendUserRepository */
                 $frontendUserRepository = $objectManager->get(FrontendUserRepository::class);
+                $frontendUser->setTxFeregisterConsentPrivacy($consent->getConsentPrivacy());
                 $frontendUser->setTxFeregisterConsentTerms($consent->getConsentTerms());
                 $frontendUser->setTxFeregisterConsentMarketing($consent->getConsentMarketing());
                 $frontendUserRepository->update($frontendUser);
@@ -160,6 +161,7 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
             // set consent in frontendUser
             /** @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository $frontendUserRepository */
             $frontendUserRepository = $objectManager->get(FrontendUserRepository::class);
+            $frontendUser->setTxFeregisterConsentPrivacy($consent->getConsentPrivacy());
             $frontendUser->setTxFeregisterConsentTerms($consent->getConsentTerms());
             $frontendUser->setTxFeregisterConsentMarketing($consent->getConsentMarketing());
             $frontendUserRepository->update($frontendUser);

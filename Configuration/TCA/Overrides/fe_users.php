@@ -29,8 +29,8 @@ call_user_func(
                     'items' => [
                         ['LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.0', '0'],
                         ['LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.1', '1'],
+                        ['LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.2', '2'],
                         ['LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.99', '99'],
-
                     ],
                 ],
             ],
@@ -137,6 +137,15 @@ call_user_func(
                 ],
             ],
 
+            'tx_feregister_consent_privacy' => [
+                'exclude' => 1,
+                'label' => 'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.consent_privacy',
+                'config' => [
+                    'type' => 'check',
+                    'readOnly' => 1
+                ],
+            ],
+
             'tx_feregister_consent_terms' => [
                 'exclude' => 1,
                 'label' => 'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.consent_terms',
@@ -184,18 +193,75 @@ call_user_func(
         ];
 
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('fe_users',$tempCols);
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users','--div--;LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.socialmedia', '', '');
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users','tx_feregister_twitter_url, tx_feregister_facebook_url, tx_feregister_xing_url', '', 'after:tx_feregister_twitter_id');
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users','tx_feregister_title','','after:title');
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users','tx_feregister_gender','','before:name');
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users','tx_feregister_mobile','','after:telephone');
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users','tx_feregister_login_error_count','','after:disable');
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users',', tx_feregister_register_remote_ip, tx_feregister_language_key','','after:lockToDomain');
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users',', tx_feregister_consent_terms, tx_feregister_consent_marketing, tx_feregister_consent','','after:image');
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
+            'fe_users',
+            '--div--;LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.socialmedia',
+            '0',
+            ''
+        );
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
+            'fe_users',
+            'tx_feregister_twitter_url, tx_feregister_facebook_url, tx_feregister_xing_url',
+            '0',
+            'after:tx_feregister_twitter_id'
+        );
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
+            'fe_users',
+            'tx_feregister_title',
+            '0',
+            'after:title'
+        );
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
+            'fe_users',
+            'tx_feregister_gender',
+            '0',
+            'before:name'
+        );
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
+            'fe_users',
+            'tx_feregister_mobile',
+            '0',
+            'after:telephone'
+        );
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
+            'fe_users',
+            'tx_feregister_login_error_count',
+            '0',
+            'after:disable'
+        );
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
+            'fe_users',',
+             tx_feregister_register_remote_ip, tx_feregister_language_key',
+            '0',
+            'after:lockToDomain'
+        );
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
+            'fe_users',
+            ', tx_feregister_consent_privacy, tx_feregister_consent_terms, tx_feregister_consent_marketing, tx_feregister_consent',
+            '0',
+            'after:image'
+        );
 
+        /**
+         * Register GuestUser as Type and set visible fields accordingly
+         * @see typo3/sysext/frontend/Configuration/TCA/fe_users.php
+         */
+        $GLOBALS['TCA']['fe_users']['columns']['tx_extbase_type']['config']['items'][] = ['\Madj2k\FeRegister\Domain\Model\GuestUser', '\Madj2k\FeRegister\Domain\Model\GuestUser'];
+        $GLOBALS['TCA']['fe_users']['types']['\Madj2k\FeRegister\Domain\Model\GuestUser'] = [
+            'showitem' => '
+                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general,
+                    lastlogin,
+                --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:fe_users.tabs.personelData,
+                    tx_feregister_consent_privacy, tx_feregister_consent_terms, tx_feregister_consent
+                --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:fe_users.tabs.options,
+                    lockToDomain, tx_feregister_register_remote_ip, tx_feregister_language_key, TSconfig,
+                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,
+                    disable,tx_feregister_login_error_count,--palette--;;timeRestriction,
+                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:notes,
+                    description,
+                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:extended,
+            '
+        ];
     },
     'fe_register'
 );
-
-
-
