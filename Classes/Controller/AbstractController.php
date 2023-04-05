@@ -413,10 +413,10 @@ abstract class AbstractController extends \Madj2k\AjaxApi\Controller\AjaxAbstrac
      * Returns storagePid
      *
      * @param
-     * @return int
+     * @return string
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
      */
-    protected function getStoragePid(): int
+    protected function getStoragePids(): string
     {
         $storagePid = 0;
         $settings = \Madj2k\CoreExtended\Utility\GeneralUtility::getTypoScriptConfiguration(
@@ -424,12 +424,13 @@ abstract class AbstractController extends \Madj2k\AjaxApi\Controller\AjaxAbstrac
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
         );
 
-        if (intval($settings['persistence']['storagePid'])) {
-            $storagePid = intval($settings['persistence']['storagePid']);
+        if ($settings['persistence']['storagePid']) {
+            $storagePid = $settings['persistence']['storagePid'];
         }
 
         return $storagePid;
     }
+
 
     /**
      * Returns logger instance

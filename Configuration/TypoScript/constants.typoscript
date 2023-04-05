@@ -13,6 +13,9 @@ plugin.tx_feregister {
 	persistence {
 		# cat=plugin.tx_feregister//a; type=string; label=Default storage PID
 		storagePid =
+
+		# cat=plugin.tx_feregister//a; type=string; label=Storage PID for new records
+        storagePidNewRecords =
 	}
 
 	settings {

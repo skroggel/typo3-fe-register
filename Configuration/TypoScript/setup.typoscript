@@ -42,7 +42,7 @@ config.tx_extbase.persistence {
 		Madj2k\FeRegister\Domain\Model\FrontendUser {
 
             // storage for new records in cross-extension-context
-            newRecordStoragePid = {$plugin.tx_feregister.persistence.storagePid}
+            newRecordStoragePid = {$plugin.tx_feregister.persistence.storagePidNewRecords}
 
 			mapping {
 
@@ -70,7 +70,7 @@ config.tx_extbase.persistence {
         Madj2k\FeRegister\Domain\Model\GuestUser {
 
             // storage for new records in cross-extension-context
-            newRecordStoragePid = {$plugin.tx_feregister.persistence.storagePid}
+            newRecordStoragePid = {$plugin.tx_feregister.persistence.storagePidNewRecords}
 
             mapping {
 
@@ -107,7 +107,7 @@ config.tx_extbase.persistence {
         Madj2k\FeRegister\Domain\Model\FrontendUserGroup {
 
             // storage for new records in cross-extension-context
-            newRecordStoragePid = {$plugin.tx_feregister.persistence.storagePid}
+            newRecordStoragePid = {$plugin.tx_feregister.persistence.storagePidNewRecords}
 
             mapping {
 
@@ -133,7 +133,7 @@ config.tx_extbase.persistence {
         Madj2k\FeRegister\Domain\Model\OptIn {
 
             // storage for new records in cross-extension-context
-            newRecordStoragePid = {$plugin.tx_feregister.persistence.storagePid}
+            newRecordStoragePid = {$plugin.tx_feregister.persistence.storagePidNewRecords}
 
             mapping {
                 columns {
@@ -147,7 +147,7 @@ config.tx_extbase.persistence {
         Madj2k\FeRegister\Domain\Model\Title {
 
             // storage for new records in cross-extension-context
-            newRecordStoragePid = {$plugin.tx_feregister.persistence.storagePid}
+            newRecordStoragePid = {$plugin.tx_feregister.persistence.storagePidNewRecords}
 
             mapping {
                 columns {
@@ -164,14 +164,14 @@ config.tx_extbase.persistence {
 
 		# very important to set the storagePid explicit - otherwise it will add to the pid of related objects
 		Madj2k\FeRegister\Domain\Model\Consent {
-			newRecordStoragePid = {$plugin.tx_feregister.persistence.storagePid}
+			newRecordStoragePid = {$plugin.tx_feregister.persistence.storagePidNewRecords}
 		}
 
         #===============================================
 
         # very important to set the storagePid explicit - otherwise it will add to the pid of related objects
         Madj2k\FeRegister\Domain\Model\Title {
-            newRecordStoragePid = {$plugin.tx_feregister.persistence.storagePid}
+            newRecordStoragePid = {$plugin.tx_feregister.persistence.storagePidNewRecords}
         }
 	}
 }
@@ -204,6 +204,7 @@ plugin.tx_feregister {
 
 	persistence {
 		storagePid = {$plugin.tx_feregister.persistence.storagePid}
+		storagePidNewRecords = {$plugin.tx_feregister.persistence.storagePidNewRecords}
 	}
 
 	features {

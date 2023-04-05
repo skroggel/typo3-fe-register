@@ -32,12 +32,6 @@ class AbstractAuthenticationService extends \TYPO3\CMS\Core\Authentication\Authe
 {
 
     /**
-     * @const string
-     */
-    const SESSION_KEY = 'tx_feregister_storagePid';
-
-
-    /**
      * Initialize authentication service
      *
      * @param string $mode Subtype of the service which is used to call the service.
@@ -55,7 +49,7 @@ class AbstractAuthenticationService extends \TYPO3\CMS\Core\Authentication\Authe
         $this->db_user['type_column'] = 'tx_extbase_type';
         $this->db_user['userpassword_column'] = 'password';
         $this->db_user['usercounter_column'] = 'tx_feregister_login_error_count';
-        $this->db_user['check_pid_clause'] = '`pid` IN (' . $this->getStoragePid() . ')';
+        $this->db_user['check_pid_clause'] = '`pid` IN (' . $this->getStoragePids() . ')';
 
     }
 
@@ -91,25 +85,22 @@ class AbstractAuthenticationService extends \TYPO3\CMS\Core\Authentication\Authe
      * Returns storagePid
      *
      * @param
-     * @return int
+     * @return string
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
      */
-    protected function getStoragePid(): int
+    protected function getStoragePids(): string
     {
         $storagePid = 0;
         $settings = GeneralUtility::getTypoScriptConfiguration(
-            'Feregister',
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+            'fe_register',
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
         );
-        if (intval($settings['persistence']['storagePid'])) {
-            $storagePid = intval($settings['persistence']['storagePid']);
+
+        if ($settings['plugin.']['tx_feregister.']['persistence.']['storagePid']) {
+            $storagePid = trim(preg_replace('#[^\d,]+#', '', $settings['plugin.']['tx_feregister.']['persistence.']['storagePid']));
         }
 
-        if (intval($GLOBALS['TSFE']->fe_user->getSessionData(self::SESSION_KEY))) {
-            $storagePid = intval($GLOBALS['TSFE']->fe_user->getSessionData(self::SESSION_KEY));
-        }
-
-        return $storagePid;
+        return !empty($storagePid) ? $storagePid : "0";
     }
 
 

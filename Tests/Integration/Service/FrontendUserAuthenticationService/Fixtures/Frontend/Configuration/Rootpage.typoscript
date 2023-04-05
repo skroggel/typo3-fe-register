@@ -7,7 +7,6 @@ module.tx_feregister  {
 
     settings {
         users {
-            storagePid = 99
             maxLoginErrors = 5
         }
     }
