@@ -35,19 +35,20 @@ class GuestUserRegistration extends AbstractRegistration
 {
 
     /**
+     * Get the frontendUser object
      *
-     * @throws \Madj2k\FeRegister\Exception
-     * @throws \TYPO3\CMS\Core\Context\Exception\AspectNotFoundException
-     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @return \Madj2k\FeRegister\Domain\Model\FrontendUser|null
+     * @api
      */
-    public function __construct()
-    {
-        parent::__construct();
+    public function getFrontendUser():? FrontendUser {
 
-        /** @var \Madj2k\FeRegister\Domain\Model\GuestUser $guestUser */
-        $guestUser = GeneralUtility::makeInstance(GuestUser::class);
-        $this->setFrontendUser($guestUser);
+        // load guest if no user is set
+        if (! $this->frontendUser) {
+            /** @var \Madj2k\FeRegister\Domain\Model\GuestUser $guestUser */
+            $this->frontendUser = GeneralUtility::makeInstance(GuestUser::class);
+        }
+
+        return parent::getFrontendUser();
     }
 
 

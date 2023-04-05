@@ -112,9 +112,6 @@ class AuthController extends AbstractController
         $_POST['user'] = $login['username'];
         $_POST['pass'] = $login['password'];
 
-        // save storagePid in session because we have no access to the extension settings in the authentication service
-        $GLOBALS['TSFE']->fe_user->setAndSaveSessionData(AbstractAuthenticationService::SESSION_KEY, $this->getStoragePid());
-
         $authService = GeneralUtility::makeInstance(FrontendUserAuthentication::class);
         $authService->start();
 
