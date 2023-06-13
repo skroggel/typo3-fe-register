@@ -16,6 +16,12 @@ call_user_func(
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
             'Madj2k.FeRegister',
+            'LoginButton',
+            'FE Register: LoginButton'
+        );
+
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+            'Madj2k.FeRegister',
             'Logout',
             'FE Register: Logout'
         );
@@ -59,7 +65,7 @@ call_user_func(
         //=================================================================
         // Add Flexforms
         //=================================================================
-        $pluginName = strtolower('Auth');
+        $pluginName = strtolower('LoginButton');
         $extensionName = strtolower(\TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($extKey));
         $pluginSignature = $extensionName . '_' . $pluginName;
         $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages';

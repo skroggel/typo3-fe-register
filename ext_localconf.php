@@ -27,6 +27,18 @@ call_user_func(
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
             'Madj2k.' . $extKey,
+            'LoginButton',
+            [
+                'Auth' => 'loginButton, index'
+            ],
+            // non-cacheable actions
+            [
+                'Auth' => 'loginButton, index'
+            ]
+        );
+
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+            'Madj2k.' . $extKey,
             'Welcome',
             [
                 'FrontendUser' => 'welcome, index',
