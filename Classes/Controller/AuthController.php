@@ -90,6 +90,16 @@ class AuthController extends AbstractController
         }
     }
 
+    /**
+     * login
+     *
+     * @return void
+     */
+    public function loginButtonAction() : void
+    {
+        // nothing to do here
+    }
+
 
     /**
      * action login

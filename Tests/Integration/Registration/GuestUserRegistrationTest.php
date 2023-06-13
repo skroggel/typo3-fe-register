@@ -176,17 +176,28 @@ class GuestUserRegistrationTest extends FunctionalTestCase
 
     /**
      * @test
+     * @throws \Exception
      */
-    public function constructSetsFrontendUser ()
+    public function getFrontendUserSetsFrontendUserIfEmpty ()
     {
         /**
          * Scenario:
          *
-         * When the class is instantiated
-         * Then getFrontendUser returns an instance of \Madj2k\FeRegister\Domain\Model\GuestUser
+         * Given no frontendUser is set
+         * When the method is called
+         * Then an instance of \Madj2k\FeRegister\Domain\Model\GuestUser is returned
+         * Then this instance has a random string as username set
+         * Then this random string is no email-address
          */
 
-        self::assertInstanceOf(GuestUser::class, $this->fixture->getFrontendUser());
+        /** @var \Madj2k\FeRegister\Domain\Model\GuestUser $guestUser */
+        $guestUser = $this->fixture->getFrontendUser();
+        self::assertInstanceOf(GuestUser::class, $guestUser);
+
+        self::assertNotEquals('test@test.de', $guestUser->getUsername());
+        self::assertStringNotContainsString('@', $guestUser->getUsername());
+
+
     }
 
     #==============================================================================

@@ -90,12 +90,18 @@ abstract class AbstractController extends \Madj2k\AjaxApi\Controller\AjaxAbstrac
     {
         parent::initializeView($view);
 
-        // set referrer in session when calling Auth:Auth->index
+        // set referrer in session when calling Auth:Auth->index or LoginButton:Auth->loginButton
         // this is the main login page
         if (
-            ($this->getRequest()->getPluginName() == 'Auth')
+            (
+                ($this->getRequest()->getPluginName() == 'Auth')
+                || ($this->getRequest()->getPluginName() == 'LoginButton')
+            )
             && ($this->getRequest()->getControllerName() == 'Auth')
-            && ($this->getRequest()->getControllerActionName() == 'index')
+            && (
+                ($this->getRequest()->getControllerActionName() == 'index')
+                || ($this->getRequest()->getControllerActionName() == 'loginButton')
+            )
         ) {
 
             // take referrer from settings
@@ -308,6 +314,7 @@ abstract class AbstractController extends \Madj2k\AjaxApi\Controller\AjaxAbstrac
      */
     protected function redirectToReferer(bool $newGuestLogin = false): void
     {
+
         if (
             (!$newGuestLogin)
             && (ClientUtility::isReferrerPidValid($this->referrerPid))

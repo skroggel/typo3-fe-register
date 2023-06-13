@@ -472,10 +472,17 @@
                 <source>or</source>
                 <target>oder</target>
             </trans-unit>
-          <trans-unit id="templates_auth_index.guest">
+          	<trans-unit id="templates_auth_index.guest">
                 <source>Continue as guest</source>
                 <target>Weiter als Gast</target>
             </trans-unit>
+
+
+            <!-- Templates/Auth/LoginButton.html -->
+		  	<trans-unit id="templates_auth_loginButton.toLogin">
+				<source>To Login</source>
+				<target>Zum Login</target>
+			</trans-unit>
 
 
             <!-- Partials/Auth/Login.html -->

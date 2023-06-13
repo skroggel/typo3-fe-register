@@ -371,6 +371,12 @@
 			</trans-unit>
 
 
+            <!-- Templates/Auth/LoginButton.html -->
+		  	<trans-unit id="templates_auth_loginButton.toLogin">
+				<source>To Login</source>
+			</trans-unit>
+
+
 			<!-- Partials/Auth/Login.html -->
 			<trans-unit id="partials_auth_login.labelLogin">
 				<source>Login</source>
