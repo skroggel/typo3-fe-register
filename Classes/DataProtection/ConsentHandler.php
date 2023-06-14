@@ -136,9 +136,15 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
                 // set consent in frontendUser
                 /** @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository $frontendUserRepository */
                 $frontendUserRepository = $objectManager->get(FrontendUserRepository::class);
-                $frontendUser->setTxFeregisterConsentPrivacy($consent->getConsentPrivacy());
-                $frontendUser->setTxFeregisterConsentTerms($consent->getConsentTerms());
-                $frontendUser->setTxFeregisterConsentMarketing($consent->getConsentMarketing());
+                if ($consentParent->getConsentPrivacy()) {
+                    $frontendUser->setTxFeregisterConsentPrivacy($consentParent->getConsentPrivacy());
+                }
+                if ($consentParent->getConsentTerms()) {
+                    $frontendUser->setTxFeregisterConsentTerms($consentParent->getConsentTerms());
+                }
+                if ($consentParent->getConsentMarketing()) {
+                    $frontendUser->setTxFeregisterConsentMarketing($consentParent->getConsentMarketing());
+                }
                 $frontendUserRepository->update($frontendUser);
 
 
@@ -161,9 +167,15 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
             // set consent in frontendUser
             /** @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository $frontendUserRepository */
             $frontendUserRepository = $objectManager->get(FrontendUserRepository::class);
-            $frontendUser->setTxFeregisterConsentPrivacy($consent->getConsentPrivacy());
-            $frontendUser->setTxFeregisterConsentTerms($consent->getConsentTerms());
-            $frontendUser->setTxFeregisterConsentMarketing($consent->getConsentMarketing());
+            if ($consent->getConsentPrivacy()) {
+                $frontendUser->setTxFeregisterConsentPrivacy($consent->getConsentPrivacy());
+            }
+            if ($consent->getConsentTerms()) {
+                $frontendUser->setTxFeregisterConsentTerms($consent->getConsentTerms());
+            }
+            if ($consent->getConsentMarketing()) {
+                $frontendUser->setTxFeregisterConsentMarketing($consent->getConsentMarketing());
+            }
             $frontendUserRepository->update($frontendUser);
         }
 
