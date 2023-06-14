@@ -68,7 +68,7 @@ class AuthController extends AbstractController
                         ->setUseCacheHash(false)
                         ->setArguments(
                             [
-                                'tx_feregister_authinternal' => [
+                                'tx_feregister_auth' => [
                                     'controller' => 'FrontendUser',
                                     'action'     => 'new',
                                 ],

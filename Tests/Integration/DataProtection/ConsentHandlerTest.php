@@ -674,7 +674,7 @@ class ConsentHandlerTest extends FunctionalTestCase
          * Given the _POST-superglobal has the tx_feregister[marketing]-argument set to 1
          * When the method is called with the shippingAddress-object as referenceObject
          * Then an instance of Madj2k\FeRegister\Domain\Model\Consent is returned
-         * Then txFeRegisterConsentPrivacy-property of the frontendUser is set to true*
+         * Then txFeRegisterConsentPrivacy-property of the frontendUser is set to true
          * Then txFeRegisterConsentTerms-property of the frontendUser is set to true
          * Then txFeRegisterConsentMarketing-property of the frontendUser is set to true
          */
