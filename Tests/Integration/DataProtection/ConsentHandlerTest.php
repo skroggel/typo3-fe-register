@@ -638,6 +638,8 @@ class ConsentHandlerTest extends FunctionalTestCase
         $optIn->setApproved(true);
         $optIn->setAdminApproved(true);
 
+        $_POST = [];
+
         /** @var \Madj2k\FeRegister\Domain\Model\Consent $result */
         $result = $consentHandler->add($request, $frontendUser, $optIn, 'hello final');
 
@@ -654,6 +656,80 @@ class ConsentHandlerTest extends FunctionalTestCase
         self::assertEquals(true, $frontendUser->getTxFeregisterConsentMarketing());
 
     }
+
+    /**
+     * @test
+     * @throws \Exception
+     */
+    public function addGivenApprovedOptInObjectSetsConsentPropertiesOfFrontendUserIfHigherValueOnly ()
+    {
+        /**
+         * Scenario:
+         *
+         * Given a persisted frontendUser-object
+         * Given that frontendUser-Object has already the txFeRegisterConsentMarketing-property set to true
+         * Given a persisted optIn-object
+         * Given this optIn-object is approved by the admins
+         * Given this optIn-object is approved by the user
+         * Given a request-object
+         * Given the _POST-superglobal has the tx_feregister[privacy]-argument set to 1
+         * Given the _POST-superglobal has the tx_feregister[terms]-argument set to 1
+         * Given the _POST-superglobal has the tx_feregister[marketing]-argument set to 0
+         * Given the method has been called before with the optIn-object as referenceObject-parameter
+         * When the method is called with optIn-object as referenceObject-parameter and final-parameter equals true
+         * Then an instance of Madj2k\FeRegister\Domain\Model\Consent is returned
+         * Then txFeRegisterConsentPrivcay-property of the frontendUser is set to true*
+         * Then txFeRegisterConsentTerms-property of the frontendUser is set to true
+         * Then txFeRegisterConsentMarketing-property of the frontendUser is set to true
+         */
+
+        $this->importDataSet(self::FIXTURE_PATH . '/Database/Check30.xml');
+
+        /** @var \Madj2k\FeRegister\DataProtection\ConsentHandler $consentHandler */
+        $consentHandler = $this->objectManager->get(ConsentHandler::class);
+
+        /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
+        $frontendUser = $this->frontendUserRepository->findByIdentifier(30);
+
+        /** @var \Madj2k\FeRegister\Domain\Model\OptIn $optIn */
+        $optIn = $this->optInRepository->findByIdentifier(30);
+
+        /** @var \Madj2k\FeRegister\Domain\Model\ShippingAddress $shippingAddress */
+        $shippingAddress = $this->shippingAddressRepository->findByIdentifier(30);
+        $optIn->setData($shippingAddress);
+
+        /** @var \TYPO3\CMS\Extbase\Mvc\Request $request */
+        $request = $this->objectManager->get(Request::class);
+
+        $_POST['tx_feregister']['privacy'] = 1;
+        $_POST['tx_feregister']['terms'] = 1;
+        $_POST['tx_feregister']['marketing'] = 0;
+
+        $consentHandler->add($request, $frontendUser, $optIn, 'hello');
+
+        // fake approval by clicking the optIn links
+        $optIn->setApproved(true);
+        $optIn->setAdminApproved(true);
+
+        $_POST = [];
+
+        /** @var \Madj2k\FeRegister\Domain\Model\Consent $result */
+        $result = $consentHandler->add($request, $frontendUser, $optIn, 'hello final');
+
+        $persistenceManager = $this->objectManager->get(PersistenceManager::class);
+        $persistenceManager->clearState();
+
+        /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
+        $frontendUser = $this->frontendUserRepository->findByIdentifier(30);
+
+        self::assertInstanceOf(Consent::class, $result);
+
+        self::assertEquals(true, $frontendUser->getTxFeregisterConsentPrivacy());
+        self::assertEquals(true, $frontendUser->getTxFeregisterConsentTerms());
+        self::assertEquals(true, $frontendUser->getTxFeregisterConsentMarketing());
+
+    }
+
 
 
     /**
@@ -713,6 +789,64 @@ class ConsentHandlerTest extends FunctionalTestCase
         self::assertEquals(true, $frontendUser->getTxFeregisterConsentMarketing());
     }
 
+
+    /**
+     * @test
+     * @throws \Exception
+     */
+    public function addGivenNonOptInObjectSetsConsentPropertiesOfFrontendUserIfHigherValueOnly ()
+    {
+        /**
+         * Scenario:
+         *
+         * Given a persisted frontendUser-object
+         * Given that frontendUser-Object has already the txFeRegisterConsentMarketing-property set to true
+         * Given a persisted shippingAddress-object
+         * Given no optIn-object
+         * Given a request-object
+         * Given the _POST-superglobal has the tx_feregister[privacy]-argument set to 1
+         * Given the _POST-superglobal has the tx_feregister[terms]-argument set to 1
+         * Given the _POST-superglobal has the tx_feregister[marketing]-argument set to 0
+         * When the method is called with the shippingAddress-object as referenceObject
+         * Then an instance of Madj2k\FeRegister\Domain\Model\Consent is returned
+         * Then txFeRegisterConsentPrivacy-property of the frontendUser is set to true
+         * Then txFeRegisterConsentTerms-property of the frontendUser is set to true
+         * Then txFeRegisterConsentMarketing-property of the frontendUser is set to true
+         */
+
+        $this->importDataSet(self::FIXTURE_PATH . '/Database/Check30.xml');
+
+        /** @var \Madj2k\FeRegister\DataProtection\ConsentHandler $consentHandler */
+        $consentHandler = $this->objectManager->get(ConsentHandler::class);
+
+        /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
+        $frontendUser = $this->frontendUserRepository->findByIdentifier(30);
+
+        /** @var \Madj2k\FeRegister\Domain\Model\ShippingAddress $shippingAddress */
+        $shippingAddress = $this->shippingAddressRepository->findByIdentifier(30);
+
+        /** @var \TYPO3\CMS\Extbase\Mvc\Request $request */
+        $request = $this->objectManager->get(Request::class);
+
+        $_POST['tx_feregister']['privacy'] = 1;
+        $_POST['tx_feregister']['terms'] = 1;
+        $_POST['tx_feregister']['marketing'] = 0;
+
+        /** @var \Madj2k\FeRegister\Domain\Model\Consent $result */
+        $result = $consentHandler->add($request, $frontendUser, $shippingAddress, 'hello');
+
+        $persistenceManager = $this->objectManager->get(PersistenceManager::class);
+        $persistenceManager->clearState();
+
+        /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
+        $frontendUser = $this->frontendUserRepository->findByIdentifier(30);
+
+        self::assertInstanceOf(Consent::class, $result);
+
+        self::assertEquals(true, $frontendUser->getTxFeregisterConsentPrivacy());
+        self::assertEquals(true, $frontendUser->getTxFeregisterConsentTerms());
+        self::assertEquals(true, $frontendUser->getTxFeregisterConsentMarketing());
+    }
     //===================================================================
 
     /**

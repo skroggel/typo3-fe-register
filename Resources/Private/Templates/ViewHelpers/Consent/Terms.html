@@ -8,13 +8,13 @@
         <div class="form__field">
             <f:form.checkbox
                 class="checkbox"
-                id="{namespace}-{type}"
+                id="{namespace}-{type}-{randomKey}"
                 name="{namespace}[{type}]"
                 value="1"
                 checked="{checked}"
             />
 
-            <label for="{namespace}-{type}" class="checkbox-label">
+            <label for="{namespace}-{type}-{randomKey}" class="checkbox-label">
                 <span class="text-smaller">
                     <f:if condition="{key} == 'events'">
                         <f:then>
