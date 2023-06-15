@@ -136,17 +136,18 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
                 // set consent in frontendUser
                 /** @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository $frontendUserRepository */
                 $frontendUserRepository = $objectManager->get(FrontendUserRepository::class);
-                if ($consentParent->getConsentPrivacy()) {
-                    $frontendUser->setTxFeregisterConsentPrivacy($consentParent->getConsentPrivacy());
-                }
-                if ($consentParent->getConsentTerms()) {
-                    $frontendUser->setTxFeregisterConsentTerms($consentParent->getConsentTerms());
-                }
-                if ($consentParent->getConsentMarketing()) {
-                    $frontendUser->setTxFeregisterConsentMarketing($consentParent->getConsentMarketing());
+                if ($consentParent) {
+                    if ($consentParent->getConsentPrivacy()) {
+                        $frontendUser->setTxFeregisterConsentPrivacy($consentParent->getConsentPrivacy());
+                    }
+                    if ($consentParent->getConsentTerms()) {
+                        $frontendUser->setTxFeregisterConsentTerms($consentParent->getConsentTerms());
+                    }
+                    if ($consentParent->getConsentMarketing()) {
+                        $frontendUser->setTxFeregisterConsentMarketing($consentParent->getConsentMarketing());
+                    }
                 }
                 $frontendUserRepository->update($frontendUser);
-
 
             // not yet confirmed: set optIn for child-parent-relation after optIn-confirmation
             } else {

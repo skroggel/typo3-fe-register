@@ -72,6 +72,7 @@ class ConsentViewHelper extends AbstractViewHelper
      * @throws \TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException
      * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     * @throws \Exception
      */
     public function render(): string
     {
@@ -128,7 +129,8 @@ class ConsentViewHelper extends AbstractViewHelper
                 'pageUid'  => $pageUid,
                 'pageUid2'  => $pageUid2,
                 'companyName' => $companyName,
-                'companyEmail' => $companyEmail
+                'companyEmail' => $companyEmail,
+                'randomKey' => GeneralUtility::getUniqueRandomString()
             ]
         );
 
