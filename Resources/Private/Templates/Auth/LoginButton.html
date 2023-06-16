@@ -7,12 +7,25 @@
 
         <f:render partial="FlashMessages" arguments="{_all}" />
 
-        <f:link.page
-            class="mt-1 btn btn--primary"
-            pageUid="{settings.loginPid}"
-        >
-            <f:translate key="templates_auth_loginButton.toLogin" />
-        </f:link.page>
+        <f:security.ifAuthenticated>
+            <f:then>
+                <f:link.page
+                    class="mt-1 btn btn--primary"
+                    pageUid="{settings.referrerPid}"
+                >
+                    <f:translate key="templates_auth_loginButton.startNow" />
+                </f:link.page>
+            </f:then>
+            <f:else>
+                <f:link.page
+                    class="mt-1 btn btn--primary"
+                    pageUid="{settings.loginPid}"
+                >
+                    <f:translate key="templates_auth_loginButton.toLogin" />
+                </f:link.page>
+            </f:else>
+        </f:security.ifAuthenticated>
+
 
     </f:section>
 </html>

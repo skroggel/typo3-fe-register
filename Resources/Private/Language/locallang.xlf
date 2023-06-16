@@ -373,7 +373,10 @@
 
             <!-- Templates/Auth/LoginButton.html -->
 		  	<trans-unit id="templates_auth_loginButton.toLogin">
-				<source>To Login</source>
+				<source>To Login and Start</source>
+			</trans-unit>
+			<trans-unit id="templates_auth_loginButton.startNow">
+				<source>Start Now</source>
 			</trans-unit>
 
 
