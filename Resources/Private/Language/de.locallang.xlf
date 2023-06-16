@@ -480,8 +480,12 @@
 
             <!-- Templates/Auth/LoginButton.html -->
 		  	<trans-unit id="templates_auth_loginButton.toLogin">
-				<source>To Login</source>
-				<target>Zum Login</target>
+				<source>To Login and Start</source>
+				<target>Zum Login und starten</target>
+			</trans-unit>
+			<trans-unit id="templates_auth_loginButton.startNow">
+				<source>Start Now</source>
+				<target>Jetzt starten</target>
 			</trans-unit>
 
 
