@@ -625,7 +625,7 @@
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.default.partThree">
                 <source>. This consent can be revoked at any time.</source>
-                <target>gelesen und bin damit einverstanden. Diese Einwilligung kann jederzeit widerrufen werden.</target>
+                <target>gelesen und verstanden. Diese Einwilligung kann jederzeit widerrufen werden.</target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.defaultAlternative.partOne">
                 <source>Yes, I agree that %s will use my personal data for the above purpose. Furthermore, I have read and agree to the extended notes in the</source>
@@ -637,7 +637,7 @@
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.defaultAlternative.partThree">
                 <source>. This consent can be revoked at any time.</source>
-                <target>gelesen und bin damit einverstanden. Diese Einwilligung kann jederzeit widerrufen werden.</target>
+                <target>gelesen und verstanden. Diese Einwilligung kann jederzeit widerrufen werden.</target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.registration.partOne" approved="no">
                 <source>Yes, I agree that %s uses my personal data to create a free user account. I have also read the extended notes in the</source>
@@ -649,7 +649,7 @@
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.registration.partThree">
                 <source>. This consent can be revoked at any time.</source>
-                <target>gelesen und bin damit einverstanden. Diese Einwilligung kann jederzeit widerrufen werden.</target>
+                <target>gelesen und verstanden. Diese Einwilligung kann jederzeit widerrufen werden.</target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.events.partOne" approved="no">
                 <source>Yes, I agree that %s uses my personal data and the personal data of the other participants listed below for my/our participation in the event, as well as for event follow-up and to create a free user account. I have also read the extended notes in the</source>
@@ -661,7 +661,7 @@
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.events.partThree">
                 <source>. This consent can be revoked at any time.</source>
-                <target>gelesen und bin damit einverstanden. Diese Einwilligung kann jederzeit widerrufen werden.</target>
+                <target>gelesen und verstanden. Diese Einwilligung kann jederzeit widerrufen werden.</target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.order.partOne" approved="no">
                 <source>Yes, I agree that %s uses my personal data to process my order and to create a free user account. Furthermore, I have read and agree to the extended notes in the</source>
@@ -673,7 +673,7 @@
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.order.partThree">
                 <source>. This consent can be revoked at any time.</source>
-                <target>gelesen und bin damit einverstanden. Diese Einwilligung kann jederzeit widerrufen werden.</target>
+                <target>gelesen und verstanden. Diese Einwilligung kann jederzeit widerrufen werden.</target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.newsletter.partOne" approved="no">
                 <source>Yes, I agree that %s uses my personal data for the newsletter dispatch, as well as for the production of a free user account. Furthermore I have read the extended hints in the</source>
@@ -685,7 +685,7 @@
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.newsletter.partThree">
                 <source>. This consent can be revoked at any time.</source>
-                <target>gelesen und bin damit einverstanden. Diese Einwilligung kann jederzeit widerrufen werden.</target>
+                <target>gelesen und verstanden. Diese Einwilligung kann jederzeit widerrufen werden.</target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.survey.partOne">
                 <source>Yes, I agree that %s will use my personal data to contact me. Furthermore, I have read the extended information in the</source>
@@ -697,7 +697,7 @@
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.survey.partThree">
                 <source>. This consent can be revoked at any time.</source>
-                <target>gelesen und bin damit einverstanden. Diese Einwilligung kann jederzeit widerrufen werden.</target>
+                <target>gelesen und verstanden. Diese Einwilligung kann jederzeit widerrufen werden.</target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.form.partOne">
                 <source>Yes, I agree that %s will use my personal data for the above purpose. Furthermore, I have read and agree to the extended notes in the</source>
@@ -709,7 +709,7 @@
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.form.partThree">
                 <source>. This consent can be revoked at any time.</source>
-                <target>gelesen und bin damit einverstanden. Diese Einwilligung kann jederzeit widerrufen werden.</target>
+                <target>gelesen und verstanden. Diese Einwilligung kann jederzeit widerrufen werden.</target>
             </trans-unit>
 
 
