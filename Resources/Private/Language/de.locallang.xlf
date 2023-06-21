@@ -756,11 +756,10 @@
 			</trans-unit>
 
 
-
             <!-- Templates/ViewHelpers/Consent/Marketing.html -->
 			<trans-unit id="templates_viewHelpers_consent_marketing.default">
-				<source><![CDATA[I expressly consent to receive advertising about interesting products and survey requests from %s by e-mail. My consent is voluntary and can be revoked at any time with effect for the future by email to <a href="mailto:%s">%2$s</a> with effect for the future.]]></source>
-				<target><![CDATA[Ich willige ausdrücklich ein, dass %s mir Werbung über interessante Produkte und Umfrageanfragen per E-Mail zusendet. Meine Einwilligung ist freiwillig und kann jederzeit mit Wirkung für die Zukunft per Mail an <a href="mailto:%s">%2$s</a> widerrufen werden.]]></target>
+				<source><![CDATA[I expressly consent to %s sending me satisfaction inquiries regarding our products, survey requests, and advertisements about products of interest. My consent is voluntary and can be revoked at any time with effect for the future by email to <a href="mailto:%s">%2$s</a> with effect for the future.]]></source>
+				<target><![CDATA[Ich willige ausdrücklich ein, dass mir %s Zufriedenheitsanfragen bezüglich unserer Produkte, Umfrageanfragen und Werbung über interessante Produkte zusendet. Meine Einwilligung ist freiwillig und kann jederzeit mit Wirkung für die Zukunft per Mail an <a href="mailto:%s">%2$s</a> widerrufen werden.]]></target>
 			</trans-unit>
 
 

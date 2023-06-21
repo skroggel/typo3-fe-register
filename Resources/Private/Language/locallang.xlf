@@ -590,7 +590,7 @@
 
 			<!-- Templates/ViewHelpers/Consent/Marketing.html -->
 			<trans-unit id="templates_viewHelpers_consent_marketing.default">
-				<source><![CDATA[I expressly consent to receive advertising about interesting products and survey requests from %s by e-mail. My consent is voluntary and can be revoked at any time with effect for the future by email to <a href="mailto:%s">%2$s</a> with effect for the future.]]></source>
+				<source><![CDATA[I expressly consent to %s sending me satisfaction inquiries regarding our products, survey requests, and advertisements about products of interest. My consent is voluntary and can be revoked at any time with effect for the future by email to <a href="mailto:%s">%2$s</a> with effect for the future.]]></source>
 			</trans-unit>
 
 
