@@ -616,100 +616,100 @@
 
 			<!-- Templates/ViewHelpers/Consent/Privacy.html -->
 			<trans-unit id="templates_viewHelpers_consent_privacy.default.partOne">
-				<source>Yes, I agree that %s will use my personal data for the above purpose and to create a free user account. Furthermore, I have read and agree to the extended notes in the</source>
-				<target>Ja, ich stimme zu, dass %s meine persönlichen Daten zum oben genannten Zweck, sowie zur Erzeugung eines kostenlosen Nutzerkontos verwendet. Ferner habe ich die erweiterten Hinweise in der</target>
+				<source><![CDATA[Yes, I agree that %s will use my personal data for the above purpose and to create a free user account. My consent is voluntary and can be revoked at any time with future effect by email to <a href="mailto:%s">%2$s</a>. Furthermore, I have read and agree to the]]></source>
+				<target><![CDATA[Ja, ich stimme zu, dass %s meine persönlichen Daten zum oben genannten Zweck sowie zur Erzeugung eines kostenlosen Nutzerkontos verwendet. Meine Einwilligung ist freiwillig und kann jederzeit mit Wirkung für die Zukunft per Mail an <a href="mailto:%s">%2$s</a> widerrufen werden. Ferner habe ich die]]></target>
 			</trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.default.partTwo">
                 <source>data protection declaration</source>
-                <target>Datenschutzerklärung </target>
+                <target>Datenschutzerklärung</target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.default.partThree">
-                <source>. This consent can be revoked at any time.</source>
-                <target>gelesen und verstanden. Diese Einwilligung kann jederzeit widerrufen werden.</target>
+                <source>.</source>
+                <target>gelesen und verstanden.</target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.defaultAlternative.partOne">
-                <source>Yes, I agree that %s will use my personal data for the above purpose. Furthermore, I have read and agree to the extended notes in the</source>
-                <target>Ja, ich stimme zu, dass %s meine persönlichen Daten zum oben genannten Zweck verwendet. Ferner habe ich die erweiterten Hinweise in der</target>
+                <source><![CDATA[Yes, I agree that %s will use my personal data for the above purpose. My consent is voluntary and can be revoked at any time with future effect by email to <a href="mailto:%s">%2$s</a>. Furthermore, I have read and agree to the]]></source>
+                <target><![CDATA[Ja, ich stimme zu, dass %s meine persönlichen Daten zum oben genannten Zweck verwendet. Meine Einwilligung ist freiwillig und kann jederzeit mit Wirkung für die Zukunft per Mail an <a href="mailto:%s">%2$s</a> widerrufen werden. Ferner habe ich die]]></target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.defaultAlternative.partTwo">
                 <source>data protection declaration</source>
-                <target>Datenschutzerklärung </target>
+                <target>Datenschutzerklärung</target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.defaultAlternative.partThree">
-                <source>. This consent can be revoked at any time.</source>
-                <target>gelesen und verstanden. Diese Einwilligung kann jederzeit widerrufen werden.</target>
+                <source>.</source>
+                <target>gelesen und verstanden.</target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.registration.partOne" approved="no">
-                <source>Yes, I agree that %s uses my personal data to create a free user account. I have also read the extended notes in the</source>
-                <target state="final" phase-name="approval-1">Ja, ich stimme zu, dass %s meine persönlichen Daten zur Erzeugung eines kostenlosen Nutzendenkontos verwendet. Ferner habe ich die erweiterten Hinweise in der</target>
+                <source><![CDATA[Yes, I agree that %s uses my personal data to create a free user account. My consent is voluntary and can be revoked at any time with future effect by email to <a href="mailto:%s">%2$s</a>. I have also read and agree to the]]></source>
+                <target state="final" phase-name="approval-1"><![CDATA[Ja, ich stimme zu, dass %s meine persönlichen Daten zur Erzeugung eines kostenlosen Nutzendenkontos verwendet. Meine Einwilligung ist freiwillig und kann jederzeit mit Wirkung für die Zukunft per Mail an <a href="mailto:%s">%2$s</a> widerrufen werden. Ferner habe ich die]]></target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.registration.partTwo">
                 <source>data protection declaration</source>
-                <target>Datenschutzerklärung </target>
+                <target>Datenschutzerklärung</target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.registration.partThree">
-                <source>. This consent can be revoked at any time.</source>
-                <target>gelesen und verstanden. Diese Einwilligung kann jederzeit widerrufen werden.</target>
+                <source>.</source>
+                <target>gelesen und verstanden..</target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.events.partOne" approved="no">
-                <source>Yes, I agree that %s uses my personal data and the personal data of the other participants listed below for my/our participation in the event, as well as for event follow-up and to create a free user account. I have also read the extended notes in the</source>
-                <target state="final" phase-name="approval-1">Ja, ich stimme zu, dass %s meine persönlichen Daten und die persönlichen Daten der unten genannten weiteren Teilnehmenden für meine/unsere Teilnahme an der Veranstaltung, sowie zur Veranstaltungsnachbereitung und zur Erzeugung eines kostenlosen Nutzendenkontos verwendet. Ferner habe ich die erweiterten Hinweise in der</target>
+                <source><![CDATA[Yes, I agree that %s uses my personal data and the personal data of the other participants listed below for my/our participation in the event, as well as for event follow-up and to create a free user account. My consent is voluntary and can be revoked at any time with future effect by email to <a href="mailto:%s">%2$s</a>. I have also read and agree to the]]></source>
+                <target state="final" phase-name="approval-1"><![CDATA[Ja, ich stimme zu, dass %s meine persönlichen Daten und die persönlichen Daten der unten genannten weiteren Teilnehmenden für meine/unsere Teilnahme an der Veranstaltung sowie zur Veranstaltungsnachbereitung und zur Erzeugung eines kostenlosen Nutzendenkontos verwendet. Meine Einwilligung ist freiwillig und kann jederzeit mit Wirkung für die Zukunft per Mail an <a href="mailto:%s">%2$s</a> widerrufen werden. Ferner habe ich die]]></target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.events.partTwo">
                 <source>data protection declaration</source>
-                <target>Datenschutzerklärung </target>
+                <target>Datenschutzerklärung</target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.events.partThree">
-                <source>. This consent can be revoked at any time.</source>
-                <target>gelesen und verstanden. Diese Einwilligung kann jederzeit widerrufen werden.</target>
+                <source>.</source>
+                <target>gelesen und verstanden.</target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.order.partOne" approved="no">
-                <source>Yes, I agree that %s uses my personal data to process my order and to create a free user account. Furthermore, I have read and agree to the extended notes in the</source>
-                <target state="final" phase-name="approval-1">Ja, ich stimme zu, dass %s meine persönlichen Daten für die Abwicklung der Bestellung, sowie zur Erzeugung eines kostenlosen Nutzendenkontos verwendet. Ferner habe ich die erweiterten Hinweise in der</target>
+                <source><![CDATA[Yes, I agree that %s uses my personal data to process my order and to create a free user account. My consent is voluntary and can be revoked at any time with future effect by email to <a href="mailto:%s">%2$s</a>. Furthermore, I have read and agree to the ]]></source>
+                <target state="final" phase-name="approval-1"><![CDATA[Ja, ich stimme zu, dass %s meine persönlichen Daten für die Abwicklung der Bestellung sowie zur Erzeugung eines kostenlosen Nutzendenkontos verwendet. Meine Einwilligung ist freiwillig und kann jederzeit mit Wirkung für die Zukunft per Mail an <a href="mailto:%s">%2$s</a> widerrufen werden. Ferner habe ich die]]></target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.order.partTwo">
                 <source>data protection declaration</source>
-                <target>Datenschutzerklärung </target>
+                <target>Datenschutzerklärung</target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.order.partThree">
-                <source>. This consent can be revoked at any time.</source>
-                <target>gelesen und verstanden. Diese Einwilligung kann jederzeit widerrufen werden.</target>
+                <source>.</source>
+                <target>gelesen und verstanden.</target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.newsletter.partOne" approved="no">
-                <source>Yes, I agree that %s uses my personal data for the newsletter dispatch, as well as for the production of a free user account. Furthermore I have read the extended hints in the</source>
-                <target state="final" phase-name="approval-1">Ja, ich stimme zu, dass %s meine persönlichen Daten für den Newsletterversand, sowie zur Erzeugung eines kostenlosen Nutzendenkontos verwendet. Ferner habe ich die erweiterten Hinweise in der</target>
+                <source><![CDATA[Yes, I agree that %s uses my personal data for the newsletter dispatch, as well as for the production of a free user account. My consent is voluntary and can be revoked at any time with future effect by email to <a href="mailto:%s">%2$s</a>. Furthermore I have read and agree to the]]></source>
+                <target state="final" phase-name="approval-1"><![CDATA[Ja, ich stimme zu, dass %s meine persönlichen Daten für den Newsletterversand sowie zur Erzeugung eines kostenlosen Nutzendenkontos verwendet. Meine Einwilligung ist freiwillig und kann jederzeit mit Wirkung für die Zukunft per Mail an <a href="mailto:%s">%2$s</a> widerrufen werden. Ferner habe ich die]]></target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.newsletter.partTwo">
                 <source>data protection declaration</source>
-                <target>Datenschutzerklärung </target>
+                <target>Datenschutzerklärung</target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.newsletter.partThree">
-                <source>. This consent can be revoked at any time.</source>
-                <target>gelesen und verstanden. Diese Einwilligung kann jederzeit widerrufen werden.</target>
+                <source>.</source>
+                <target>gelesen und verstanden.</target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.survey.partOne">
-                <source>Yes, I agree that %s will use my personal data to contact me. Furthermore, I have read the extended information in the</source>
-                <target>Ja, ich stimme zu, dass %s meine persönlichen Daten für die Kontaktaufnahme verwendet. Ferner habe ich die erweiterten Hinweise in der</target>
+                <source><![CDATA[Yes, I agree that %s will use my personal data to contact me. My consent is voluntary and can be revoked at any time with future effect by email to <a href="mailto:%s">%2$s</a>. Furthermore, I have read and agree to the]]></source>
+                <target><![CDATA[Ja, ich stimme zu, dass %s meine persönlichen Daten für die Kontaktaufnahme verwendet. Meine Einwilligung ist freiwillig und kann jederzeit mit Wirkung für die Zukunft per Mail an <a href="mailto:%s">%2$s</a> widerrufen werden. Ferner habe ich die]]></target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.survey.partTwo">
                 <source>data protection declaration</source>
-                <target>Datenschutzerklärung </target>
+                <target>Datenschutzerklärung</target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.survey.partThree">
-                <source>. This consent can be revoked at any time.</source>
-                <target>gelesen und verstanden. Diese Einwilligung kann jederzeit widerrufen werden.</target>
+                <source>.</source>
+                <target>gelesen und verstanden.</target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.form.partOne">
-                <source>Yes, I agree that %s will use my personal data for the above purpose. Furthermore, I have read and agree to the extended notes in the</source>
-                <target>Ja, ich stimme zu, dass %s meine persönlichen Daten zur Kontaktaufnahme verwendet. Ferner habe ich die erweiterten Hinweise in der</target>
+                <source><![CDATA[Yes, I agree that %s will use my personal data for the above purpose. My consent is voluntary and can be revoked at any time with future effect by email to <a href="mailto:%s">%2$s</a>. Furthermore, I have read and agree to the]]></source>
+                <target><![CDATA[Ja, ich stimme zu, dass %s meine persönlichen Daten zur Kontaktaufnahme verwendet. Meine Einwilligung ist freiwillig und kann jederzeit mit Wirkung für die Zukunft per Mail an <a href="mailto:%s">%2$s</a> widerrufen werden. Ferner habe ich die]]></target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.form.partTwo">
                 <source>data protection declaration</source>
-                <target>Datenschutzerklärung </target>
+                <target>Datenschutzerklärung</target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.form.partThree">
-                <source>. This consent can be revoked at any time.</source>
-                <target>gelesen und verstanden. Diese Einwilligung kann jederzeit widerrufen werden.</target>
+                <source>.</source>
+                <target>gelesen und verstanden.</target>
             </trans-unit>
 
 

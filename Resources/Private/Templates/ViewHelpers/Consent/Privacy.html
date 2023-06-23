@@ -16,11 +16,9 @@
             
             <label for="{namespace}-{type}-{randomKey}" class="checkbox-label">
                 <span class="text-smaller">
-                    <f:translate key="templates_viewHelpers_consent_privacy.{key}.partOne" extensionName="feRegister" arguments="{0: companyName}" />
-                    <f:link.page pageUid="{pageUid}" target="_blank">
-                        <f:translate key="templates_viewHelpers_consent_privacy.{key}.partTwo" extensionName="feRegister" />
-                    </f:link.page>
-                    <f:translate key="templates_viewHelpers_consent_privacy.{key}.partThree" extensionName="feRegister"/>
+                    <f:format.raw><f:translate key="templates_viewHelpers_consent_privacy.{key}.partOne" extensionName="feRegister" arguments="{0: companyName, 1: companyEmail}" /></f:format.raw>
+                    <f:link.page pageUid="{pageUid}" target="_blank"><f:format.raw><f:translate key="templates_viewHelpers_consent_privacy.{key}.partTwo" extensionName="feRegister" /></f:format.raw></f:link.page>
+                    <f:format.raw><f:translate key="templates_viewHelpers_consent_privacy.{key}.partThree" extensionName="feRegister"/></f:format.raw>
                 </span>        
             </label>
         </div>
