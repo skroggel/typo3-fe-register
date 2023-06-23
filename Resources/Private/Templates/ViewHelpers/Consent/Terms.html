@@ -18,17 +18,17 @@
                 <span class="text-smaller">
                     <f:if condition="{key} == 'events'">
                         <f:then>
-                            <f:translate key="templates_viewHelpers_consent_{type}.{key}.partOne" extensionName="feRegister" />
-                            <f:link.page pageUid="{pageUid}" target="_blank"><f:translate key="templates_viewHelpers_consent_{type}.{key}.partTwo" extensionName="feRegister" /></f:link.page><f:if condition="!{pageUid2}">.</f:if>
+                            <f:format.raw><f:translate key="templates_viewHelpers_consent_{type}.{key}.partOne" extensionName="feRegister" /></f:format.raw>
+                            <f:link.page pageUid="{pageUid}" target="_blank"><f:format.raw><f:translate key="templates_viewHelpers_consent_{type}.{key}.partTwo" extensionName="feRegister" /></f:format.raw></f:link.page><f:if condition="!{pageUid2}">.</f:if>
                             <f:if condition="{pageUid2}">
-                                <f:translate key="templates_viewHelpers_consent_{type}.{key}.partThree" extensionName="feRegister"  />
-                                <f:link.page pageUid="{pageUid2}" target="_blank"><f:translate key="templates_viewHelpers_consent_{type}.{key}.partFour" extensionName="feRegister"  /></f:link.page>.
+                                <f:format.raw><f:translate key="templates_viewHelpers_consent_{type}.{key}.partThree" extensionName="feRegister"  /></f:format.raw>
+                                <f:link.page pageUid="{pageUid2}" target="_blank"><f:format.raw><f:translate key="templates_viewHelpers_consent_{type}.{key}.partFour" extensionName="feRegister"  /></f:format.raw></f:link.page>.
                             </f:if>
-                            <f:translate key="templates_viewHelpers_consent_{type}.{key}.partFive" extensionName="feRegister"  />
+                            <f:format.raw><f:translate key="templates_viewHelpers_consent_{type}.{key}.partFive" extensionName="feRegister"  /></f:format.raw>
                         </f:then>
                         <f:else>
-                            <f:translate key="templates_viewHelpers_consent_{type}.{key}.partOne" extensionName="feRegister" />
-                            <f:link.page pageUid="{pageUid}" target="_blank"><f:translate key="templates_viewHelpers_consent_{type}.{key}.partTwo" extensionName="feRegister" /></f:link.page>.
+                            <f:format.raw><f:translate key="templates_viewHelpers_consent_{type}.{key}.partOne" extensionName="feRegister" /></f:format.raw>
+                            <f:link.page pageUid="{pageUid}" target="_blank"><f:format.raw><f:translate key="templates_viewHelpers_consent_{type}.{key}.partTwo" extensionName="feRegister" /></f:format.raw></f:link.page>.
                         </f:else>
                     </f:if>
                 </span>        
