@@ -3,12 +3,11 @@
 #
 CREATE TABLE tx_feregister_domain_model_optin
 (
-
 	uid                  int(11) NOT NULL auto_increment,
 	pid                  int(11) DEFAULT '0' NOT NULL,
 
 	frontend_user_uid    int(11) DEFAULT '0' NOT NULL,
-	frontend_user_update text         DEFAULT '' NOT NULL,
+	frontend_user_update text,
 	admins  							varchar(255) DEFAULT '' NOT NULL,
 	token_user           varchar(255) DEFAULT '' NOT NULL,
 	token_yes            varchar(255) DEFAULT '' NOT NULL,
@@ -20,7 +19,7 @@ CREATE TABLE tx_feregister_domain_model_optin
 	foreign_uid          int(11) DEFAULT '0' NOT NULL,
 	approved             tinyint(1) DEFAULT '0' NOT NULL,
 	admin_approved       tinyint(1) DEFAULT '0' NOT NULL,
-	data                 longtext     DEFAULT '' NOT NULL,
+	data                 longtext,
 
 	tstamp               int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate               int(11) unsigned DEFAULT '0' NOT NULL,
@@ -73,7 +72,7 @@ CREATE TABLE fe_groups
 	tx_feregister_membership_mandatory_fields varchar(255) DEFAULT '' NOT NULL,
 	tx_feregister_membership_admins           int(11) unsigned DEFAULT '0' NOT NULL,
 	tx_feregister_membership_pid              int(11) unsigned DEFAULT '0' NOT NULL,
-	KEY                                            tx_feregister_is_membership (tx_feregister_is_membership),
+	KEY  tx_feregister_is_membership (tx_feregister_is_membership),
 );
 
 
@@ -102,24 +101,24 @@ CREATE TABLE tx_feregister_domain_model_consent
 	uid                    int(11) NOT NULL auto_increment,
 	pid                    int(11) DEFAULT '0' NOT NULL,
 
-	parent                 int(11) DEFAULT '0' NOT NULL,
-	child                  int(11) DEFAULT '0' NOT NULL,
+	parent                 int(11) DEFAULT '0',
+	child                  int(11) DEFAULT '0',
 
-	frontend_user          int(11) DEFAULT '0' NOT NULL,
-	opt_in     						 int(11) DEFAULT '0' NOT NULL,
+	frontend_user          int(11) DEFAULT '0',
+	opt_in     						 int(11) DEFAULT '0',
 
 	foreign_table          varchar(255) DEFAULT '' NOT NULL,
 	foreign_uid            varchar(255) DEFAULT '' NOT NULL,
 	ip_address             varchar(255) DEFAULT '' NOT NULL,
-	user_agent             longtext                NOT NULL,
+	user_agent             longtext,
 	extension_name         varchar(255) DEFAULT '' NOT NULL,
 	plugin_name            varchar(255) DEFAULT '' NOT NULL,
 	controller_name        varchar(255) DEFAULT '' NOT NULL,
 	action_name            varchar(255) DEFAULT '' NOT NULL,
 	comment                varchar(255) DEFAULT '' NOT NULL,
 	server_host            varchar(255) DEFAULT '' NOT NULL,
-	server_uri             text                    NOT NULL,
-	server_referer_url     text                    NOT NULL,
+	server_uri             text,
+	server_referer_url     text,
 	consent_privacy        int(1) DEFAULT '0' NOT NULL,
 	consent_terms          int(1) DEFAULT '0' NOT NULL,
 	consent_marketing      int(1) DEFAULT '0' NOT NULL,
@@ -147,7 +146,7 @@ CREATE TABLE tx_feregister_domain_model_encrypteddata
 	foreign_table  varchar(255) DEFAULT '' NOT NULL,
 	foreign_class  varchar(255) DEFAULT '' NOT NULL,
 	search_key     varchar(255) DEFAULT '' NOT NULL,
-	encrypted_data text                    NOT NULL,
+	encrypted_data text,
 
 	tstamp         int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate         int(11) unsigned DEFAULT '0' NOT NULL,
