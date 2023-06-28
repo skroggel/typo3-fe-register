@@ -366,9 +366,6 @@
 			<trans-unit id="templates_auth_index.orHeadline">
 				<source>or</source>
 			</trans-unit>
-			<trans-unit id="templates_auth_index.guest">
-				<source>Continue as guest</source>
-			</trans-unit>
 
 
             <!-- Templates/Auth/LoginButton.html -->
@@ -387,8 +384,14 @@
 			<trans-unit id="partials_auth_login.passwordForgot">
 				<source>Forgotten password?</source>
 			</trans-unit>
-			<trans-unit id="templates_auth_login.registerNow">
-				<source>Register now</source>
+            <trans-unit id="partials_auth_login.registerNow">
+                <source>Register now</source>
+            </trans-unit>
+
+
+			<!-- Partials/Auth/LoginGuest.html -->
+			<trans-unit id="partials_auth_loginGuest.labelLogin">
+				<source>Continue as guest</source>
 			</trans-unit>
 
 
@@ -404,14 +407,16 @@
 			</trans-unit>
 
 
-		   <!-- Templates/FrontendUser/Show.html -->
+		   <!-- Templates/FrontendUser/New.html -->
 			<trans-unit id="templates_frontendUser_new.headline">
 				<source>Register</source>
 			</trans-unit>
 			<trans-unit id="templates_frontendUser_new.labelRegister">
 				<source>Register</source>
 			</trans-unit>
-
+			<trans-unit id="templates_frontendUser_new.labelBack">
+				<source>Back</source>
+			</trans-unit>
 
 
 			<!-- Templates/FrontendUser/Show.html -->

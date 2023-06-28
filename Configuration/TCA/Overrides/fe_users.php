@@ -252,7 +252,7 @@ call_user_func(
                 --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general,
                     lastlogin,
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:fe_users.tabs.personelData,
-                    tx_feregister_consent_privacy, tx_feregister_consent_terms, tx_feregister_consent
+                    tx_feregister_consent_privacy, tx_feregister_consent_terms, tx_feregister_consent, tx_feregister_consent
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:fe_users.tabs.options,
                     lockToDomain, tx_feregister_register_remote_ip, tx_feregister_language_key, TSconfig,
                 --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,

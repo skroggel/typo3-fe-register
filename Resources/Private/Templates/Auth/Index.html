@@ -21,13 +21,7 @@
                         </div>
     
                         <div class="alternatives__item">
-                            <f:link.action
-                                class="mt-1 btn btn--primary"
-                                action="login"
-                                controller="AuthGuest"
-                            >
-                                <f:translate key="templates_auth_index.guest" />
-                            </f:link.action>
+                            <f:render partial="Auth/LoginGuest" arguments="{_all}" />
                         </div>
                     </f:if>
             </f:else>

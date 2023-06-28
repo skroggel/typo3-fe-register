@@ -11,14 +11,20 @@ routeEnhancers:
         _controller: 'Auth::logout'
       - routePath: '/fe-register/redirect'
         _controller: 'Auth::logoutRedirect'
+      - routePath: '/fe-register/create-guest'
+        _controller: 'AuthGuest::create'
       - routePath: '/fe-register/login-guest'
         _controller: 'AuthGuest::login'
       - routePath: '/fe-register/login-guest/{token}'
+        _controller: 'AuthGuest::login'
+      - routePath: '/fe-register/login-guest/{token}/{newLogin}'
         _controller: 'AuthGuest::login'
       - routePath: '/fe-register/login-hint'
         _controller: 'AuthGuest::loginHint'
       - routePath: '/fe-register/user'
         _controller: 'FrontendUser::index'
+      - routePath: '/fe-register/new'
+        _controller: 'FrontendUser::new'
       - routePath: '/fe-register/create'
         _controller: 'FrontendUser::create'
       - routePath: '/fe-register/optin/{user}/{token}'
@@ -33,6 +39,7 @@ routeEnhancers:
     requirements:
       user: '[a-zA-Z0-9]{30}'
       token: '[a-zA-Z0-9]{30}'
+      newLogin: '[0,1]{1}'
 
   FeRegister1:
     type: Extbase

@@ -1,0 +1,20 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:feRegister="http://typo3.org/ns/Madj2k/FeRegister/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+    <f:form action="create" controller="AuthGuest">
+        <div class="flex-container">
+            <div class="form flex flex-basis-12">
+
+                <!-- dummy field for validator -->
+                <f:form.textfield name="dummy" value="1" type="hidden" />
+                
+                <feRegister:consent type="terms"/>
+
+                <button type="submit" class="btn btn--primary">
+                    <f:translate key="partials_auth_loginGuest.labelLogin" />
+                </button>
+            </div>
+        </div>
+    </f:form>
+</html>

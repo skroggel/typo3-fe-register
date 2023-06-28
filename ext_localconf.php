@@ -10,7 +10,7 @@ call_user_func(
             'Auth',
             [
                 'Auth' => 'index, login, logout, logoutRedirect',
-                'AuthGuest' => 'login',
+                'AuthGuest' => 'login, create',
                 'FrontendUser' => 'new, create, optIn, index',
                 'FrontendUserGroup' => 'optIn',
                 'Password'=> 'new, create',
@@ -18,7 +18,7 @@ call_user_func(
             // non-cacheable actions
             [
                 'Auth' => 'index, login, loginRedirect, logout, logoutRedirect',
-                'AuthGuest' => 'login, loginRedirect',
+                'AuthGuest' => 'login, create, loginRedirect',
                 'FrontendUser' => 'new, create, optIn, index',
                 'FrontendUserGroup' => 'optIn',
                 'Password'=> 'new, create',
@@ -251,7 +251,7 @@ call_user_func(
 
             // configuration for WARNING severity, including all
             // levels with higher severity (ERROR, CRITICAL, EMERGENCY)
-            \TYPO3\CMS\Core\Log\LogLevel::WARNING => [
+            \TYPO3\CMS\Core\Log\LogLevel::DEBUG => [
                 // add a FileWriter
                 'TYPO3\\CMS\\Core\\Log\\Writer\\FileWriter' => [
                     // configuration for the writer

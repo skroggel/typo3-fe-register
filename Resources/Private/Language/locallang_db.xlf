@@ -63,7 +63,7 @@
                 <source>Please choose</source>
             </trans-unit>
           	<trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_consent">
-				<source>Consent to data protection</source>
+				<source>Consents given</source>
 			</trans-unit>
 			<trans-unit id="tx_feregister_domain_model_frontenduser.title">
 				<source>Title (overridden)</source>

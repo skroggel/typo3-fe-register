@@ -243,7 +243,6 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
      * @api
      */
     public static function add
