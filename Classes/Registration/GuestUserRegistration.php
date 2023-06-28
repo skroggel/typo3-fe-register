@@ -16,6 +16,7 @@ namespace Madj2k\FeRegister\Registration;
  */
 
 use Madj2k\CoreExtended\Utility\GeneralUtility;
+use Madj2k\FeRegister\DataProtection\ConsentHandler;
 use Madj2k\FeRegister\Domain\Model\FrontendUser;
 use Madj2k\FeRegister\Domain\Model\GuestUser;
 use Madj2k\FeRegister\Exception;
@@ -85,11 +86,14 @@ class GuestUserRegistration extends AbstractRegistration
      * Registers new guestUser
      *
      * @return bool
-     * @throws \Madj2k\FeRegister\Exception
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws Exception
      * @throws \TYPO3\CMS\Core\Context\Exception\AspectNotFoundException
      * @throws \TYPO3\CMS\Core\Crypto\PasswordHashing\InvalidPasswordHashException
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      * @api
      */
     public function startRegistration(): bool
@@ -110,6 +114,22 @@ class GuestUserRegistration extends AbstractRegistration
 
             $this->getContextAwareFrontendUserRepository()->add($frontendUser);
             $this->persistenceManager->persistAll();
+
+            // add privacy-object for user
+            if ($request = $this->getRequest()) {
+                ConsentHandler::add(
+                    $request,
+                    $frontendUser,
+                    $frontendUser,
+                    sprintf(
+                        'Created guestUser "%s" (disabled=%s, id=%s, category=%s).',
+                        strtolower($frontendUser->getUsername()),
+                        intval($frontendUser->getDisable()),
+                        $frontendUser->getUid(),
+                        $this->getCategory()
+                    )
+                );
+            }
 
             return true;
         }

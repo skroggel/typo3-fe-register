@@ -26,6 +26,7 @@ use Madj2k\FeRegister\Domain\Repository\ConsentRepository;
 use Madj2k\FeRegister\Registration\GuestUserRegistration;
 use Madj2k\FeRegister\Utility\FrontendUserSessionUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
@@ -715,19 +716,22 @@ class GuestUserRegistrationTest extends FunctionalTestCase
          * Scenario:
          *
          * Given a non-persisted guestUser-object
+         * Given a request-object is set
          * When the method is called
          * Then true is returned
          * Then the guestUser is persisted
          * Then the disable-property is set to true
          * Then the password property is set
          * Then the tempPlaintextPassword-property is not set
-         * Then no consent-object is created
+         * Then a consent-object is created
          */
 
         /** @var \Madj2k\FeRegister\Domain\Model\GuestUser $guestUser */
         $guestUser = GeneralUtility::makeInstance(GuestUser::class);
 
         $this->fixture->setFrontendUser($guestUser);
+        $this->fixture->setRequest(GeneralUtility::makeInstance(Request::class));
+
         self::assertTrue($this->fixture->startRegistration());
 
         /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUserDatabase */
@@ -736,7 +740,7 @@ class GuestUserRegistrationTest extends FunctionalTestCase
         self::assertTrue($guestUserDatabase->getDisable());
         self::assertNotEmpty($guestUserDatabase->getPassword());
         self::assertEmpty($guestUserDatabase->getTempPlaintextPassword());
-        self::assertEquals(0, $this->consentRepository->countAll());
+        self::assertEquals(1, $this->consentRepository->countAll());
 
     }
 

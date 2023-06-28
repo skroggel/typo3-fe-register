@@ -14,6 +14,7 @@ namespace Madj2k\FeRegister\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
+use Madj2k\FeRegister\Domain\Model\GuestUser;
 use Madj2k\FeRegister\Registration\GuestUserRegistration;
 use Madj2k\FeRegister\Service\AbstractAuthenticationService;
 use Madj2k\FeRegister\Utility\FrontendUserSessionUtility;
@@ -42,9 +43,76 @@ class AuthGuestController extends AbstractController
 
 
     /**
+     * action create
+     *
+     * @param int $dummy
+     * @return void
+     * @throws \Madj2k\FeRegister\Exception
+     * @throws \TYPO3\CMS\Core\Context\Exception\AspectNotFoundException
+     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
+     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\NotImplementedException
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @throws \TYPO3\CMS\Core\Crypto\PasswordHashing\InvalidPasswordHashException
+     * @throws \TYPO3\CMS\Core\Exception
+     * @TYPO3\CMS\Extbase\Annotation\Validate("Madj2k\FeRegister\Validation\Consent\TermsValidator", param="dummy")
+     */
+    public function createAction(int $dummy): void
+    {
+        // send back already logged-in user. Nothing to do here
+        if (FrontendUserSessionUtility::getLoggedInUserId()) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate(
+                    'authGuestController.error.guestLoginImpossible',
+                    $this->extensionName
+                ),
+                '',
+                AbstractMessage::ERROR
+            );
+            $this->redirect('index');
+        }
+
+        if ($this->guestUserRegistration->setRequest($this->request)->startRegistration()) {
+            if ($this->guestUserRegistration->completeRegistration()) {
+
+                /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
+                if ($frontendUser = $this->guestUserRegistration->getFrontendUserPersisted()) {
+                    $token = $frontendUser->getUsername();
+
+                    $this->redirect(
+                        'login',
+                        'AuthGuest',
+                        null,
+                        ['token' => $token, 'newLogin' => true]
+                    );
+                }
+            }
+        }
+
+        // if something went wrong on the way...
+        $this->addFlashMessage(
+            LocalizationUtility::translate(
+                'authGuestController.error.guestLoginImpossible',
+                $this->extensionName
+            ),
+            '',
+            AbstractMessage::ERROR
+        );
+
+        $this->redirect('index', 'Auth');
+    }
+
+
+    /**
      * action login
      *
      * @param string $token
+     * @param bool $newLogin
      * @return void
      * @throws \Madj2k\FeRegister\Exception
      * @throws \TYPO3\CMS\Core\Context\Exception\AspectNotFoundException
@@ -60,7 +128,7 @@ class AuthGuestController extends AbstractController
      * @throws \TYPO3\CMS\Core\Crypto\PasswordHashing\InvalidPasswordHashException
      * @throws \TYPO3\CMS\Core\Exception
      */
-    public function loginAction(string $token = ''): void
+    public function loginAction(string $token, bool $newLogin = false): void
     {
         // send back already logged-in user. Nothing to do here
         if (FrontendUserSessionUtility::getLoggedInUserId()) {
@@ -73,22 +141,6 @@ class AuthGuestController extends AbstractController
                 AbstractMessage::ERROR
             );
             $this->redirect('index');
-        }
-
-        // if no token is given, a new guest user will be created
-        // then we use his token
-        $newLogin = empty($token);
-        if ($newLogin) {
-
-            if ($this->guestUserRegistration->setRequest($this->request)->startRegistration()) {
-                if ($this->guestUserRegistration->completeRegistration()) {
-
-                    /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
-                    if ($frontendUser = $this->guestUserRegistration->getFrontendUserPersisted()) {
-                        $token = $frontendUser->getUsername();
-                    }
-                }
-            }
         }
 
         // do login
@@ -106,29 +158,14 @@ class AuthGuestController extends AbstractController
             $this->redirectToWelcome($newLogin);
         }
 
-        // if something went wrong on the way...
-        if ($newLogin) {
-
-            $this->addFlashMessage(
-                LocalizationUtility::translate(
-                    'authGuestController.error.guestLoginImpossible',
-                    $this->extensionName
-                ),
-                '',
-                AbstractMessage::ERROR
-            );
-
-        } else {
-
-            $this->addFlashMessage(
-                LocalizationUtility::translate(
-                    'authGuestController.error.invalidGuestToken',
-                    $this->extensionName
-                ),
-                '',
-                AbstractMessage::ERROR
-            );
-        }
+        $this->addFlashMessage(
+            LocalizationUtility::translate(
+                'authGuestController.error.invalidGuestToken',
+                $this->extensionName
+            ),
+            '',
+            AbstractMessage::ERROR
+        );
 
         $this->redirect('index', 'Auth');
     }

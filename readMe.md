@@ -202,12 +202,37 @@ The following code can be used to obtain the appropriate consent. It is importan
 ```
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
 	xmlns:feRegister="http://typo3.org/ns/Madj2k/FeRegister/ViewHelpers"
-	xmlns:ajaxApi="http://typo3.org/ns/Madj2k/AjaxApi/ViewHelpers"
 	data-namespace-typo3-fluid="true">
+
+    <f:render partial="FormErrors" arguments="{object:alert}" />
 
 	<f:form action="create" name="alert" object="{alert}">
 
         [...]
+
+        <feRegister:consent type="terms" />
+        <feRegister:consent type="privacy" key="default" />
+        <feRegister:consent type="marketing" />
+
+        [...]
+
+	</f:form>
+</html>
+```
+You can also use a dummy, if you have no real object to send
+```
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	xmlns:feRegister="http://typo3.org/ns/Madj2k/FeRegister/ViewHelpers"
+	data-namespace-typo3-fluid="true">
+
+    <f:render partial="FormErrors" arguments="{object:dummyObject}" />
+
+	<f:form action="create" name="alert" object="{dummyObject}">
+
+        [...]
+
+        <!-- dummy field for validator -->
+        <f:form.textfield name="dummy" value="1" type="hidden" />
 
         <feRegister:consent type="terms" />
         <feRegister:consent type="privacy" key="default" />
@@ -239,7 +264,55 @@ Only the corresponding validators are included here. They always refer to the fo
     ): void {
 
         [...]
+    }
+
+
+    /**
+     * A template method for displaying custom error flash messages, or to
+     * display no flash message at all on errors. Override this to customize
+     * the flash message in your action controller.
+     *
+     * @return string|false The flash message or FALSE if no flash message should be set
+     */
+    protected function getErrorFlashMessage()
+    {
+        return false;
+    }
 ```
+Or when using a dummy:
+```
+ /**
+     * action create
+     *
+     * @param bool dummy
+     * @return void
+     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
+     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
+     * @TYPO3\CMS\Extbase\Annotation\Validate("Madj2k\FeRegister\Validation\Consent\TermsValidator", param="dummy")
+     * @TYPO3\CMS\Extbase\Annotation\Validate("Madj2k\FeRegister\Validation\Consent\PrivacyValidator", param="dummy")
+     * @TYPO3\CMS\Extbase\Annotation\Validate("Madj2k\FeRegister\Validation\Consent\MarketingValidator", param="dummy")
+     */
+    public function createAction(
+       array $dummy
+    ): void {
+
+        [...]
+    }
+
+
+    /**
+     * A template method for displaying custom error flash messages, or to
+     * display no flash message at all on errors. Override this to customize
+     * the flash message in your action controller.
+     *
+     * @return string|false The flash message or FALSE if no flash message should be set
+     */
+    protected function getErrorFlashMessage()
+    {
+        return false;
+    }
+```
+
 An opt-in procedure is usually not carried out for logged-in frontend users. If you still want to record the time of consent for a registration, you can achieve this with the following code:
 ```
     \Madj2k\FeRegister\DataProtection\ConsentHandler::add(

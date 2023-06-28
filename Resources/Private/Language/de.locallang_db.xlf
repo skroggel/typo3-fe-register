@@ -77,8 +77,8 @@
                 <target>Bitte wählen</target>
             </trans-unit>
           	<trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_consent">
-				<source>Consent to data protection</source>
-				<target>Getätigte Zustimmungen zum Datenschutz</target>
+				<source>Consents given</source>
+				<target>Getätigte Einwilligungen</target>
 			</trans-unit>
 			<trans-unit id="tx_feregister_domain_model_frontenduser.title">
 				<source>Title (overridden)</source>

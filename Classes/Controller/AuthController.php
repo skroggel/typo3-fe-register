@@ -14,6 +14,7 @@ namespace Madj2k\FeRegister\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
+use Madj2k\FeRegister\Domain\Model\GuestUser;
 use Madj2k\FeRegister\Service\AbstractAuthenticationService;
 use \Madj2k\FeRegister\Utility\FrontendUserSessionUtility;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
@@ -59,6 +60,7 @@ class AuthController extends AbstractController
             // offer a registration link for not logged-in users
             if (! $this->getFrontendUser()) {
 
+                $registerLink = '';
                 if ($this->settings['registrationPid']) {
 
                     /** @var \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder */
@@ -86,6 +88,7 @@ class AuthController extends AbstractController
                     '',
                     AbstractMessage::NOTICE
                 );
+
             }
         }
     }

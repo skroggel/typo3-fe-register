@@ -19,10 +19,20 @@
                     <feRegister:consent type="marketing"/>
 
                     <f:render partial="CaptchaElement" />
+                        
+                    <div class="btn-list btn-list--footer">
+                        <f:link.page
+                            class="mt-1 btn btn--secondary"
+                            pageUid="{settings.loginPid}"
+                        >
+                            <f:translate key="templates_frontendUser_new.labelBack" />
+                        </f:link.page>
+                        
+                        <button type="submit" class="btn btn--primary">
+                            <span><f:translate key="templates_frontendUser_new.labelRegister" /></span>
+                        </button>
+                    </div>
 
-                    <button type="submit" class="btn btn--primary full-width-narrow">
-                        <span><f:translate key="templates_frontendUser_new.labelRegister" /></span>
-                    </button>
                 </div>
             </div>
         </f:form>
