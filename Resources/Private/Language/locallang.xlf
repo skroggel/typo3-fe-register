@@ -626,7 +626,7 @@
 				<source>You have changed your mind? After %s days your data will be deleted automatically. To delete your data directly, please click on the following link:</source>
 			</trans-unit>
 			<trans-unit id="templates_email_optin.textOptOutLinkLabel">
-				<source>Cancel Registration</source>
+                <source>No, I do not want to register</source>
 			</trans-unit>
 
 

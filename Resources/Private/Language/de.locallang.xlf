@@ -802,8 +802,8 @@
                 <target>Sie haben es sich anders überlegt? Nach %s Tagen werden Ihre Daten automatisch gelöscht. Um Ihre Daten direkt zu löschen, klicken Sie bitte auf den folgenden Link:</target>
             </trans-unit>
             <trans-unit id="templates_email_optin.textOptOutLinkLabel">
-                <source>Cancel Registration</source>
-                <target>No, I do not want to register</target>
+                <source>No, I do not want to register</source>
+                <target>Nein, ich möchte mich nicht registrieren</target>
             </trans-unit>
 
 
