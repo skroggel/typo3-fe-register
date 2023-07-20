@@ -68,6 +68,12 @@ class FrontendUserUtility
     {
         $result = [];
         foreach ($frontendUser->_getProperties() as $property => $value) {
+
+            // ignore temporary attributes
+            if (strpos($property, 'temp') === 0) {
+                continue;
+            }
+
             if ($dirtyOnly) {
 
                 // if the object is persisted, we can use _isDirty

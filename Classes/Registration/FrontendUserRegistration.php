@@ -305,6 +305,23 @@ class FrontendUserRegistration extends AbstractRegistration
                     }
                 }
 
+                // special treatment for group-optIns
+                if (
+                    ($optInPersisted->getForeignTable() == 'fe_groups')
+                    && ($groupId = $optInPersisted->getForeignUid())
+                ){
+                    /** @var \Madj2k\FeRegister\Domain\Model\FrontendUserGroup $frontendUserGroup */
+                    $frontendUserGroup = $this->frontendUserGroupRepository->findByUid($groupId);
+                    $frontendUserPersisted->addUsergroup($frontendUserGroup);
+
+                    $this->getLogger()->log(
+                        LogLevel::INFO, sprintf(
+                            'Joining group with %s.',
+                            $groupId
+                        )
+                    );
+                }
+
                 // synchronize frontendUser-objects!
                 $this->frontendUser = $frontendUserPersisted;
                 $this->frontendUserRepository->update($frontendUserPersisted);

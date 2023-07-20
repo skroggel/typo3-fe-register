@@ -58,6 +58,12 @@ call_user_func(
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
             'Madj2k.FeRegister',
+            'GroupOptIn',
+            'FE Register: FrontendUserGroup (OptIn)'
+        );
+
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+            'Madj2k.FeRegister',
             'Info',
             'FE Register: Info'
         );

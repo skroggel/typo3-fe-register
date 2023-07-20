@@ -6,7 +6,7 @@
     <f:section name="main">
         <h2><f:translate key="templates_password_edit.headline" /></h2>
 
-        <f:render partial="FlashMessages" arguments="{_all}" />
+        <f:render partial="AllFlashMessages" arguments="{_all}" />
         <f:render partial="FormErrors" arguments="{for:frontendUser}" />
 
         <f:form action="update" name="frontendUser" object="{frontendUser}" class="form-fields">
@@ -16,7 +16,7 @@
                     <f:render partial="Password/PasswordFormFields" arguments="{_all}" />
 
                     <div class="btn-list btn-list--footer">
-                        <f:link.action pageUid="{settings.welcomePid}" action="index" controller="Registration" class="btn btn--secondary">
+                        <f:link.action pageUid="{settings.welcomePid}" action="index" class="btn btn--secondary">
                             <f:translate key="templates_password_edit.labelBack"/>
                         </f:link.action>
 

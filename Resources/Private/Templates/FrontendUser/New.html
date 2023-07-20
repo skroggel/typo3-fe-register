@@ -6,7 +6,7 @@
 
     <f:section name="main">
 
-        <f:render partial="FlashMessages" arguments="{_all}" />
+        <f:render partial="AllFlashMessages" arguments="{_all}" />
         <f:render partial="FormErrors" arguments="{for:frontendUser}"/>
 
         <f:form action="create" name="frontendUser" object="{frontendUser}" class="form-fields">

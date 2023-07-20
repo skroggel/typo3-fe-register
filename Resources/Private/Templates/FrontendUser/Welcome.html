@@ -8,7 +8,7 @@
             <f:translate key="templates_frontendUser_welcome.headline" arguments="{0: frontendUser.firstName, 1: frontendUser.lastName}" />
         </h1>
 
-        <f:render partial="FlashMessages" arguments="{_all}" />
+        <f:render partial="AllFlashMessages" arguments="{_all}" />
         
         <f:if condition="{showContinue}">
             <div class="flex-container flex-basis-12 btn-list">

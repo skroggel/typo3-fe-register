@@ -323,14 +323,14 @@ class FrontendUserGroupController extends AbstractController
         // logged in user?
         if (
             (FrontendUserSessionUtility::getLoggedInUser())
-            && ($this->settings['groupsListPid'])
+            && ($this->settings['groupListPid'])
         ){
             $this->redirect(
                 'list',
                 'FrontendUserGroup',
                 null,
                 null,
-                $this->settings['groupsListPid']
+                $this->settings['groupListPid']
             );
         }
 

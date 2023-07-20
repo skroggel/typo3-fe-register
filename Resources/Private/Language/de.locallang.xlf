@@ -387,7 +387,7 @@
             </trans-unit>
   			<trans-unit id="frontendUserGroupController.message.registrationWatchForEmail">
                 <source><![CDATA[Almost there! To make sure you are really you, we have just sent you an email to the address you provided. Please confirm your wish to join the group via the link in the email. If you do not receive an email from us within the next 2-3 minutes, please check your spam filter. Our <a href="mailto:%s">Support</a> will be happy to help you if you have any problems.]]></source>
-                <target><![CDATA[Fast geschafft! Um sicherzustellen, dass Sie auch wirklich Sie sind, haben wir Ihnen gerade eine E-Mail an die angegebene Adresse geschickt. Bitte bestätigen Sie über den Link in der E-Mail Ihren Wunsch des Gruppenbeitritts. Sollten Sie innerhalb der nächsten 2-3 Minuten keine E-Mail von uns erhalten, prüfen Sie bitte Ihren Spam-Filter. Unser <a href="mailto:%s>Support</a> hilft Ihnen bei Problemen gerne weiter.]]></target>
+                <target><![CDATA[Fast geschafft! Um sicherzustellen, dass Sie auch wirklich Sie sind, haben wir Ihnen gerade eine E-Mail an die angegebene Adresse geschickt. Bitte bestätigen Sie über den Link in der E-Mail Ihren Wunsch des Gruppenbeitritts. Sollten Sie innerhalb der nächsten 2-3 Minuten keine E-Mail von uns erhalten, prüfen Sie bitte Ihren Spam-Filter. Unser <a href="mailto:%s">Support</a> hilft Ihnen bei Problemen gerne weiter.]]></target>
             </trans-unit>
             <trans-unit id="frontendUserGroupController.message.successful">
                 <source>Woohoo! Joining the group was successfully confirmed.</source>

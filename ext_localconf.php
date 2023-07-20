@@ -108,7 +108,6 @@ call_user_func(
             ]
         );
 
-
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
             'Madj2k.' . $extKey,
             'Group',
@@ -124,6 +123,19 @@ call_user_func(
                 'FrontendUser' => 'index'            ]
         );
 
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+            'Madj2k.' . $extKey,
+            'GroupOptIn',
+            [
+                'FrontendUserGroup' => 'optIn',
+                'Auth'=> 'index',
+            ],
+            // non-cacheable actions
+            [
+                'FrontendUserGroup' => 'optIn',
+                'Auth'=> 'index',
+            ]
+        );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
             'Madj2k.' . $extKey,
@@ -189,7 +201,7 @@ call_user_func(
             Madj2k\FeRegister\Registration\AbstractRegistration::class,
             \Madj2k\FeRegister\Registration\AbstractRegistration::SIGNAL_AFTER_REGISTRATION_COMPLETED . 'FeRegisterGroups',
             \Madj2k\FeRegister\Service\MailService::class,
-            'createMembership'
+            'sendGroupConfirmationEmail'
         );
 
         $signalSlotDispatcher->connect(

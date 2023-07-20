@@ -17,14 +17,14 @@
         <postmaster:email.translate key="templates_email_group_optin.text1" languageKey="{queueRecipient.languageCode}" extensionName="feRegister" arguments="{0: frontendUserGroup.title}" />\n\n
 
         <postmaster:email.translate key="templates_email_group_optin.textOptIn" languageKey="{queueRecipient.languageCode}" extensionName="feRegister" />\n
-        <postmaster:email.uri.action action="optIn" controller="FrontendUserGroup" extensionName="feRegister" pluginName="auth"
-             absolute="true" noCacheHash="true" pageUid="{settings.loginPid}"
-             additionalParams="{tx_feregister_auth: {token: tokenYes, user: tokenUser}}"/>\n\n
+        <postmaster:email.uri.action action="optIn" controller="FrontendUserGroup" extensionName="feRegister" pluginName="groupOptIn"
+             absolute="true" noCacheHash="true" pageUid="{settings.groupOptInPid}"
+             additionalParams="{tx_feregister_groupoptin: {token: tokenYes, user: tokenUser}}"/>\n\n
 
         <postmaster:email.translate key="templates_email_group_optin.textOptOut" languageKey="{queueRecipient.languageCode}" extensionName="feRegister" arguments="{0: settings.users.daysForOptIn}" />\n
-        <postmaster:email.uri.action action="optIn" controller="FrontendUserGroup" extensionName="feRegister" pluginName="auth"
-             absolute="true" noCacheHash="true" pageUid="{settings.loginPid}"
-             additionalParams="{tx_feregister_auth: {token: tokenNo, user: tokenUser}}" />
+        <postmaster:email.uri.action action="optIn" controller="FrontendUserGroup" extensionName="feRegister" pluginName="groupOptIn"
+             absolute="true" noCacheHash="true" pageUid="{settings.groupOptInPid}"
+             additionalParams="{tx_feregister_groupoptin: {token: tokenNo, user: tokenUser}}" />
     </postmaster:email.plaintextLineBreaks></f:section>
 
 
@@ -40,11 +40,11 @@
         <p><postmaster:email.translate key="templates_email_group_optin.text1" languageKey="{queueRecipient.languageCode}" extensionName="feRegister" arguments="{0: frontendUserGroup.title}" /></p>
         <p>
             <postmaster:email.translate key="templates_email_group_optin.textOptIn" languageKey="{queueRecipient.languageCode}" extensionName="feRegister"/><br>
-            <a href="<postmaster:email.uri.action action='optIn' controller='FrontendUserGroup' extensionName='feRegister' pluginName='auth' absolute='true' noCacheHash='true' pageUid='{settings.loginPid}' additionalParams='{tx_feregister_auth: {token: tokenYes, user: tokenUser}}' />"><postmaster:email.translate key="templates_email_group_optin.textOptInLinkLabel" languageKey="{queueRecipient.languageCode}" extensionName="feRegister"/></a>
+            <a href="<postmaster:email.uri.action action='optIn' controller='FrontendUserGroup' extensionName='feRegister' pluginName='groupOptIn' absolute='true' noCacheHash='true' pageUid='{settings.groupOptInPid}' additionalParams='{tx_feregister_groupoptin: {token: tokenYes, user: tokenUser}}' />"><postmaster:email.translate key="templates_email_group_optin.textOptInLinkLabel" languageKey="{queueRecipient.languageCode}" extensionName="feRegister"/></a>
         </p>
         <p>
             <postmaster:email.translate key="templates_email_group_optin.textOptOut" languageKey="{queueRecipient.languageCode}" extensionName="feRegister" arguments="{0: settings.users.daysForOptIn}" /><br>
-            <a href="<postmaster:email.uri.action action='optIn' controller='FrontendUserGroup' extensionName='feRegister' pluginName='auth' absolute='true' noCacheHash='true' pageUid='{settings.loginPid}' additionalParams='{tx_feregister_auth: {token: tokenNo, user: tokenUser}}'  />"><postmaster:email.translate key="templates_email_group_optin.textOptOutLinkLabel" languageKey="{queueRecipient.languageCode}" extensionName="feRegister"/></a>
+            <a href="<postmaster:email.uri.action action='optIn' controller='FrontendUserGroup' extensionName='feRegister' pluginName='groupOptIn' absolute='true' noCacheHash='true' pageUid='{settings.groupOptInPid}' additionalParams='{tx_feregister_groupoptin: {token: tokenNo, user: tokenUser}}'  />"><postmaster:email.translate key="templates_email_group_optin.textOptOutLinkLabel" languageKey="{queueRecipient.languageCode}" extensionName="feRegister"/></a>
         </p>
     </f:section>
 </html>

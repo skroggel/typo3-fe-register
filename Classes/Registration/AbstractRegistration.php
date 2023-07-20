@@ -710,9 +710,10 @@ abstract class AbstractRegistration implements RegistrationInterface
                 $userGroups = $settings['users']['guest']['groupsOnRegister'];
             }
 
+            // add groups to existing ones (if any)
             if ($userGroups) {
                 $userGroupIds = GeneralUtility::trimExplode(',', $userGroups);
-                $objectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+                $objectStorage = $frontendUserPersisted->getUsergroup() ?: GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class);
                 foreach ($userGroupIds as $groupId) {
 
                     /** @var \Madj2k\FeRegister\Domain\Model\FrontendUserGroup $frontendUserGroup */

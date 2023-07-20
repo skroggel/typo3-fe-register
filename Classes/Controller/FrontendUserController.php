@@ -386,6 +386,7 @@ class FrontendUserController extends AbstractController
             );
         }
         $this->frontendUserRepository->update($frontendUser);
+        $this->persistenceManager->persistAll();
 
         $this->addFlashMessage(
             LocalizationUtility::translate(
@@ -395,7 +396,7 @@ class FrontendUserController extends AbstractController
 
         // redirect back to groups when we were originally redirected from there
         if (
-            ($this->settings['groupsListPid'])
+            ($this->settings['groupListPid'])
             && ($frontendUser->getTempFrontendUserGroup())
         ){
             $this->redirect(
@@ -405,12 +406,8 @@ class FrontendUserController extends AbstractController
                 [
                     'frontendUserGroup' => $frontendUser->getTempFrontendUserGroup()
                 ],
-                $this->settings['groupsListPid']
+                $this->settings['groupListPid']
             );
-        }
-
-        if ($this->settings['welcomePid']) {
-            $this->redirectToWelcome();
         }
 
         $this->redirect('edit');
