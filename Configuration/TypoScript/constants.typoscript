@@ -45,7 +45,10 @@ plugin.tx_feregister {
         editUserPid =
 
         # cat=plugin.tx_feregister//a; type=integer; label=Pid of groups list
-        groupsListPid =
+        groupListPid =
+
+        # cat=plugin.tx_feregister//a; type=integer; label=Pid for group-opt-in. Must be accessible if logged in AND if not logged in
+        groupOptInPid =
 
         # cat=plugin.tx_feregister//a; type=string; label=Company email for support
         companyEmail =

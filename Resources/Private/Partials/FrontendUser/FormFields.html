@@ -4,11 +4,13 @@
 
 
     <f:comment><!-- Hidden field for temporary groups --></f:comment>
-    <f:form.hidden
-        property="tempFrontendUserGroup"
-        value="{frontendUser.tempFrontendUserGroup}"
-    />
-
+    <f:if condition="{frontendUser.tempFrontendUserGroup}">
+        <f:form.hidden
+            property="tempFrontendUserGroup"
+            value="{frontendUser.tempFrontendUserGroup}"
+        />
+    </f:if>
+    
     <div class="form__field width50 break-after">
         <label for="gender">
             <f:translate key="tx_feregister_domain_model_frontenduser.tx_feregister_gender" />

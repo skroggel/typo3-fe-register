@@ -17,6 +17,7 @@ namespace Madj2k\FeRegister\Domain\Model;
 use Madj2k\Postmaster\Utility\FrontendLocalizationUtility;
 use Madj2k\FeRegister\Domain\Repository\TitleRepository;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * Class FrontendUser
@@ -36,7 +37,7 @@ class FrontendUser extends \Madj2k\CoreExtended\Domain\Model\FrontendUser
      *
      * @var string
      */
-    protected string $_tempPlaintextPassword = '';
+    protected string $tempPlaintextPassword = '';
 
 
     /**
@@ -44,7 +45,7 @@ class FrontendUser extends \Madj2k\CoreExtended\Domain\Model\FrontendUser
      *
      * @var \Madj2k\FeRegister\Domain\Model\FrontendUserGroup|null
      */
-    protected ?FrontendUserGroup $_tempFrontendUserGroup = null;
+    protected ?FrontendUserGroup $tempFrontendUserGroup = null;
 
 
     /**
@@ -134,7 +135,7 @@ class FrontendUser extends \Madj2k\CoreExtended\Domain\Model\FrontendUser
      */
     public function getTempPlaintextPassword(): string
     {
-        return $this->_tempPlaintextPassword;
+        return $this->tempPlaintextPassword;
     }
 
 
@@ -147,7 +148,7 @@ class FrontendUser extends \Madj2k\CoreExtended\Domain\Model\FrontendUser
      */
     public function setTempPlaintextPassword(string $tempPlaintextPassword): void
     {
-        $this->_tempPlaintextPassword = $tempPlaintextPassword;
+        $this->tempPlaintextPassword = $tempPlaintextPassword;
     }
 
 
@@ -158,9 +159,9 @@ class FrontendUser extends \Madj2k\CoreExtended\Domain\Model\FrontendUser
      * @return \Madj2k\FeRegister\Domain\Model\FrontendUserGroup|null
      * @api
      */
-    public function getTempFrontendUserGroup() :? \Madj2k\FeRegister\Domain\Model\FrontendUserGroup
+    public function getTempFrontendUserGroup():? \Madj2k\FeRegister\Domain\Model\FrontendUserGroup
     {
-        return $this->_tempFrontendUserGroup;
+        return $this->tempFrontendUserGroup;
     }
 
 
@@ -173,7 +174,7 @@ class FrontendUser extends \Madj2k\CoreExtended\Domain\Model\FrontendUser
      */
     public function setTempFrontendUserGroup(FrontendUserGroup $tempFrontendUserGroup): void
     {
-        $this->_tempFrontendUserGroup = $tempFrontendUserGroup;
+        $this->tempFrontendUserGroup = $tempFrontendUserGroup;
     }
 
 
