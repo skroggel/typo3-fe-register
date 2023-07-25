@@ -8,7 +8,7 @@ CREATE TABLE tx_feregister_domain_model_optin
 
 	frontend_user_uid    int(11) DEFAULT '0' NOT NULL,
 	frontend_user_update text,
-	admins  							varchar(255) DEFAULT '' NOT NULL,
+	admins  						 varchar(255) DEFAULT '' NOT NULL,
 	token_user           varchar(255) DEFAULT '' NOT NULL,
 	token_yes            varchar(255) DEFAULT '' NOT NULL,
 	token_no             varchar(255) DEFAULT '' NOT NULL,

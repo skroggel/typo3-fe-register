@@ -94,40 +94,6 @@ class DataProtectionHandler
 
 
     /**
-     * Deletes expired and disabled frontend users after x days (only sets deleted = 1)
-     *
-     * @param int $daysExpired
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
-     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
-     * @return int
-     */
-    public function deleteAllExpiredAndDisabled (int $daysExpired = 7): int
-    {
-        $cnt = 0;
-        $settings = $this->getSettings();
-
-        if (
-            ($frontendUserList = $this->frontendUserRepository->findExpired($daysExpired))
-            && (count($frontendUserList))
-        ) {
-            /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
-            foreach ($frontendUserList as $frontendUser) {
-                $this->frontendUserRepository->remove($frontendUser);
-                $this->getLogger()->log(LogLevel::INFO, sprintf(
-                    'Deleted expired or disabled user with id %s.',
-                    $frontendUser->getUid())
-                );
-                $cnt++;
-            }
-            $this->persistenceManager->persistAll();
-        }
-
-        return $cnt;
-    }
-
-
-    /**
      * Anonymize and encrypts all data of a frontend user that has been deleted x days before
      *
      * Also includes user-related data if configured
@@ -149,7 +115,7 @@ class DataProtectionHandler
         if (
             (is_array($mappings))
             && (count($mappings))
-            && ($frontendUserList = $this->frontendUserRepository->findDeleted($anonymizeAfterDays))
+            && ($frontendUserList = $this->frontendUserRepository->findReadyForAnonymisation($anonymizeAfterDays))
             && (count($frontendUserList))
         ) {
 

@@ -14,6 +14,8 @@ namespace Madj2k\FeRegister\Domain\Repository;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+
 /**
  * FrontendUserRepository
  *
@@ -25,5 +27,39 @@ namespace Madj2k\FeRegister\Domain\Repository;
  */
 class GuestUserRepository extends FrontendUserRepository
 {
+
+    /**
+     * Find guestUsers that are ready for cleanup
+     *
+     * @param int $daysExpired
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @api Used for cleanup via CLI
+     * implicitly tested
+     */
+    public function findReadyToRemove (int $daysExpired = 30): QueryResultInterface {
+
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setIgnoreEnableFields(true);
+        $query->getQuerySettings()->setIncludeDeleted(true);
+        $query->getQuerySettings()->setRespectStoragePage(false);
+
+        return $query->matching(
+            $query->logicalOr(
+                $query->logicalAnd(
+                    $query->greaterThan('endtime', 0),
+                    $query->lessThanOrEqual('endtime', (time() - ($daysExpired * 24 * 60 * 60)))
+                ),
+                $query->logicalAnd(
+                    $query->equals('deleted', 1),
+                    $query->lessThanOrEqual('tstamp', (time() - ($daysExpired * 24 * 60 * 60)))
+                ),
+                $query->logicalAnd(
+                    $query->equals('disable', 1),
+                    $query->lessThanOrEqual('tstamp', (time() - ($daysExpired * 24 * 60 * 60)))
+                )
+            )
+        )->execute();
+    }
 
 }

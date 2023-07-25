@@ -143,48 +143,7 @@ class DataProtectionHandlerTest extends FunctionalTestCase
 
     }
 
-    //===================================================================
 
-    /**
-     * @test
-     * @throws \Exception
-     */
-    public function deleteAllExpiredAndDisabledDeletesAllExpiredAndDisabledFrontendUsers()
-    {
-
-        /**
-         * Scenario:
-         *
-         * Given there are five frontend user
-         * Given that one of the frontend users has been expired since more days then configured for deletion
-         * Given that one of the frontend users will expire in the future
-         * Given that one of the frontend users is disabled since more days then configured for deletion
-         * Given that one of the frontend users is disabled since less than days then configured for deletion
-         * Given that one of the frontend users is neither disabled nor expired
-         * When I delete all expired users
-         * Then the frontend user which expired since more days then configured for deletion is deleted
-         * Then the frontend user which is disabled since more days then configured for deletion is deleted
-         * Then the other three frontend users are not deleted
-         */
-        $this->importDataSet(self::FIXTURE_PATH . '/Database/Check120.xml');
-
-        $deleted = $this->subject->deleteAllExpiredAndDisabled();
-        $this->persistenceManager->persistAll();
-
-        /** @var \TYPO3\CMS\Extbase\Persistence\QueryResultInterface $result*/
-        $query = $this->frontendUserRepository->createQuery();
-        $query->getQuerySettings()->setIgnoreEnableFields(true);
-
-        $result = $query->execute()->toArray();
-
-        self::assertEquals(2, $deleted);
-        self::assertCount(3, $result);
-        self::assertEquals(121, $result[0]->getUid());
-        self::assertEquals(123, $result[1]->getUid());
-        self::assertEquals(125, $result[2]->getUid());
-
-
-    }
 
     //===================================================================
 
