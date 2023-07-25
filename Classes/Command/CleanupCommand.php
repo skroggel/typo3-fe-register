@@ -15,6 +15,7 @@ namespace Madj2k\FeRegister\Command;
 
 use Madj2k\FeRegister\DataProtection\DataProtectionHandler;
 use Madj2k\FeRegister\Domain\Repository\OptInRepository;
+use Madj2k\FeRegister\Persistence\Cleaner;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
@@ -41,21 +42,9 @@ class CleanupCommand extends Command
 {
 
     /**
-     * @var \Madj2k\FeRegister\Domain\Repository\OptinRepository|null
+     * @var \Madj2k\FeRegister\Persistence\Cleaner|null
      */
-    protected ?OptinRepository $optInRepository = null;
-
-
-    /**
-     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager|null
-     */
-    protected ?PersistenceManager $persistenceManager = null;
-
-
-    /**
-     * @var \Madj2k\FeRegister\DataProtection\DataProtectionHandler|null
-     */
-    protected ?DataProtectionHandler $dataProtectionHandler = null;
+    protected ?Cleaner $cleaner = null;
 
 
     /**
@@ -76,6 +65,13 @@ class CleanupCommand extends Command
                 InputOption::VALUE_REQUIRED,
                 'Days since optIns and frontendUsers are expired.',
                 7
+            )
+            ->addOption(
+                'dryRun',
+                't',
+                InputOption::VALUE_REQUIRED,
+                'Do a dry-run without making changes (default: 1).',
+                1
             );
     }
 
@@ -97,10 +93,7 @@ class CleanupCommand extends Command
         /** @var \TYPO3\CMS\Extbase\Object\ObjectManager$objectManager */
         $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 
-        $this->dataProtectionHandler = $objectManager->get(DataProtectionHandler::class);
-        $this->optInRepository = $objectManager->get(OptInRepository::class);
-        $this->persistenceManager = $objectManager->get(PersistenceManager::class);
-
+        $this->cleaner = $objectManager->get(Cleaner::class);
     }
 
 
@@ -119,33 +112,45 @@ class CleanupCommand extends Command
         $io->title($this->getDescription());
 
         $daysSinceExpired = $input->getOption('daysSinceExpired');
+        $dryRun = $input->getOption('dryRun');
 
         $io->note('Using daysSinceExpired="' . $daysSinceExpired .'"');
+        $io->note('Using dryRun="' . $dryRun .'"');
 
         $result = 0;
         try {
 
-            $expiredOptIns = $this->optInRepository->findExpired($daysSinceExpired);
-            $cnt = 0;
-            foreach ($expiredOptIns as $optIn) {
-                $this->optInRepository->remove($optIn);
-                $cnt++;
-            }
-            $this->persistenceManager->persistAll();
+            $this->cleaner->setDryRun(boolval($dryRun));
+
+            $cnt = $this->cleaner->removeOptIns($daysSinceExpired);
             $message = 'Removed ' . $cnt . ' optIn(s).';
             $io->note($message);
             $this->getLogger()->log(LogLevel::INFO, $message);
 
+            $cnt = $this->cleaner->removeGuestUsers($daysSinceExpired);
+            $message = 'Removed ' . $cnt . ' GuestUsers(s).';
+            $io->note($message);
+            $this->getLogger()->log(LogLevel::INFO, $message);
 
-            $cnt = $this->dataProtectionHandler->deleteAllExpiredAndDisabled($daysSinceExpired);
-            $message = 'Removed ' . $cnt . ' frontendUser(s).';
+            $cnt = $this->cleaner->removeFrontendUsers($daysSinceExpired);
+            $message = 'Removed ' . $cnt . ' FrontendUsers(s).';
+            $io->note($message);
+            $this->getLogger()->log(LogLevel::INFO, $message);
+
+            $cnt = $this->cleaner->deleteFrontendUsers($daysSinceExpired);
+            $message = 'Marked ' . $cnt . ' FrontendUsers(s) as deleted.';
+            $io->note($message);
+            $this->getLogger()->log(LogLevel::INFO, $message);
+
+            $cnt = $this->cleaner->removeConsents($daysSinceExpired);
+            $message = 'Removed ' . $cnt . ' Consents(s).';
             $io->note($message);
             $this->getLogger()->log(LogLevel::INFO, $message);
 
 
         } catch (\Exception $e) {
 
-            $message = sprintf('An unexpected error occurred while trying to cleanup expired optIns and frontendUsers: %s',
+            $message = sprintf('An unexpected error occurred while trying to cleanup: %s',
                 str_replace(array("\n", "\r"), '', $e->getMessage())
             );
 

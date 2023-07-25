@@ -26,7 +26,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  * @package Madj2k_FeRegister
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class OptInRepository extends AbstractRepository
+class OptInRepository extends AbstractRepository implements CleanerInterface
 {
 
     /**
@@ -117,35 +117,12 @@ class OptInRepository extends AbstractRepository
 
 
     /**
-     * find expired opt-ins
-     *
-     * @param int $daysExpired
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
-     * @api Used for cleanup via CLI
-     */
-    public function findExpired(int $daysExpired = 0): QueryResultInterface
-    {
-        $query = $this->createQuery();
-        $query->getQuerySettings()->setIgnoreEnableFields(true);
-        $query->getQuerySettings()->setRespectStoragePage(false);
-
-        return $query->matching(
-            $query->logicalAnd(
-                $query->greaterThan('endtime', 0),
-                $query->lessThanOrEqual('endtime', (time() - ($daysExpired * 24 * 60 * 60)))
-            )
-
-        )->execute();
-    }
-
-
-    /**
      * Find all pending group-memberships by frontendUser
      *
      * @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
      * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface<\Madj2k\FeRegister\Domain\Model\OptIn|null>
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * implicitly tested
      */
     public function findPendingGroupMembershipsByFrontendUser(
         FrontendUser $frontendUser
@@ -164,6 +141,38 @@ class OptInRepository extends AbstractRepository
                 )
             )
         )->execute();
+    }
+
+
+    /**
+     * find opt-ins that are ready for cleanup
+     *
+     * @param int $daysExpired
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @api Used for cleanup via CLI
+     * implicitly tested
+     */
+    public function findReadyToRemove (int $daysExpired = 30): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setIgnoreEnableFields(true);
+        $query->getQuerySettings()->setIncludeDeleted(true);
+        $query->getQuerySettings()->setRespectStoragePage(false);
+
+        return $query->matching(
+            $query->logicalOr(
+                $query->logicalAnd(
+                    $query->greaterThan('endtime', 0),
+                    $query->lessThanOrEqual('endtime', (time() - ($daysExpired * 24 * 60 * 60)))
+                ),
+                $query->logicalAnd(
+                    $query->equals('deleted', 1),
+                    $query->lessThanOrEqual('tstamp', (time() - ($daysExpired * 24 * 60 * 60)))
+                )
+            )
+        )->execute();
+
     }
 
 }

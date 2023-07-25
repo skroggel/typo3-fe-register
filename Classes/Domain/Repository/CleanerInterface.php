@@ -18,16 +18,17 @@ use Madj2k\CoreExtended\Domain\Repository\StoragePidAwareAbstractRepository;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
- * AbstractRepository
+ * CleanerInterface
  *
  * @author Steffen Kroggel <developer@steffenkroggel.de>
  * @copyright Steffen Kroggel
  * @package Madj2k_FeRegister
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class AbstractRepository extends StoragePidAwareAbstractRepository
+interface CleanerInterface
 {
 
     /**
@@ -37,25 +38,17 @@ class AbstractRepository extends StoragePidAwareAbstractRepository
      * @return int
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      */
-    public function removeHard(\TYPO3\CMS\Extbase\DomainObject\AbstractEntity $object): int
-    {
-        /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
-        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ObjectManager::class);
+    public function removeHard(\TYPO3\CMS\Extbase\DomainObject\AbstractEntity $object): int;
 
-        /** @var \TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper $dataMapper */
-        $dataMapper = $objectManager->get(DataMapper::class);
-        $tableName = $dataMapper->getDataMap(get_class($object))->getTableName();
 
-        $connectionPool = \Madj2k\CoreExtended\Utility\GeneralUtility::makeInstance(ConnectionPool::class);
-        $queryBuilder = $connectionPool->getQueryBuilderForTable($tableName);
-        $affectedRows = $queryBuilder
-            ->delete($tableName)
-            ->where(
-                $queryBuilder->expr()->eq('uid', $object->getUid())
-            )
-            ->execute();
-
-        return intval($affectedRows);
-    }
+    /**
+     * Find consents that are ready for cleanup
+     *
+     * @param int $daysExpired
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @api Used for cleanup via CLI
+     */
+    public function findReadyToRemove (int $daysExpired = 30): QueryResultInterface;
 
 }

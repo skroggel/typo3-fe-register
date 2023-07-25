@@ -3124,7 +3124,6 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
          * When the method is called
          * Then true is returned
          * Then the deleted-property is set to 1
-         *
          */
         $this->importDataSet(self::FIXTURE_PATH .'/Database/Check20.xml');
 

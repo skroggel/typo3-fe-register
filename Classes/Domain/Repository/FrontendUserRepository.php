@@ -16,7 +16,8 @@ namespace Madj2k\FeRegister\Domain\Repository;
 
 use Madj2k\FeRegister\Domain\Model\FrontendUser;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
@@ -28,7 +29,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  * @package Madj2k_FeRegister
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class FrontendUserRepository extends AbstractRepository
+class FrontendUserRepository extends AbstractRepository implements CleanerInterface
 {
 
     /**
@@ -106,13 +107,15 @@ class FrontendUserRepository extends AbstractRepository
      * @param int $daysExpired
      * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
-     * @api Used for cleanup via CLI*
+     * @api Used for cleanup via CLI
+     * implicitly tested
      */
-    public function findExpired (int $daysExpired = 7): QueryResultInterface {
+    public function findReadyToMarkAsDeleted (int $daysExpired = 7): QueryResultInterface
+    {
 
         $query = $this->createQuery();
-        $query->getQuerySettings()->setRespectStoragePage(false);
         $query->getQuerySettings()->setIgnoreEnableFields(true);
+        $query->getQuerySettings()->setRespectStoragePage(false);
 
         return $query->matching(
             $query->logicalOr(
@@ -122,6 +125,7 @@ class FrontendUserRepository extends AbstractRepository
                 ),
                 $query->logicalAnd(
                     $query->equals('disable', 1),
+                    $query->greaterThan('lastlogin', 0),
                     $query->lessThanOrEqual('tstamp', (time() - ($daysExpired * 24 * 60 * 60)))
                 )
             )
@@ -130,14 +134,40 @@ class FrontendUserRepository extends AbstractRepository
 
 
     /**
-     * Find all deleted frontend users that have been deleted x days ago and have not yet been anonymized/encrypted
+     * Find frontendUsers that are ready for cleanup
+     *
+     * @param int $daysExpired
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @api Used for cleanup via CLI
+     * implicitly tested
+     */
+    public function findReadyToRemove (int $daysExpired = 30): QueryResultInterface
+    {
+
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setIgnoreEnableFields(true);
+        $query->getQuerySettings()->setRespectStoragePage(false);
+
+        return $query->matching(
+            $query->logicalAnd(
+                $query->equals('disable', 1),
+                $query->equals('lastlogin', 0),
+                $query->lessThanOrEqual('tstamp', (time() - ($daysExpired * 24 * 60 * 60)))
+            )
+        )->execute();
+    }
+
+
+    /**
+     * Find all deleted frontend users that have been deleted x days ago and have not yet been anonymised/encrypted
      *
      * @param int $daysDeleted
      * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
-     * @api Used for cleanup via CLI
+     * @api Used for anonymisation via CLI
      */
-    public function findDeleted (int $daysDeleted = 7): QueryResultInterface
+    public function findReadyForAnonymisation (int $daysDeleted = 7): QueryResultInterface
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
@@ -156,62 +186,6 @@ class FrontendUserRepository extends AbstractRepository
         );
 
         return $query->execute();
-    }
-
-
-    /**
-     * Delete user from DB (really!)
-     *
-     * FrontendUser only deleted if:
-     * - no privacy entry exists
-     * - (AND) marked als "deleted"
-     * - (AND) older than 10 years (OR) with no login yet (rejected registrations)
-     *
-     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
-     * @return bool
-     * tested implicitly
-     */
-    public function removeHard(FrontendUser $frontendUser): bool
-    {
-        // Important: We never want to delete a user with related privacy entries
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tt_content');
-        $rows = $queryBuilder
-            ->select('uid')
-            ->from('tx_feregister_domain_model_consent')
-            ->where(
-                $queryBuilder->expr()->eq(
-                    'frontend_user', $queryBuilder->createNamedParameter($frontendUser->getUid(), \PDO::PARAM_INT)
-                )
-            )
-            ->execute()
-            ->fetchAll();
-
-        // delete only if: (1) there are no privacy entries AND (2) if the user is older than 10 years AND (3) marked as "deleted"
-        // -> never delete a frontendUser with privacy entries. They have to removed first!
-        // unless a user who has (4) no privacy entries and never was logged in (rejected registration)
-        if (
-            empty($rows)
-            && $frontendUser->getDeleted()
-            && (
-                $frontendUser->getTstamp() < strtotime("-10 years", time())
-                || !$frontendUser->getLastlogin()
-            )
-        ) {
-
-            GeneralUtility::makeInstance(ConnectionPool::class)
-                ->getConnectionForTable('fe_users')
-                ->delete(
-                    'fe_users',
-                    [
-                        'uid' => intval($frontendUser->getUid()),
-                        'deleted' => 1
-                    ]
-                );
-
-            return true;
-        }
-
-        return false;
     }
 
 }
