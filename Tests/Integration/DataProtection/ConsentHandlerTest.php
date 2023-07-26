@@ -14,6 +14,7 @@ namespace Madj2k\FeRegister\Tests\Integration\DataProtection;
  * The TYPO3 project - inspiring people to share!
  */
 
+use Madj2k\FeRegister\Domain\Repository\TitleRepository;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use Madj2k\FeRegister\Domain\Model\Consent;
 use Madj2k\FeRegister\Domain\Repository\ConsentRepository;
@@ -80,15 +81,21 @@ class ConsentHandlerTest extends FunctionalTestCase
 
 
     /**
+     * @var \Madj2k\FeRegister\Domain\Repository\ConsentRepository|null
+     */
+    private ?ConsentRepository $consentRepository = null;
+
+
+    /**
      * @var \Madj2k\FeRegister\Domain\Repository\ShippingAddressRepository|null
      */
     private ?ShippingAddressRepository $shippingAddressRepository = null;
 
 
     /**
-     * @var \Madj2k\FeRegister\Domain\Repository\ConsentRepository|null
+     * @var \Madj2k\FeRegister\Domain\Repository\TitleRepository|null
      */
-    private ?ConsentRepository $consentRepository = null;
+    private ?TitleRepository $titleRepository = null;
 
 
     /**
@@ -122,11 +129,20 @@ class ConsentHandlerTest extends FunctionalTestCase
         $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 
         // Repository
+        /** @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository frontendUserRepository */
         $this->frontendUserRepository = $this->objectManager->get(FrontendUserRepository::class);
+
+        /** @var \Madj2k\FeRegister\Domain\Repository\OptInRepository optInRepository */
         $this->optInRepository = $this->objectManager->get(OptInRepository::class);
-        $this->shippingAddressRepository = $this->objectManager->get(ShippingAddressRepository::class);
+
+        /** @var \Madj2k\FeRegister\Domain\Repository\ConsentRepository consentRepository */
         $this->consentRepository = $this->objectManager->get(ConsentRepository::class);
 
+        /** @var \Madj2k\FeRegister\Domain\Repository\ShippingAddressRepository shippingAddressRepository */
+        $this->shippingAddressRepository = $this->objectManager->get(ShippingAddressRepository::class);
+
+        /** @var \Madj2k\FeRegister\Domain\Repository\ConsentRepository titleRepository */
+        $this->titleRepository = $this->objectManager->get(TitleRepository::class);
 
         // some default values for testing
         $_SERVER['HTTP_HOST'] = 'vollhorst.com';
@@ -262,14 +278,15 @@ class ConsentHandlerTest extends FunctionalTestCase
      * @test
      * @throws \Exception
      */
-    public function addGivenOptInObjectWithoutDataObjectRefersToOptIn ()
+    public function addGivenOptInWithoutForeignObjectInformationRefersToOptIn ()
     {
         /**
          * Scenario:
          *
          * Given a persisted frontendUser-object
          * Given a persisted optIn-object
-         * Given this optIn-object has no data-property set
+         * Given this optIn-object has no foreignTable-property set
+         * Given this optIn-object has no foreignUid-property set
          * Given a request-object
          * When the method is called with the optIn-object as referenceObject-parameter
          * Then an instance of Madj2k\FeRegister\Domain\Model\Consent is returned
@@ -305,35 +322,32 @@ class ConsentHandlerTest extends FunctionalTestCase
      * @test
      * @throws \Exception
      */
-    public function addGivenOptInObjectWithDataObjectRefersToThisDataObject ()
+    public function addGivenOptInWithForeignObjectInformationRefersToTheForeignObjectInformation ()
     {
         /**
          * Scenario:
          *
          * Given a persisted frontendUser-object
          * Given a persisted optIn-object
-         * Given this optIn-object has a persisted shippingAddress-object set as data-property
+         * Given this optIn-object has the foreignTable-property set to tx_feregister_domain_model_shippingaddress
+         * Given this optIn-object has the foreignUid-property set
          * Given a request-object
          * When the method is called with the optIn-object as referenceObject-parameter
          * Then an instance of Madj2k\FeRegister\Domain\Model\Consent is returned
-         * Then this instance has the foreignTable-property set to tx_feregister_domain_model_shippingaddress
-         * Then this instance has the foreignUid-property set to the uid of the shippingAddress-object
+         * Then this instance has the foreignTable-property set to the corresponding value of the optIn-object
+         * Then this instance has the foreignUid-property set to the corresponding value of the optIn-object
          */
 
-        $this->importDataSet(self::FIXTURE_PATH . '/Database/Check20.xml');
+        $this->importDataSet(self::FIXTURE_PATH . '/Database/Check30.xml');
 
         /** @var \Madj2k\FeRegister\DataProtection\ConsentHandler $consentHandler */
         $consentHandler = $this->objectManager->get(ConsentHandler::class);
 
         /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
-        $frontendUser = $this->frontendUserRepository->findByIdentifier(20);
+        $frontendUser = $this->frontendUserRepository->findByIdentifier(30);
 
         /** @var \Madj2k\FeRegister\Domain\Model\OptIn $optIn */
-        $optIn = $this->optInRepository->findByIdentifier(20);
-
-        /** @var \Madj2k\FeRegister\Domain\Model\ShippingAddress $shippingAddress */
-        $shippingAddress = $this->shippingAddressRepository->findByIdentifier(20);
-        $optIn->setData($shippingAddress);
+        $optIn = $this->optInRepository->findByIdentifier(30);
 
         /** @var \TYPO3\CMS\Extbase\Mvc\Request $request */
         $request = $this->objectManager->get(Request::class);
@@ -344,7 +358,7 @@ class ConsentHandlerTest extends FunctionalTestCase
         self::assertInstanceOf(Consent::class, $result);
 
         self::assertEquals('tx_feregister_domain_model_shippingaddress', $result->getForeignTable());
-        self::assertEquals($shippingAddress->getUid(), $result->getForeignUid());
+        self::assertEquals(1234, $result->getForeignUid());
     }
 
 
@@ -352,7 +366,54 @@ class ConsentHandlerTest extends FunctionalTestCase
      * @test
      * @throws \Exception
      */
-    public function addGivenNonOptInObjectRefersToThisObject ()
+    public function addGivenOptInWithForeignObjectInformationRefersToTheParentForeignObjectInformation ()
+    {
+        /**
+         * Scenario:
+         *
+         * Given a persisted frontendUser-object
+         * Given a persisted optIn-object
+         * Given this optIn-object has the foreignTable-property set to tx_feregister_domain_model_shippingaddress
+         * Given this optIn-object has the foreignUid-property set
+         * Given this optIn-object has the parentForeignTable-property set to tx_feregister_domain_model_title
+         * Given this optIn-object has the parentForeignUid-property set
+         * Given a request-object
+         * When the method is called with the optIn-object as referenceObject-parameter
+         * Then an instance of Madj2k\FeRegister\Domain\Model\Consent is returned
+         * Then this instance has the foreignTable-property et to the corresponding parent-value of the optIn-object
+         * Then this instance has the foreignUid-property set to the corresponding parent-value of the optIn-object
+         */
+
+        $this->importDataSet(self::FIXTURE_PATH . '/Database/Check40.xml');
+
+        /** @var \Madj2k\FeRegister\DataProtection\ConsentHandler $consentHandler */
+        $consentHandler = $this->objectManager->get(ConsentHandler::class);
+
+        /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
+        $frontendUser = $this->frontendUserRepository->findByIdentifier(40);
+
+        /** @var \Madj2k\FeRegister\Domain\Model\OptIn $optIn */
+        $optIn = $this->optInRepository->findByIdentifier(40);
+
+
+        /** @var \TYPO3\CMS\Extbase\Mvc\Request $request */
+        $request = $this->objectManager->get(Request::class);
+
+        /** @var \Madj2k\FeRegister\Domain\Model\Consent $result */
+        $result = $consentHandler->add($request, $frontendUser, $optIn, 'hello');
+
+        self::assertInstanceOf(Consent::class, $result);
+
+        self::assertEquals('tx_feregister_domain_model_title', $result->getForeignTable());
+        self::assertEquals(4321, $result->getForeignUid());
+    }
+
+
+    /**
+     * @test
+     * @throws \Exception
+     */
+    public function addGivenNonOptInRefersToItsObjectInformation()
     {
         /**
          * Scenario:
@@ -398,7 +459,7 @@ class ConsentHandlerTest extends FunctionalTestCase
      * @test
      * @throws \Exception
      */
-    public function addGivenObjectStorageRefersToObjectsOfObjectStorage ()
+    public function addGivenObjectStorageRefersToObjectInformationOfFirstObjectInObjectStorage ()
     {
         /**
          * Scenario:
@@ -452,14 +513,15 @@ class ConsentHandlerTest extends FunctionalTestCase
      * @test
      * @throws \Exception
      */
-    public function addGivenApprovedOptInObjectWithoutDataObjectRefersToOptInAndLinksToParent ()
+    public function addGivenApprovedOptInWithoutForeignObjectInformationRefersToOptInAndLinksToParent ()
     {
         /**
          * Scenario:
          *
          * Given a persisted frontendUser-object
          * Given a persisted optIn-object
-         * Given this optIn-object has no data-property set
+         * Given this optIn-object has no foreignTable-property set
+         * Given this optIn-object has no foreignUid-property set
          * Given this optIn-object is approved by the admins
          * Given this optIn-object is approved by the user
          * Given a request-object
@@ -473,16 +535,16 @@ class ConsentHandlerTest extends FunctionalTestCase
          * Then this instance has the parent-property set to the consent-object generated by the first method-call
          */
 
-        $this->importDataSet(self::FIXTURE_PATH . '/Database/Check20.xml');
+        $this->importDataSet(self::FIXTURE_PATH . '/Database/Check10.xml');
 
         /** @var \Madj2k\FeRegister\DataProtection\ConsentHandler $consentHandler */
         $consentHandler = $this->objectManager->get(ConsentHandler::class);
 
         /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
-        $frontendUser = $this->frontendUserRepository->findByIdentifier(20);
+        $frontendUser = $this->frontendUserRepository->findByIdentifier(10);
 
         /** @var \Madj2k\FeRegister\Domain\Model\OptIn $optIn */
-        $optIn = $this->optInRepository->findByIdentifier(20);
+        $optIn = $this->optInRepository->findByIdentifier(10);
 
         /** @var \TYPO3\CMS\Extbase\Mvc\Request $request */
         $request = $this->objectManager->get(Request::class);
@@ -519,41 +581,38 @@ class ConsentHandlerTest extends FunctionalTestCase
      * @test
      * @throws \Exception
      */
-    public function addGivenApprovedOptInObjectWithDataObjectRefersToThisObjectAndLinksToParent ()
+    public function addGivenApprovedOptInWithForeignObjectInformationRefersToThisObjectInformationAndLinksToParent ()
     {
         /**
          * Scenario:
          *
          * Given a persisted frontendUser-object
          * Given a persisted optIn-object
-         * Given this optIn-object has a persisted shippingAddress-object set as data-property
-         * Given this optIn-object is approved by the admins
-         * Given this optIn-object is approved by the user
+         * Given this optIn-object has the foreignTable-property set to tx_feregister_domain_model_shippingaddress
+         * Given this optIn-object foreignUid-property
          * Given a request-object
          * Given the method has been called before with the optIn-object as referenceObject-parameter
+         * Given this optIn-object is approved by the admins
+         * Given this optIn-object is approved by the user
          * When the method is called with optIn-object as referenceObject-parameter
          * Then an instance of Madj2k\FeRegister\Domain\Model\Consent is returned
          * Then this instance has the optIn-property is set to null
          * Then this instance has the optIn-property the consent-object generated by the first method-call is set to null
-         * Then this instance has the foreignTable-property set to tx_feregister_domain_model_shippingaddress
-         * Then this instance has the foreignUid-property set to the uid of the shippingAddress-object
+         * Then this instance has the foreignTable-property set to the corresponding value of the optIn-object
+         * Then this instance has the foreignUid-property set to the corresponding value of the optIn-object
          * Then this instance has the parent-property set to the consent-object generated by the first method-call
          */
 
-        $this->importDataSet(self::FIXTURE_PATH . '/Database/Check20.xml');
+        $this->importDataSet(self::FIXTURE_PATH . '/Database/Check30.xml');
 
         /** @var \Madj2k\FeRegister\DataProtection\ConsentHandler $consentHandler */
         $consentHandler = $this->objectManager->get(ConsentHandler::class);
 
         /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
-        $frontendUser = $this->frontendUserRepository->findByIdentifier(20);
+        $frontendUser = $this->frontendUserRepository->findByIdentifier(30);
 
         /** @var \Madj2k\FeRegister\Domain\Model\OptIn $optIn */
-        $optIn = $this->optInRepository->findByIdentifier(20);
-
-        /** @var \Madj2k\FeRegister\Domain\Model\ShippingAddress $shippingAddress */
-        $shippingAddress = $this->shippingAddressRepository->findByIdentifier(20);
-        $optIn->setData($shippingAddress);
+        $optIn = $this->optInRepository->findByIdentifier(30);
 
         /** @var \TYPO3\CMS\Extbase\Mvc\Request $request */
         $request = $this->objectManager->get(Request::class);
@@ -577,8 +636,8 @@ class ConsentHandlerTest extends FunctionalTestCase
         self::assertNull($result->getOptIn());
         self::assertNull($preResult->getOptIn());
 
-        self::assertEquals('tx_feregister_domain_model_shippingaddress', $result->getForeignTable());
-        self::assertEquals($shippingAddress->getUid(), $result->getForeignUid());
+        self::assertEquals($optIn->getForeignTable(), $result->getForeignTable());
+        self::assertEquals($optIn->getForeignUid(), $result->getForeignUid());
 
         self::assertInstanceOf(Consent::class, $result->getParent());
         self::assertEquals($preResult->getUid(), $result->getParent()->getUid());
@@ -589,7 +648,7 @@ class ConsentHandlerTest extends FunctionalTestCase
      * @test
      * @throws \Exception
      */
-    public function addGivenApprovedOptInObjectSetsConsentPropertiesOfFrontendUser ()
+    public function addGivenApprovedOptInSetsConsentPropertiesOfFrontendUser ()
     {
         /**
          * Scenario:
@@ -610,20 +669,16 @@ class ConsentHandlerTest extends FunctionalTestCase
          * Then txFeRegisterConsentMarketing-property of the frontendUser is set to true
          */
 
-        $this->importDataSet(self::FIXTURE_PATH . '/Database/Check20.xml');
+        $this->importDataSet(self::FIXTURE_PATH . '/Database/Check30.xml');
 
         /** @var \Madj2k\FeRegister\DataProtection\ConsentHandler $consentHandler */
         $consentHandler = $this->objectManager->get(ConsentHandler::class);
 
         /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
-        $frontendUser = $this->frontendUserRepository->findByIdentifier(20);
+        $frontendUser = $this->frontendUserRepository->findByIdentifier(30);
 
         /** @var \Madj2k\FeRegister\Domain\Model\OptIn $optIn */
-        $optIn = $this->optInRepository->findByIdentifier(20);
-
-        /** @var \Madj2k\FeRegister\Domain\Model\ShippingAddress $shippingAddress */
-        $shippingAddress = $this->shippingAddressRepository->findByIdentifier(20);
-        $optIn->setData($shippingAddress);
+        $optIn = $this->optInRepository->findByIdentifier(30);
 
         /** @var \TYPO3\CMS\Extbase\Mvc\Request $request */
         $request = $this->objectManager->get(Request::class);
@@ -647,7 +702,7 @@ class ConsentHandlerTest extends FunctionalTestCase
         $persistenceManager->clearState();
 
         /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
-        $frontendUser = $this->frontendUserRepository->findByIdentifier(20);
+        $frontendUser = $this->frontendUserRepository->findByIdentifier(30);
 
         self::assertInstanceOf(Consent::class, $result);
 
@@ -661,7 +716,7 @@ class ConsentHandlerTest extends FunctionalTestCase
      * @test
      * @throws \Exception
      */
-    public function addGivenApprovedOptInObjectSetsConsentPropertiesOfFrontendUserIfHigherValueOnly ()
+    public function addGivenApprovedOptInSetsConsentPropertiesOfFrontendUserIfHigherValueOnly ()
     {
         /**
          * Scenario:
@@ -693,10 +748,6 @@ class ConsentHandlerTest extends FunctionalTestCase
 
         /** @var \Madj2k\FeRegister\Domain\Model\OptIn $optIn */
         $optIn = $this->optInRepository->findByIdentifier(30);
-
-        /** @var \Madj2k\FeRegister\Domain\Model\ShippingAddress $shippingAddress */
-        $shippingAddress = $this->shippingAddressRepository->findByIdentifier(30);
-        $optIn->setData($shippingAddress);
 
         /** @var \TYPO3\CMS\Extbase\Mvc\Request $request */
         $request = $this->objectManager->get(Request::class);
@@ -736,7 +787,7 @@ class ConsentHandlerTest extends FunctionalTestCase
      * @test
      * @throws \Exception
      */
-    public function addGivenNonOptInObjectSetsConsentPropertiesOfFrontendUser ()
+    public function addGivenNonOptInSetsConsentPropertiesOfFrontendUser ()
     {
         /**
          * Scenario:
@@ -794,7 +845,7 @@ class ConsentHandlerTest extends FunctionalTestCase
      * @test
      * @throws \Exception
      */
-    public function addGivenNonOptInObjectSetsConsentPropertiesOfFrontendUserIfHigherValueOnly ()
+    public function addGivenNonOptInSetsConsentPropertiesOfFrontendUserIfHigherValueOnly ()
     {
         /**
          * Scenario:

@@ -44,7 +44,7 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
     /**
      * setObject
      * Use this function to set basic data
-     * The $dataObject is the element for what the privacy dataset will be created for (e.g. an order, or a new alert) !
+     * The $referenceObject is the element for what the privacy dataset will be created for (e.g. an order, or a new alert) !
      * Hint for optIn (two privacy-entries will be created):
      * 1. The first privacy-dataset of the optIn is created by the registration automatically. If the $dataObject is of type
      *    Madj2k\FeRegister\Domain\Model\Registration it will be automatically identified and set below in $this->setDataObject
@@ -154,12 +154,14 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
                 $consent->setOptIn($referenceObject);
             }
 
-            // optionally override reference-object with object from optIn
-            if (
-                ($referenceObject->getData())
-                && ($referenceObject->getData() instanceof AbstractEntity)
-            ){
-                self::setReference($consent, $referenceObject->getData());
+            // override reference-infos with object-infos from optIn
+            if ($referenceObject->getForeignTable()) {
+                $consent->setForeignTable($referenceObject->getForeignTable());
+                $consent->setForeignUid($referenceObject->getForeignUid());
+            }
+            if ($referenceObject->getParentForeignTable()) {
+                $consent->setForeignTable($referenceObject->getParentForeignTable());
+                $consent->setForeignUid($referenceObject->getParentForeignUid());
             }
 
         // normal object

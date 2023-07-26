@@ -17,6 +17,8 @@ CREATE TABLE tx_feregister_domain_model_optin
 	category             varchar(255) DEFAULT '' NOT NULL,
 	foreign_table        varchar(255) DEFAULT '' NOT NULL,
 	foreign_uid          int(11) DEFAULT '0' NOT NULL,
+	parent_foreign_table varchar(255) DEFAULT '' NOT NULL,
+	parent_foreign_uid   int(11) DEFAULT '0' NOT NULL,
 	approved             tinyint(1) DEFAULT '0' NOT NULL,
 	admin_approved       tinyint(1) DEFAULT '0' NOT NULL,
 	data                 longtext,
