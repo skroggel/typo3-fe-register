@@ -44,7 +44,8 @@ return [
 			],
 		],
 		'child' => [
-			'exclude' => 0,
+            'displayCond' => 'FIELD:parent:=:0',
+            'exclude' => 0,
 			'label' => 'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_consent.child',
 			'config' => [
 				'type' => 'inline',
@@ -203,6 +204,7 @@ return [
 			],
 		],
         'consent_privacy' => [
+            'displayCond' => 'FIELD:parent:=:0',
             'exclude' => 0,
             'label' => 'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_consent.consent_privacy',
             'config' => [
@@ -210,6 +212,7 @@ return [
             ],
         ],
         'consent_terms' => [
+            'displayCond' => 'FIELD:parent:=:0',
             'exclude' => 0,
             'label' => 'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_consent.consent_terms',
             'config' => [
@@ -217,6 +220,7 @@ return [
             ],
         ],
         'consent_marketing' => [
+            'displayCond' => 'FIELD:parent:=:0',
             'exclude' => 0,
             'label' => 'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_consent.consent_marketing',
             'config' => [

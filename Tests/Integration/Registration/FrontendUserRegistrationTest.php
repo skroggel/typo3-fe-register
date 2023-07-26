@@ -16,6 +16,8 @@ namespace Madj2k\FeRegister\Tests\Integration\Registration;
  */
 
 use Madj2k\FeRegister\Domain\Repository\GuestUserRepository;
+use Madj2k\FeRegister\Domain\Repository\ShippingAddressRepository;
+use Madj2k\FeRegister\Domain\Repository\TitleRepository;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use Madj2k\CoreExtended\Utility\FrontendSimulatorUtility;
 use Madj2k\FeRegister\Domain\Model\FrontendUser;
@@ -107,6 +109,18 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
 
 
     /**
+     * @var \Madj2k\FeRegister\Domain\Repository\ShippingAddressRepository|null
+     */
+    private ?ShippingAddressRepository $shippingAddressRepository = null;
+
+
+    /**
+     * @var \Madj2k\FeRegister\Domain\Repository\TitleRepository|null
+     */
+    private ?TitleRepository $titleRepository = null;
+
+
+    /**
      * @var \TYPO3\CMS\Extbase\Object\ObjectManager|null
      */
     private ?ObjectManager $objectManager;
@@ -162,6 +176,12 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
 
         /** @var \Madj2k\FeRegister\Domain\Repository\ConsentRepository consentRepository */
         $this->consentRepository = $this->objectManager->get(ConsentRepository::class);
+
+        /** @var \Madj2k\FeRegister\Domain\Repository\ConsentRepository shippingAddressRepository */
+        $this->shippingAddressRepository = $this->objectManager->get(ShippingAddressRepository::class);
+
+        /** @var \Madj2k\FeRegister\Domain\Repository\ConsentRepository titleRepository */
+        $this->titleRepository = $this->objectManager->get(TitleRepository::class);
 
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = 'mail@example.com';
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'] = 'Default';
@@ -1666,7 +1686,7 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
      * @test
      * @throws \Exception
      */
-    public function createOptInAddsOptInObjectWithAllData ()
+    public function createOptInAddsOptInObjectWithAllDataBasedOnArray ()
     {
         /**
          * Scenario:
@@ -1737,7 +1757,113 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
      * @test
      * @throws \Exception
      */
-    public function createOptInAddsPrivacyObject ()
+    public function createOptInAddsOptInObjectWithObjectData ()
+    {
+        /**
+         * Scenario:
+         *
+         * Given a persisted frontendUser-object A
+         * Given A has a valid value for the email-property set
+         * Given A has a valid value for the username-property set
+         * Given setFrontendUser has been called before with the A as parameter
+         * Given setData has been called before with an object as parameter
+         * When the method is called
+         * Then an instance of type \Madj2k\FeRegister\Domain\Model\OptIn is returned
+         * Then this instance is persisted
+         * Then this instance has the foreignTable-property set to the table of the object set via setData
+         * Then this instance has the foreignUid-property set to the uid of the object set via setData
+         */
+
+        $this->importDataSet(self::FIXTURE_PATH .'/Database/Check210.xml');
+
+        /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
+        $frontendUser = $this->frontendUserRepository->findByIdentifier(210);
+        $this->fixture->setFrontendUser($frontendUser);
+
+        /** @var \Madj2k\FeRegister\Domain\Model\ShippingAddress shippingAddress */
+        $shippingAddress = $this->shippingAddressRepository->findByIdentifier(210);
+        $this->fixture->setData($shippingAddress);
+
+        /** @var \Madj2k\FeRegister\Domain\Model\OptIn $optIn */
+        $optInReturn = $this->fixture->createOptIn();
+
+        self::assertInstanceOf(OptIn::class, $optInReturn);
+
+        $persistenceManager = $this->objectManager->get(PersistenceManager::class);
+        $persistenceManager->clearState();
+
+        /** @var \Madj2k\FeRegister\Domain\Model\OptIn $optIn */
+        $optIn = $this->optInRepository->findByIdentifier(1);
+        self::assertEquals($optInReturn->getUid(), $optIn->getUid());
+
+        self::assertEquals('tx_feregister_domain_model_shippingaddress', $optIn->getForeignTable());
+        self::assertEquals(210, $optIn->getForeignUid());
+    }
+
+
+    /**
+     * @test
+     * @throws \Exception
+     */
+    public function createOptInAddsOptInObjectWithObjectDataAndDataParent ()
+    {
+        /**
+         * Scenario:
+         *
+         * Given a persisted frontendUser-object A
+         * Given A has a valid value for the email-property set
+         * Given A has a valid value for the username-property set
+         * Given setFrontendUser has been called before with the A as parameter
+         * Given setData has been called before with an object as parameter
+         * Given setDataParent has been called before with another object as parameter
+         * When the method is called
+         * Then an instance of type \Madj2k\FeRegister\Domain\Model\OptIn is returned
+         * Then this instance is persisted
+         * Then this instance has the foreignTable-property set to the table of the object set via setData
+         * Then this instance has the foreignUid-property set to the uid of the object set via setData
+         * Then this instance has the parentForeignTable-property set to the table of the object set via setDataParent
+         * Then this instance has the parentForeignUid-property set to the uid of the object set via setDataParent
+         */
+
+        $this->importDataSet(self::FIXTURE_PATH .'/Database/Check220.xml');
+
+        /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
+        $frontendUser = $this->frontendUserRepository->findByIdentifier(220);
+        $this->fixture->setFrontendUser($frontendUser);
+
+        /** @var \Madj2k\FeRegister\Domain\Model\ShippingAddress shippingAddress */
+        $shippingAddress = $this->shippingAddressRepository->findByIdentifier(220);
+        $this->fixture->setData($shippingAddress);
+
+        /** @var \Madj2k\FeRegister\Domain\Model\Title title */
+        $title = $this->titleRepository->findByIdentifier(221);
+        $this->fixture->setDataParent($title);
+
+        /** @var \Madj2k\FeRegister\Domain\Model\OptIn $optIn */
+        $optInReturn = $this->fixture->createOptIn();
+
+        self::assertInstanceOf(OptIn::class, $optInReturn);
+
+        $persistenceManager = $this->objectManager->get(PersistenceManager::class);
+        $persistenceManager->clearState();
+
+        /** @var \Madj2k\FeRegister\Domain\Model\OptIn $optIn */
+        $optIn = $this->optInRepository->findByIdentifier(1);
+        self::assertEquals($optInReturn->getUid(), $optIn->getUid());
+
+        self::assertEquals('tx_feregister_domain_model_shippingaddress', $optIn->getForeignTable());
+        self::assertEquals(220, $optIn->getForeignUid());
+
+        self::assertEquals('tx_feregister_domain_model_title', $optIn->getParentForeignTable());
+        self::assertEquals(221, $optIn->getParentForeignUid());
+    }
+
+
+    /**
+     * @test
+     * @throws \Exception
+     */
+    public function createOptInAddsConsentObject ()
     {
         /**
          * Scenario:
@@ -1752,7 +1878,7 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
          * When the method is called
          * Then an instance of type \Madj2k\FeRegister\Domain\Model\OptIn is returned
          * Then this instance is persisted
-         * Then a privacy-object is created
+         * Then a consent-object is created
          */
 
         $this->importDataSet(self::FIXTURE_PATH .'/Database/Check10.xml');
@@ -3123,7 +3249,7 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
          * Given setFrontendUser has been called with this frontendUser-object as parameter
          * When the method is called
          * Then true is returned
-         * Then the deleted-property is set to 1
+         * Then the user is removed from the database completely
          */
         $this->importDataSet(self::FIXTURE_PATH .'/Database/Check20.xml');
 
@@ -3138,7 +3264,7 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
 
         /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
         $frontendUser = $this->frontendUserRepository->findByIdentifierIncludingDeleted(20);
-        self::assertTrue($frontendUser->getDeleted());
+        self::assertNull($frontendUser);
     }
 
 

@@ -3,6 +3,11 @@
 ### 1. Generate Opt-In in your controller
 For a registration with opt-in simple use the example-code below in your controller.
 Please ensure to always load FrontendUserRegistration via ObjectManager
+Explanation:
+- setData: set the object you want to create after successful opt-in only. In case of a shop this may be an order
+- setParentData: refers to the parent object of the opt-in-object. This is relevant for the documentation of the consents given by the user. In case of a shop this may be the product that is part of the order.
+- setCategory: this way you can use your own SignalSlots in your extension that interact with the opt-in process
+- setRequest: simply the current Request-option.  This is relevant for the documentation of the consents given by the user.
 ```
 /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
 $frontendUser = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(FrontendUser::class);
@@ -13,7 +18,8 @@ $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ObjectMana
 $registration = $objectManager->get(FrontendUserRegistration::class);
 $registration->setFrontendUser($frontendUser)
     ->setData($alert)
-    ->setCategory('yourExtension')
+    ->setDataParent($project) // optional, but nice to have
+    ->setCategory('YourCategory')
     ->setRequest($request)
     ->startRegistration();
 ```
@@ -89,7 +95,7 @@ Now we need a signal-slot that refers to the defined method for sending mails (e
 $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class);
 $signalSlotDispatcher->connect(
     Madj2k\FeRegister\Registration\AbstractRegistration::class,
-    Madj2k\FeRegister\Registration\AbstractRegistration::SIGNAL_AFTER_CREATING_OPTIN  . 'YourExtension',
+    Madj2k\FeRegister\Registration\AbstractRegistration::SIGNAL_AFTER_CREATING_OPTIN  . 'YourCategory',
     Your\Extension\Service\MailService::class,
     'optInAlertUser'
 );

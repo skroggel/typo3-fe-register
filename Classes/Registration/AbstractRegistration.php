@@ -176,6 +176,12 @@ abstract class AbstractRegistration implements RegistrationInterface
 
 
     /**
+     * @var mixed
+     */
+    protected $dataParent;
+
+
+    /**
      * @var string
      */
     protected string $category = '';
@@ -515,6 +521,8 @@ abstract class AbstractRegistration implements RegistrationInterface
 
 
     /**
+     * Gets the data
+     *
      * @return mixed
      */
     public function getData()
@@ -524,12 +532,38 @@ abstract class AbstractRegistration implements RegistrationInterface
 
 
     /**
+     * Sets the data
+     *
      * @var mixed $data
      * @return self
      */
     public function setData($data): self
     {
         $this->data = $data;
+        return $this;
+    }
+
+
+    /**
+     * Gets the dataParent
+     *
+     * @return mixed
+     */
+    public function getDataParent()
+    {
+        return $this->dataParent;
+    }
+
+
+    /**
+     * Sets the dataParent
+     *
+     * @var mixed $dataParent
+     * @return self
+     */
+    public function setDataParent($dataParent): self
+    {
+        $this->dataParent = $dataParent;
         return $this;
     }
 
@@ -585,7 +619,7 @@ abstract class AbstractRegistration implements RegistrationInterface
         $optIn->setEndtime(strtotime("+" . $settings['users']['daysForOptIn'] . " day", time()));
         $optIn->setAdminApproved(1);
 
-        // set information about table and uid used in data-object
+        // set information about table and uid used in data-objects
         // this is needed for e.g. group-registration
         if (
             ($data = $this->getData())
@@ -596,6 +630,18 @@ abstract class AbstractRegistration implements RegistrationInterface
             $optIn->setForeignTable($tableName);
             if ($uid = $data->getUid()) {
                 $optIn->setForeignUid($uid);
+            }
+        }
+
+        if (
+            ($dataParent = $this->getDataParent())
+            && ($dataParent instanceOf AbstractEntity)
+        ){
+            $dataMapper = $objectManager->get(DataMapper::class);
+            $tableName = $dataMapper->getDataMap(get_class($this->getDataParent()))->getTableName();
+            $optIn->setParentForeignTable($tableName);
+            if ($uid = $dataParent->getUid()) {
+                $optIn->setParentForeignUid($uid);
             }
         }
 

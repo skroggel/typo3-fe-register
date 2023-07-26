@@ -97,6 +97,18 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 
     /**
+     * @var string
+     */
+    protected string $parentForeignTable = '';
+
+
+    /**
+     * @var int
+     */
+    protected int $parentForeignUid = 0;
+
+
+    /**
      * @var int
      */
     protected int $approved = 0;
@@ -441,12 +453,58 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the foreignUid
      *
-     * @param int $foreignTable
+     * @param int $foreignUid
      * @return void
      */
     public function setForeignUid(int $foreignUid)
     {
         $this->foreignUid = $foreignUid;
+    }
+
+
+    /**
+     * Returns the parentForeignTable
+     *
+     * @return string
+     */
+    public function getParentForeignTable(): string
+    {
+        return $this->parentForeignTable;
+    }
+
+
+    /**
+     * Sets the parentForeignTable
+     *
+     * @param string $parentForeignTable
+     * @return void
+     */
+    public function setParentForeignTable(string $parentForeignTable)
+    {
+        $this->parentForeignTable = $parentForeignTable;
+    }
+
+
+    /**
+     * Returns the parentForeignUid
+     *
+     * @return int
+     */
+    public function getParentForeignUid(): int
+    {
+        return $this->parentForeignUid;
+    }
+
+
+    /**
+     * Sets the parentForeignUid
+     *
+     * @param int $parentForeignUid
+     * @return void
+     */
+    public function setParentForeignUid(int $parentForeignUid)
+    {
+        $this->parentForeignUid = $parentForeignUid;
     }
 
 
