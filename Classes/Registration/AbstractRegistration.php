@@ -295,6 +295,7 @@ abstract class AbstractRegistration implements RegistrationInterface
             }
         }
 
+        /** @todo auslagern in reset-Methode */
         $this->frontendUser = $frontendUser;
         $this->frontendUserToken = '';
         $this->frontendUserPersisted = null;
@@ -345,6 +346,7 @@ abstract class AbstractRegistration implements RegistrationInterface
             }
         }
 
+        /** @todo: Unterfunktion */
         $this->frontendUserToken = $frontendUserToken;
         $this->frontendUserPersisted = null;
         $this->frontendUser = null;
@@ -604,8 +606,6 @@ abstract class AbstractRegistration implements RegistrationInterface
             throw new Exception('The frontendUser-object has to be persisted to create an opt-in.',1659691717);
         }
 
-        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ObjectManager::class);
-
         $settings = $this->getSettings();
         /** @var  $optIn */
         $optIn = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(OptIn::class);
@@ -618,6 +618,52 @@ abstract class AbstractRegistration implements RegistrationInterface
         $optIn->setTokenNo(GeneralUtility::getUniqueRandomString());
         $optIn->setEndtime(strtotime("+" . $settings['users']['daysForOptIn'] . " day", time()));
         $optIn->setAdminApproved(1);
+
+        // set information about table and uid used in data-objects
+        // this is needed for e.g. group-registration
+        $this->appendForeignTableInformation($optIn);
+
+        $this->optInRepository->add($optIn);
+        $this->persistenceManager->persistAll();
+
+        // update object locally
+        $this->optInPersisted = $optIn;
+
+        // check if there are admins for the approval set
+        $this->appendApprovals($optIn);
+
+        // add privacy-object for non-existing user
+        if ($request = $this->getRequest()) {
+            ConsentHandler::add(
+                $request,
+                $frontendUserPersisted,
+                $optIn,
+                sprintf(
+                    'Created opt-in for user "%s" (disabled=%s, id=%s, category=%s).',
+                    strtolower($frontendUserPersisted->getUsername()),
+                    intval($frontendUserPersisted->getDisable()),
+                    $frontendUserPersisted->getUid(),
+                    $this->getCategory()
+                )
+            );
+        }
+
+        // we do NOT set a category-parameter here. We use the append-method instead.
+        // This way we either send a mail from this extension or from another - never both!
+        $this->dispatchSignalSlot(self::SIGNAL_AFTER_CREATING_OPTIN . ucfirst($this->getCategory()));
+
+        return $optIn;
+    }
+
+
+    /**
+     * @param \Madj2k\FeRegister\Domain\Model\OptIn $optIn
+     * @return void
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
+     */
+    protected function appendForeignTableInformation(\Madj2k\FeRegister\Domain\Model\OptIn $optIn)
+    {
+        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ObjectManager::class);
 
         // set information about table and uid used in data-objects
         // this is needed for e.g. group-registration
@@ -644,14 +690,24 @@ abstract class AbstractRegistration implements RegistrationInterface
                 $optIn->setParentForeignUid($uid);
             }
         }
+    }
 
-        $this->optInRepository->add($optIn);
-        $this->persistenceManager->persistAll();
 
-        // update object locally
-        $this->optInPersisted = $optIn;
-
-        // check if there are admins for the approval set
+    /**
+     * Set approvals for optIn
+     *
+     * @param \Madj2k\FeRegister\Domain\Model\OptIn $optIn
+     * @return void
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\NotImplementedException
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
+     * @throws \Exception
+     */
+    protected function appendApprovals(OptIn $optIn): void
+    {
         if (count($this->getApproval())) {
 
             // use a loop because via set the _is-dirty is false!
@@ -674,28 +730,6 @@ abstract class AbstractRegistration implements RegistrationInterface
             // This way we either send a mail from this extension or from another - never both!
             $this->dispatchSignalSlot(self::SIGNAL_AFTER_CREATING_OPTIN_ADMIN . ucfirst($this->getCategory()));
         }
-
-        // add privacy-object for non-existing user
-        if ($request = $this->getRequest()) {
-            ConsentHandler::add(
-                $request,
-                $frontendUserPersisted,
-                $optIn,
-                sprintf(
-                    'Created opt-in for user "%s" (disabled=%s, id=%s, category=%s).',
-                    strtolower($frontendUserPersisted->getUsername()),
-                    intval($frontendUserPersisted->getDisable()),
-                    $frontendUserPersisted->getUid(),
-                    $this->getCategory()
-                )
-            );
-        }
-
-        // we do NOT set a category-parameter here. We use the append-method instead.
-        // This way we either send a mail from this extension or from another - never both!
-        $this->dispatchSignalSlot(self::SIGNAL_AFTER_CREATING_OPTIN . ucfirst($this->getCategory()));
-
-        return $optIn;
     }
 
 
@@ -824,6 +858,7 @@ abstract class AbstractRegistration implements RegistrationInterface
      * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
      * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      * @api
      */
     public function cancelRegistration(): bool
