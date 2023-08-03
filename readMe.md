@@ -1,3 +1,14 @@
+# fe_register
+# Features
+* Registration-Process with Double-Opt-In
+* Login for normal users
+* Login as guest via link
+* Self-sign-up to defined usergroups, including approval by admin
+* Extensive Consent-Management for GDPR
+* Encryption and anonymization of deleted records (GDPR)
+* Automatic cleanup of deleted records (GDPR)
+* Easy to integrate into your own extensions
+
 # Usage in your own extension
 ## Opt-In
 ### 1. Generate Opt-In in your controller

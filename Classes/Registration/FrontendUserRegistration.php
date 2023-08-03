@@ -16,11 +16,13 @@ namespace Madj2k\FeRegister\Registration;
 
 use Madj2k\FeRegister\DataProtection\ConsentHandler;
 use Madj2k\FeRegister\Domain\Model\FrontendUser;
+use Madj2k\FeRegister\Domain\Model\OptIn;
 use Madj2k\FeRegister\Exception;
 use Madj2k\FeRegister\Utility\FrontendUserSessionUtility;
 use Madj2k\FeRegister\Utility\FrontendUserUtility;
 use Madj2k\FeRegister\Utility\PasswordUtility;
 use TYPO3\CMS\Core\Log\LogLevel;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * FrontendUserRegistration
@@ -156,7 +158,6 @@ class FrontendUserRegistration extends AbstractRegistration
      * @throws Exception
      * @throws \TYPO3\CMS\Core\Crypto\PasswordHashing\InvalidPasswordHashException
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
@@ -178,214 +179,19 @@ class FrontendUserRegistration extends AbstractRegistration
             && ($frontendUserPersisted = $this->getFrontendUserPersisted())
         ) {
 
-            // check if we are in god-mode
-            $adminMode = ($token == $optInPersisted->getAdminTokenYes()) || ($token == $optInPersisted->getAdminTokenNo());
-
-            // check if optIn has already been denied
-            if ($optInPersisted->getApproved() == -1) {
-                $this->getLogger()->log(
-                    LogLevel::WARNING, sprintf(
-                        'OpIn with uid=%s has been withdrawn by user.',
-                        $optInPersisted->getUid(),
-                    )
-                );
-                return 302;
+            $result = $this->checkIfOptInAlreadyDone($optInPersisted, $frontendUserPersisted);
+            if ($result > 0) {
+                return $result;
             }
 
-            if ($optInPersisted->getAdminApproved() == -1) {
-                $this->getLogger()->log(
-                    LogLevel::WARNING, sprintf(
-                        'OpIn with uid=%s has been denied by admins.',
-                        $optInPersisted->getUid(),
-                    )
-                );
-                return 301;
+            $result = $this->checkIfOptInYes($optInPersisted, $frontendUserPersisted, $token);
+            if ($result > 0) {
+                return $result;
             }
 
-            // check if already processed finally?
-            // Then return the status from the former decision process
-            if ($optInPersisted->getDeleted()) {
-
-                $this->getLogger()->log(
-                    LogLevel::WARNING, sprintf(
-                        'OpIn with uid=%s is not valid any more.',
-                        $optInPersisted->getUid(),
-                    )
-                );
-
-                if (
-                    ($optInPersisted->getApproved() == 1)
-                    && (($optInPersisted->getAdminApproved() == 1))
-                ) {
-                    return 299;
-                }
-
-                return 399;
-            }
-
-            //================================================
-            if (
-                ($token == $optInPersisted->getTokenYes())
-                || ($token == $optInPersisted->getAdminTokenYes())
-            ){
-
-                $getter = 'getApproved';
-                $setter = 'setApproved';
-                $signalSlot = self::SIGNAL_AFTER_APPROVAL_OPTIN;
-                if ($adminMode) {
-                    $getter = 'getAdminApproved';
-                    $setter = 'setAdminApproved';
-                    $signalSlot = self::SIGNAL_AFTER_APPROVAL_OPTIN_ADMIN;
-                }
-
-                // check if already approved by user or admin
-                if (! $optInPersisted->$getter()) {
-
-                    // else: approve now!
-                    $optInPersisted->$setter(1);
-
-                    // we do NOT set a category-parameter here. We use the append-method instead.
-                    // This way we either send a mail from this extension or from another - never both!
-                    $this->dispatchSignalSlot($signalSlot . ucfirst($this->getCategory()));
-
-                    // add privacy entry for non-admins
-                    if (! $adminMode) {
-
-                        // add privacy for frontendUser
-                        if ($request = $this->getRequest()) {
-                            ConsentHandler::add(
-                                $request,
-                                $frontendUserPersisted,
-                                $optInPersisted,
-                                ($optInPersisted->getCategory() ? 'accepted opt-in for ' . $optInPersisted->getCategory() : 'accepted opt-in'),
-                            );
-                        }
-                    }
-
-                    // do the update
-                    $this->optInRepository->update($optInPersisted);
-                    $this->persistenceManager->persistAll();
-                }
-
-                // still waiting for approval on the counterpart?
-                if (! $optInPersisted->getAdminApproved()) {
-                    $this->getLogger()->log(
-                        LogLevel::INFO, sprintf(
-                            'OptIn with uid=%s is waiting for approval of admins.',
-                            $optInPersisted->getUid(),
-                        )
-                    );
-                    return 201;
-                }
-
-                if (! $optInPersisted->getApproved()) {
-                    $this->getLogger()->log(
-                        LogLevel::INFO, sprintf(
-                            'OptIn with uid=%s is waiting for approval of user.',
-                            $optInPersisted->getUid(),
-                        )
-                    );
-                    return 202;
-                }
-
-                // else: update frontendUser according to stored data
-                // now that we have a valid optIn it is safe to persist the form-data in the frontendUser-object
-                foreach ($optInPersisted->getFrontendUserUpdate() as $property => $value) {
-
-                    $setter = 'set' . ucfirst($property);
-                    if (method_exists($frontendUserPersisted, $setter)) {
-                        $frontendUserPersisted->$setter($value);
-
-                        $this->getLogger()->log(
-                            LogLevel::INFO, sprintf(
-                                'Updating field %s in frontendUser.',
-                                $property
-                            )
-                        );
-                    }
-                }
-
-                // special treatment for group-optIns
-                if (
-                    ($optInPersisted->getForeignTable() == 'fe_groups')
-                    && ($groupId = $optInPersisted->getForeignUid())
-                ){
-                    /** @var \Madj2k\FeRegister\Domain\Model\FrontendUserGroup $frontendUserGroup */
-                    $frontendUserGroup = $this->frontendUserGroupRepository->findByUid($groupId);
-                    $frontendUserPersisted->addUsergroup($frontendUserGroup);
-
-                    $this->getLogger()->log(
-                        LogLevel::INFO, sprintf(
-                            'Joining group with %s.',
-                            $groupId
-                        )
-                    );
-                }
-
-                // synchronize frontendUser-objects!
-                $this->frontendUser = $frontendUserPersisted;
-                $this->frontendUserRepository->update($frontendUserPersisted);
-
-                // complete registration-process
-                $this->completeRegistration();
-
-                // mark opt-in as deleted
-                $this->optInRepository->remove($optInPersisted);
-                $this->persistenceManager->persistAll();
-
-                $this->getLogger()->log(
-                    LogLevel::INFO,
-                    sprintf(
-                        'Opt-in with uid=%s was successfully accepted (frontendUser uid=%s, category=%s).',
-                        $optInPersisted->getUid(),
-                        $frontendUserPersisted->getUid(),
-                        $optInPersisted->getCategory()
-                    )
-                );
-
-                return 200;
-
-            // =====================================================
-            } else if (
-                ($token == $optInPersisted->getTokenNo())
-                || ($token == $optInPersisted->getAdminTokenNo())
-            ){
-
-                $setter = 'setApproved';
-                $signalSlot = self::SIGNAL_AFTER_DENIAL_OPTIN;
-                if ($adminMode) {
-                    $setter = 'setAdminApproved';
-                    $signalSlot = self::SIGNAL_AFTER_DENIAL_OPTIN_ADMIN;
-                }
-
-                // else: disapprove now!
-                $optInPersisted->$setter(-1);
-                $this->optInRepository->update($optInPersisted);
-                $this->persistenceManager->persistAll();
-
-                // we do NOT set a category-parameter here. We use the append-method instead.
-                // This way we either send a mail from this extension or from another - never both!
-                $this->dispatchSignalSlot($signalSlot . ucfirst($this->getCategory()));
-
-                // cancel registration
-                $this->cancelRegistration();
-
-                // mark opt-in as deleted
-                $this->optInRepository->remove($optInPersisted);
-                $this->persistenceManager->persistAll();
-
-                $this->getLogger()->log(
-                    LogLevel::INFO,
-                    sprintf(
-                        'Opt-in with uid=%s was successfully canceled (frontendUser uid=%s, category=%s).',
-                        $optInPersisted->getUid(),
-                        $frontendUserPersisted->getUid(),
-                        $optInPersisted->getCategory()
-                    )
-                );
-
-                return 300;
-
+            $result = $this->checkIfOptInNo($optInPersisted, $frontendUserPersisted, $token);
+            if ($result > 0) {
+                return $result;
             }
         }
 
@@ -398,6 +204,280 @@ class FrontendUserRegistration extends AbstractRegistration
         );
 
         return 999;
+    }
+
+
+    /**
+     * Checks if optIn has been executed already
+     *
+     * @param \Madj2k\FeRegister\Domain\Model\OptIn $optInPersisted
+     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUserPersisted
+     * @return int
+     */
+    protected function checkIfOptInAlreadyDone(OptIn $optInPersisted, FrontendUser $frontendUserPersisted): int
+    {
+        // check if optIn has already been denied
+        if ($optInPersisted->getApproved() == -1) {
+            $this->getLogger()->log(
+                LogLevel::WARNING, sprintf(
+                    'OptIn with uid=%s has been withdrawn by user.',
+                    $optInPersisted->getUid(),
+                )
+            );
+            return 302;
+        }
+
+        if ($optInPersisted->getAdminApproved() == -1) {
+            $this->getLogger()->log(
+                LogLevel::WARNING, sprintf(
+                    'OptIn with uid=%s has been denied by admins.',
+                    $optInPersisted->getUid(),
+                )
+            );
+            return 301;
+        }
+
+        // check if already processed finally?
+        // Then return the status from the former decision process
+        if ($optInPersisted->getDeleted()) {
+
+            $this->getLogger()->log(
+                LogLevel::WARNING, sprintf(
+                    'OptIn with uid=%s is not valid any more.',
+                    $optInPersisted->getUid(),
+                )
+            );
+
+            if (
+                ($optInPersisted->getApproved() == 1)
+                && (($optInPersisted->getAdminApproved() == 1))
+            ) {
+                return 299;
+            }
+
+            return 399;
+        }
+
+        return 0;
+    }
+
+
+    /**
+     * Checks if optIn has been accepted
+     *
+     * @param \Madj2k\FeRegister\Domain\Model\OptIn $optInPersisted
+     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUserPersisted
+     * @param string $token
+     * @return int
+     * @throws Exception
+     * @throws \TYPO3\CMS\Core\Crypto\PasswordHashing\InvalidPasswordHashException
+     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\NotImplementedException
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
+     */
+    protected function checkIfOptInYes(OptIn $optInPersisted, FrontendUser $frontendUserPersisted, string $token): int
+    {
+
+        // check if we are in god-mode
+        $adminMode = ($token == $optInPersisted->getAdminTokenYes()) || ($token == $optInPersisted->getAdminTokenNo());
+
+        if (
+            ($token == $optInPersisted->getTokenYes())
+            || ($token == $optInPersisted->getAdminTokenYes())
+        ){
+
+            $getter = 'getApproved';
+            $setter = 'setApproved';
+            $signalSlot = self::SIGNAL_AFTER_APPROVAL_OPTIN;
+            if ($adminMode) {
+                $getter = 'getAdminApproved';
+                $setter = 'setAdminApproved';
+                $signalSlot = self::SIGNAL_AFTER_APPROVAL_OPTIN_ADMIN;
+            }
+
+            // check if already approved by user or admin
+            if (! $optInPersisted->$getter()) {
+
+                // else: approve now!
+                $optInPersisted->$setter(1);
+
+                // we do NOT set a category-parameter here. We use the append-method instead.
+                // This way we either send a mail from this extension or from another - never both!
+                $this->dispatchSignalSlot($signalSlot . ucfirst($this->getCategory()));
+
+                // add privacy entry for non-admins
+                if (! $adminMode) {
+
+                    // add privacy for frontendUser
+                    if ($request = $this->getRequest()) {
+                        ConsentHandler::add(
+                            $request,
+                            $frontendUserPersisted,
+                            $optInPersisted,
+                            ($optInPersisted->getCategory() ? 'accepted opt-in for ' . $optInPersisted->getCategory() : 'accepted opt-in'),
+                        );
+                    }
+                }
+
+                // do the update
+                $this->optInRepository->update($optInPersisted);
+                $this->persistenceManager->persistAll();
+            }
+
+            // still waiting for approval on the counterpart?
+            if (! $optInPersisted->getAdminApproved()) {
+                $this->getLogger()->log(
+                    LogLevel::INFO, sprintf(
+                        'OptIn with uid=%s is waiting for approval of admins.',
+                        $optInPersisted->getUid(),
+                    )
+                );
+                return 201;
+            }
+
+            if (! $optInPersisted->getApproved()) {
+                $this->getLogger()->log(
+                    LogLevel::INFO, sprintf(
+                        'OptIn with uid=%s is waiting for approval of user.',
+                        $optInPersisted->getUid(),
+                    )
+                );
+                return 202;
+            }
+
+            // else: update frontendUser according to stored data
+            // now that we have a valid optIn it is safe to persist the form-data in the frontendUser-object
+            foreach ($optInPersisted->getFrontendUserUpdate() as $property => $value) {
+
+                $setter = 'set' . ucfirst($property);
+                if (method_exists($frontendUserPersisted, $setter)) {
+                    $frontendUserPersisted->$setter($value);
+
+                    $this->getLogger()->log(
+                        LogLevel::INFO, sprintf(
+                            'Updating field %s in frontendUser.',
+                            $property
+                        )
+                    );
+                }
+            }
+
+            // special treatment for group-optIns
+            if (
+                ($optInPersisted->getForeignTable() == 'fe_groups')
+                && ($groupId = $optInPersisted->getForeignUid())
+            ){
+                /** @var \Madj2k\FeRegister\Domain\Model\FrontendUserGroup $frontendUserGroup */
+                $frontendUserGroup = $this->frontendUserGroupRepository->findByUid($groupId);
+                $frontendUserPersisted->addUsergroup($frontendUserGroup);
+
+                $this->getLogger()->log(
+                    LogLevel::INFO, sprintf(
+                        'Joining group with %s.',
+                        $groupId
+                    )
+                );
+            }
+
+            // synchronize frontendUser-objects!
+            $this->frontendUser = $frontendUserPersisted;
+            $this->frontendUserRepository->update($frontendUserPersisted);
+
+            // complete registration-process
+            $this->completeRegistration();
+
+            // mark opt-in as deleted
+            $this->optInRepository->remove($optInPersisted);
+            $this->persistenceManager->persistAll();
+
+            $this->getLogger()->log(
+                LogLevel::INFO,
+                sprintf(
+                    'Opt-in with uid=%s was successfully accepted (frontendUser uid=%s, category=%s).',
+                    $optInPersisted->getUid(),
+                    $frontendUserPersisted->getUid(),
+                    $optInPersisted->getCategory()
+                )
+            );
+
+            return 200;
+        }
+
+        return 0;
+    }
+
+
+    /**
+     * Checks if optIn has been declined
+     *
+     * @param \Madj2k\FeRegister\Domain\Model\OptIn $optInPersisted
+     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUserPersisted
+     * @param string $token
+     * @return int
+     * @throws Exception
+     * @throws \TYPO3\CMS\Core\Crypto\PasswordHashing\InvalidPasswordHashException
+     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\NotImplementedException
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
+     */
+    protected function checkIfOptInNo(OptIn $optInPersisted, FrontendUser $frontendUserPersisted, string $token): int
+    {
+
+        // check if we are in god-mode
+        $adminMode = ($token == $optInPersisted->getAdminTokenYes()) || ($token == $optInPersisted->getAdminTokenNo());
+
+        if (
+            ($token == $optInPersisted->getTokenNo())
+            || ($token == $optInPersisted->getAdminTokenNo())
+        ){
+
+            $setter = 'setApproved';
+            $signalSlot = self::SIGNAL_AFTER_DENIAL_OPTIN;
+            if ($adminMode) {
+                $setter = 'setAdminApproved';
+                $signalSlot = self::SIGNAL_AFTER_DENIAL_OPTIN_ADMIN;
+            }
+
+            // else: disapprove now!
+            $optInPersisted->$setter(-1);
+            $this->optInRepository->update($optInPersisted);
+            $this->persistenceManager->persistAll();
+
+            // we do NOT set a category-parameter here. We use the append-method instead.
+            // This way we either send a mail from this extension or from another - never both!
+            $this->dispatchSignalSlot($signalSlot . ucfirst($this->getCategory()));
+
+            // cancel registration
+            $this->cancelRegistration();
+
+            // mark opt-in as deleted
+            $this->optInRepository->remove($optInPersisted);
+            $this->persistenceManager->persistAll();
+
+            $this->getLogger()->log(
+                LogLevel::INFO,
+                sprintf(
+                    'Opt-in with uid=%s was successfully canceled (frontendUser uid=%s, category=%s).',
+                    $optInPersisted->getUid(),
+                    $frontendUserPersisted->getUid(),
+                    $optInPersisted->getCategory()
+                )
+            );
+
+            return 300;
+        }
+
+        return 0;
     }
 
 }
