@@ -669,6 +669,18 @@
                 <source>.</source>
                 <target>gelesen und verstanden.</target>
             </trans-unit>
+            <trans-unit id="templates_viewHelpers_consent_privacy.eventsSingle.partOne" approved="no">
+                <source><![CDATA[Yes, I agree that %s uses my personal data for my participation in the event, as well as for event follow-up and to create a free user account. My consent is voluntary and can be revoked at any time with future effect by email to <a href="mailto:%s">%2$s</a>. I have also read and agree to the]]></source>
+                <target state="final" phase-name="approval-1"><![CDATA[Ja, ich stimme zu, dass %s meine persönlichen Daten für meine Teilnahme an der Veranstaltung sowie zur Veranstaltungsnachbereitung und zur Erzeugung eines kostenlosen Nutzendenkontos verwendet. Meine Einwilligung ist freiwillig und kann jederzeit mit Wirkung für die Zukunft per Mail an <a href="mailto:%s">%2$s</a> widerrufen werden. Ferner habe ich die]]></target>
+            </trans-unit>
+            <trans-unit id="templates_viewHelpers_consent_privacy.eventsSingle.partTwo">
+                <source>data protection declaration</source>
+                <target>Datenschutzerklärung</target>
+            </trans-unit>
+            <trans-unit id="templates_viewHelpers_consent_privacy.eventsSingle.partThree">
+                <source>.</source>
+                <target>gelesen und verstanden.</target>
+            </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.order.partOne" approved="no">
                 <source><![CDATA[Yes, I agree that %s uses my personal data to process my order and to create a free user account. My consent is voluntary and can be revoked at any time with future effect by email to <a href="mailto:%s">%2$s</a>. Furthermore, I have read and agree to the ]]></source>
                 <target state="final" phase-name="approval-1"><![CDATA[Ja, ich stimme zu, dass %s meine persönlichen Daten für die Abwicklung der Bestellung sowie zur Erzeugung eines kostenlosen Nutzendenkontos verwendet. Meine Einwilligung ist freiwillig und kann jederzeit mit Wirkung für die Zukunft per Mail an <a href="mailto:%s">%2$s</a> widerrufen werden. Ferner habe ich die]]></target>

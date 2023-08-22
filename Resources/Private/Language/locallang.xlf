@@ -522,6 +522,15 @@
 			<trans-unit id="templates_viewHelpers_consent_privacy.events.partThree">
 				<source>. This consent can be revoked at any time.</source>
 			</trans-unit>
+            <trans-unit id="templates_viewHelpers_consent_privacy.eventsSingle.partOne" approved="no">
+                <source><![CDATA[Yes, I agree that %s uses my personal data for my participation in the event, as well as for event follow-up and to create a free user account. My consent is voluntary and can be revoked at any time with future effect by email to <a href="mailto:%s">%2$s</a>. I have also read and agree to the]]></source>
+            </trans-unit>
+            <trans-unit id="templates_viewHelpers_consent_privacy.eventsSingle.partTwo">
+                <source>data protection declaration</source>
+            </trans-unit>
+            <trans-unit id="templates_viewHelpers_consent_privacy.eventsSingle.partThree">
+                <source>.</source>
+            </trans-unit>
 			<trans-unit id="templates_viewHelpers_consent_privacy.order.partOne" approved="no">
 				<source>Yes, I agree that %s uses my personal data to process my order and to create a free user account. Furthermore, I have read and agree to the extended notes in the</source>
 			</trans-unit>
