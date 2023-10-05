@@ -25,11 +25,11 @@
     "require": {
         "php": ">=7.4",
         "ext-openssl" : "*",
-        "typo3/cms-core": "~9.5.0",
-		"madj2k/t3-accelerator": "~9.5.2",
-		"madj2k/t3-ajax-api": "~9.5.0",
-		"madj2k/t3-core-extended": "~9.5.4",
-		"madj2k/t3-postmaster": "~9.5.0"
+        "typo3/cms-core": "~9.5.0 || ~10.4.0",
+		"madj2k/t3-accelerator": "~9.5.2 || ~10.4.0",
+		"madj2k/t3-ajax-api": "~9.5.0 || ~10.4.0",
+		"madj2k/t3-core-extended": "~9.5.4 || ~10.4.0",
+		"madj2k/t3-postmaster": "~9.5.0 || ~10.4.0"
 	},
 	"suggest": {
 		"sjbr/sr-freecap": "~2.5.0"
