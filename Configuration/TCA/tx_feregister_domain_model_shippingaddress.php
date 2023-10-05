@@ -61,9 +61,10 @@ return [
                 'maxitems' => 1,
                 'default' => 99,
                 'items' => [
-                    ['LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_shippingaddress.gender.I.man', '0'],
-                    ['LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_shippingaddress.gender.I.woman', '1'],
-                    ['LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_shippingaddress.gender.I.neutral', '99'],
+                    ['LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_shippingaddress.gender.0', '0'],
+                    ['LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_shippingaddress.gender.1', '1'],
+                    ['LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_shippingaddress.gender.2', '2'],
+                    ['LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_shippingaddress.gender.99', '99'],
                 ],
             ],
         ],

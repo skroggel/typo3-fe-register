@@ -52,4 +52,5 @@ class ConsentRepository extends AbstractRepository implements CleanerInterface
             )
         )->execute();
     }
+
 }

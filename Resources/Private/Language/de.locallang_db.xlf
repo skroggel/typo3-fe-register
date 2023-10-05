@@ -31,19 +31,19 @@
 				<source>Salutation</source>
                 <target>Anrede</target>
 			</trans-unit>
-            <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.0">
+            <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_gender.0">
                 <source>Mr.</source>
                 <target>Herr</target>
             </trans-unit>
-            <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.1">
+            <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_gender.1">
                 <source>Mrs.</source>
                 <target>Frau</target>
             </trans-unit>
-            <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.2">
+            <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_gender.2">
                 <source>Mx.</source>
                 <target>Divers</target>
             </trans-unit>
-            <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.99">
+            <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_gender.99">
                 <source>Not set</source>
                 <target>Nicht gesetzt</target>
             </trans-unit>
@@ -230,15 +230,19 @@
 				<source>Salutation</source>
 				<target>Anrede</target>
 			</trans-unit>
-			<trans-unit id="tx_feregister_domain_model_shippingaddress.gender.I.man">
+			<trans-unit id="tx_feregister_domain_model_shippingaddress.gender.0">
 				<source>Mr.</source>
 				<target>Herr</target>
 			</trans-unit>
-			<trans-unit id="tx_feregister_domain_model_shippingaddress.gender.I.woman">
+			<trans-unit id="tx_feregister_domain_model_shippingaddress.gender.1">
 				<source>Mrs.</source>
 				<target>Frau</target>
 			</trans-unit>
-			<trans-unit id="tx_feregister_domain_model_shippingaddress.gender.I.neutral">
+			<trans-unit id="tx_feregister_domain_model_shippingaddress.gender.2">
+				<source>Mx.</source>
+				<target>Divers</target>
+			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_shippingaddress.gender.99">
 				<source>Please Select</source>
 				<target>Bitte wählen</target>
 			</trans-unit>

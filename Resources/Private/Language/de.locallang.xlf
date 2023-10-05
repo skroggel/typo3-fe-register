@@ -66,15 +66,19 @@
                 <source>Salutation</source>
                 <target>Anrede</target>
             </trans-unit>
-            <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.0">
+            <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_gender.0">
                 <source>Mr.</source>
                 <target>Herr</target>
             </trans-unit>
-            <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.1">
+            <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_gender.1">
                 <source>Mrs.</source>
                 <target>Frau</target>
             </trans-unit>
-            <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.99">
+            <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_gender.2">
+                <source>Mx.</source>
+                <target>Divers</target>
+            </trans-unit>
+            <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_gender.99">
                 <source>-- Please select --</source>
                 <target>-- Bitte wählen --</target>
             </trans-unit>
