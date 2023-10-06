@@ -133,6 +133,7 @@ class AnonymizeCommand extends Command
                 str_replace(array("\n", "\r"), '', $e->getMessage())
             );
 
+            // @extensionScannerIgnoreLine
             $io->error($message);
             $this->getLogger()->log(LogLevel::ERROR, $message);
             $result = 1;
