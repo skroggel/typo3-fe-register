@@ -45,10 +45,11 @@ class AuthGuestController extends AbstractController
     /**
      * @var \Madj2k\FeRegister\Registration\GuestUserRegistration
      */
-    public function injectFrontendUserRepository(GuestUserRegistration $guestUserRegistration)
+    public function injectGuestUserRepository(GuestUserRegistration $guestUserRegistration)
     {
         $this->guestUserRegistration = $guestUserRegistration;
     }
+
 
     /**
      * action create
