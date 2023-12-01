@@ -187,49 +187,49 @@ abstract class AbstractRegistration implements RegistrationInterface
 
 
     /**
-     * @var \Madj2k\FeRegister\Domain\Repository\OptInRepository|null
+     * @var \Madj2k\FeRegister\Domain\Repository\OptInRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected ?OptInRepository $optInRepository = null;
 
 
     /**
-     * @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository|null
+     * @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected ?FrontendUserRepository $frontendUserRepository = null;
 
 
     /**
-     * @var \Madj2k\FeRegister\Domain\Repository\GuestUserRepository|null
+     * @var \Madj2k\FeRegister\Domain\Repository\GuestUserRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected ?GuestUserRepository $guestUserRepository = null;
 
 
     /**
-     * @var \Madj2k\FeRegister\Domain\Repository\FrontendUserGroupRepository|null
+     * @var \Madj2k\FeRegister\Domain\Repository\FrontendUserGroupRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected ?FrontendUserGroupRepository $frontendUserGroupRepository = null;
 
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager|null
+     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected ?PersistenceManager $persistenceManager = null;
 
 
     /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager|null
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected ?ObjectManager $objectManager = null;
 
 
     /**
-     * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher|null
+     * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected ?Dispatcher $signalSlotDispatcher = null;

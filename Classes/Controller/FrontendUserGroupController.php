@@ -59,28 +59,28 @@ class FrontendUserGroupController extends AbstractController
 
 
     /**
-     * @var \Madj2k\FeRegister\Registration\FrontendUserRegistration|null
+     * @var \Madj2k\FeRegister\Registration\FrontendUserRegistration
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected ?FrontendUserRegistration $frontendUserRegistration = null;
 
 
     /**
-     * @var \Madj2k\FeRegister\Domain\Repository\FrontendUserGroupRepository|null
+     * @var \Madj2k\FeRegister\Domain\Repository\FrontendUserGroupRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected ?FrontendUserGroupRepository $frontendUserGroupRepository = null;
 
 
     /**
-     * @var \Madj2k\FeRegister\Domain\Repository\OptInRepository|null
+     * @var \Madj2k\FeRegister\Domain\Repository\OptInRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected ?OptInRepository $optInRepository = null;
 
 
     /**
-     * @var \Madj2k\FeRegister\Domain\Repository\BackendUserRepository|null
+     * @var \Madj2k\FeRegister\Domain\Repository\BackendUserRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected ?BackendUserRepository $backendUserRepository = null;

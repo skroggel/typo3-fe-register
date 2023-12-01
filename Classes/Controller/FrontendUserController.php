@@ -40,21 +40,21 @@ class FrontendUserController extends AbstractController
 {
 
     /**
-     * @var \Madj2k\FeRegister\Registration\FrontendUserRegistration|null
+     * @var \Madj2k\FeRegister\Registration\FrontendUserRegistration
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected ?FrontendUserRegistration $frontendUserRegistration = null;
 
 
     /**
-     * @var \Madj2k\FeRegister\Registration\GuestUserRegistration|null
+     * @var \Madj2k\FeRegister\Registration\GuestUserRegistration
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected ?GuestUserRegistration $guestUserRegistration = null;
 
 
     /**
-     * @var \Madj2k\FeRegister\Domain\Repository\TitleRepository|null
+     * @var \Madj2k\FeRegister\Domain\Repository\TitleRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected ?TitleRepository $titleRepository = null;

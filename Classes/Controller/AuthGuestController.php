@@ -39,8 +39,16 @@ class AuthGuestController extends AbstractController
      * @var \Madj2k\FeRegister\Registration\GuestUserRegistration
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected GuestUserRegistration $guestUserRegistration;
+    protected ?GuestUserRegistration $guestUserRegistration = null;
 
+
+    /**
+     * @var \Madj2k\FeRegister\Registration\GuestUserRegistration
+     */
+    public function injectFrontendUserRepository(GuestUserRegistration $guestUserRegistration)
+    {
+        $this->guestUserRegistration = $guestUserRegistration;
+    }
 
     /**
      * action create

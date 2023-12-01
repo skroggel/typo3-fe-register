@@ -62,14 +62,14 @@ abstract class AbstractController extends \Madj2k\AjaxApi\Controller\AjaxAbstrac
 
 
     /**
-     * @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository|null
+     * @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected ?FrontendUserRepository $frontendUserRepository = null;
 
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager|null
+     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected ?PersistenceManager $persistenceManager = null;
