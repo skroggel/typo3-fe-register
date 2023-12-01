@@ -46,7 +46,6 @@ class TitleTest extends FunctionalTestCase
      * @var string[]
      */
     protected $coreExtensionsToLoad = [
-        'saltedpasswords',
         'filemetadata',
         'seo',
         'extensionmanager'
@@ -104,6 +103,7 @@ class TitleTest extends FunctionalTestCase
 
     /**
      * Setup
+     * @throws \TYPO3\CMS\Extbase\Object\Exception
      */
     protected function setUp(): void
     {
@@ -114,9 +114,15 @@ class TitleTest extends FunctionalTestCase
         $this->setUpFrontendRootPage(
             1,
             [
+                'EXT:core_extended/Configuration/TypoScript/setup.txt',
+                'EXT:core_extended/Configuration/TypoScript/constants.txt',
                 'EXT:fe_register/Configuration/TypoScript/setup.txt',
+                'EXT:fe_register/Configuration/TypoScript/constants.txt',
+                self::FIXTURE_PATH . '/Frontend/Configuration/Rootpage.typoscript',
             ]
         );
+
+        \Madj2k\CoreExtended\Utility\FrontendSimulatorUtility::simulateFrontendEnvironment(1);
 
         $this->persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
 
@@ -456,6 +462,7 @@ class TitleTest extends FunctionalTestCase
      */
     protected function teardown(): void
     {
+        \Madj2k\CoreExtended\Utility\FrontendSimulatorUtility::resetFrontendEnvironment();
         parent::tearDown();
     }
 

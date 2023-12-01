@@ -65,7 +65,7 @@ class PasswordController extends AbstractController
                 [
                     'flashMessageToInject' => LocalizationUtility::translate(
                         'passwordController.error.lockedAccount',
-                        $this->extensionName,
+                        'fe_register',
                         [
                             $this->settings['companyEmail']
                         ]
@@ -93,7 +93,7 @@ class PasswordController extends AbstractController
             $this->addFlashMessage(
                 LocalizationUtility::translate(
                     'passwordController.notice.newIntroduction',
-                    $this->extensionName,
+                    'fe_register',
                 ),
                 '',
                 AbstractMessage::NOTICE
@@ -120,7 +120,8 @@ class PasswordController extends AbstractController
         if (!$username) {
             $this->addFlashMessage(
                 LocalizationUtility::translate(
-                    'passwordController.error.noUsername', $this->extensionName
+                    'passwordController.error.noUsername',
+                    'fe_register'
                 ),
                 '',
                 AbstractMessage::ERROR
@@ -151,7 +152,7 @@ class PasswordController extends AbstractController
         $this->addFlashMessage(
             LocalizationUtility::translate(
                 'passwordController.message.newPassword',
-                $this->extensionName,
+                'fe_register',
                 [
                     $this->settings['companyEmail']
                 ]
@@ -185,7 +186,8 @@ class PasswordController extends AbstractController
         ) {
             $this->addFlashMessage(
                 LocalizationUtility::translate(
-                    'passwordController.notice.editIntroduction', $this->extensionName
+                    'passwordController.notice.editIntroduction',
+                    'fe_register'
                 ),
                 '',
                 AbstractMessage::NOTICE
@@ -228,7 +230,8 @@ class PasswordController extends AbstractController
 
             $this->addFlashMessage(
                 LocalizationUtility::translate(
-                    'passwordController.message.updatedPassword', $this->extensionName
+                    'passwordController.message.updatedPassword',
+                    'fe_register'
                 )
             );
 
@@ -251,7 +254,7 @@ class PasswordController extends AbstractController
         $this->addFlashMessage(
             LocalizationUtility::translate(
                 'passwordController.error.passwordNotUpdated',
-                $this->extensionName,
+                'fe_register',
                 [
                     $this->settings['companyEmail']
                 ]

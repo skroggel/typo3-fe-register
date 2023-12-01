@@ -43,38 +43,83 @@ class Cleaner
 
 
     /**
-     * @var \Madj2k\FeRegister\Domain\Repository\OptInRepository
+     * @var \Madj2k\FeRegister\Domain\Repository\OptInRepository|null
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected OptInRepository $optInRepository;
+    protected ?OptInRepository $optInRepository = null;
+
+
+    /**
+     * @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository|null
+     * @TYPO3\CMS\Extbase\Annotation\Inject
+     */
+    protected ?FrontendUserRepository $frontendUserRepository = null;
+
+
+    /**
+     * @var \Madj2k\FeRegister\Domain\Repository\GuestUserRepository|null
+     * @TYPO3\CMS\Extbase\Annotation\Inject
+     */
+    protected ?GuestUserRepository $guestUserRepository = null;
+
+
+    /**
+     * @var \Madj2k\FeRegister\Domain\Repository\ConsentRepository|null
+     * @TYPO3\CMS\Extbase\Annotation\Inject
+     */
+    protected ?ConsentRepository $consentRepository = null;
+
+
+    /**
+     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager|null
+     * @TYPO3\CMS\Extbase\Annotation\Inject
+     */
+    protected ?PersistenceManager $persistenceManager = null;
+
+
+    /**
+     * @var \Madj2k\FeRegister\Domain\Repository\OptInRepository
+     */
+    public function injectOptInRepository(OptInRepository $optInRepository)
+    {
+        $this->optInRepository = $optInRepository;
+    }
 
 
     /**
      * @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected FrontendUserRepository $frontendUserRepository;
+    public function injectFrontendUserRepository(FrontendUserRepository $frontendUserRepository)
+    {
+        $this->frontendUserRepository = $frontendUserRepository;
+    }
 
 
     /**
      * @var \Madj2k\FeRegister\Domain\Repository\GuestUserRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected GuestUserRepository $guestUserRepository;
+    public function injectGuestUserRepository(GuestUserRepository $guestUserRepository)
+    {
+        $this->guestUserRepository = $guestUserRepository;
+    }
 
 
     /**
      * @var \Madj2k\FeRegister\Domain\Repository\ConsentRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected ConsentRepository $consentRepository;
+    public function injectConsentRepository(ConsentRepository $consentRepository)
+    {
+        $this->consentRepository = $consentRepository;
+    }
 
 
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected PersistenceManager $persistenceManager;
+    public function injectPersistenceManager(PersistenceManager $persistenceManager)
+    {
+        $this->persistenceManager = $persistenceManager;
+    }
 
 
     /**

@@ -255,6 +255,44 @@ call_user_func(
             ]
         );
 
+        //=================================================================
+        // Add XClasses for extending existing classes
+        //=================================================================
+        // for TYPO3 12+
+        $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][\Madj2k\CoreExtended\Domain\Model\BackendUser::class] = [
+            'className' => \Madj2k\FeRegister\Domain\Model\BackendUser::class
+        ];
+
+        // for TYPO3 9.5 - 11.5 only, not required for TYPO3 12
+        \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\Container\Container::class)
+            ->registerImplementation(
+                \Madj2k\CoreExtended\Domain\Model\BackendUser::class,
+                \Madj2k\FeRegister\Domain\Model\BackendUser::class
+            );
+
+        // for TYPO3 12+
+        $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][\Madj2k\CoreExtended\Domain\Model\FrontendUser::class] = [
+            'className' => \Madj2k\FeRegister\Domain\Model\FrontendUser::class
+        ];
+
+        // for TYPO3 9.5 - 11.5 only, not required for TYPO3 12
+        \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\Container\Container::class)
+            ->registerImplementation(
+                \Madj2k\CoreExtended\Domain\Model\FrontendUser::class,
+                \Madj2k\FeRegister\Domain\Model\FrontendUser::class
+            );
+
+        // for TYPO3 12+
+        $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][\Madj2k\CoreExtended\Domain\Model\FrontendUserGroup::class] = [
+            'className' => \Madj2k\FeRegister\Domain\Model\FrontendUserGroup::class
+        ];
+
+        // for TYPO3 9.5 - 11.5 only, not required for TYPO3 12
+        \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\Container\Container::class)
+            ->registerImplementation(
+                \Madj2k\CoreExtended\Domain\Model\FrontendUserGroup::class,
+                \Madj2k\FeRegister\Domain\Model\FrontendUserGroup::class
+            );
 
         //=================================================================
         // Register Logger
@@ -274,5 +312,5 @@ call_user_func(
 
 
     },
-    $_EXTKEY
+    'fe_register'
 );

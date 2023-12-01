@@ -32,7 +32,6 @@ use Madj2k\FeRegister\Utility\FrontendUserSessionUtility;
 use Madj2k\FeRegister\Utility\FrontendUserUtility;
 use Madj2k\FeRegister\Utility\PasswordUtility;
 use Madj2k\FeRegister\Utility\TitleUtility;
-use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Log\Logger;
 use TYPO3\CMS\Core\Log\LogLevel;
 use TYPO3\CMS\Core\Log\LogManager;
@@ -188,52 +187,52 @@ abstract class AbstractRegistration implements RegistrationInterface
 
 
     /**
-     * @var \Madj2k\FeRegister\Domain\Repository\OptInRepository
+     * @var \Madj2k\FeRegister\Domain\Repository\OptInRepository|null
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected OptInRepository $optInRepository;
+    protected ?OptInRepository $optInRepository = null;
 
 
     /**
-     * @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository
+     * @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository|null
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected FrontendUserRepository $frontendUserRepository;
+    protected ?FrontendUserRepository $frontendUserRepository = null;
 
 
     /**
-     * @var \Madj2k\FeRegister\Domain\Repository\GuestUserRepository
+     * @var \Madj2k\FeRegister\Domain\Repository\GuestUserRepository|null
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected GuestUserRepository $guestUserRepository;
+    protected ?GuestUserRepository $guestUserRepository = null;
 
 
     /**
-     * @var \Madj2k\FeRegister\Domain\Repository\FrontendUserGroupRepository
+     * @var \Madj2k\FeRegister\Domain\Repository\FrontendUserGroupRepository|null
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected FrontendUserGroupRepository $frontendUserGroupRepository;
+    protected ?FrontendUserGroupRepository $frontendUserGroupRepository = null;
 
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
+     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager|null
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected PersistenceManager $persistenceManager;
+    protected ?PersistenceManager $persistenceManager = null;
 
 
     /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManager|null
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected ObjectManager $objectManager;
+    protected ?ObjectManager $objectManager = null;
 
 
     /**
-     * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
+     * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher|null
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected Dispatcher $signalSlotDispatcher;
+    protected ?Dispatcher $signalSlotDispatcher = null;
 
 
     /**
@@ -246,6 +245,69 @@ abstract class AbstractRegistration implements RegistrationInterface
      * @var Logger|null
      */
     protected ?Logger $logger = null;
+
+
+    /**
+     * @var \Madj2k\FeRegister\Domain\Repository\OptInRepository
+     */
+    public function injectOptInRepository(OptInRepository $optInRepository)
+    {
+        $this->optInRepository = $optInRepository;
+    }
+
+
+    /**
+     * @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository
+     */
+    public function injectFrontendUserRepository(FrontendUserRepository $frontendUserRepository)
+    {
+        $this->frontendUserRepository = $frontendUserRepository;
+    }
+
+
+    /**
+     * @var \Madj2k\FeRegister\Domain\Repository\GuestUserRepository
+     */
+    public function injectGuestUserRepository(GuestUserRepository $guestUserRepository)
+    {
+        $this->guestUserRepository = $guestUserRepository;
+    }
+
+
+    /**
+     * @var \Madj2k\FeRegister\Domain\Repository\FrontendUserGroupRepository
+     */
+    public function injectFrontendUserGroupRepository(FrontendUserGroupRepository $frontendUserGroupRepository)
+    {
+        $this->frontendUserGroupRepository = $frontendUserGroupRepository;
+    }
+
+
+    /**
+     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
+     */
+    public function injectPersistenceManager(PersistenceManager $persistenceManager)
+    {
+        $this->persistenceManager = $persistenceManager;
+    }
+
+
+    /**
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
+     */
+    public function injectObjectManager(ObjectManager $objectManager)
+    {
+        $this->objectManager = $objectManager;
+    }
+
+
+    /**
+     * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
+     */
+    public function injectDispatcher(Dispatcher $dispatcher)
+    {
+        $this->signalSlotDispatcher = $dispatcher;
+    }
 
 
     /**

@@ -30,6 +30,6 @@ call_user_func(
 
 
     },
-    $_EXTKEY
+    'fe_register'
 );
 

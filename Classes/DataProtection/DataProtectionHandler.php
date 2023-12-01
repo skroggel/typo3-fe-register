@@ -44,31 +44,67 @@ class DataProtectionHandler
 {
 
     /**
-     * @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository
+     * @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository|null
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected FrontendUserRepository $frontendUserRepository;
+    protected ?FrontendUserRepository $frontendUserRepository = null;
+
+
+    /**
+     * @var \Madj2k\FeRegister\Domain\Repository\EncryptedDataRepository|null
+     * @TYPO3\CMS\Extbase\Annotation\Inject
+     */
+    protected ?EncryptedDataRepository $encryptedDataRepository = null;
+
+
+    /**
+     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager|null
+     * @TYPO3\CMS\Extbase\Annotation\Inject
+     */
+    protected ?PersistenceManager $persistenceManager = null;
+
+
+    /**
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManager|null
+     * @TYPO3\CMS\Extbase\Annotation\Inject
+     */
+    protected ?ObjectManager $objectManager = null;
+
+
+    /**
+     * @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository
+     */
+    public function injectFrontendUserRepository(FrontendUserRepository $frontendUserRepository)
+    {
+        $this->frontendUserRepository = $frontendUserRepository;
+    }
 
 
     /**
      * @var \Madj2k\FeRegister\Domain\Repository\EncryptedDataRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected EncryptedDataRepository $encryptedDataRepository;
+    public function injectEncryptedDataRepository(EncryptedDataRepository $encryptedDataRepository)
+    {
+        $this->encryptedDataRepository = $encryptedDataRepository;
+    }
 
 
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected PersistenceManager $persistenceManager;
+    public function injectPersistenceManager(PersistenceManager $persistenceManager)
+    {
+        $this->persistenceManager = $persistenceManager;
+    }
 
 
     /**
      * @var \TYPO3\CMS\Extbase\Object\ObjectManager
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected ObjectManager $objectManager;
+    public function injectObjectManager(ObjectManager $objectManager)
+    {
+        $this->objectManager = $objectManager;
+    }
 
 
     /**

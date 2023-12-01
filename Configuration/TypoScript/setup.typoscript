@@ -1,7 +1,11 @@
 // #########################################################
 // Extbase Configuration
 // #########################################################
-
+/** !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  * TABLE-MAPPING IS DEPRECATED SINCE TYPO3 10.4
+  * PLEASE ADD ANY CHANGES TO
+  * EXT:extension/Configuration/Extbase/Persistence/Classes.php
+  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 config.tx_extbase.persistence {
 
 	classes {

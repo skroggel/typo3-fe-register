@@ -59,31 +59,67 @@ class FrontendUserGroupController extends AbstractController
 
 
     /**
-     * @var \Madj2k\FeRegister\Registration\FrontendUserRegistration
+     * @var \Madj2k\FeRegister\Registration\FrontendUserRegistration|null
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected FrontendUserRegistration $frontendUserRegistration;
+    protected ?FrontendUserRegistration $frontendUserRegistration = null;
+
+
+    /**
+     * @var \Madj2k\FeRegister\Domain\Repository\FrontendUserGroupRepository|null
+     * @TYPO3\CMS\Extbase\Annotation\Inject
+     */
+    protected ?FrontendUserGroupRepository $frontendUserGroupRepository = null;
+
+
+    /**
+     * @var \Madj2k\FeRegister\Domain\Repository\OptInRepository|null
+     * @TYPO3\CMS\Extbase\Annotation\Inject
+     */
+    protected ?OptInRepository $optInRepository = null;
+
+
+    /**
+     * @var \Madj2k\FeRegister\Domain\Repository\BackendUserRepository|null
+     * @TYPO3\CMS\Extbase\Annotation\Inject
+     */
+    protected ?BackendUserRepository $backendUserRepository = null;
+
+
+    /**
+     * @var \Madj2k\FeRegister\Registration\FrontendUserRegistration
+     */
+    public function injectFrontendUserRegistration(FrontendUserRegistration $frontendUserRegistration)
+    {
+        $this->frontendUserRegistration = $frontendUserRegistration;
+    }
 
 
     /**
      * @var \Madj2k\FeRegister\Domain\Repository\FrontendUserGroupRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected FrontendUserGroupRepository $frontendUserGroupRepository;
+    public function injectFrontendUserGroupRepository(FrontendUserGroupRepository $frontendUserGroupRepository)
+    {
+        $this->frontendUserGroupRepository = $frontendUserGroupRepository;
+    }
 
 
     /**
      * @var \Madj2k\FeRegister\Domain\Repository\OptInRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected OptInRepository $optInRepository;
+    public function injectOptInRepository(OptInRepository $optInRepository)
+    {
+        $this->optInRepository = $optInRepository;
+    }
 
 
     /**
      * @var \Madj2k\FeRegister\Domain\Repository\BackendUserRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected BackendUserRepository $backendUserRepository;
+    public function injectBackendUserRepository(BackendUserRepository $backendUserRepository)
+    {
+        $this->backendUserRepository = $backendUserRepository;
+    }
 
 
     /**
@@ -111,7 +147,7 @@ class FrontendUserGroupController extends AbstractController
             $this->addFlashMessage(
                 LocalizationUtility::translate(
                     'frontendUserGroupController.warning.noMembershipableGroups',
-                    $this->extensionName,
+                    'fe_register'
                 ),
                 '',
                 AbstractMessage::WARNING
@@ -124,7 +160,7 @@ class FrontendUserGroupController extends AbstractController
                 $this->addFlashMessage(
                     LocalizationUtility::translate(
                         'frontendUserGroupController.notice.selectGroup',
-                        $this->extensionName,
+                        'fe_register'
                     ),
                     '',
                     AbstractMessage::NOTICE
@@ -177,7 +213,7 @@ class FrontendUserGroupController extends AbstractController
         $this->addFlashMessage(
             LocalizationUtility::translate(
                 'frontendUserGroupController.message.registrationWatchForEmail',
-                $this->extensionName,
+                'fe_register'
                 [
                     $this->settings['companyEmail']
                 ]
@@ -224,7 +260,7 @@ class FrontendUserGroupController extends AbstractController
                 $this->addFlashMessage(
                     LocalizationUtility::translate(
                         'frontendUserGroupController.warning.successfulButWaitingForAdmin',
-                        $this->extensionName
+                        'fe_register'
                     ),
                     '',
                     AbstractMessage::WARNING
@@ -235,7 +271,7 @@ class FrontendUserGroupController extends AbstractController
                 $this->addFlashMessage(
                     LocalizationUtility::translate(
                         'frontendUserGroupController.warning.successfulButWaitingForUser',
-                        $this->extensionName
+                        'fe_register'
                     ),
                     '',
                     AbstractMessage::WARNING
@@ -246,7 +282,7 @@ class FrontendUserGroupController extends AbstractController
                 $this->addFlashMessage(
                     LocalizationUtility::translate(
                         'frontendUserGroupController.warning.successfulFinished',
-                        $this->extensionName
+                        'fe_register'
                     ),
                     '',
                     AbstractMessage::WARNING
@@ -257,7 +293,7 @@ class FrontendUserGroupController extends AbstractController
                 $this->addFlashMessage(
                     LocalizationUtility::translate(
                         'frontendUserGroupController.message.successful',
-                        $this->extensionName
+                        'fe_register'
                     )
                 );
             }
@@ -269,7 +305,7 @@ class FrontendUserGroupController extends AbstractController
                 $this->addFlashMessage(
                     LocalizationUtility::translate(
                         'frontendUserGroupController.warning.canceledByAdmin',
-                        $this->extensionName
+                        'fe_register'
                     ),
                     '',
                     AbstractMessage::WARNING
@@ -280,7 +316,7 @@ class FrontendUserGroupController extends AbstractController
                 $this->addFlashMessage(
                     LocalizationUtility::translate(
                         'frontendUserGroupController.warning.canceledByUser',
-                        $this->extensionName
+                        'fe_register'
                     ),
                     '',
                     AbstractMessage::WARNING
@@ -291,7 +327,7 @@ class FrontendUserGroupController extends AbstractController
                 $this->addFlashMessage(
                     LocalizationUtility::translate(
                         'frontendUserGroupController.warning.cancelingFinished',
-                        $this->extensionName
+                        'fe_register'
                     ),
                     '',
                     AbstractMessage::WARNING
@@ -302,7 +338,7 @@ class FrontendUserGroupController extends AbstractController
                 $this->addFlashMessage(
                     LocalizationUtility::translate(
                         'frontendUserGroupController.message.canceled',
-                        $this->extensionName
+                        'fe_register'
                     )
                 );
             }
@@ -312,7 +348,7 @@ class FrontendUserGroupController extends AbstractController
             $this->addFlashMessage(
                 LocalizationUtility::translate(
                     'frontendUserGroupController.error.unexpected',
-                    $this->extensionName
+                    'fe_register'
                 ),
                 '',
                 AbstractMessage::ERROR
@@ -412,7 +448,7 @@ class FrontendUserGroupController extends AbstractController
         $this->addFlashMessage(
             LocalizationUtility::translate(
                 'frontendUserGroupController.message.membershipEnded',
-                $this->extensionName
+                'fe_register'
             )
         );
 

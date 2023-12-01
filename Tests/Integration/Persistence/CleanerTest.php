@@ -584,7 +584,7 @@ class CleanerTest extends FunctionalTestCase
          * Then an integer is returned
          * Then the integer has the value 2
          * Then the frontendUsers B, C and D are not deleted
-         * Then the guestUser E is deleted, because it is a sub-model
+         * Then the guestUser E is NOT deleted, because it is a sub-model (changed behavior since TYPO3 v10)
          */
 
         // Preparation
@@ -646,11 +646,11 @@ class CleanerTest extends FunctionalTestCase
         // Test
         $result = $this->fixture->removeFrontendUsers(30);
         self::assertIsInt($result);
-        self::assertEquals(2, $result);
+        self::assertEquals(1, $result);
 
         $rows = $this->getAllRowsOfTable($tableName);
 
-        self::assertCount(3, $rows);
+        self::assertCount(4, $rows);
 
         self::assertEquals(2, $rows[0]['uid']);
         self::assertEquals('0', $rows[0]['tx_extbase_type']);
@@ -661,6 +661,9 @@ class CleanerTest extends FunctionalTestCase
         self::assertEquals(4, $rows[2]['uid']);
         self::assertEquals('\Madj2k\FeRegister\Domain\Model\GuestUser', $rows[2]['tx_extbase_type']);
 
+        self::assertEquals(5, $rows[3]['uid']);
+        self::assertEquals('\Madj2k\FeRegister\Domain\Model\GuestUser', $rows[3]['tx_extbase_type']);
+
     }
 
     #==============================================================================
@@ -669,7 +672,7 @@ class CleanerTest extends FunctionalTestCase
      * @test
      * @throws \Exception
      */
-    public function deleteFrontendUsersMarksExiredUsersAsDeleted()
+    public function deleteFrontendUsersMarksExpiredUsersAsDeleted()
     {
         /**
          * Scenario:
@@ -685,7 +688,7 @@ class CleanerTest extends FunctionalTestCase
          * Then the integer has the value 3
          * Then the frontendUsers A and B are marked as deleted
          * Then the frontendUsers C and D are not marked as deleted
-         * Then the guestUser E is marked as deleted because it is a sub-model
+         * Then the guestUser E is NOT marked as deleted because it is a sub-model (changed behavior since TYPO3 v10)
          */
 
         // Preparation
@@ -736,7 +739,7 @@ class CleanerTest extends FunctionalTestCase
         // Test
         $result = $this->fixture->deleteFrontendUsers(30);
         self::assertIsInt($result);
-        self::assertEquals(3, $result);
+        self::assertEquals(2, $result);
 
         $rows = $this->getAllRowsOfTable($tableName);
         self::assertCount(5, $rows);
@@ -754,7 +757,7 @@ class CleanerTest extends FunctionalTestCase
         self::assertEquals(0, $rows[3]['deleted']);
 
         self::assertEquals(5, $rows[4]['uid']);
-        self::assertEquals(1, $rows[4]['deleted']);
+        self::assertEquals(0, $rows[4]['deleted']);
     }
 
 

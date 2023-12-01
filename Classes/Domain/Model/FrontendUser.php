@@ -543,12 +543,11 @@ class FrontendUser extends \Madj2k\CoreExtended\Domain\Model\FrontendUser
         if ($this->getTxFeregisterGender() < 99) {
 
             return FrontendLocalizationUtility::translate(
-                'tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.' . $this->getTxFeregisterGender(),
+                'tx_feregister_domain_model_frontenduser.tx_feregister_gender.' . $this->getTxFeregisterGender(),
                 'fe_register',
                 [],
                 $this->getTxFeregisterLanguageKey()
-            );
-
+            )?: '';
         }
 
         return '';

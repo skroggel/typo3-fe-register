@@ -9,61 +9,61 @@ call_user_func(
         // Register Plugins
         //=================================================================
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-            'Madj2k.FeRegister',
+            $extKey,
             'Auth',
             'FE Register: Login'
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-            'Madj2k.FeRegister',
+            $extKey,
             'LoginButton',
             'FE Register: LoginButton'
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-            'Madj2k.FeRegister',
+            $extKey,
             'Logout',
             'FE Register: Logout'
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-            'Madj2k.FeRegister',
+            $extKey,
             'Password',
             'FE Register: Passwort'
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-            'Madj2k.FeRegister',
+            $extKey,
             'Welcome',
             'FE Register: Willkommen'
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-            'Madj2k.FeRegister',
+            $extKey,
             'UserEdit',
             'FE Register: FrontendUser (editieren)'
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-            'Madj2k.FeRegister',
+            $extKey,
             'UserDelete',
             'FE Register: FrontendUser (löschen)'
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-            'Madj2k.FeRegister',
+            $extKey,
             'Group',
             'FE Register: FrontendUserGroup'
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-            'Madj2k.FeRegister',
+            $extKey,
             'GroupOptIn',
             'FE Register: FrontendUserGroup (OptIn)'
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-            'Madj2k.FeRegister',
+            $extKey,
             'Info',
             'FE Register: Info'
         );

@@ -36,6 +36,11 @@ return [
                 'type' => 'passthrough',
             ],
         ],
+        'deleted' => [
+            'config' => [
+                'type' => 'passthrough',
+            ]
+        ],
 		'frontend_user_uid' => [
 			'config' => [
 				'type' => 'passthrough',

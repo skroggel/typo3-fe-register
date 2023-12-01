@@ -14,10 +14,6 @@ namespace Madj2k\FeRegister\Domain\Repository;
  * The TYPO3 project - inspiring people to share!
  */
 
-use Madj2k\CoreExtended\Domain\Repository\StoragePidAwareAbstractRepository;
-use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
-use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
