@@ -103,29 +103,23 @@ class PasswordUtility implements \TYPO3\CMS\Core\SingletonInterface
     {
         // fallback: If something went wrong, at least something should be set
         $saltedPassword = $plaintextPassword;
-        if (ExtensionManagementUtility::isLoaded('saltedpasswords')) {
 
-            try {
-                /** @var \TYPO3\CMS\Core\Crypto\PasswordHashing\PasswordHashFactory $passwordHashFactory */
-                $passwordHashFactory = GeneralUtility::makeInstance( PasswordHashFactory::class);
-                $objSalt = $passwordHashFactory->getDefaultHashInstance('FE');
-                if (! is_object($objSalt)) {
-                    throw new Exception('SaltFactory is not an object!');
-                }
-                $saltedPassword = $objSalt->getHashedPassword($plaintextPassword);
-            } catch (\Exception $e) {
-
-                self::getLogger()->log(
-                    LogLevel::ERROR,
-                    sprintf('The password cannot be encrypted: %s', $e->getMessage())
-                );
+        try {
+            /** @var \TYPO3\CMS\Core\Crypto\PasswordHashing\PasswordHashFactory $passwordHashFactory */
+            $passwordHashFactory = GeneralUtility::makeInstance( PasswordHashFactory::class);
+            $objSalt = $passwordHashFactory->getDefaultHashInstance('FE');
+            if (! is_object($objSalt)) {
+                throw new Exception('SaltFactory is not an object!');
             }
-        } else {
+            $saltedPassword = $objSalt->getHashedPassword($plaintextPassword);
+        } catch (\Exception $e) {
+
             self::getLogger()->log(
-                LogLevel::WARNING,
-                'The password cannot be encrypted. Apparently there are problems with the system extension saltedpasswords.'
+                LogLevel::ERROR,
+                sprintf('The password cannot be encrypted: %s', $e->getMessage())
             );
         }
+
 
         return (string) $saltedPassword;
     }

@@ -40,24 +40,51 @@ class FrontendUserController extends AbstractController
 {
 
     /**
-     * @var \Madj2k\FeRegister\Registration\FrontendUserRegistration
+     * @var \Madj2k\FeRegister\Registration\FrontendUserRegistration|null
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected FrontendUserRegistration $frontendUserRegistration;
+    protected ?FrontendUserRegistration $frontendUserRegistration = null;
+
+
+    /**
+     * @var \Madj2k\FeRegister\Registration\GuestUserRegistration|null
+     * @TYPO3\CMS\Extbase\Annotation\Inject
+     */
+    protected ?GuestUserRegistration $guestUserRegistration = null;
+
+
+    /**
+     * @var \Madj2k\FeRegister\Domain\Repository\TitleRepository|null
+     * @TYPO3\CMS\Extbase\Annotation\Inject
+     */
+    protected ?TitleRepository $titleRepository = null;
+
+
+    /**
+     * @var \Madj2k\FeRegister\Registration\FrontendUserRegistration
+     */
+    public function injectFrontendUserRegistration(FrontendUserRegistration $frontendUserRegistration)
+    {
+        $this->frontendUserRegistration = $frontendUserRegistration;
+    }
 
 
     /**
      * @var \Madj2k\FeRegister\Registration\GuestUserRegistration
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected GuestUserRegistration $guestUserRegistration;
+    public function injectGuestUserRegistration(GuestUserRegistration $guestUserRegistration)
+    {
+        $this->guestUserRegistration = $guestUserRegistration;
+    }
 
 
     /**
      * @var \Madj2k\FeRegister\Domain\Repository\TitleRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected TitleRepository $titleRepository;
+    public function injectTitleRepository(TitleRepository $titleRepository)
+    {
+        $this->titleRepository = $titleRepository;
+    }
 
 
     /**
@@ -83,7 +110,7 @@ class FrontendUserController extends AbstractController
             $this->addFlashMessage(
                 LocalizationUtility::translate(
                     'frontendUserController.notice.newIntroduction',
-                    $this->extensionName,
+                    'fe_register'
                 ),
                 '',
                 AbstractMessage::NOTICE
@@ -133,7 +160,7 @@ class FrontendUserController extends AbstractController
         $this->addFlashMessage(
             LocalizationUtility::translate(
                 'frontendUserController.message.registrationWatchForEmail',
-                $this->extensionName,
+                'fe_register'
                 [
                     $this->settings['companyEmail']
                 ]
@@ -190,7 +217,7 @@ class FrontendUserController extends AbstractController
             $this->addFlashMessage(
                 LocalizationUtility::translate(
                     'frontendUserController.message.registrationSuccessful',
-                    $this->extensionName,
+                    'fe_register'
                     [
                         $this->settings['companyEmail']
                     ]
@@ -202,7 +229,7 @@ class FrontendUserController extends AbstractController
             $this->addFlashMessage(
                 LocalizationUtility::translate(
                     'frontendUserController.message.registrationCanceled',
-                    $this->extensionName
+                    'fe_register'
                 )
             );
 
@@ -211,7 +238,7 @@ class FrontendUserController extends AbstractController
             $this->addFlashMessage(
                 LocalizationUtility::translate(
                     'frontendUserController.error.registrationError',
-                    $this->extensionName
+                    'fe_register'
                 ),
                 '',
                 AbstractMessage::ERROR
@@ -279,7 +306,7 @@ class FrontendUserController extends AbstractController
             $this->addFlashMessage(
                 LocalizationUtility::translate(
                     'frontendUserController.message.' . $translationKey,
-                    $this->extensionName,
+                    'fe_register',
                     [
                         intval(intval($this->settings['users']['guest']['lifetime']) / 60 / 60 / 24),
                         $url,
@@ -293,7 +320,7 @@ class FrontendUserController extends AbstractController
             $this->addFlashMessage(
                 LocalizationUtility::translate(
                     'frontendUserController.message.loggedIn',
-                    $this->extensionName,
+                    'fe_register',
                     [$this->getfrontendUser()->getUsername()]
                 )
             );
@@ -342,7 +369,7 @@ class FrontendUserController extends AbstractController
             $this->addFlashMessage(
                 LocalizationUtility::translate(
                     'frontendUserController.notice.editIntroduction',
-                    $this->extensionName,
+                    'fe_register'
                 ),
                 '',
                 AbstractMessage::NOTICE
@@ -390,7 +417,8 @@ class FrontendUserController extends AbstractController
 
         $this->addFlashMessage(
             LocalizationUtility::translate(
-                'frontendUserController.message.updateSuccessful', $this->extensionName
+                'frontendUserController.message.updateSuccessful',
+                'fe_register'
             )
         );
 
@@ -431,7 +459,7 @@ class FrontendUserController extends AbstractController
         $this->addFlashMessage(
             LocalizationUtility::translate(
                 'frontendUserController.warning.showIntroduction',
-                $this->extensionName,
+                'fe_register'
             ),
             '',
             AbstractMessage::WARNING
@@ -480,7 +508,7 @@ class FrontendUserController extends AbstractController
         $this->addFlashMessage(
             LocalizationUtility::translate(
                 'frontendUserController.message.deletedSuccessful',
-                $this->extensionName
+                'fe_register'
             )
         );
 

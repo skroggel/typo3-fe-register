@@ -29,6 +29,22 @@ return [
 	],
 	'columns' => [
 
+        // we have to define the system-fields in order to access them!
+        'tstamp' => [
+            'config' => [
+                'type' => 'passthrough',
+            ]
+        ],
+        'crdate' => [
+            'config' => [
+                'type' => 'passthrough',
+            ]
+        ],
+        'deleted' => [
+            'config' => [
+                'type' => 'passthrough',
+            ]
+        ],
 		'sys_language_uid' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',

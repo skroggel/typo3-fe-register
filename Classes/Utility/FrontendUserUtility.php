@@ -124,11 +124,14 @@ class FrontendUserUtility
     {
         if (
             (\TYPO3\CMS\Core\Utility\GeneralUtility::validEmail(strtolower($email)))
+            // core method seems to have a bug that does not check for FQDN (TYPO3 v10), so we double-check
+            && (filter_var($email, FILTER_VALIDATE_EMAIL))
             && (strpos(strtolower($email), '@facebook.com') === false)
             && (strpos(strtolower($email), '@twitter.com') === false)
         ) {
             return true;
         }
+
 
         return false;
     }
@@ -247,7 +250,6 @@ class FrontendUserUtility
         if (!$frontendUser) {
             $frontendUser = GeneralUtility::makeInstance(FrontendUser::class);
         }
-
         // get default mandatory fields
         if ($settings['users']['requiredFormFields']) {
 
@@ -268,9 +270,9 @@ class FrontendUserUtility
                     $mandatoryFields,
                     FrontendUserGroupUtility::getMandatoryFields($userGroup)
                 );
+
             }
         }
-
         // also check for temporary groups!
         if ($frontendUser->getTempFrontendUserGroup()) {
             $mandatoryFields = array_merge(

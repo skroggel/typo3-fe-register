@@ -40,7 +40,6 @@ class PasswordUtilityTest extends FunctionalTestCase
      * @var string[]
      */
     protected $coreExtensionsToLoad = [
-        'saltedpasswords',
         'filemetadata',
         'seo',
         'extensionmanager'
@@ -242,6 +241,7 @@ class PasswordUtilityTest extends FunctionalTestCase
 
     /**
      * @test
+     * @throws \TYPO3\CMS\Core\Crypto\PasswordHashing\InvalidPasswordHashException
      */
     public function saltPasswordReturnsAnEncryptedString ()
     {
@@ -265,25 +265,6 @@ class PasswordUtilityTest extends FunctionalTestCase
     }
 
 
-    /**
-     * @test
-     */
-    public function saltPasswordWithUnloadedSaltedPasswordsExtension ()
-    {
-        /**
-         * Scenario:
-         *
-         * Scenario not possible:
-         * TYPO3\CMS\Core\Package\Exception\ProtectedPackageKeyException : The package "saltedpasswords" is protected and cannot be deactivated.
-         *
-         * Given is a plaintext password
-         * When the system extension "saltedpasswords" is unloaded
-         * Then a a not encrypted version of the plaintext password is returned
-         */
-
-
-        self::assertTrue(true);
-    }
 
     #==============================================================================
 

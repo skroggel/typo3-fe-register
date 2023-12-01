@@ -10,3 +10,4 @@ plugin.tx_feregister  {
 
 // for cronjob
 module.tx_feregister < plugin.tx_feregister
+

@@ -39,7 +39,6 @@ class GetAllFlashMessageIdentifierViewHelperTest extends FunctionalTestCase
      * @var string[]
      */
     protected $coreExtensionsToLoad = [
-        'saltedpasswords',
         'filemetadata',
         'seo',
         'extensionmanager'
@@ -75,7 +74,9 @@ class GetAllFlashMessageIdentifierViewHelperTest extends FunctionalTestCase
                 'EXT:core_extended/Configuration/TypoScript/setup.txt',
                 'EXT:fe_register/Configuration/TypoScript/setup.txt',
                 self::FIXTURE_PATH . '/Frontend/Configuration/Rootpage.typoscript',
-            ]
+            ],
+            ['example.com' => self::FIXTURE_PATH .  '/Frontend/Configuration/config.yaml']
+
         );
 
         /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */

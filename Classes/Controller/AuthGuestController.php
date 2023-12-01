@@ -69,7 +69,7 @@ class AuthGuestController extends AbstractController
             $this->addFlashMessage(
                 LocalizationUtility::translate(
                     'authGuestController.error.guestLoginImpossible',
-                    $this->extensionName
+                    'fe_register'
                 ),
                 '',
                 AbstractMessage::ERROR
@@ -98,7 +98,7 @@ class AuthGuestController extends AbstractController
         $this->addFlashMessage(
             LocalizationUtility::translate(
                 'authGuestController.error.guestLoginImpossible',
-                $this->extensionName
+                'fe_register'
             ),
             '',
             AbstractMessage::ERROR
@@ -135,7 +135,7 @@ class AuthGuestController extends AbstractController
             $this->addFlashMessage(
                 LocalizationUtility::translate(
                     'authGuestController.error.guestLoginImpossible',
-                    $this->extensionName
+                    'fe_register'
                 ),
                 '',
                 AbstractMessage::ERROR
@@ -161,7 +161,7 @@ class AuthGuestController extends AbstractController
         $this->addFlashMessage(
             LocalizationUtility::translate(
                 'authGuestController.error.invalidGuestToken',
-                $this->extensionName
+                'fe_register'
             ),
             '',
             AbstractMessage::ERROR

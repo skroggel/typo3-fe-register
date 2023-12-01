@@ -48,7 +48,6 @@ class ConsentHandlerTest extends FunctionalTestCase
      * @var string[]
      */
     protected $coreExtensionsToLoad = [
-        'saltedpasswords',
         'filemetadata',
         'seo',
         'extensionmanager'

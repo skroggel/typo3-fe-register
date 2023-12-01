@@ -1,0 +1,14 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Madj2k\FeRegister\:
+    resource: '../Classes/*'
+
+  Madj2k\FeRegister\Service\FrontendUserAuthenticationService:
+    public: true
+
+  Madj2k\FeRegister\Service\GuestUserAuthenticationService:
+    public: true

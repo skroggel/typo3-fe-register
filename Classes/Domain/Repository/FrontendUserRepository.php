@@ -15,9 +15,6 @@ namespace Madj2k\FeRegister\Domain\Repository;
  */
 
 use Madj2k\FeRegister\Domain\Model\FrontendUser;
-use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
-use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**

@@ -82,7 +82,7 @@ class AuthController extends AbstractController
                 $this->addFlashMessage(
                     LocalizationUtility::translate(
                         'authController.notice.loginMessage',
-                        $this->extensionName,
+                        'fe_register',
                         [$registerLink]
                     ),
                     '',
@@ -143,7 +143,8 @@ class AuthController extends AbstractController
         ) {
             $this->addFlashMessage(
                 LocalizationUtility::translate(
-                    'authController.error.loginBlocked', $this->extensionName,
+                    'authController.error.loginBlocked',
+                    'fe_register',
                     [
                         $maxErrors,
                         $this->settings['companyEmail']
@@ -157,7 +158,8 @@ class AuthController extends AbstractController
 
             $this->addFlashMessage(
                 LocalizationUtility::translate(
-                    'authController.error.wrongLogin', $this->extensionName
+                    'authController.error.wrongLogin',
+                    'fe_register'
                 ),
                 '',
                 AbstractMessage::ERROR
@@ -210,7 +212,8 @@ class AuthController extends AbstractController
     {
         $this->addFlashMessage(
             LocalizationUtility::translate(
-                'authController.message.logoutMessage', $this->extensionName
+                'authController.message.logoutMessage',
+                'fe_register'
             )
         );
 
