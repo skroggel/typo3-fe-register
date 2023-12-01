@@ -43,35 +43,35 @@ class Cleaner
 
 
     /**
-     * @var \Madj2k\FeRegister\Domain\Repository\OptInRepository|null
+     * @var \Madj2k\FeRegister\Domain\Repository\OptInRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected ?OptInRepository $optInRepository = null;
 
 
     /**
-     * @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository|null
+     * @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected ?FrontendUserRepository $frontendUserRepository = null;
 
 
     /**
-     * @var \Madj2k\FeRegister\Domain\Repository\GuestUserRepository|null
+     * @var \Madj2k\FeRegister\Domain\Repository\GuestUserRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected ?GuestUserRepository $guestUserRepository = null;
 
 
     /**
-     * @var \Madj2k\FeRegister\Domain\Repository\ConsentRepository|null
+     * @var \Madj2k\FeRegister\Domain\Repository\ConsentRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected ?ConsentRepository $consentRepository = null;
 
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager|null
+     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected ?PersistenceManager $persistenceManager = null;
