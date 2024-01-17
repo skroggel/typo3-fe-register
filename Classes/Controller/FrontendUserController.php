@@ -15,6 +15,7 @@ namespace Madj2k\FeRegister\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
+use Madj2k\FeRegister\DataProtection\ConsentHandler;
 use Madj2k\FeRegister\Registration\GuestUserRegistration;
 use Madj2k\FeRegister\Utility\FrontendUserUtility;
 use Madj2k\Postmaster\UriBuilder\EmailUriBuilder;
@@ -25,6 +26,7 @@ use Madj2k\FeRegister\Domain\Repository\TitleRepository;
 use Madj2k\FeRegister\Registration\FrontendUserRegistration;
 use Madj2k\FeRegister\Utility\TitleUtility;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
@@ -412,6 +414,60 @@ class FrontendUserController extends AbstractController
                 )
             );
         }
+
+        if ($frontendUser->_isDirty('txFeregisterConsentMarketing')) {
+
+            $formModel = 'frontendUser';
+            $formNamespace = 'tx_feregister_useredit';
+            $fieldMapping = [
+                'marketing' => 'txFeregisterConsentMarketing',
+            ];
+
+            if ($frontendUser->getTxFeregisterConsentMarketing()) {
+                //  change false -> true: optIn record
+                $this->addFlashMessage('marketingConsent = true');
+                ConsentHandler::add(
+                    $this->getRequest(),
+                    $frontendUser,
+                    null,   //  @todo: $referenceObject
+                    sprintf(
+                        'Created opt-in to marketing consent for user "%s" (disabled=%s, id=%s, category=%s).',
+                        strtolower($frontendUser->getUsername()),
+                        intval($frontendUser->getDisable()),
+                        $frontendUser->getUid(),
+                        'feRegister'    // $this->getCategory()
+                    ),
+                    $formModel,
+                    $formNamespace,
+                    $fieldMapping
+                );
+            } else {
+                //  change true -> false: optOut record
+                $this->addFlashMessage('marketingConsent = false');
+
+                ConsentHandler::add(
+                    $this->getRequest(),
+                    $frontendUser,
+                    null,   //  @todo: $referenceObject
+                    sprintf(
+                        'Created opt-out to marketing consent for user "%s" (disabled=%s, id=%s, category=%s).',
+                        strtolower($frontendUser->getUsername()),
+                        intval($frontendUser->getDisable()),
+                        $frontendUser->getUid(),
+                        'feRegister'    // $this->getCategory()
+                    ),
+                    $formModel,
+                    $formNamespace,
+                    $fieldMapping
+                );
+            }
+        } else {
+            //  nothing changed
+            $this->addFlashMessage(
+                'marketingConsent did not change'
+            );
+        }
+
         $this->frontendUserRepository->update($frontendUser);
         $this->persistenceManager->persistAll();
 

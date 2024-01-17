@@ -27,6 +27,7 @@ use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Class Privacy
@@ -53,6 +54,9 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
      * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
      * @param \TYPO3\CMS\Extbase\DomainObject\AbstractEntity|\TYPO3\CMS\Extbase\Persistence\ObjectStorage|null $referenceObject
      * @param string $comment
+     * @param string $formModel
+     * @param string $namespace
+     * @param array $fieldMapping
      * @return void
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
@@ -62,7 +66,10 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
         Request $request,
         FrontendUser $frontendUser,
         $referenceObject = null,
-        string $comment = ''
+        string $comment = '',
+        string $formModel = '',
+        string $namespace = '',
+        array $fieldMapping = []
     ): Consent {
 
         /** @var \Madj2k\FeRegister\Domain\Model\Consent $consent */
@@ -93,14 +100,30 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
         $consent->setActionName((string) $request->getControllerActionName());
 
         // set consent-fields
-        $formData = GeneralUtility::_GP(ConsentViewHelper::NAMESPACE);
-        if ($formData['privacy'] == 1) {
+        $namespace = ($namespace === '') ? ConsentViewHelper::NAMESPACE : $namespace;
+        $formData = GeneralUtility::_GP($namespace);
+
+        //  @todo: Tests für formKeys, formFields, namespace, ...
+        if ($formModel) {
+            $formData = $formData[$formModel];
+        }
+        $formKeys = [
+            'privacy' => 'privacy',
+            'terms' => 'terms',
+            'marketing' => 'marketing'
+        ];
+
+        if (! empty($fieldMapping)) {
+            $formKeys = array_merge($formKeys, $fieldMapping);
+        }
+
+        if ($formData[$formKeys['privacy']] == 1) {
             $consent->setConsentPrivacy(true);
         }
-        if ($formData['terms'] == 1) {
+        if ($formData[$formKeys['terms']] == 1) {
             $consent->setConsentTerms(true);
         }
-        if ($formData['marketing'] == 1) {
+        if ($formData[$formKeys['marketing']] == 1) {
             $consent->setConsentMarketing(true);
         }
 
@@ -240,6 +263,9 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
      * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
      * @param \TYPO3\CMS\Extbase\DomainObject\AbstractEntity|\TYPO3\CMS\Extbase\Persistence\ObjectStorage $referenceObject
      * @param string $comment
+     * @param string $formModel
+     * @param string $namespace
+     * @param array $fieldMapping
      * @return \Madj2k\FeRegister\Domain\Model\Consent
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
@@ -251,10 +277,13 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
         Request $request,
         FrontendUser $frontendUser,
         $referenceObject,
-        string $comment = ''
+        string $comment = '',
+        string $formModel = '',
+        string $namespace = '',
+        array $fieldMapping = []
     ): Consent {
 
-        $consent = self::setObject($request, $frontendUser, $referenceObject, $comment);
+        $consent = self::setObject($request, $frontendUser, $referenceObject, $comment, $formModel, $namespace, $fieldMapping);
 
         /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
         $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
