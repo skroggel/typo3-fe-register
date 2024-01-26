@@ -160,7 +160,7 @@ class FrontendUserController extends AbstractController
         $this->addFlashMessage(
             LocalizationUtility::translate(
                 'frontendUserController.message.registrationWatchForEmail',
-                'fe_register'
+                'fe_register',
                 [
                     $this->settings['companyEmail']
                 ]
@@ -217,7 +217,7 @@ class FrontendUserController extends AbstractController
             $this->addFlashMessage(
                 LocalizationUtility::translate(
                     'frontendUserController.message.registrationSuccessful',
-                    'fe_register'
+                    'fe_register',
                     [
                         $this->settings['companyEmail']
                     ]

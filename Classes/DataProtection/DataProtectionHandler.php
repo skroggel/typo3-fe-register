@@ -337,7 +337,7 @@ class DataProtectionHandler
      * @throws \Madj2k\FeRegister\Exception
      * @return \Madj2k\FeRegister\Domain\Model\EncryptedData|null
      */
-    public function encryptObject(AbstractEntity $object, FrontendUser $frontendUser):? EncryptedData
+    public function encryptObject(AbstractEntity $object, FrontendUser $frontendUser): ?EncryptedData
     {
         if ($object->_isNew()) {
             throw new Exception('Given object is not persisted.');
@@ -393,7 +393,7 @@ class DataProtectionHandler
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
      * @throws \Madj2k\FeRegister\Exception
      */
-    public function decryptObject(EncryptedData $encryptedData, string $email) :? AbstractEntity
+    public function decryptObject(EncryptedData $encryptedData, string $email) : ?AbstractEntity
     {
         if (
             (class_exists($encryptedData->getForeignClass()))

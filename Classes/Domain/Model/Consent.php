@@ -152,7 +152,7 @@ class Consent extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
      */
-    public function getFrontendUser() :? FrontendUser
+    public function getFrontendUser() : ?FrontendUser
     {
         return $this->frontendUser;
     }
@@ -186,7 +186,7 @@ class Consent extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return \Madj2k\FeRegister\Domain\Model\OptIn
      */
-    public function getOptIn() :? OptIn
+    public function getOptIn() : ?OptIn
     {
         return $this->optIn;
     }
@@ -209,7 +209,7 @@ class Consent extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return \Madj2k\FeRegister\Domain\Model\Consent $parent
      */
-    public function getParent():? Consent
+    public function getParent(): ?Consent
     {
         return $this->parent;
     }
