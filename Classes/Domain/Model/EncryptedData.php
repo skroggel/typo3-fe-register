@@ -78,7 +78,7 @@ class EncryptedData extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return \Madj2k\FeRegister\Domain\Model\FrontendUser|null $frontendUser
      */
-    public function getFrontendUser() :? FrontendUser
+    public function getFrontendUser() : ?FrontendUser
     {
         return $this->frontendUser;
     }

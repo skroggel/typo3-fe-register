@@ -45,7 +45,7 @@ class GuestUserRegistration extends AbstractRegistration
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
      * @api
      */
-    public function getFrontendUser():? FrontendUser {
+    public function getFrontendUser(): ?FrontendUser {
 
         // load guest if no user is set
         if (! $this->frontendUser) {

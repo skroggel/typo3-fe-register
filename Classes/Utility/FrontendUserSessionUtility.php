@@ -38,7 +38,7 @@ class FrontendUserSessionUtility extends \Madj2k\CoreExtended\Utility\FrontendUs
      * @return \Madj2k\FeRegister\Domain\Model\FrontendUser|null
      * @throws \TYPO3\CMS\Core\Context\Exception\AspectNotFoundException
      */
-    public static function getLoggedInUser():? FrontendUser
+    public static function getLoggedInUser(): ?FrontendUser
     {
 
         if ($uid = self::getLoggedInUserId()) {

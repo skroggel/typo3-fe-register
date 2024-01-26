@@ -159,7 +159,7 @@ class FrontendUser extends \Madj2k\CoreExtended\Domain\Model\FrontendUser
      * @return \Madj2k\FeRegister\Domain\Model\FrontendUserGroup|null
      * @api
      */
-    public function getTempFrontendUserGroup():? \Madj2k\FeRegister\Domain\Model\FrontendUserGroup
+    public function getTempFrontendUserGroup(): ?\Madj2k\FeRegister\Domain\Model\FrontendUserGroup
     {
         return $this->tempFrontendUserGroup;
     }

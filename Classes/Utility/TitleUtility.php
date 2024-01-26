@@ -36,7 +36,7 @@ class TitleUtility
      *
      * @param string $title
      * @param array $settings
-     * @return Madj2k\FeRegister\Domain\Model\Title|null
+     * @return \Madj2k\FeRegister\Domain\Model\Title|null
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
      */
     public static function extractTxRegistrationTitle(string $title = '', array $settings = []):? Title
