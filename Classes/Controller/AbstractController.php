@@ -306,7 +306,6 @@ abstract class AbstractController extends \Madj2k\AjaxApi\Controller\AjaxAbstrac
             ->setTargetPageUid($pid)
             ->setLinkAccessRestrictedPages(true)
             ->setCreateAbsoluteUri(true)
-            ->setUseCacheHash(false)
             ->setArguments(
                 [
                     'tx_feregister_' . ($pid ? 'welcome' : 'auth') => [
