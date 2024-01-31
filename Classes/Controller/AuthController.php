@@ -42,8 +42,6 @@ class AuthController extends AbstractController
      * @param string $flashMessageToInject
      * @return void
      * @throws \TYPO3\CMS\Core\Context\Exception\AspectNotFoundException
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
      */
     public function indexAction(string $flashMessageToInject = ''): void
@@ -67,7 +65,6 @@ class AuthController extends AbstractController
                     $uriBuilder = $this->objectManager->get(UriBuilder::class);
                     $registerLink = $uriBuilder->reset()
                         ->setTargetPageUid(intval($this->settings['registrationPid']))
-                        ->setUseCacheHash(false)
                         ->setArguments(
                             [
                                 'tx_feregister_auth' => [
