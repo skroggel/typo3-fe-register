@@ -42,8 +42,8 @@ class MarketingValidator extends AbstractValidator
     {
         $isValid = true;
         $formData = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP(ConsentViewHelper::NAMESPACE);
-        if (isset($formData['marketing'])
-            && (!$formData['marketing'])
+        if (isset($formData['marketing']['confirmed'])
+            && (!$formData['marketing']['confirmed'])
         ) {
             // just a placeholder without real validation
         }

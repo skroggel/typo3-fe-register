@@ -43,8 +43,8 @@ class TermsValidator extends AbstractValidator
         $isValid = true;
         $formData = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP(ConsentViewHelper::NAMESPACE);
         if (
-            isset($formData['terms'])
-            && (!$formData['terms'])
+            isset($formData['terms']['confirmed'])
+            && (!$formData['terms']['confirmed'])
         ) {
 
             $this->result->addError(

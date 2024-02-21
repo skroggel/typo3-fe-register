@@ -211,6 +211,10 @@
 				<source>Consent to marketing given</source>
 				<target>Einwilligung zum Marketing erteilt</target>
 			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_consent.sub_type">
+				<source>Sub-Type</source>
+				<target>Unter-Typ</target>
+			</trans-unit>
 
 
             <!-- tx_feregister_domain_model_shippingaddress -->

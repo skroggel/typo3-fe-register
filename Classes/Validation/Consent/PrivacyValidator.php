@@ -43,8 +43,8 @@ class PrivacyValidator extends AbstractValidator
         $isValid = true;
         $formData = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP(ConsentViewHelper::NAMESPACE);
         if (
-            isset($formData['privacy'])
-            && (!$formData['privacy'])
+            isset($formData['privacy']['confirmed'])
+            && (!$formData['privacy']['confirmed'])
         ) {
 
             $this->result->addError(
