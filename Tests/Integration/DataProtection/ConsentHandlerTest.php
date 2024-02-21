@@ -234,14 +234,18 @@ class ConsentHandlerTest extends FunctionalTestCase
          * Given a persisted optIn-object
          * Given this optIn-object has no data-property set
          * Given a request-object
-         * Given the _POST-superglobal has the tx_feregister[privacy]-argument set to 1
-         * Given the _POST-superglobal has the tx_feregister[terms]-argument set to 1
-         * Given the _POST-superglobal has the tx_feregister[marketing]-argument set to 1
+         * Given the _POST-superglobal has the tx_feregister[privacy][confirmed]-argument set to 1
+         * Given the _POST-superglobal has the tx_feregister[privacy][subType]-argument set to 'privaSub'
+         * Given the _POST-superglobal has the tx_feregister[terms][confirmed]-argument set to 1
+         * Given the _POST-superglobal has the tx_feregister[terms][subType]-argument set to 'termaSub'
+         * Given the _POST-superglobal has the tx_feregister[marketing][confirmed]-argument set to 1
+         * Given the _POST-superglobal has the tx_feregister[marketing][subType]-argument set to 'markeSub'
          * When the method is called with the optIn-object as referenceObject-parameter
          * Then an instance of Madj2k\FeRegister\Domain\Model\Consent is returned
          * Then the consentPrivacy-property is set to true
          * Then the consentTerms-property is set to true
          * Then the consentMarketing-property is set to true
+         * Then the subType-property is set to 'privaSub,termaSub,markeSub'
          */
 
         $this->importDataSet(self::FIXTURE_PATH . '/Database/Check10.xml');
@@ -258,9 +262,12 @@ class ConsentHandlerTest extends FunctionalTestCase
         /** @var \TYPO3\CMS\Extbase\Mvc\Request $request */
         $request = $this->objectManager->get(Request::class);
 
-        $_POST['tx_feregister']['privacy'] = 1;
-        $_POST['tx_feregister']['terms'] = 1;
-        $_POST['tx_feregister']['marketing'] = 1;
+        $_POST['tx_feregister']['privacy']['confirmed'] = 1;
+        $_POST['tx_feregister']['privacy']['subType'] = 'privaSub';
+        $_POST['tx_feregister']['terms']['confirmed'] = 1;
+        $_POST['tx_feregister']['terms']['subType'] = 'termaSub';
+        $_POST['tx_feregister']['marketing']['confirmed'] = 1;
+        $_POST['tx_feregister']['marketing']['subType'] = 'markeSub';
 
         /** @var \Madj2k\FeRegister\Domain\Model\Consent $result */
         $result = $consentHandler->add($request, $frontendUser, $optIn, 'hello');
@@ -270,6 +277,7 @@ class ConsentHandlerTest extends FunctionalTestCase
         self::assertTrue($result->getConsentPrivacy());
         self::assertTrue($result->getConsentTerms());
         self::assertTrue($result->getConsentMarketing());
+        self::assertEquals('privaSub,termaSub,markeSub', $result->getSubType());
     }
 
 
@@ -657,9 +665,9 @@ class ConsentHandlerTest extends FunctionalTestCase
          * Given this optIn-object is approved by the admins
          * Given this optIn-object is approved by the user
          * Given a request-object
-         * Given the _POST-superglobal has the tx_feregister[privacy]-argument set to 1
-         * Given the _POST-superglobal has the tx_feregister[terms]-argument set to 1
-         * Given the _POST-superglobal has the tx_feregister[marketing]-argument set to 1
+         * Given the _POST-superglobal has the tx_feregister[privacy][confirmed]-argument set to 1
+         * Given the _POST-superglobal has the tx_feregister[terms][confirmed]-argument set to 1
+         * Given the _POST-superglobal has the tx_feregister[marketing][confirmed]-argument set to 1
          * Given the method has been called before with the optIn-object as referenceObject-parameter
          * When the method is called with optIn-object as referenceObject-parameter and final-parameter equals true
          * Then an instance of Madj2k\FeRegister\Domain\Model\Consent is returned
@@ -682,9 +690,9 @@ class ConsentHandlerTest extends FunctionalTestCase
         /** @var \TYPO3\CMS\Extbase\Mvc\Request $request */
         $request = $this->objectManager->get(Request::class);
 
-        $_POST['tx_feregister']['privacy'] = 1;
-        $_POST['tx_feregister']['terms'] = 1;
-        $_POST['tx_feregister']['marketing'] = 1;
+        $_POST['tx_feregister']['privacy']['confirmed'] = 1;
+        $_POST['tx_feregister']['terms']['confirmed'] = 1;
+        $_POST['tx_feregister']['marketing']['confirmed'] = 1;
 
         $consentHandler->add($request, $frontendUser, $optIn, 'hello');
 
@@ -726,9 +734,9 @@ class ConsentHandlerTest extends FunctionalTestCase
          * Given this optIn-object is approved by the admins
          * Given this optIn-object is approved by the user
          * Given a request-object
-         * Given the _POST-superglobal has the tx_feregister[privacy]-argument set to 1
-         * Given the _POST-superglobal has the tx_feregister[terms]-argument set to 1
-         * Given the _POST-superglobal has the tx_feregister[marketing]-argument set to 0
+         * Given the _POST-superglobal has the tx_feregister[privacy][confirmed]-argument set to 1
+         * Given the _POST-superglobal has the tx_feregister[terms][confirmed]-argument set to 1
+         * Given the _POST-superglobal has the tx_feregister[marketing][confirmed]-argument set to 0
          * Given the method has been called before with the optIn-object as referenceObject-parameter
          * When the method is called with optIn-object as referenceObject-parameter and final-parameter equals true
          * Then an instance of Madj2k\FeRegister\Domain\Model\Consent is returned
@@ -751,9 +759,9 @@ class ConsentHandlerTest extends FunctionalTestCase
         /** @var \TYPO3\CMS\Extbase\Mvc\Request $request */
         $request = $this->objectManager->get(Request::class);
 
-        $_POST['tx_feregister']['privacy'] = 1;
-        $_POST['tx_feregister']['terms'] = 1;
-        $_POST['tx_feregister']['marketing'] = 0;
+        $_POST['tx_feregister']['privacy']['confirmed'] = 1;
+        $_POST['tx_feregister']['terms']['confirmed'] = 1;
+        $_POST['tx_feregister']['marketing']['confirmed'] = 0;
 
         $consentHandler->add($request, $frontendUser, $optIn, 'hello');
 
@@ -795,9 +803,9 @@ class ConsentHandlerTest extends FunctionalTestCase
          * Given a persisted shippingAddress-object
          * Given no optIn-object
          * Given a request-object
-         * Given the _POST-superglobal has the tx_feregister[privacy]-argument set to 1
-         * Given the _POST-superglobal has the tx_feregister[terms]-argument set to 1
-         * Given the _POST-superglobal has the tx_feregister[marketing]-argument set to 1
+         * Given the _POST-superglobal has the tx_feregister[privacy][confirmed]-argument set to 1
+         * Given the _POST-superglobal has the tx_feregister[terms][confirmed]-argument set to 1
+         * Given the _POST-superglobal has the tx_feregister[marketing][confirmed]-argument set to 1
          * When the method is called with the shippingAddress-object as referenceObject
          * Then an instance of Madj2k\FeRegister\Domain\Model\Consent is returned
          * Then txFeRegisterConsentPrivacy-property of the frontendUser is set to true
@@ -819,9 +827,9 @@ class ConsentHandlerTest extends FunctionalTestCase
         /** @var \TYPO3\CMS\Extbase\Mvc\Request $request */
         $request = $this->objectManager->get(Request::class);
 
-        $_POST['tx_feregister']['privacy'] = 1;
-        $_POST['tx_feregister']['terms'] = 1;
-        $_POST['tx_feregister']['marketing'] = 1;
+        $_POST['tx_feregister']['privacy']['confirmed'] = 1;
+        $_POST['tx_feregister']['terms']['confirmed'] = 1;
+        $_POST['tx_feregister']['marketing']['confirmed'] = 1;
 
         /** @var \Madj2k\FeRegister\Domain\Model\Consent $result */
         $result = $consentHandler->add($request, $frontendUser, $shippingAddress, 'hello');
@@ -854,9 +862,9 @@ class ConsentHandlerTest extends FunctionalTestCase
          * Given a persisted shippingAddress-object
          * Given no optIn-object
          * Given a request-object
-         * Given the _POST-superglobal has the tx_feregister[privacy]-argument set to 1
-         * Given the _POST-superglobal has the tx_feregister[terms]-argument set to 1
-         * Given the _POST-superglobal has the tx_feregister[marketing]-argument set to 0
+         * Given the _POST-superglobal has the tx_feregister[privacy][confirmed]-argument set to 1
+         * Given the _POST-superglobal has the tx_feregister[terms][confirmed]-argument set to 1
+         * Given the _POST-superglobal has the tx_feregister[marketing][confirmed]-argument set to 0
          * When the method is called with the shippingAddress-object as referenceObject
          * Then an instance of Madj2k\FeRegister\Domain\Model\Consent is returned
          * Then txFeRegisterConsentPrivacy-property of the frontendUser is set to true
@@ -878,9 +886,9 @@ class ConsentHandlerTest extends FunctionalTestCase
         /** @var \TYPO3\CMS\Extbase\Mvc\Request $request */
         $request = $this->objectManager->get(Request::class);
 
-        $_POST['tx_feregister']['privacy'] = 1;
-        $_POST['tx_feregister']['terms'] = 1;
-        $_POST['tx_feregister']['marketing'] = 0;
+        $_POST['tx_feregister']['privacy']['confirmed'] = 1;
+        $_POST['tx_feregister']['terms']['confirmed'] = 1;
+        $_POST['tx_feregister']['marketing']['confirmed'] = 0;
 
         /** @var \Madj2k\FeRegister\Domain\Model\Consent $result */
         $result = $consentHandler->add($request, $frontendUser, $shippingAddress, 'hello');

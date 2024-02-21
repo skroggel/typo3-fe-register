@@ -15,6 +15,8 @@ namespace Madj2k\FeRegister\Domain\Model;
  * The TYPO3 project - inspiring people to share!
  */
 
+use Madj2k\CoreExtended\Utility\GeneralUtility;
+
 /**
  * Consent
  *
@@ -133,6 +135,12 @@ class Consent extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var bool
      */
     public bool $consentMarketing = false;
+
+
+    /**
+     * @var string
+     */
+    public string $subType = '';
 
 
     /**
@@ -555,6 +563,48 @@ class Consent extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function getConsentMarketing(): bool
     {
         return $this->consentMarketing;
+    }
+
+
+    /**
+     * Sets the subType value
+     *
+     * @param string $subType
+     * @return void
+     */
+    public function setSubType(string $subType):void
+    {
+        $this->subType = $subType;
+    }
+
+
+    /**
+     * Adds the subType value
+     *
+     * @param string $subType
+     * @return void
+     */
+    public function addSubType(string $subType):void
+    {
+        $subTypes = GeneralUtility::trimExplode(',', $this->subType, true);
+        if (
+            (!empty($subType))
+            && (!in_array($subType, $subTypes))
+        ) {
+            $subTypes[] = $subType;
+        }
+        $this->subType = implode(',', $subTypes);
+    }
+
+
+    /**
+     * Returns the subType value
+     *
+     * @return string
+     */
+    public function getSubType(): string
+    {
+        return $this->subType;
     }
 
 }

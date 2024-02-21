@@ -15,6 +15,14 @@ namespace Madj2k\FeRegister\Hooks;
  * The TYPO3 project - inspiring people to share!
  */
 
+use Madj2k\FeRegister\Domain\Repository\FrontendUserRepository;
+use Madj2k\FeRegister\Domain\Repository\GuestUserRepository;
+use Madj2k\FeRegister\Exception;
+use Madj2k\FeRegister\Registration\FrontendUserRegistration;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+
+
 /**
  * Class DatahandlerHook
  *
@@ -27,6 +35,7 @@ namespace Madj2k\FeRegister\Hooks;
 class DatahandlerHook
 {
 
+
     /**
      * Hook: processCmdmap_deleteAction - fired when datasets are deleted
      *
@@ -36,17 +45,41 @@ class DatahandlerHook
      * @param boolean $recordWasDeleted Shows if record was already deleted (e.g. by another hook-call)
      * @param object $object \TYPO3\CMS\Core\DataHandling\DataHandler
      * @return void
+     * @throws \Exception
      * @see \TYPO3\CMS\Core\DataHandling\DataHandler::deleteAction
-     * @todo write the fucking code
      */
     public function processCmdmap_deleteAction($table, $id, $recordToDelete, $recordWasDeleted, $object)
     {
+        /**
+         * If a frontendUser is deleted in backend, we imitate the behavior of the system when a user
+         * deletes his/her data in the frontend. This way all related objects can be deleted using the
+         * normal signal-slots / events
+         */
+        try {
+            if ($table == 'fe_users') {
 
-        if ($table == 'fe_users') {
+                $repositoryName = FrontendUserRepository::class;
+                if ( $recordToDelete['tx_extbase_type'] == '\Madj2k\FeRegister\Domain\Model\GuestUser') {
+                    $repositoryName = GuestUserRepository::class;
+                }
 
-            // @todo if this table is fe_users, then delete all tx_feregister_domain_model_consent entries of this user (do not remove!)
-        }
+                /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
+                $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+                $repository = $objectManager->get($repositoryName);
 
+                /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
+                if ($frontendUser = $repository->findByIdentifierIncludingDisabled($id)) {
 
+                    /** @var \Madj2k\FeRegister\Registration\FrontendUserRegistration $registration */
+                    $registration = $objectManager->get(FrontendUserRegistration::class);
+
+                    $registration->setFrontendUser($frontendUser)
+                        ->endRegistration();
+                }
+            }
+
+        } catch (Exception $e) {
+            // do nothing
+       }
     }
 }

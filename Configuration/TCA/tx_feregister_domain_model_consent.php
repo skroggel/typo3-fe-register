@@ -14,10 +14,10 @@ return [
 		'iconfile' => 'EXT:fe_register/Resources/Public/Icons/tx_feregister_domain_model_consent.gif'
 	],
 	'interface' => [
-		'showRecordFieldList' => 'crdate, foreign_table, foreign_uid, ip_address, user_agent, extension_name, plugin_name, controller_name, action_name, comment, server_host, server_uri, server_referer_url, consent_privacy, consent_terms, consent_marketing, child',
+		'showRecordFieldList' => 'crdate, sub_type, foreign_table, foreign_uid, ip_address, user_agent, extension_name, plugin_name, controller_name, action_name, comment, server_host, server_uri, server_referer_url, consent_privacy, consent_terms, consent_marketing, child',
 	],
 	'types' => [
-		'1' => ['showitem' => 'crdate, foreign_table, foreign_uid, ip_address, user_agent, extension_name, plugin_name, controller_name, action_name, comment, server_host, server_uri, server_referer_url, consent_privacy, consent_terms, consent_marketing, child'],
+		'1' => ['showitem' => 'crdate, sub_type, foreign_table, foreign_uid, ip_address, user_agent, extension_name, plugin_name, controller_name, action_name, comment, server_host, server_uri, server_referer_url, consent_privacy, consent_terms, consent_marketing, child'],
 	],
 	'palettes' => [
 		'1' => ['showitem' => ''],
@@ -225,6 +225,16 @@ return [
             'label' => 'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_consent.consent_marketing',
             'config' => [
                 'type' => 'check',
+            ],
+        ],
+        'sub_type' => [
+            'exclude' => 0,
+            'label' => 'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_consent.sub_type',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'max' => 255,
+                'readOnly' => 1,
             ],
         ],
 

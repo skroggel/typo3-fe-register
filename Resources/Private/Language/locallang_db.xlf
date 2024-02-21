@@ -164,6 +164,9 @@
 			<trans-unit id="tx_feregister_domain_model_consent.consent_marketing">
 				<source>Consent to marketing given</source>
 			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_consent.sub_type">
+				<source>Sub-Type</source>
+			</trans-unit>
 
 
             <!-- tx_feregister_domain_model_shippingaddress -->

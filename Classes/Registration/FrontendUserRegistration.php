@@ -48,13 +48,14 @@ class FrontendUserRegistration extends AbstractRegistration
     public function setFrontendUser(FrontendUser $frontendUser): self
     {
         // check if a user is of the right type - no GuestUsers allowed here
+        /*
         if (FrontendUserUtility::isGuestUser($frontendUser)) {
 
             throw new Exception(
                 'The given frontendUser is an instance of GuestUser. This is not allowed here.',
                 1678359846
             );
-        }
+        }*/
 
         return parent::setFrontendUser($frontendUser);
     }

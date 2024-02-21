@@ -6,10 +6,13 @@
     <f:section name="main">
 
         <div class="form__field">
+            <f:form.hidden name="{namespace}[{type}][subtype]" value="{subtype}" />
+            <f:form.hidden name="{namespace}[{type}][key]" value="{key}" />
+            
             <f:form.checkbox
                 class="checkbox"
                 id="{namespace}-{type}-{randomKey}"
-                name="{namespace}[{type}]"
+                name="{namespace}[{type}][confirmed]"
                 value="1"
                 checked="{checked}"
             />

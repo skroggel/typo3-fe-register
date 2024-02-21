@@ -94,14 +94,16 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
 
         // set consent-fields
         $formData = GeneralUtility::_GP(ConsentViewHelper::NAMESPACE);
-        if ($formData['privacy'] == 1) {
-            $consent->setConsentPrivacy(true);
-        }
-        if ($formData['terms'] == 1) {
-            $consent->setConsentTerms(true);
-        }
-        if ($formData['marketing'] == 1) {
-            $consent->setConsentMarketing(true);
+        foreach (['privacy', 'terms', 'marketing'] as $key) {
+
+            $setter = 'setConsent' . ucfirst($key);
+            if ($formData[$key]['confirmed']) {
+                $consent->$setter($formData[$key]['confirmed']);
+            }
+            if ($formData[$key]['subType']) {
+                $consent->addSubType($formData[$key]['subType']);
+            }
+
         }
 
         // set informed consent reason - optional freeText field
