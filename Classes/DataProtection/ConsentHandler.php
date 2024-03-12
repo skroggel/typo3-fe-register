@@ -39,6 +39,12 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
  */
 class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
 {
+    /**
+     * Constants for extended network
+     *
+     * @const string
+     */
+    const CONSENT_EXTENDED_NETWORK = 'extended_network';
 
     /**
      * setObject
