@@ -101,7 +101,7 @@ class ConsentViewHelper extends AbstractViewHelper
         }
 
         $formData = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP(self::NAMESPACE);
-        $checked = (bool) $formData[$type];
+        $checked = (bool) $formData[$type]['confirmed'];
 
         /** @var int $pageUid */
         $pageUid = $this->arguments['pageUid'];
