@@ -290,6 +290,7 @@ plugin.tx_feregister {
                         txFeregisterXingUrl =
                         txFeregisterFacebookId =
                         txFeregisterTwitterId = 0
+                        txFeregisterRegisterRemoteIp = 127.0.0.1
                     }
                 }
 
