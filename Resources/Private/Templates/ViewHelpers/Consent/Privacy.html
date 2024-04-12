@@ -4,9 +4,8 @@
     <f:layout name="Default" />
 
     <f:section name="main">
-
         <div class="form__field">
-            <f:form.hidden name="{namespace}[{type}][subtype]" value="{subtype}" />
+            <f:form.hidden name="{namespace}[{type}][subType]" value="{subType}" />
             <f:form.hidden name="{namespace}[{type}][key]" value="{key}" />
             
             <f:form.checkbox
@@ -16,12 +15,21 @@
                 value="1"
                 checked="{checked}"
             />
-            
+
             <label for="{namespace}-{type}-{randomKey}" class="checkbox-label">
                 <span class="text-smaller">
-                    <f:format.raw><f:translate key="templates_viewHelpers_consent_privacy.{key}.partOne" extensionName="feRegister" arguments="{0: companyName, 1: companyEmail}" /></f:format.raw>
-                    <f:link.page pageUid="{pageUid}" target="_blank"><f:format.raw><f:translate key="templates_viewHelpers_consent_privacy.{key}.partTwo" extensionName="feRegister" /></f:format.raw></f:link.page>
-                    <f:format.raw><f:translate key="templates_viewHelpers_consent_privacy.{key}.partThree" extensionName="feRegister"/></f:format.raw>
+                    <f:if condition="{subType}">
+                        <f:then>
+                              <f:format.raw><f:translate key="templates_viewHelpers_consent_privacy.{key}.{subType}.partOne" extensionName="feRegister" arguments="{0: companyName, 1: companyEmail}" /></f:format.raw>
+                            <f:link.page pageUid="{pageUid}" target="_blank"><f:format.raw><f:translate key="templates_viewHelpers_consent_privacy.{key}.{subType}.partTwo" extensionName="feRegister" /></f:format.raw></f:link.page>
+                            <f:format.raw><f:translate key="templates_viewHelpers_consent_privacy.{key}.{subType}.partThree" extensionName="feRegister"/></f:format.raw>
+                        </f:then>
+                        <f:else>
+                            <f:format.raw><f:translate key="templates_viewHelpers_consent_privacy.{key}.partOne" extensionName="feRegister" arguments="{0: companyName, 1: companyEmail}" /></f:format.raw>
+                            <f:link.page pageUid="{pageUid}" target="_blank"><f:format.raw><f:translate key="templates_viewHelpers_consent_privacy.{key}.partTwo" extensionName="feRegister" /></f:format.raw></f:link.page>
+                            <f:format.raw><f:translate key="templates_viewHelpers_consent_privacy.{key}.partThree" extensionName="feRegister"/></f:format.raw>
+                        </f:else>
+                    </f:if>
                 </span>        
             </label>
         </div>

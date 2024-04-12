@@ -14,10 +14,10 @@ return [
 		'iconfile' => 'EXT:fe_register/Resources/Public/Icons/tx_feregister_domain_model_consent.gif'
 	],
 	'interface' => [
-		'showRecordFieldList' => 'crdate, sub_type, foreign_table, foreign_uid, ip_address, user_agent, extension_name, plugin_name, controller_name, action_name, comment, server_host, server_uri, server_referer_url, consent_privacy, consent_terms, consent_marketing, child',
+		'showRecordFieldList' => 'crdate, foreign_table, foreign_uid, ip_address, user_agent, extension_name, plugin_name, controller_name, action_name, comment, server_host, server_uri, server_referer_url, consent_privacy, consent_terms, consent_marketing, sub_type, child',
 	],
 	'types' => [
-		'1' => ['showitem' => 'crdate, sub_type, foreign_table, foreign_uid, ip_address, user_agent, extension_name, plugin_name, controller_name, action_name, comment, server_host, server_uri, server_referer_url, consent_privacy, consent_terms, consent_marketing, child'],
+		'1' => ['showitem' => 'crdate, foreign_table, foreign_uid, ip_address, user_agent, extension_name, plugin_name, controller_name, action_name, comment, server_host, server_uri, server_referer_url, consent_privacy, consent_terms, consent_marketing, sub_type, child'],
 	],
 	'palettes' => [
 		'1' => ['showitem' => ''],
