@@ -16,9 +16,7 @@ return [
         'searchFields' => 'frontend_user, first_name,last_name,address,zip,city,email,frontend_user,pages',
         'iconfile' => 'EXT:fe_register/Resources/Public/Icons/tx_feregister_domain_model_shippingaddress.gif'
     ],
-    'interface' => [
-        'showRecordFieldList' => 'hidden, frontend_user, title, gender, company, first_name, last_name, address, zip, city',
-    ],
+
     'types' => [
         '1' => ['showitem' => 'hidden,--palette--;;1, frontend_user, title, gender, company, first_name, last_name, address, zip, city'],
     ],

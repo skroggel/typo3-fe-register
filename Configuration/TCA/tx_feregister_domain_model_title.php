@@ -18,9 +18,6 @@ return [
 		'searchFields' => 'name,name_long,is_title_after,',
 		'iconfile' => 'EXT:fe_register/Resources/Public/Icons/tx_feregister_domain_model_title.gif'
 	],
-	'interface' => [
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, name_long, is_title_after',
-	],
 	'types' => [
 		'1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, --palette--;;1, name, name_long, name_female, name_female_long, is_title_after, is_included_in_salutation, is_checked'],
 	],
@@ -60,9 +57,7 @@ return [
 			],
 		],
 		'l10n_parent' => [
-			'' .
             'displayCond' => 'FIELD:sys_language_uid:>:0',
-			'exclude' => 1,
 			'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
 			'config' => [
 				'type' => 'select',
