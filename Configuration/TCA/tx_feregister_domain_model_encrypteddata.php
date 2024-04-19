@@ -13,9 +13,6 @@ return [
 		'searchFields' => 'frontend_user, foreign_uid, foreign_table, foreign_field, encrypted_value',
 		'iconfile' => 'EXT:fe_register/Resources/Public/Icons/tx_feregister_domain_model_encrypteddata.gif'
 	],
-	'interface' => [
-		'showRecordFieldList' => 'frontend_user, foreign_uid, foreign_table, foreign_field, encrypted_value',
-	],
 	'types' => [
 		'1' => ['showitem' => 'frontend_user, foreign_uid, foreign_table, foreign_field, encrypted_value'],
 	],

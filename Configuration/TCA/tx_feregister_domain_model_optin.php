@@ -15,9 +15,6 @@ return [
 		'searchFields' => 'frontend_user_uid, token_user, token_yes, token_no, category, valid_until, enabled_by_admin, data',
 		'iconfile' => 'EXT:fe_register/Resources/Public/Icons/tx_feregister_domain_model_optin.gif'
 	],
-	'interface' => [
-		'showRecordFieldList' => 'frontend_user_uid, frontend_user_update, admins, token_user, token_yes, token_no, admin_token_yes, admin_token_no, category, approved, admin_approved, data',
-	],
 	'types' => [
 		'1' => ['showitem' => 'frontend_user_uid, frontend_user_update, admins, token_user, token_yes, token_no, admin_token_yes, admin_token_no, category, approved, admin_approved, data, --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access, starttime, endtime'],
 	],
