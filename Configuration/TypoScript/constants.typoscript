@@ -121,6 +121,11 @@ plugin.tx_feregister {
                 # cat=plugin.tx_feregister//a; type=string; label=Groups a user is added to when registering as guest
                 groupsOnRegister =
             }
+
+            categories {
+                # cat=plugin.tx_feregister//a; type=integer; label=Topic parent ID to show
+                topicParentId = 164
+            }
         }
 	}
 }

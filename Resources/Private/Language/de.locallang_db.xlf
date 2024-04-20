@@ -80,6 +80,10 @@
 				<source>Consents given</source>
 				<target>Getätigte Einwilligungen</target>
 			</trans-unit>
+            <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_categories_topics">
+                <source>User topics</source>
+                <target>Themenauswahl des Nutzers</target>
+            </trans-unit>
 			<trans-unit id="tx_feregister_domain_model_frontenduser.title">
 				<source>Title (overridden)</source>
 				<target>Titel (wird überschrieben)</target>

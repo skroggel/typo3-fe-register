@@ -25,6 +25,7 @@ use Madj2k\FeRegister\Domain\Repository\TitleRepository;
 use Madj2k\FeRegister\Registration\FrontendUserRegistration;
 use Madj2k\FeRegister\Utility\TitleUtility;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
@@ -386,6 +387,7 @@ class FrontendUserController extends AbstractController
     }
 
 
+
     /**
      * action update
      * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
@@ -400,6 +402,8 @@ class FrontendUserController extends AbstractController
      */
     public function updateAction(FrontendUser $frontendUser): void
     {
+
+        DebuggerUtility::var_dump($frontendUser); exit;
 
         // for logged-in users only!
         $this->redirectIfUserNotLoggedInOrGuest();

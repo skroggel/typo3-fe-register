@@ -127,6 +127,39 @@ class FrontendUser extends \Madj2k\CoreExtended\Domain\Model\FrontendUser
 
 
     /**
+     * txFeregisterCategoriesTopics
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
+     */
+    protected $txFeregisterCategoriesTopics;
+
+
+    /**
+     * __construct
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        //Do not remove the next line: It would break the functionality
+        $this->initStorageObjects();
+    }
+
+    /**
+     * Initializes all ObjectStorage properties
+     * Do not modify this method!
+     * It will be rewritten on each save in the extension builder
+     * You may modify the constructor of this class instead
+     *
+     * @return void
+     */
+    protected function initStorageObjects()
+    {
+        $this->txFeregisterCategoriesTopics = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    }
+
+
+    /**
      * Gets the plaintext password
      * !!! SHOULD NEVER BE PERSISTED!!!
      *
@@ -605,6 +638,51 @@ class FrontendUser extends \Madj2k\CoreExtended\Domain\Model\FrontendUser
         }
 
         return '';
+    }
+
+
+
+    /**
+     * Adds a txFeregisterCategoriesTopics
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\Category $txFeregisterCategoriesTopics
+     * @return void
+     */
+    public function addTxFeregisterCategoriesTopics(\TYPO3\CMS\Extbase\Domain\Model\Category $txFeregisterCategoriesTopics)
+    {
+        $this->txFeregisterCategoriesTopics->attach($txFeregisterCategoriesTopics);
+    }
+
+    /**
+     * Removes a txFeregisterCategoriesTopics
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\Category $txFeregisterCategoriesTopicsToRemove The Category to be removed
+     * @return void
+     */
+    public function removeTxFeregisterCategoriesTopics(\TYPO3\CMS\Extbase\Domain\Model\Category $txFeregisterCategoriesTopics)
+    {
+        $this->txFeregisterCategoriesTopics->detach($txFeregisterCategoriesTopics);
+    }
+
+    /**
+     * Returns the txFeregisterCategoriesTopics
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category> $txFeregisterCategoriesTopics
+     */
+    public function getTxFeregisterCategoriesTopics()
+    {
+        return $this->txFeregisterCategoriesTopics;
+    }
+
+    /**
+     * Sets the txFeregisterCategoriesTopics
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category> $txFeregisterCategoriesTopics
+     * @return void
+     */
+    public function setTxFeregisterCategoriesTopics(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $txFeregisterCategoriesTopics)
+    {
+        $this->txFeregisterCategoriesTopics = $txFeregisterCategoriesTopics;
     }
 
 }

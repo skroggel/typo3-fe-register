@@ -46,23 +46,24 @@ CREATE TABLE tx_feregister_domain_model_optin
 CREATE TABLE fe_users
 (
 
-	tx_feregister_title                  int(11) unsigned DEFAULT '0' NOT NULL,
-	tx_feregister_gender                 tinyint(4) DEFAULT '99' NOT NULL,
-	tx_feregister_mobile                 varchar(255) DEFAULT ''        NOT NULL,
-	tx_feregister_twitter_url            varchar(255) DEFAULT ''        NOT NULL,
-	tx_feregister_facebook_url           varchar(255) DEFAULT ''        NOT NULL,
-	tx_feregister_xing_url               varchar(255) DEFAULT ''        NOT NULL,
+	tx_feregister_title                     int(11) unsigned DEFAULT '0' NOT NULL,
+	tx_feregister_gender                    tinyint(4) DEFAULT '99' NOT NULL,
+	tx_feregister_mobile                    varchar(255) DEFAULT '' NOT NULL,
+	tx_feregister_twitter_url               varchar(255) DEFAULT '' NOT NULL,
+	tx_feregister_facebook_url              varchar(255) DEFAULT '' NOT NULL,
+	tx_feregister_xing_url                  varchar(255) DEFAULT '' NOT NULL,
 
-	tx_feregister_register_remote_ip     varchar(255) DEFAULT ''        NOT NULL,
-	tx_feregister_language_key           varchar(255) DEFAULT 'default' NOT NULL,
+	tx_feregister_register_remote_ip        varchar(255) DEFAULT '' NOT NULL,
+	tx_feregister_language_key              varchar(255) DEFAULT 'default' NOT NULL,
 
-	tx_feregister_login_error_count      tinyint(4) DEFAULT '0' NOT NULL,
+	tx_feregister_login_error_count         tinyint(4) DEFAULT '0' NOT NULL,
 
-	tx_feregister_consent	    			    varchar(255) DEFAULT ''        NOT NULL,
-	tx_feregister_consent_privacy			  tinyint(1) DEFAULT '0' NOT NULL,
-	tx_feregister_consent_terms				  tinyint(1) DEFAULT '0' NOT NULL,
-	tx_feregister_consent_marketing      tinyint(1) DEFAULT '0' NOT NULL,
-	tx_feregister_data_protection_status tinyint(4) DEFAULT '0' NOT NULL,
+	tx_feregister_consent	    		    varchar(255) DEFAULT '' NOT NULL,
+	tx_feregister_consent_privacy			tinyint(1) DEFAULT '0' NOT NULL,
+	tx_feregister_consent_terms				tinyint(1) DEFAULT '0' NOT NULL,
+	tx_feregister_consent_marketing         tinyint(1) DEFAULT '0' NOT NULL,
+	tx_feregister_data_protection_status    tinyint(4) DEFAULT '0' NOT NULL,
+    tx_feregister_categories_topics	    	varchar(255) DEFAULT '' NOT NULL,
 );
 
 
