@@ -624,6 +624,13 @@
             </trans-unit>
 
 
+            <!-- Partials/FrontendUser/CategoryTopicList.html -->
+            <trans-unit id="partials_frontenduser_categorytopiclist.headline">
+                <source>Users interests</source>
+                <target>Interessengebiete</target>
+            </trans-unit>
+
+
 			<!-- Templates/ViewHelpers/Consent/Privacy.html -->
 			<trans-unit id="templates_viewHelpers_consent_privacy.default.partOne">
 				<source><![CDATA[Yes, I agree that %s will use my personal data for the above purpose and to create a free user account. My consent is voluntary and can be revoked at any time with future effect by email to <a href="mailto:%s">%2$s</a>. Furthermore, I have read and agree to the]]></source>

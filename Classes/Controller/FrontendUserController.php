@@ -403,8 +403,6 @@ class FrontendUserController extends AbstractController
     public function updateAction(FrontendUser $frontendUser): void
     {
 
-        DebuggerUtility::var_dump($frontendUser); exit;
-
         // for logged-in users only!
         $this->redirectIfUserNotLoggedInOrGuest();
 
@@ -518,6 +516,32 @@ class FrontendUserController extends AbstractController
 
         $this->redirectToLogin();
 
+    }
+
+
+    /**
+     * action topic
+     * User can choose preferred topics
+     *
+     * @return void
+     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
+     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
+     * @throws \TYPO3\CMS\Core\Context\Exception\AspectNotFoundException
+     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     */
+    public function topicAction(FrontendUser $frontendUser = null): void
+    {
+        if ($frontendUser) {
+            $this->frontendUserRepository->update($frontendUser);
+        }
+
+        $frontendUser = $frontendUser ?: $this->getFrontendUser();
+
+        $this->view->assignMultiple(
+            [
+                'frontendUser'  => $frontendUser,
+            ]
+        );
     }
 
 }

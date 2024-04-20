@@ -1,0 +1,18 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:feRegister="http://typo3.org/ns/Madj2k/FeRegister/ViewHelpers"
+    data-namespace-typo3-fluid="true">
+
+    <f:layout name="Default" />
+    <f:section name="main">
+        <f:render partial="AllFlashMessages" arguments="{_all}" />
+
+        <f:form action="topic" name="frontendUser" object="{frontendUser}" class="form-fields">
+            <f:render partial="FrontendUser/CategoryTopicList" />
+
+            <button type="submit" class="btn btn--primary">
+                <f:translate key="templates_frontendUser_edit.labelSave" />
+            </button>
+        </f:form>
+
+    </f:section>
+</html>

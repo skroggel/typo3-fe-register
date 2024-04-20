@@ -488,6 +488,12 @@
 			</trans-unit>
 
 
+            <!-- Partials/FrontendUser/CategoryTopicList.html -->
+            <trans-unit id="partials_frontenduser_categorytopiclist.headline">
+                <source>Users interests</source>
+            </trans-unit>
+
+
 			<!-- Templates/ViewHelpers/Consent/Privacy.html -->
 			<trans-unit id="templates_viewHelpers_consent_privacy.default.partOne">
 				<source>Yes, I agree that %s will use my personal data for the above purpose and to create a free user account. Furthermore, I have read and agree to the extended notes in the</source>
