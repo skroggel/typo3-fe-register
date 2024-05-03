@@ -7,7 +7,8 @@
         <f:render partial="AllFlashMessages" arguments="{_all}" />
 
         <f:form action="topic" name="frontendUser" object="{frontendUser}" class="form-fields">
-            <f:render partial="FrontendUser/CategoryTopicList" />
+
+            <feRegister:topic />
 
             <button type="submit" class="btn btn--primary">
                 <f:translate key="templates_frontendUser_edit.labelSave" />

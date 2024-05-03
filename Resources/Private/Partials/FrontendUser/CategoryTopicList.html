@@ -8,7 +8,10 @@
 
     <f:for each="{feUserCategoryTree}" as="category" iteration="iter">
         <f:if condition="{iter.isFirst}">
-            <f:render section="checkbox" arguments="{_all}" />
+            <f:comment>
+                <f:render section="checkbox" arguments="{_all}" />
+            </f:comment>
+            <feRegister:topicCheckbox />
         </f:if>
     </f:for>
 
@@ -17,7 +20,7 @@
 <f:section name="checkbox">
 
     <f:comment><!-- do not print the initial parent category --></f:comment>
-    <f:if condition="{category.uid} != {settings.users.categories.topicParentId}">
+    <f:if condition="{category.uid} != {topicParentId}">
         <div class="feuser-topic-checkbox">
             <f:form.checkbox
                 multiple="1"

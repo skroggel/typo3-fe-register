@@ -15,7 +15,9 @@ namespace Madj2k\FeRegister\Utility;
  */
 
 use Madj2k\CoreExtended\Utility\GeneralUtility;
+use Madj2k\FeRegister\Domain\Model\Category;
 use Madj2k\FeRegister\Domain\Model\FrontendUser;
+use Madj2k\FeRegister\Domain\Repository\CategoryRepository;
 use Madj2k\FeRegister\Domain\Repository\FrontendUserRepository;
 use TYPO3\CMS\Core\Crypto\PasswordHashing\InvalidPasswordHashException;
 use TYPO3\CMS\Core\Crypto\PasswordHashing\PasswordHashFactory;
@@ -300,6 +302,46 @@ class FrontendUserUtility
         }
 
         return false;
+    }
+
+
+    /**
+     * Update user topics
+     *
+     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser|null $frontendUser
+     * @return void
+     */
+    public static function handleUserTopics(FrontendUser $frontendUser): void
+    {
+        /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
+        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+
+        /** @var \Madj2k\FeRegister\Domain\Repository\CategoryRepository $categoryRepository */
+        $categoryRepository = $objectManager->get(CategoryRepository::class);
+
+        /** @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository $frontendUserRepository */
+        $frontendUserRepository = $objectManager->get(FrontendUserRepository::class);
+
+        // get arguments
+        $args = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('tx_feregister');
+
+        if (
+            is_array($args)
+            && key_exists('txFeregisterCategoriesTopics', $args)
+        ) {
+
+            // 1. remove all categories ("cleanup")
+            $frontendUser->getTxFeregisterCategoriesTopics()->removeAll($frontendUser->getTxFeregisterCategoriesTopics());
+
+            // 2. add selected categories
+            foreach (array_filter($args['txFeregisterCategoriesTopics']) as $categoryUid => $formCategory) {
+                /** @var Category $category */
+                $category = $categoryRepository->findByUid(intval($categoryUid));
+                $frontendUser->addTxFeregisterCategoriesTopics($category);
+            }
+
+            $frontendUserRepository->update($frontendUser);
+        }
     }
 
 

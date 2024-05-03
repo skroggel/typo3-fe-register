@@ -15,6 +15,8 @@ namespace Madj2k\FeRegister\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
+use Madj2k\FeRegister\Domain\Model\Category;
+use Madj2k\FeRegister\Domain\Repository\CategoryRepository;
 use Madj2k\FeRegister\Registration\GuestUserRegistration;
 use Madj2k\FeRegister\Utility\FrontendUserUtility;
 use Madj2k\Postmaster\UriBuilder\EmailUriBuilder;
@@ -25,7 +27,6 @@ use Madj2k\FeRegister\Domain\Repository\TitleRepository;
 use Madj2k\FeRegister\Registration\FrontendUserRegistration;
 use Madj2k\FeRegister\Utility\TitleUtility;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
@@ -59,6 +60,13 @@ class FrontendUserController extends AbstractController
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected ?TitleRepository $titleRepository = null;
+
+
+    /**
+     * @var \Madj2k\FeRegister\Domain\Repository\CategoryRepository
+     * @TYPO3\CMS\Extbase\Annotation\Inject
+     */
+    protected ?CategoryRepository $categoryRepository = null;
 
 
     /**
@@ -531,9 +539,12 @@ class FrontendUserController extends AbstractController
      */
     public function topicAction(FrontendUser $frontendUser = null): void
     {
+
         if ($frontendUser) {
+            FrontendUserUtility::handleUserTopics($frontendUser);
             $this->frontendUserRepository->update($frontendUser);
         }
+
 
         $frontendUser = $frontendUser ?: $this->getFrontendUser();
 
