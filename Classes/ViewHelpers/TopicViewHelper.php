@@ -48,15 +48,6 @@ class TopicViewHelper extends AbstractViewHelper
     public function initializeArguments(): void
     {
         parent::initializeArguments();
-        /*
-        $this->registerArgument('key', 'string', 'The key to use for the text.', false, 'default');
-        $this->registerArgument('pageUid', 'int', 'The pid of the first page which will be linked.', false, '0');
-        $this->registerArgument('pageUid2', 'int', 'The pid of the second page which will be linked.', false, '0');
-        $this->registerArgument('type', 'string', 'The type. Allowed values are: privacy, terms, marketing.', false, 'privacy');
-        $this->registerArgument('subType', 'string', 'The subtype of the consent', false, '');
-        $this->registerArgument('companyName', 'string', 'The name of the company. This is inserted into the texts.', false, '');
-        $this->registerArgument('companyEmail', 'string', 'The email of the company for revocation of consent. This is inserted into the texts.', false, '');
-        */
     }
 
 

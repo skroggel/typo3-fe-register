@@ -114,8 +114,6 @@ class TopicCheckboxViewHelper extends AbstractViewHelper
             }
         }
 
-
-
         $standaloneView->assignMultiple(
             [
                 'namespace' => self::NAMESPACE,
