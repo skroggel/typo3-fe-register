@@ -541,23 +541,23 @@
                 <source>.</source>
             </trans-unit>
 			<trans-unit id="templates_viewHelpers_consent_privacy.events.extended_network.partOne" approved="no">
-                <source><![CDATA[Yes, I agree that %s uses my personal data for my participation in the event, as well as for event follow-up and to create a free user account. Furthermore, I consent to my personal data being passed on to the RKW national organizations for the aforementioned purposes. My consent is voluntary and can be revoked at any time with future effect by email to <a href="mailto:%s">%2$s</a>. I have also read and agree to the]]></source>
-            </trans-unit>
-            <trans-unit id="templates_viewHelpers_consent_privacy.events.extended_network.partTwo">
-                <source>data protection declaration</source>
-            </trans-unit>
-            <trans-unit id="templates_viewHelpers_consent_privacy.events.extended_network.partThree">
-                <source>.</source>
-            </trans-unit>
-            <trans-unit id="templates_viewHelpers_consent_privacy.eventsSingle.extended_network.partOne" approved="no">
-                <source><![CDATA[Yes, I agree that %s uses my personal data for my participation in the event, as well as for event follow-up and to create a free user account. My consent is voluntary and can be revoked at any time with future effect by email to <a href="mailto:%s">%2$s</a>. I have also read and agree to the]]></source>
-            </trans-unit>
-            <trans-unit id="templates_viewHelpers_consent_privacy.eventsSingle.extended_network.partTwo">
-                <source>data protection declaration</source>
-            </trans-unit>
-            <trans-unit id="templates_viewHelpers_consent_privacy.eventsSingle.extended_network.partThree">
-                <source>.</source>
-            </trans-unit>
+				<source><![CDATA[Yes, I agree that %s uses my personal data for my participation in the event, as well as for event follow-up and to create a free user account. Furthermore, I agree that my personal data may be passed on within the <a href="https://www.rkw-kompetenzzentrum.de/fileadmin/media/Dateien/ZB/Impulse-2024/202404-Datenschutzhinweis-Impulse-2024.pdf" target="_blank">RKW network</a> for the organisation and follow-up of the event and may be collected and processed for these purposes. I also agree that the participant data may be transmitted to the Federal Ministry of Economics and Climate Protection for the purpose of admission control. My consent is voluntary and can be revoked at any time with future effect by email to <a href="mailto:%s">%2$s</a>. I have also read and agree to the]]></source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.events.extended_network.partTwo">
+				<source>data protection declaration</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.events.extended_network.partThree">
+				<source>and the data protection notice below.</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.eventsSingle.extended_network.partOne" approved="no">
+				<source><![CDATA[Yes, I agree that %s uses my personal data for my participation in the event, as well as for event follow-up and to create a free user account. Furthermore, I agree that my personal data may be passed on within the <a href="https://www.rkw-kompetenzzentrum.de/fileadmin/media/Dateien/ZB/Impulse-2024/202404-Datenschutzhinweis-Impulse-2024.pdf" target="_blank">RKW network</a> for the organisation and follow-up of the event and may be collected and processed for these purposes. I also agree that the participant data may be transmitted to the Federal Ministry of Economics and Climate Protection for the purpose of admission control. My consent is voluntary and can be revoked at any time with future effect by email to <a href="mailto:%s">%2$s</a>. I have also read and agree to the]]></source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.eventsSingle.extended_network.partTwo">
+				<source>data protection declaration</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.eventsSingle.extended_network.partThree">
+				<source>and the data protection notice below.</source>
+			</trans-unit>
 			<trans-unit id="templates_viewHelpers_consent_privacy.order.partOne" approved="no">
 				<source>Yes, I agree that %s uses my personal data to process my order and to create a free user account. Furthermore, I have read and agree to the extended notes in the</source>
 			</trans-unit>
