@@ -56,6 +56,9 @@
             <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_language_key">
                 <source>Language Key</source>
             </trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.title">
+				<source>Title (overridden)</source>
+			</trans-unit>
             <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_title">
                 <source>Title</source>
             </trans-unit>
@@ -65,21 +68,18 @@
           	<trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_consent">
 				<source>Consents given</source>
 			</trans-unit>
-            <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_categories_topics">
-                <source>User topics</source>
-            </trans-unit>
-			<trans-unit id="tx_feregister_domain_model_frontenduser.title">
-				<source>Title (overridden)</source>
-			</trans-unit>
-			<trans-unit id="tx_feregister_domain_model_frontenduser.consent_privacy">
+			<trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_consent_privacy">
 				<source>Consent to Privacy policy</source>
 			</trans-unit>
-			<trans-unit id="tx_feregister_domain_model_frontenduser.consent_terms">
+			<trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_consent_terms">
 				<source>Consent to Terms of Use given</source>
 			</trans-unit>
-			<trans-unit id="tx_feregister_domain_model_frontenduser.consent_marketing">
+			<trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_consent_marketing">
 				<source>Consent to marketing given</source>
 			</trans-unit>
+            <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_consent_topics">
+                <source>User topics</source>
+            </trans-unit>
 
 
             <!-- tx_feregister_domain_model_frontendusergroup -->
@@ -167,6 +167,9 @@
 			<trans-unit id="tx_feregister_domain_model_consent.consent_marketing">
 				<source>Consent to marketing given</source>
 			</trans-unit>
+            <trans-unit id="tx_feregister_domain_model_consent.consent_topics">
+                <source>Selected Topics</source>
+            </trans-unit>
 			<trans-unit id="tx_feregister_domain_model_consent.sub_type">
 				<source>Sub-Type</source>
 			</trans-unit>

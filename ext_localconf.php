@@ -112,11 +112,11 @@ call_user_func(
             'Madj2k.' . $extKey,
             'UserTopics',
             [
-                'FrontendUser' => 'topic',
+                'FrontendUser' => 'topic, topicUpdate',
             ],
             // non-cacheable actions
             [
-                'FrontendUser' => 'topic',
+                'FrontendUser' => 'topic, topicUpdate',
             ]
         );
 

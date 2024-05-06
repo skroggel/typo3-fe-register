@@ -556,6 +556,17 @@
             </trans-unit>
 
 
+            <!-- Templates/FrontendUser/Topic.html -->
+            <trans-unit id="templates_frontendUser_topic.labelSave">
+                <source>Save</source>
+                <target>Speichern</target>
+            </trans-unit>
+            <trans-unit id="templates_frontendUser_topic.labelBack">
+                <source>Back</source>
+                <target>Zurück</target>
+            </trans-unit>
+
+
 			<!-- Templates/FrontendUser/Welcome.html -->
 			<trans-unit id="templates_frontendUser_welcome.headline">
 				<source>Welcome %s %s!</source>
@@ -624,10 +635,10 @@
             </trans-unit>
 
 
-            <!-- Partials/FrontendUser/CategoryTopicList.html -->
-            <trans-unit id="partials_frontenduser_categorytopiclist.headline">
-                <source>Users interests</source>
-                <target>Interessengebiete</target>
+            <!-- Templates/ViewHelpers/Topics/List.html -->
+            <trans-unit id="templates_viewHelpers_topic_list.headline">
+                <source>What are you particularly interested in?</source>
+                <target>Wofür interessieren Sie sich besonders?</target>
             </trans-unit>
 
 

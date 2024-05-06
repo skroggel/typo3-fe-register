@@ -46,7 +46,6 @@ call_user_func(
                 ],
             ],
 
-
             'tx_feregister_title' => [
                 'label'=>'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.tx_feregister_title',
                 'exclude' => 0,
@@ -139,7 +138,7 @@ call_user_func(
 
             'tx_feregister_consent_privacy' => [
                 'exclude' => 1,
-                'label' => 'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.consent_privacy',
+                'label' => 'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.tx_feregister_consent_privacy',
                 'config' => [
                     'type' => 'check',
                     'readOnly' => 1
@@ -148,23 +147,35 @@ call_user_func(
 
             'tx_feregister_consent_terms' => [
                 'exclude' => 1,
-                'label' => 'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.consent_terms',
+                'label' => 'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.tx_feregister_consent_terms',
                 'config' => [
                     'type' => 'check',
+                    'readOnly' => 1,
                 ],
             ],
 
             'tx_feregister_consent_marketing' => [
                 'exclude' => 1,
-                'label' => 'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.consent_marketing',
+                'label' => 'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.tx_feregister_consent_marketing',
                 'config' => [
                     'type' => 'check',
                 ],
             ],
-
-            'tx_feregister_data_protection_status' => [
-                'config'=>[
-                    'type' => 'passthrough',
+            'tx_feregister_consent_topics' => [
+                'exclude' => 1,
+                'label' => 'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.tx_feregister_consent_topics',
+                'config' => [
+                    'type' => 'select',
+                    'renderType' => 'selectTree',
+                    'foreign_table' => 'sys_category',
+                    'treeConfig' => [
+                        'parentField' => 'parent',
+                        'appearance' => [
+                            'expandAll' => true,
+                            'showHeader' => true,
+                            'maxLevels' => 0
+                        ],
+                    ],
                 ],
             ],
             'tx_feregister_consent' => [
@@ -190,22 +201,9 @@ call_user_func(
                     ],
                 ],
             ],
-
-            'tx_feregister_categories_topics' => [
-                'exclude' => 1,
-                'label' => 'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.tx_feregister_categories_topics',
-                'config' => [
-                    'type' => 'select',
-                    'renderType' => 'selectTree',
-                    'foreign_table' => 'sys_category',
-                    'treeConfig' => [
-                        'parentField' => 'parent',
-                        'appearance' => [
-                            'expandAll' => true,
-                            'showHeader' => true,
-                            'maxLevels' => 0
-                        ],
-                    ],
+            'tx_feregister_data_protection_status' => [
+                'config'=>[
+                    'type' => 'passthrough',
                 ],
             ],
         ];
@@ -255,15 +253,9 @@ call_user_func(
         );
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
             'fe_users',
-            ', tx_feregister_consent_privacy, tx_feregister_consent_terms, tx_feregister_consent_marketing, tx_feregister_consent',
+            ', tx_feregister_consent_privacy, tx_feregister_consent_terms, tx_feregister_consent_marketing, tx_feregister_consent_topics, tx_feregister_consent',
             '0',
             'after:image'
-        );
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
-            'fe_users',
-            'tx_feregister_categories_topics',
-            '0',
-            'after:tx_extbase_type'
         );
 
         /**

@@ -19,6 +19,7 @@ use Madj2k\FeRegister\Domain\Model\Category;
 use Madj2k\FeRegister\Domain\Repository\CategoryRepository;
 use Madj2k\FeRegister\Registration\GuestUserRegistration;
 use Madj2k\FeRegister\Utility\FrontendUserUtility;
+use Madj2k\FeRegister\ViewHelpers\TopicCheckboxViewHelper;
 use Madj2k\Postmaster\UriBuilder\EmailUriBuilder;
 use Madj2k\FeRegister\Domain\Model\FrontendUser;
 use Madj2k\FeRegister\Domain\Model\FrontendUserGroup;
@@ -27,6 +28,7 @@ use Madj2k\FeRegister\Domain\Repository\TitleRepository;
 use Madj2k\FeRegister\Registration\FrontendUserRegistration;
 use Madj2k\FeRegister\Utility\TitleUtility;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
@@ -93,6 +95,15 @@ class FrontendUserController extends AbstractController
     public function injectTitleRepository(TitleRepository $titleRepository)
     {
         $this->titleRepository = $titleRepository;
+    }
+
+
+    /**
+     * @var \Madj2k\FeRegister\Domain\Repository\CategoryRepository
+     */
+    public function injectCategoryRepository(CategoryRepository $categoryRepository)
+    {
+        $this->categoryRepository = $categoryRepository;
     }
 
 
@@ -422,6 +433,7 @@ class FrontendUserController extends AbstractController
                 )
             );
         }
+
         $this->frontendUserRepository->update($frontendUser);
         $this->persistenceManager->persistAll();
 
@@ -537,22 +549,42 @@ class FrontendUserController extends AbstractController
      * @throws \TYPO3\CMS\Core\Context\Exception\AspectNotFoundException
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
      */
-    public function topicAction(FrontendUser $frontendUser = null): void
+    public function topicAction(): void
+    {
+        // for logged-in users only!
+        $this->redirectIfUserNotLoggedIn();
+    }
+
+
+    /**
+     * Save topics
+     *
+     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
+     * @return void
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
+     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
+     */
+    public function topicUpdateAction(FrontendUser $frontendUser): void
     {
 
-        if ($frontendUser) {
-            FrontendUserUtility::handleUserTopics($frontendUser);
-            $this->frontendUserRepository->update($frontendUser);
-        }
-
-
-        $frontendUser = $frontendUser ?: $this->getFrontendUser();
-
-        $this->view->assignMultiple(
-            [
-                'frontendUser'  => $frontendUser,
-            ]
+        // add privacy info
+        \Madj2k\FeRegister\DataProtection\ConsentHandler::add(
+            $this->request,
+            $frontendUser,
+            null,
+            'Change in topics'
         );
+
+        $this->addFlashMessage(
+            LocalizationUtility::translate(
+                'frontendUserController.message.updateSuccessful',
+                'fe_register'
+            )
+        );
+
+        $this->redirect('topic');
     }
 
 }

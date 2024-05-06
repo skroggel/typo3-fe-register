@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace Madj2k\FeRegister\Domain\Model;
 
 /*
@@ -18,7 +18,6 @@ namespace Madj2k\FeRegister\Domain\Model;
 /**
  * Class Category
  *
- * @author Carlos Meyer <cm@davitec.de>
  * @author Maximilian Fäßler <maximilian@faesslerweb.de>
  * @author Steffen Kroggel <developer@steffenkroggel.de>
  * @copyright RKW Kompetenzzentrum

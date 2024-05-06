@@ -1,9 +1,6 @@
 <?php
-
+declare(strict_types=1);
 namespace Madj2k\FeRegister\Domain\Repository;
-
-use \RKW\RkwEvents\Domain\Model\Category;
-use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -18,10 +15,12 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+
 /**
  * Class CategoryRepository
  *
- * @author Carlos Meyer <cm@davitec.de>
  * @author Maximilian Fäßler <maximilian@faesslerweb.de>
  * @author Steffen Kroggel <developer@steffenkroggel.de>
  * @copyright RKW Kompetenzzentrum
@@ -39,11 +38,10 @@ class CategoryRepository extends AbstractRepository
      */
     public function initializeObject(): void
     {
-
         parent::initializeObject();
 
         /** @var $querySettings \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings */
-        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+        $querySettings = $this->objectManager->get(Typo3QuerySettings::class);
 
         // don't add the pid constraint
         $querySettings->setRespectStoragePage(false);
@@ -62,7 +60,7 @@ class CategoryRepository extends AbstractRepository
      */
     public function findChildrenByParent(int $category = 0, array $excludeCategories = []): QueryResultInterface
     {
-        $constraints = array();
+        $constraints = [];
         $query = $this->createQuery();
 
         $constraints[] = $query->equals('parent', $category);
@@ -73,6 +71,5 @@ class CategoryRepository extends AbstractRepository
 
         return $query->execute();
     }
-
 
 }

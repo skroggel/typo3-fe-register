@@ -1,19 +1,15 @@
-<f:comment>
-    <f:render partial="FrontendUser/CategoryTopicList" arguments="{_all}" />
-</f:comment>
-
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:feRegister="http://typo3.org/ns/Madj2k/FeRegister/ViewHelpers"
     data-namespace-typo3-fluid="true">
+ 
+    <h3><f:translate key="templates_viewHelpers_topic_list.headline" extensionName="fe_register" /></h3>
 
-{feRegister:GetFeUserMainCategory() -> f:variable(name: 'feUserCategoryTree')}
-
-<h3><f:translate key="partials_frontenduser_categorytopiclist.headline" /></h3>
-
-<f:for each="{feUserCategoryTree}" as="category" iteration="iter">
-    <f:if condition="{iter.isFirst}">
-        <feRegister:topicCheckbox category="{category}" categoryTree="{feUserCategoryTree}" />
-    </f:if>
-</f:for>
+    <div class="form__field">
+        <div class="topic-list">
+            <f:for each="{categoryTree}" key="categoryId" as="subArray" iteration="iter">
+                <feRegister:topicCheckbox category="{subArray.category}" categoryTree="{subArray.children}" />
+            </f:for>
+        </div>
+    </div>
 
 </html>

@@ -1,5 +1,4 @@
 <?php
-
 namespace Madj2k\FeRegister\ViewHelpers;
 
 /*
@@ -15,7 +14,6 @@ namespace Madj2k\FeRegister\ViewHelpers;
  * The TYPO3 project - inspiring people to share!
  */
 
-use Madj2k\FeRegister\Domain\Model\Category;
 use Madj2k\FeRegister\Domain\Model\FrontendUser;
 use Madj2k\FeRegister\Utility\FrontendUserSessionUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -39,6 +37,11 @@ class TopicCheckboxViewHelper extends AbstractViewHelper
      */
     const NAMESPACE = 'tx_feregister';
 
+    /**
+     * @const string
+     */
+    const IDENTIFIER = 'topic';
+
 
     /**
      * As this ViewHelper renders HTML, the output must not be escaped.
@@ -58,8 +61,8 @@ class TopicCheckboxViewHelper extends AbstractViewHelper
     {
         parent::initializeArguments();
 
-        $this->registerArgument('category', '\Madj2k\FeRegister\Domain\Model\Category', 'The category', true);
-        $this->registerArgument('categoryTree', 'array', 'The category tree array from GetFeUserMainCategory', false, []);
+        $this->registerArgument('category', \Madj2k\FeRegister\Domain\Model\Category::class, 'The category', true);
+        $this->registerArgument('categoryTree', 'array', 'The category tree array', false, []);
 
     }
 
@@ -77,7 +80,6 @@ class TopicCheckboxViewHelper extends AbstractViewHelper
     public function render(): string
     {
         $settings = $this->getSettings(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-
         $category = $this->arguments['category'];
 
         /** @var \TYPO3\CMS\Fluid\View\StandaloneView $standaloneView */
@@ -85,31 +87,28 @@ class TopicCheckboxViewHelper extends AbstractViewHelper
         $standaloneView->setLayoutRootPaths($settings['view']['layoutRootPaths']);
         $standaloneView->setPartialRootPaths($settings['view']['partialRootPaths']);
         $standaloneView->setTemplateRootPaths($settings['view']['templateRootPaths']);
-
         $standaloneView->setTemplate('ViewHelpers/Topic/Checkbox.html');
 
         $frontendUser = FrontendUserSessionUtility::getLoggedInUser();
 
-        // checked?
+        // is there a form request?
+        $args = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP(self::NAMESPACE);
         $checked = false;
-
-        // is there a form request? (Else: Check topics of logged user)
-        $args = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('tx_feregister');
-
         if (
             is_array($args)
-            && key_exists('txFeregisterCategoriesTopics', $args)
+            && key_exists(self::IDENTIFIER, $args)
         ) {
 
-            if (key_exists($category->getUid(), array_filter($args['txFeregisterCategoriesTopics']))) {
+            if (key_exists($category->getUid(), array_filter($args[self::IDENTIFIER]))) {
                 $checked = true;
             }
 
+        // else check topics of logged in user
         } elseif ($frontendUser instanceof FrontendUser) {
-
-            foreach ($frontendUser->getTxFeregisterCategoriesTopics() as $userCategory) {
+            foreach ($frontendUser->getTxFeregisterConsentTopics() as $userCategory) {
                 if ($userCategory->getUid() == $category->getUid()) {
                     $checked = true;
+                    break;
                 }
             }
         }
@@ -117,7 +116,7 @@ class TopicCheckboxViewHelper extends AbstractViewHelper
         $standaloneView->assignMultiple(
             [
                 'namespace' => self::NAMESPACE,
-                'topicParentId' => $settings['settings']['users']['categories']['topicParentId'],
+                'identifier' => self::IDENTIFIER,
                 'category' => $category,
                 'categoryTree' => $this->arguments['categoryTree'],
                 'checked' => $checked
@@ -126,6 +125,7 @@ class TopicCheckboxViewHelper extends AbstractViewHelper
 
         return $standaloneView->render();
     }
+
 
 
     /**

@@ -1,5 +1,4 @@
 <?php
-
 namespace Madj2k\FeRegister\ViewHelpers;
 
 /*
@@ -15,8 +14,11 @@ namespace Madj2k\FeRegister\ViewHelpers;
  * The TYPO3 project - inspiring people to share!
  */
 
+use Madj2k\FeRegister\Domain\Model\Category;
+use Madj2k\FeRegister\Domain\Repository\CategoryRepository;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use Madj2k\CoreExtended\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -40,6 +42,22 @@ class TopicViewHelper extends AbstractViewHelper
 
 
     /**
+     * @var \Madj2k\FeRegister\Domain\Repository\CategoryRepository|null
+     */
+    protected ?CategoryRepository $categoryRepository = null;
+
+
+    /**
+     * @param \Madj2k\FeRegister\Domain\Repository\CategoryRepository $categoryRepository
+     * @return void
+     */
+    public function injectCategoryRepository(CategoryRepository $categoryRepository)
+    {
+        $this->categoryRepository = $categoryRepository;
+    }
+
+
+    /**
      * Initialize arguments.
      *
      * @return void
@@ -56,7 +74,6 @@ class TopicViewHelper extends AbstractViewHelper
      * (not a partial because this is more complicated to use it universally in several extensions)
      *
      * @return string
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException
      * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
      * @throws \Exception
@@ -64,16 +81,60 @@ class TopicViewHelper extends AbstractViewHelper
     public function render(): string
     {
         $settings = $this->getSettings(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+        $categoryTree = [];
+        $categoryParent = null;
+
+        /** @deprecated injection method above should suffice from TYPO3 v10 on */
+        $repositoryName = CategoryRepository::class;
+        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        /** @var \Madj2k\FeRegister\Domain\Repository\CategoryRepository $repository */
+        $this->categoryRepository = $objectManager->get($repositoryName);
 
         /** @var \TYPO3\CMS\Fluid\View\StandaloneView $standaloneView */
         $standaloneView = GeneralUtility::makeInstance(\TYPO3\CMS\Fluid\View\StandaloneView::class);
         $standaloneView->setLayoutRootPaths($settings['view']['layoutRootPaths']);
         $standaloneView->setPartialRootPaths($settings['view']['partialRootPaths']);
         $standaloneView->setTemplateRootPaths($settings['view']['templateRootPaths']);
-
         $standaloneView->setTemplate('ViewHelpers/Topic/List.html');
 
+        if (isset($settings['settings']['users']['categories']['topicParentId'])) {
+
+            /** @var \Madj2k\FeRegister\Domain\Model\Category $$categoryParent*/
+            $categoryParent= $this->categoryRepository->findByUid($settings['settings']['users']['categories']['topicParentId']);
+            $categoryTree = $this->buildCategoryTreeRecursive($categoryParent, 2);
+        }
+
+        $standaloneView->assignMultiple(
+            [
+                'categoryTree' => $categoryTree,
+                'categoryParent' => $categoryParent,
+                'settings' => $settings['settings']['users']['categories'] ?? [],
+            ]
+        );
+
         return $standaloneView->render();
+    }
+
+
+    /**
+     * Build category tree recursively
+     *
+     * @param \Madj2k\FeRegister\Domain\Model\Category $category
+     * @return array
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     */
+    protected function buildCategoryTreeRecursive(Category $category): array
+    {
+        $categoryResults = $this->categoryRepository->findChildrenByParent($category->getUid());
+        $categoryArray  = [];
+        if (count($categoryResults)) {
+            foreach ($categoryResults as $categoryResult) {
+                $categoryArray[$categoryResult->getUid()]['category'] = $categoryResult;
+                $categoryArray[$categoryResult->getUid()]['children'] = $this->buildCategoryTreeRecursive($categoryResult);
+            }
+        }
+
+        return $categoryArray;
     }
 
 

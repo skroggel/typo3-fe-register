@@ -121,17 +121,16 @@ class FrontendUser extends \Madj2k\CoreExtended\Domain\Model\FrontendUser
 
 
     /**
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>|null
+     */
+    protected ?ObjectStorage $txFeregisterConsentTopics = null;
+
+
+    /**
      * @var \Madj2k\FeRegister\Domain\Model\Title|null
      */
     protected ?Title $txFeregisterTitle = null;
 
-
-    /**
-     * txFeregisterCategoriesTopics
-     *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
-     */
-    protected $txFeregisterCategoriesTopics;
 
 
     /**
@@ -155,7 +154,7 @@ class FrontendUser extends \Madj2k\CoreExtended\Domain\Model\FrontendUser
      */
     protected function initStorageObjects()
     {
-        $this->txFeregisterCategoriesTopics = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->txFeregisterConsentTopics = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
 
 
@@ -504,11 +503,56 @@ class FrontendUser extends \Madj2k\CoreExtended\Domain\Model\FrontendUser
     }
 
 
+    /**
+     * Adds a txFeregisterConsentTopics
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\Category $txFeregisterConsentTopics
+     * @return void
+     */
+    public function addTxFeregisterConsentTopics(\TYPO3\CMS\Extbase\Domain\Model\Category $txFeregisterConsentTopics)
+    {
+        $this->txFeregisterConsentTopics->attach($txFeregisterConsentTopics);
+    }
+
+
+    /**
+     * Removes a txFeregisterConsentTopics
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\Category $txFeregisterConsentTopicsToRemove The Category to be removed
+     * @return void
+     */
+    public function removeTxFeregisterConsentTopics(\TYPO3\CMS\Extbase\Domain\Model\Category $txFeregisterConsentTopics)
+    {
+        $this->txFeregisterConsentTopics->detach($txFeregisterConsentTopics);
+    }
+
+
+    /**
+     * Returns the txFeregisterConsentTopics
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category> $txFeregisterConsentTopics
+     */
+    public function getTxFeregisterConsentTopics()
+    {
+        return $this->txFeregisterConsentTopics;
+    }
+
+
+    /**
+     * Sets the txFeregisterConsentTopics
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category> $txFeregisterConsentTopics
+     * @return void
+     */
+    public function setTxFeregisterConsentTopics(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $txFeregisterConsentTopics)
+    {
+        $this->txFeregisterConsentTopics = $txFeregisterConsentTopics;
+    }
+
+
     //=================================================================================
     // Special-methods that are NOT simply getter or setter below
     //=================================================================================
-
-
     /**
      * Returns the txFeregisterTitle
      *
@@ -640,49 +684,5 @@ class FrontendUser extends \Madj2k\CoreExtended\Domain\Model\FrontendUser
         return '';
     }
 
-
-
-    /**
-     * Adds a txFeregisterCategoriesTopics
-     *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\Category $txFeregisterCategoriesTopics
-     * @return void
-     */
-    public function addTxFeregisterCategoriesTopics(\TYPO3\CMS\Extbase\Domain\Model\Category $txFeregisterCategoriesTopics)
-    {
-        $this->txFeregisterCategoriesTopics->attach($txFeregisterCategoriesTopics);
-    }
-
-    /**
-     * Removes a txFeregisterCategoriesTopics
-     *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\Category $txFeregisterCategoriesTopicsToRemove The Category to be removed
-     * @return void
-     */
-    public function removeTxFeregisterCategoriesTopics(\TYPO3\CMS\Extbase\Domain\Model\Category $txFeregisterCategoriesTopics)
-    {
-        $this->txFeregisterCategoriesTopics->detach($txFeregisterCategoriesTopics);
-    }
-
-    /**
-     * Returns the txFeregisterCategoriesTopics
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category> $txFeregisterCategoriesTopics
-     */
-    public function getTxFeregisterCategoriesTopics()
-    {
-        return $this->txFeregisterCategoriesTopics;
-    }
-
-    /**
-     * Sets the txFeregisterCategoriesTopics
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category> $txFeregisterCategoriesTopics
-     * @return void
-     */
-    public function setTxFeregisterCategoriesTopics(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $txFeregisterCategoriesTopics)
-    {
-        $this->txFeregisterCategoriesTopics = $txFeregisterCategoriesTopics;
-    }
 
 }

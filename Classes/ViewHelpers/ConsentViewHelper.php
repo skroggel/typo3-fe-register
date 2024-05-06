@@ -38,6 +38,12 @@ class ConsentViewHelper extends AbstractViewHelper
 
 
     /**
+     * @const string
+     */
+    const IDENTIFIERS = ['privacy', 'terms', 'marketing'];
+
+
+    /**
      * As this ViewHelper renders HTML, the output must not be escaped.
      *
      * @var bool
@@ -80,7 +86,7 @@ class ConsentViewHelper extends AbstractViewHelper
         $settings = $this->getSettings(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 
         /** @var string $type */
-        $type = in_array(strtolower($this->arguments['type']), ['privacy', 'terms', 'marketing'])? strtolower($this->arguments['type']): 'privacy';
+        $type = in_array(strtolower($this->arguments['type']), self::IDENTIFIERS)? strtolower($this->arguments['type']): 'privacy';
 
         /** @var string $key */
         $key = $this->arguments['key'];

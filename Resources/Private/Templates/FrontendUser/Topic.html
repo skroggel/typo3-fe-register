@@ -4,15 +4,23 @@
 
     <f:layout name="Default" />
     <f:section name="main">
+        
         <f:render partial="AllFlashMessages" arguments="{_all}" />
+        <f:render partial="FormErrors" arguments="{for:frontendUser}"/>
 
-        <f:form action="topic" name="frontendUser" object="{frontendUser}" class="form-fields">
+        <f:form action="topicUpdate" name="frontendUser" object="{frontendUser}" class="form-fields">
 
             <feRegister:topic />
 
-            <button type="submit" class="btn btn--primary">
-                <f:translate key="templates_frontendUser_edit.labelSave" />
-            </button>
+            <div class="btn-list btn-list--footer">
+                <f:link.action pageUid="{settings.welcomePid}" action="index" class="btn btn--secondary">
+                    <f:translate key="templates_frontendUser_topic.labelBack"/>
+                </f:link.action>
+
+                <button type="submit" class="btn btn--primary">
+                    <f:translate key="templates_frontendUser_topic.labelSave" />
+                </button>
+            </div>                
         </f:form>
 
     </f:section>

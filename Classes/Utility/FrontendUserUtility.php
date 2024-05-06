@@ -243,6 +243,7 @@ class FrontendUserUtility
      * @param \Madj2k\FeRegister\Domain\Model\FrontendUser|null $frontendUser
      * @return array
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     * @throws \TYPO3\CMS\Extbase\Object\Exception
      */
     public static function getMandatoryFields(FrontendUser $frontendUser = null): array
     {
@@ -302,46 +303,6 @@ class FrontendUserUtility
         }
 
         return false;
-    }
-
-
-    /**
-     * Update user topics
-     *
-     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser|null $frontendUser
-     * @return void
-     */
-    public static function handleUserTopics(FrontendUser $frontendUser): void
-    {
-        /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-
-        /** @var \Madj2k\FeRegister\Domain\Repository\CategoryRepository $categoryRepository */
-        $categoryRepository = $objectManager->get(CategoryRepository::class);
-
-        /** @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository $frontendUserRepository */
-        $frontendUserRepository = $objectManager->get(FrontendUserRepository::class);
-
-        // get arguments
-        $args = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('tx_feregister');
-
-        if (
-            is_array($args)
-            && key_exists('txFeregisterCategoriesTopics', $args)
-        ) {
-
-            // 1. remove all categories ("cleanup")
-            $frontendUser->getTxFeregisterCategoriesTopics()->removeAll($frontendUser->getTxFeregisterCategoriesTopics());
-
-            // 2. add selected categories
-            foreach (array_filter($args['txFeregisterCategoriesTopics']) as $categoryUid => $formCategory) {
-                /** @var Category $category */
-                $category = $categoryRepository->findByUid(intval($categoryUid));
-                $frontendUser->addTxFeregisterCategoriesTopics($category);
-            }
-
-            $frontendUserRepository->update($frontendUser);
-        }
     }
 
 
