@@ -74,7 +74,14 @@ plugin.tx_feregister {
             companyEmail =
 
             topics {
+
+                # cat=plugin.tx_feregister//a; type=bool; label=Enable category selection
+                enable = 0
+
+                # cat=plugin.tx_feregister//a; type=integer; label=Uid of parent category for display of category list
                 categoryParentUid =
+
+                # cat=plugin.tx_feregister//a; type=integer; label=Maximum depth of category list (-1 = no limit; 0 = only first level)
                 categoryMaxDepth = -1
             }
         }

@@ -19,7 +19,7 @@
             />
             
             <label for="{namespace}-{type}-{randomKey}" 
-                   class="checkbox-label js-open-mdl"
+                   class="checkbox-label {f:if(condition:'{settings.consent.topics.enable}', then:'js-open-mdl')}"
                    data-modal="{namespace}-{type}-{randomKey}-modal">
                 <span class="text-smaller">
                     <f:format.raw>
@@ -29,25 +29,27 @@
             </label>
         </div>
 
-        <div id="{namespace}-{type}-{randomKey}-modal" class="mdl">
-            <div class="mdl__inner">
-                <header class="mdl__header">
-                    <span class="h4 mdl__headline">
-                        <f:translate key="templates_viewHelpers_consent_marketing.topicHeadline" extensionName="fe_register" />
-                    </span>
-                </header>
-                <div class="mdl__content contentbox">
-                    <feRegister:topicList />
-
-                    <button class="btn btn--primary js-close-mdl">
-                        <f:translate key="templates_viewHelpers_consent_marketing.saveSelection" extensionName="fe_register" />
-                    </button>
+        <f:if condition="{settings.consent.topics.enable}">
+            <div id="{namespace}-{type}-{randomKey}-modal" class="mdl">
+                <div class="mdl__inner">
+                    <header class="mdl__header">
+                        <span class="h4 mdl__headline">
+                            <f:translate key="templates_viewHelpers_consent_marketing.topicHeadline" extensionName="fe_register" />
+                        </span>
+                    </header>
+                    <div class="mdl__content contentbox">
+                        <feRegister:topicList />
+    
+                        <button class="btn btn--primary js-close-mdl">
+                            <f:translate key="templates_viewHelpers_consent_marketing.saveSelection" extensionName="fe_register" />
+                        </button>
+                    </div>
                 </div>
+                <button class="mdl-close js-close-mdl"><svg class="icon icon--48">
+                    <use xlink:href="#ic-mobile-menu-close" /></svg></button>
             </div>
-            <button class="mdl-close js-close-mdl"><svg class="icon icon--48">
-                <use xlink:href="#ic-mobile-menu-close" /></svg></button>
-        </div>
-        <div class="mdl-layer js-mdl-layer"></div>
+            <div class="mdl-layer js-mdl-layer"></div>
+        </f:if>
 
     </f:section>
 
