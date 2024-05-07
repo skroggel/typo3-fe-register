@@ -253,6 +253,7 @@ plugin.tx_feregister {
             companyEmail = {$plugin.tx_feregister.settings.consent.companyEmail}
 
             topics {
+                enable = {$plugin.tx_feregister.settings.consent.topics.enable}
                 categoryParentUid = {$plugin.tx_feregister.settings.consent.topics.categoryParentUid}
                 categoryMaxDepth = {$plugin.tx_feregister.settings.consent.topics.categoryMaxDepth}
             }

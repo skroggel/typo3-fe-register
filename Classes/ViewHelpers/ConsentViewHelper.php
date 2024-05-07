@@ -141,7 +141,8 @@ class ConsentViewHelper extends AbstractViewHelper
                 'pageUid2'  => $pageUid2,
                 'companyName' => $companyName,
                 'companyEmail' => $companyEmail,
-                'randomKey' => GeneralUtility::getUniqueRandomString()
+                'randomKey' => GeneralUtility::getUniqueRandomString(),
+                'settings' => $settings['settings'] ?? []
             ]
         );
 

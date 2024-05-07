@@ -109,7 +109,7 @@ class TopicListViewHelper extends AbstractViewHelper
             [
                 'categoryTree' => $categoryTree,
                 'categoryParent' => $categoryParent,
-                'settings' => $settings['settings']['consent']['topics'] ?? [],
+                'settings' => $settings['settings'] ?? [],
             ]
         );
 
@@ -121,7 +121,8 @@ class TopicListViewHelper extends AbstractViewHelper
      * Build category tree recursively
      *
      * @param \Madj2k\FeRegister\Domain\Model\Category $category
-     * @param int $depth
+     * @param int $maxDepth
+     * @param int $currentDepth
      * @return array
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
