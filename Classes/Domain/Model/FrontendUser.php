@@ -121,9 +121,41 @@ class FrontendUser extends \Madj2k\CoreExtended\Domain\Model\FrontendUser
 
 
     /**
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>|null
+     */
+    protected ?ObjectStorage $txFeregisterConsentTopics = null;
+
+
+    /**
      * @var \Madj2k\FeRegister\Domain\Model\Title|null
      */
     protected ?Title $txFeregisterTitle = null;
+
+
+
+    /**
+     * __construct
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        //Do not remove the next line: It would break the functionality
+        $this->initStorageObjects();
+    }
+
+    /**
+     * Initializes all ObjectStorage properties
+     * Do not modify this method!
+     * It will be rewritten on each save in the extension builder
+     * You may modify the constructor of this class instead
+     *
+     * @return void
+     */
+    protected function initStorageObjects()
+    {
+        $this->txFeregisterConsentTopics = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    }
 
 
     /**
@@ -471,11 +503,56 @@ class FrontendUser extends \Madj2k\CoreExtended\Domain\Model\FrontendUser
     }
 
 
+    /**
+     * Adds a txFeregisterConsentTopics
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\Category $txFeregisterConsentTopics
+     * @return void
+     */
+    public function addTxFeregisterConsentTopics(\TYPO3\CMS\Extbase\Domain\Model\Category $txFeregisterConsentTopics)
+    {
+        $this->txFeregisterConsentTopics->attach($txFeregisterConsentTopics);
+    }
+
+
+    /**
+     * Removes a txFeregisterConsentTopics
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\Category $txFeregisterConsentTopicsToRemove The Category to be removed
+     * @return void
+     */
+    public function removeTxFeregisterConsentTopics(\TYPO3\CMS\Extbase\Domain\Model\Category $txFeregisterConsentTopics)
+    {
+        $this->txFeregisterConsentTopics->detach($txFeregisterConsentTopics);
+    }
+
+
+    /**
+     * Returns the txFeregisterConsentTopics
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category> $txFeregisterConsentTopics
+     */
+    public function getTxFeregisterConsentTopics()
+    {
+        return $this->txFeregisterConsentTopics;
+    }
+
+
+    /**
+     * Sets the txFeregisterConsentTopics
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category> $txFeregisterConsentTopics
+     * @return void
+     */
+    public function setTxFeregisterConsentTopics(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $txFeregisterConsentTopics)
+    {
+        $this->txFeregisterConsentTopics = $txFeregisterConsentTopics;
+    }
+
+
     //=================================================================================
     // Special-methods that are NOT simply getter or setter below
     //=================================================================================
-
-
     /**
      * Returns the txFeregisterTitle
      *
@@ -606,5 +683,6 @@ class FrontendUser extends \Madj2k\CoreExtended\Domain\Model\FrontendUser
 
         return '';
     }
+
 
 }

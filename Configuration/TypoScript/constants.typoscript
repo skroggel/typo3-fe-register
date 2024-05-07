@@ -72,6 +72,11 @@ plugin.tx_feregister {
 
             # cat=plugin.tx_feregister//a; type=string; label=Company email for revocation of consent
             companyEmail =
+
+            topics {
+                categoryParentUid =
+                categoryMaxDepth = -1
+            }
         }
 
         users {

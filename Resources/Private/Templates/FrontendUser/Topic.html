@@ -1,0 +1,27 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:feRegister="http://typo3.org/ns/Madj2k/FeRegister/ViewHelpers"
+    data-namespace-typo3-fluid="true">
+
+    <f:layout name="Default" />
+    <f:section name="main">
+        
+        <f:render partial="AllFlashMessages" arguments="{_all}" />
+        <f:render partial="FormErrors" arguments="{for:frontendUser}"/>
+
+        <f:form action="topicUpdate" name="frontendUser" object="{frontendUser}" class="form-fields">
+
+            <feRegister:topic />
+
+            <div class="btn-list btn-list--footer">
+                <f:link.action pageUid="{settings.welcomePid}" action="index" class="btn btn--secondary">
+                    <f:translate key="templates_frontendUser_topic.labelBack"/>
+                </f:link.action>
+
+                <button type="submit" class="btn btn--primary">
+                    <f:translate key="templates_frontendUser_topic.labelSave" />
+                </button>
+            </div>                
+        </f:form>
+
+    </f:section>
+</html>

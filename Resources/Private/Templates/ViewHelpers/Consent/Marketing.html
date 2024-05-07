@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-    data-namespace-typo3-fluid="true">
+      xmlns:feRegister="http://typo3.org/ns/Madj2k/FeRegister/ViewHelpers"
+      data-namespace-typo3-fluid="true">
 
     <f:layout name="Default" />
 
@@ -17,7 +18,9 @@
                 checked="{checked}"
             />
             
-            <label for="{namespace}-{type}-{randomKey}" class="checkbox-label">
+            <label for="{namespace}-{type}-{randomKey}" 
+                   class="checkbox-label js-open-mdl"
+                   data-modal="{namespace}-{type}-{randomKey}-modal">
                 <span class="text-smaller">
                     <f:format.raw>
                         <f:translate key="templates_viewHelpers_consent_{type}.{key}" extensionName="feRegister" arguments="{0: companyName, 1: companyEmail}" />
@@ -25,6 +28,26 @@
                 </span>        
             </label>
         </div>
+
+        <div id="{namespace}-{type}-{randomKey}-modal" class="mdl">
+            <div class="mdl__inner">
+                <header class="mdl__header">
+                    <span class="h4 mdl__headline">
+                        <f:translate key="templates_viewHelpers_consent_marketing.topicHeadline" extensionName="fe_register" />
+                    </span>
+                </header>
+                <div class="mdl__content contentbox">
+                    <feRegister:topicList />
+
+                    <button class="btn btn--primary js-close-mdl">
+                        <f:translate key="templates_viewHelpers_consent_marketing.saveSelection" extensionName="fe_register" />
+                    </button>
+                </div>
+            </div>
+            <button class="mdl-close js-close-mdl"><svg class="icon icon--48">
+                <use xlink:href="#ic-mobile-menu-close" /></svg></button>
+        </div>
+        <div class="mdl-layer js-mdl-layer"></div>
 
     </f:section>
 

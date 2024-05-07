@@ -434,6 +434,15 @@
 			</trans-unit>
 
 
+            <!-- Templates/FrontendUser/Topic.html -->
+            <trans-unit id="templates_frontendUser_topic.labelSave">
+                <source>Save</source>
+            </trans-unit>
+            <trans-unit id="templates_frontendUser_topic.labelBack">
+                <source>Back</source>
+            </trans-unit>
+
+
 			<!-- Templates/FrontendUser/Welcome.html -->
 			<trans-unit id="templates_frontendUser_welcome.headline">
 				<source>Welcome %s %s!</source>
@@ -627,6 +636,12 @@
 			<trans-unit id="templates_viewHelpers_consent_marketing.default">
 				<source><![CDATA[I expressly consent to %s sending me satisfaction inquiries regarding our products, survey requests, and advertisements about products of interest. My consent is voluntary and can be revoked at any time with effect for the future by email to <a href="mailto:%s">%2$s</a> with effect for the future.]]></source>
 			</trans-unit>
+            <trans-unit id="templates_viewHelpers_consent_marketing.topicHeadline">
+                <source>What are you particularly interested in?</source>
+            </trans-unit>
+            <trans-unit id="templates_viewHelpers_consent_marketing.saveSelection">
+                <source>Apply selection</source>
+            </trans-unit>
 
 
 			<!-- Partials/LabelSuffix.html -->
@@ -636,7 +651,6 @@
 			<trans-unit id="partials_labelSuffix.labelRequired">
 				<source>(Required)</source>
 			</trans-unit>
-
 
 
 			<!-- Templates/Email/OptIn.html -->
