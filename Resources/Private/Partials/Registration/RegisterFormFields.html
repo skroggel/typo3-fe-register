@@ -24,9 +24,7 @@
     <div class="form__field width100">
         <label for="firstName">
             <f:translate key="tx_feregister_domain_model_frontenduser.first_name" />
-            <f:if condition="<feRegister:isMandatoryField frontendUser='{frontendUser}' fieldName='firstName' /> == 0">
-                <span class="optional">&nbsp;<f:translate key="partials_labelSuffix.labelOptional" /></span>
-            </f:if>
+            <f:render partial="LabelSuffix" arguments="{field: 'firstName', frontendUser: frontendUser}" />
         </label>
         <f:form.textfield
             property="firstName"
@@ -38,9 +36,7 @@
     <div class="form__field width100">
         <label for="lastName">
             <f:translate key="tx_feregister_domain_model_frontenduser.last_name" />
-            <f:if condition="<feRegister:isMandatoryField frontendUser='{frontendUser}' fieldName='lastName' /> == 0">
-                <span class="optional">&nbsp;<f:translate key="partials_labelSuffix.labelOptional" /></span>
-            </f:if>
+            <f:render partial="LabelSuffix" arguments="{field: 'lastName', frontendUser: frontendUser}" />
         </label>
         <f:form.textfield
             property="lastName"
@@ -61,6 +57,58 @@
             id="email"
             type="email"
             additionalAttributes="{autocomplete:'email'}"
+        />
+    </div>
+
+
+    <div class="form__field width100">
+        <label for="company">
+            <f:translate key="tx_feregister_domain_model_frontenduser.company" />
+            <f:render partial="LabelSuffix" arguments="{field: 'company', frontendUser: frontendUser}" />
+        </label>
+        <f:form.textfield
+            id="company"
+            property="company"
+            value="{frontendUser.company}"
+        />
+    </div>
+
+    <div class="form__field width100">
+        <label for="address">
+            <f:translate key="tx_feregister_domain_model_frontenduser.address" />
+            <f:render partial="LabelSuffix" arguments="{field: 'address', frontendUser: frontendUser}" />
+        </label>
+        <f:form.textfield
+            id="address"
+            property="address"
+            value="{frontendUser.address}"
+            additionalAttributes="{autocomplete:'address'}"
+        />
+    </div>
+
+    <div class="form__field width50">
+        <label for="zip">
+            <f:translate key="tx_feregister_domain_model_frontenduser.zip" />
+            <f:render partial="LabelSuffix" arguments="{field: 'zip', frontendUser: frontendUser}" />
+        </label>
+        <f:form.textfield
+            id="zip"
+            property="zip"
+            value="{frontendUser.zip}"
+            additionalAttributes="{autocomplete:'zip'}"
+        />
+    </div>
+
+    <div class="form__field width50">
+        <label for="city">
+            <f:translate key="tx_feregister_domain_model_frontenduser.city" />
+            <f:render partial="LabelSuffix" arguments="{field: 'city', frontendUser: frontendUser}" />
+        </label>
+        <f:form.textfield
+            id="city"
+            property="city"
+            value="{frontendUser.city}"
+            additionalAttributes="{autocomplete:'city'}"
         />
     </div>
 </html>

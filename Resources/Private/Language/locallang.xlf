@@ -497,12 +497,6 @@
 			</trans-unit>
 
 
-            <!-- Templates/ViewHelpers/Topics/List.html -->
-            <trans-unit id="templates_viewHelpers_topic_list.headline">
-                <source>What are you particularly interested in?</source>
-            </trans-unit>
-
-
 			<!-- Templates/ViewHelpers/Consent/Privacy.html -->
 			<trans-unit id="templates_viewHelpers_consent_privacy.default.partOne">
 				<source>Yes, I agree that %s will use my personal data for the above purpose and to create a free user account. Furthermore, I have read and agree to the extended notes in the</source>
@@ -642,6 +636,12 @@
 			<trans-unit id="templates_viewHelpers_consent_marketing.default">
 				<source><![CDATA[I expressly consent to %s sending me satisfaction inquiries regarding our products, survey requests, and advertisements about products of interest. My consent is voluntary and can be revoked at any time with effect for the future by email to <a href="mailto:%s">%2$s</a> with effect for the future.]]></source>
 			</trans-unit>
+            <trans-unit id="templates_viewHelpers_consent_marketing.topicHeadline">
+                <source>What are you particularly interested in?</source>
+            </trans-unit>
+            <trans-unit id="templates_viewHelpers_consent_marketing.saveSelection">
+                <source>Apply selection</source>
+            </trans-unit>
 
 
 			<!-- Partials/LabelSuffix.html -->

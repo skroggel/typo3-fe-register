@@ -19,6 +19,7 @@ use Madj2k\FeRegister\Domain\Repository\CategoryRepository;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use Madj2k\CoreExtended\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -30,7 +31,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  * @package Madj2k_FeRegister
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class TopicViewHelper extends AbstractViewHelper
+class TopicListViewHelper extends AbstractViewHelper
 {
 
     /**
@@ -97,18 +98,18 @@ class TopicViewHelper extends AbstractViewHelper
         $standaloneView->setTemplateRootPaths($settings['view']['templateRootPaths']);
         $standaloneView->setTemplate('ViewHelpers/Topic/List.html');
 
-        if (isset($settings['settings']['users']['categories']['topicParentId'])) {
+        if (isset($settings['settings']['consent']['topics']['categoryParentUid'])) {
 
             /** @var \Madj2k\FeRegister\Domain\Model\Category $$categoryParent*/
-            $categoryParent= $this->categoryRepository->findByUid($settings['settings']['users']['categories']['topicParentId']);
-            $categoryTree = $this->buildCategoryTreeRecursive($categoryParent, 2);
+            $categoryParent= $this->categoryRepository->findByUid($settings['settings']['consent']['topics']['categoryParentUid']);
+            $categoryTree = $this->buildCategoryTreeRecursive($categoryParent, intval($settings['settings']['consent']['topics']['categoryMaxDepth']));
         }
 
         $standaloneView->assignMultiple(
             [
                 'categoryTree' => $categoryTree,
                 'categoryParent' => $categoryParent,
-                'settings' => $settings['settings']['users']['categories'] ?? [],
+                'settings' => $settings['settings']['consent']['topics'] ?? [],
             ]
         );
 
@@ -120,17 +121,30 @@ class TopicViewHelper extends AbstractViewHelper
      * Build category tree recursively
      *
      * @param \Madj2k\FeRegister\Domain\Model\Category $category
+     * @param int $depth
      * @return array
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
-    protected function buildCategoryTreeRecursive(Category $category): array
+    protected function buildCategoryTreeRecursive(Category $category, int $maxDepth = -1, int $currentDepth = 0): array
     {
-        $categoryResults = $this->categoryRepository->findChildrenByParent($category->getUid());
         $categoryArray  = [];
-        if (count($categoryResults)) {
-            foreach ($categoryResults as $categoryResult) {
-                $categoryArray[$categoryResult->getUid()]['category'] = $categoryResult;
-                $categoryArray[$categoryResult->getUid()]['children'] = $this->buildCategoryTreeRecursive($categoryResult);
+
+        if (
+            ($maxDepth == -1)
+            || (
+                ($maxDepth > -1)
+                && ($currentDepth <= $maxDepth)
+            )
+        ) {
+            $categoryResults = $this->categoryRepository->findChildrenByParent($category->getUid());
+            if (count($categoryResults)) {
+                foreach ($categoryResults as $categoryResult) {
+                    $categoryArray[$categoryResult->getUid()]['category'] = $categoryResult;
+
+                    $currentDepth++;
+                    $categoryArray[$categoryResult->getUid()]['children'] = $this->buildCategoryTreeRecursive($categoryResult, $maxDepth, $currentDepth);
+                    $currentDepth--;
+                }
             }
         }
 

@@ -2,29 +2,31 @@
     xmlns:feRegister="http://typo3.org/ns/Madj2k/FeRegister/ViewHelpers"
     data-namespace-typo3-fluid="true">
 
-    <div class="topic-list-item">
-        <f:form.checkbox
-            id="{namespace}-topic-{category.uid}"
-            name="{namespace}[{identifier}][{category.uid}]"
-            class="checkbox"
-            value="1"
-            multiple="1"
-            checked="{checked}"
-        />
-        <label class="checkbox-label" for="{namespace}-topic-{category.uid}">
-            <span class="text-smaller">
-                {category.title}
-            </span>
-        </label>
+    <li class="form__list-item">
+        <div class="form__field">
+            <f:form.checkbox
+                id="{namespace}-topic-{category.uid}"
+                name="{namespace}[{identifier}][{category.uid}]"
+                class="checkbox"
+                value="1"
+                multiple="1"
+                checked="{checked}"
+            />
+            <label class="checkbox-label" for="{namespace}-topic-{category.uid}">
+                <span class="text-smaller">
+                    {category.title}
+                </span>
+            </label>
+        </div>
         
-       <f:comment><!-- print children recursive --></f:comment>
+       <f:comment><!-- print children recursively --></f:comment>
         <f:if condition="{categoryTree}">
-            <div class="topic-list">
+            <ul class="form__list">
                 <f:for each="{categoryTree}" key="categoryId" as="subArray" iteration="iter">
                     <feRegister:topicCheckbox category="{subArray.category}" categoryTree="{subArray.children}" />
                 </f:for>
-            </div>
+            </ul>
         </f:if>
-    </div>
+    </li>
     
 </html>

@@ -635,13 +635,6 @@
             </trans-unit>
 
 
-            <!-- Templates/ViewHelpers/Topics/List.html -->
-            <trans-unit id="templates_viewHelpers_topic_list.headline">
-                <source>What are you particularly interested in?</source>
-                <target>Wofür interessieren Sie sich besonders?</target>
-            </trans-unit>
-
-
 			<!-- Templates/ViewHelpers/Consent/Privacy.html -->
 			<trans-unit id="templates_viewHelpers_consent_privacy.default.partOne">
 				<source><![CDATA[Yes, I agree that %s will use my personal data for the above purpose and to create a free user account. My consent is voluntary and can be revoked at any time with future effect by email to <a href="mailto:%s">%2$s</a>. Furthermore, I have read and agree to the]]></source>
@@ -677,7 +670,7 @@
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.registration.partThree">
                 <source>.</source>
-                <target>gelesen und verstanden..</target>
+                <target>gelesen und verstanden.</target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.events.partOne" approved="no">
                 <source><![CDATA[Yes, I agree that %s uses my personal data and the personal data of the other participants listed below for my/our participation in the event, as well as for event follow-up and to create a free user account. Furthermore, I consent to my personal data being passed on to the RKW national organizations for the aforementioned purposes. My consent is voluntary and can be revoked at any time with future effect by email to <a href="mailto:%s">%2$s</a>. I have also read and agree to the]]></source>
@@ -825,6 +818,14 @@
 				<source><![CDATA[I expressly consent to %s sending me satisfaction inquiries regarding our products, survey requests, and advertisements about products of interest. My consent is voluntary and can be revoked at any time with effect for the future by email to <a href="mailto:%s">%2$s</a> with effect for the future.]]></source>
 				<target><![CDATA[Ich willige ausdrücklich ein, dass mir %s Zufriedenheitsanfragen bezüglich unserer Produkte, Umfrageanfragen und Werbung über interessante Produkte zusendet. Meine Einwilligung ist freiwillig und kann jederzeit mit Wirkung für die Zukunft per Mail an <a href="mailto:%s">%2$s</a> widerrufen werden.]]></target>
 			</trans-unit>
+            <trans-unit id="templates_viewHelpers_consent_marketing.topicHeadline">
+                <source>What are you particularly interested in?</source>
+                <target>Wofür interessieren Sie sich besonders?</target>
+            </trans-unit>
+            <trans-unit id="templates_viewHelpers_consent_marketing.saveSelection">
+                <source>Apply selection</source>
+                <target>Auswahl übernehmen</target>
+            </trans-unit>
 
 
             <!-- Partials/LabelSuffix.html -->

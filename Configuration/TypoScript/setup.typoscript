@@ -251,6 +251,11 @@ plugin.tx_feregister {
             marketingPid = {$plugin.tx_feregister.settings.consent.marketingPid}
             companyName = {$plugin.tx_feregister.settings.consent.companyName}
             companyEmail = {$plugin.tx_feregister.settings.consent.companyEmail}
+
+            topics {
+                categoryParentUid = {$plugin.tx_feregister.settings.consent.topics.categoryParentUid}
+                categoryMaxDepth = {$plugin.tx_feregister.settings.consent.topics.categoryMaxDepth}
+            }
         }
 
         users {
@@ -278,9 +283,6 @@ plugin.tx_feregister {
                 groupsOnRegister = {$plugin.tx_feregister.settings.users.guest.groupsOnRegister}
             }
 
-            categories {
-                topicParentId = {$plugin.tx_feregister.settings.users.categories.topicParentId}
-            }
         }
 
         dataProtection {

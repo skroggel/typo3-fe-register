@@ -1,15 +1,11 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:feRegister="http://typo3.org/ns/Madj2k/FeRegister/ViewHelpers"
     data-namespace-typo3-fluid="true">
- 
-    <h3><f:translate key="templates_viewHelpers_topic_list.headline" extensionName="fe_register" /></h3>
 
-    <div class="form__field">
-        <div class="topic-list">
-            <f:for each="{categoryTree}" key="categoryId" as="subArray" iteration="iter">
-                <feRegister:topicCheckbox category="{subArray.category}" categoryTree="{subArray.children}" />
-            </f:for>
-        </div>
-    </div>
+    <ul class="form__list">
+        <f:for each="{categoryTree}" key="categoryId" as="subArray" iteration="iter">
+            <feRegister:topicCheckbox category="{subArray.category}" categoryTree="{subArray.children}" />
+        </f:for>
+    </ul>
 
 </html>
