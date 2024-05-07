@@ -119,7 +119,8 @@ class TopicCheckboxViewHelper extends AbstractViewHelper
                 'identifier' => self::IDENTIFIER,
                 'category' => $category,
                 'categoryTree' => $this->arguments['categoryTree'],
-                'checked' => $checked
+                'checked' => $checked,
+                'settings' => $settings['settings'] ?? []
             ]
         );
 
