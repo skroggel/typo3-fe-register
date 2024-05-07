@@ -434,6 +434,15 @@
 			</trans-unit>
 
 
+            <!-- Templates/FrontendUser/Topic.html -->
+            <trans-unit id="templates_frontendUser_topic.labelSave">
+                <source>Save</source>
+            </trans-unit>
+            <trans-unit id="templates_frontendUser_topic.labelBack">
+                <source>Back</source>
+            </trans-unit>
+
+
 			<!-- Templates/FrontendUser/Welcome.html -->
 			<trans-unit id="templates_frontendUser_welcome.headline">
 				<source>Welcome %s %s!</source>
@@ -535,23 +544,23 @@
                 <source>.</source>
             </trans-unit>
 			<trans-unit id="templates_viewHelpers_consent_privacy.events.extended_network.partOne" approved="no">
-                <source><![CDATA[Yes, I agree that %s uses my personal data for my participation in the event, as well as for event follow-up and to create a free user account. Furthermore, I agree that my personal data may be passed on within the <a href="https://www.rkw.de/rkw-landesorganisationen/" target="_blank">RKW network</a> for the purposes mentioned. My consent is voluntary and can be revoked at any time with future effect by email to <a href="mailto:%s">%2$s</a>. I have also read and agree to the]]></source>
-            </trans-unit>
-            <trans-unit id="templates_viewHelpers_consent_privacy.events.extended_network.partTwo">
-                <source>data protection declaration</source>
-            </trans-unit>
-            <trans-unit id="templates_viewHelpers_consent_privacy.events.extended_network.partThree">
-                <source>.</source>
-            </trans-unit>
-            <trans-unit id="templates_viewHelpers_consent_privacy.eventsSingle.extended_network.partOne" approved="no">
-                <source><![CDATA[Yes, I agree that %s uses my personal data for my participation in the event, as well as for event follow-up and to create a free user account. Furthermore, I agree that my personal data may be passed on within the <a href="https://www.rkw.de/rkw-landesorganisationen/" target="_blank">RKW network</a> for the purposes mentioned. My consent is voluntary and can be revoked at any time with future effect by email to <a href="mailto:%s">%2$s</a>. I have also read and agree to the]]></source>
-            </trans-unit>
-            <trans-unit id="templates_viewHelpers_consent_privacy.eventsSingle.extended_network.partTwo">
-                <source>data protection declaration</source>
-            </trans-unit>
-            <trans-unit id="templates_viewHelpers_consent_privacy.eventsSingle.extended_network.partThree">
-                <source>.</source>
-            </trans-unit>
+				<source><![CDATA[Yes, I agree that %s uses my personal data for my participation in the event, as well as for event follow-up and to create a free user account. Furthermore, I agree that my personal data may be passed on within the <a href="https://www.rkw-kompetenzzentrum.de/fileadmin/media/Dateien/ZB/Impulse-2024/202404-Datenschutzhinweis-Impulse-2024.pdf" target="_blank">RKW network</a> for the organisation and follow-up of the event and may be collected and processed for these purposes. I also agree that the participant data may be transmitted to the Federal Ministry of Economics and Climate Protection for the purpose of admission control. My consent is voluntary and can be revoked at any time with future effect by email to <a href="mailto:%s">%2$s</a>. I have also read and agree to the]]></source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.events.extended_network.partTwo">
+				<source>data protection declaration</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.events.extended_network.partThree">
+				<source>and the data protection notice below.</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.eventsSingle.extended_network.partOne" approved="no">
+				<source><![CDATA[Yes, I agree that %s uses my personal data for my participation in the event, as well as for event follow-up and to create a free user account. Furthermore, I agree that my personal data may be passed on within the <a href="https://www.rkw-kompetenzzentrum.de/fileadmin/media/Dateien/ZB/Impulse-2024/202404-Datenschutzhinweis-Impulse-2024.pdf" target="_blank">RKW network</a> for the organisation and follow-up of the event and may be collected and processed for these purposes. I also agree that the participant data may be transmitted to the Federal Ministry of Economics and Climate Protection for the purpose of admission control. My consent is voluntary and can be revoked at any time with future effect by email to <a href="mailto:%s">%2$s</a>. I have also read and agree to the]]></source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.eventsSingle.extended_network.partTwo">
+				<source>data protection declaration</source>
+			</trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_privacy.eventsSingle.extended_network.partThree">
+				<source>and the data protection notice below.</source>
+			</trans-unit>
 			<trans-unit id="templates_viewHelpers_consent_privacy.order.partOne" approved="no">
 				<source>Yes, I agree that %s uses my personal data to process my order and to create a free user account. Furthermore, I have read and agree to the extended notes in the</source>
 			</trans-unit>
@@ -627,6 +636,12 @@
 			<trans-unit id="templates_viewHelpers_consent_marketing.default">
 				<source><![CDATA[I expressly consent to %s sending me satisfaction inquiries regarding our products, survey requests, and advertisements about products of interest. My consent is voluntary and can be revoked at any time with effect for the future by email to <a href="mailto:%s">%2$s</a> with effect for the future.]]></source>
 			</trans-unit>
+            <trans-unit id="templates_viewHelpers_consent_marketing.topicHeadline">
+                <source>What are you particularly interested in?</source>
+            </trans-unit>
+            <trans-unit id="templates_viewHelpers_consent_marketing.saveSelection">
+                <source>Apply selection</source>
+            </trans-unit>
 
 
 			<!-- Partials/LabelSuffix.html -->
@@ -636,7 +651,6 @@
 			<trans-unit id="partials_labelSuffix.labelRequired">
 				<source>(Required)</source>
 			</trans-unit>
-
 
 
 			<!-- Templates/Email/OptIn.html -->

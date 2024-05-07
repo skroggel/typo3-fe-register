@@ -1,0 +1,49 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:feRegister="http://typo3.org/ns/Madj2k/FeRegister/ViewHelpers"
+    data-namespace-typo3-fluid="true">
+
+    {feRegister:GetFeUserMainCategory() -> f:variable(name: 'feUserCategoryTree')}
+
+    <h3><f:translate key="partials_frontenduser_categorytopiclist.headline" /></h3>
+
+    <f:for each="{feUserCategoryTree}" as="category" iteration="iter">
+        <f:if condition="{iter.isFirst}">
+            <f:comment>
+                <f:render section="checkbox" arguments="{_all}" />
+            </f:comment>
+            <feRegister:topicCheckbox />
+        </f:if>
+    </f:for>
+
+</html>
+
+<f:section name="checkbox">
+
+    <f:comment><!-- do not print the initial parent category --></f:comment>
+    <f:if condition="{category.uid} != {topicParentId}">
+        <div class="feuser-topic-checkbox">
+            <f:form.checkbox
+                multiple="1"
+                id="sys-cat-topic-{category.uid}"
+                class="checkbox"
+                value="{category.uid}"
+                property="txFeregisterCategoriesTopics"
+            />
+            <label class="checkbox-label" for="sys-cat-topic-{category.uid}">
+            <span class="text-smaller">
+                {category.title}
+            </span>
+            </label>
+        </div>
+    </f:if>
+
+    <f:comment><!-- print children recursive --></f:comment>
+    <f:if condition="{feUserCategoryTree.subCategoryList.{category.uid}}">
+        <div class="sub-category-list">
+            <f:for each="{feUserCategoryTree.subCategoryList.{category.uid}}" as="category" iteration="iter">
+                <f:render section="checkbox" arguments="{_all}" />
+            </f:for>
+        </div>
+    </f:if>
+
+</f:section>

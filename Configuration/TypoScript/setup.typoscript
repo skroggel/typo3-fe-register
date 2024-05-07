@@ -166,6 +166,22 @@ config.tx_extbase.persistence {
 
         #===============================================
 
+        Madj2k\FeRegister\Domain\Model\Category {
+            mapping {
+                tableName = sys_category
+            }
+        }
+
+        TYPO3\CMS\Extbase\Domain\Model\Category {
+            subclasses {
+                Tx_FeRegister_Category = Madj2k\FeRegister\Domain\Model\Category
+
+            }
+        }
+
+
+        #===============================================
+
 		# very important to set the storagePid explicit - otherwise it will add to the pid of related objects
 		Madj2k\FeRegister\Domain\Model\Consent {
 			newRecordStoragePid = {$plugin.tx_feregister.persistence.storagePidNewRecords}
@@ -235,6 +251,11 @@ plugin.tx_feregister {
             marketingPid = {$plugin.tx_feregister.settings.consent.marketingPid}
             companyName = {$plugin.tx_feregister.settings.consent.companyName}
             companyEmail = {$plugin.tx_feregister.settings.consent.companyEmail}
+
+            topics {
+                categoryParentUid = {$plugin.tx_feregister.settings.consent.topics.categoryParentUid}
+                categoryMaxDepth = {$plugin.tx_feregister.settings.consent.topics.categoryMaxDepth}
+            }
         }
 
         users {
@@ -261,6 +282,7 @@ plugin.tx_feregister {
                 lifetime = {$plugin.tx_feregister.settings.users.guest.lifetime}
                 groupsOnRegister = {$plugin.tx_feregister.settings.users.guest.groupsOnRegister}
             }
+
         }
 
         dataProtection {

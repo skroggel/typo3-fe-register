@@ -556,6 +556,17 @@
             </trans-unit>
 
 
+            <!-- Templates/FrontendUser/Topic.html -->
+            <trans-unit id="templates_frontendUser_topic.labelSave">
+                <source>Save</source>
+                <target>Speichern</target>
+            </trans-unit>
+            <trans-unit id="templates_frontendUser_topic.labelBack">
+                <source>Back</source>
+                <target>Zurück</target>
+            </trans-unit>
+
+
 			<!-- Templates/FrontendUser/Welcome.html -->
 			<trans-unit id="templates_frontendUser_welcome.headline">
 				<source>Welcome %s %s!</source>
@@ -659,7 +670,7 @@
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.registration.partThree">
                 <source>.</source>
-                <target>gelesen und verstanden..</target>
+                <target>gelesen und verstanden.</target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.events.partOne" approved="no">
                 <source><![CDATA[Yes, I agree that %s uses my personal data and the personal data of the other participants listed below for my/our participation in the event, as well as for event follow-up and to create a free user account. Furthermore, I consent to my personal data being passed on to the RKW national organizations for the aforementioned purposes. My consent is voluntary and can be revoked at any time with future effect by email to <a href="mailto:%s">%2$s</a>. I have also read and agree to the]]></source>
@@ -686,28 +697,28 @@
                 <target>gelesen und verstanden.</target>
             </trans-unit>
 			<trans-unit id="templates_viewHelpers_consent_privacy.events.extended_network.partOne" approved="no">
-                <source><![CDATA[Yes, I agree that %s uses my personal data for my participation in the event, as well as for event follow-up and to create a free user account. Furthermore, I agree that my personal data may be passed on within the <a href="https://www.rkw.de/rkw-landesorganisationen/" target="_blank">RKW network</a> for the purposes mentioned. My consent is voluntary and can be revoked at any time with future effect by email to <a href="mailto:%s">%2$s</a>. I have also read and agree to the]]></source>
-                <target state="final" phase-name="approval-1"><![CDATA[Ja, ich stimme zu, dass %s meine persönlichen Daten und die persönlichen Daten der unten genannten weiteren Teilnehmenden für meine/unsere Teilnahme an der Veranstaltung sowie zur Veranstaltungsnachbereitung und zur Erzeugung eines kostenlosen Nutzendenkontos verwendet. Ferner willige ich ein, dass meine personenbezogenen Daten zu den genannten Zwecken innerhalb des <a href="https://www.rkw.de/rkw-landesorganisationen/" target="_blank">RKW Netzwerks</a> weitergegeben werden dürfen. Meine Einwilligung ist freiwillig und kann jederzeit mit Wirkung für die Zukunft per Mail an <a href="mailto:%s">%2$s</a> widerrufen werden. Ferner habe ich die]]></target>
+                <source><![CDATA[Yes, I agree that %s uses my personal data for my participation in the event, as well as for event follow-up and to create a free user account. Furthermore, I agree that my personal data may be passed on within the <a href="https://www.rkw-kompetenzzentrum.de/fileadmin/media/Dateien/ZB/Impulse-2024/202404-Datenschutzhinweis-Impulse-2024.pdf" target="_blank">RKW network</a> for the organisation and follow-up of the event and may be collected and processed for these purposes. I also agree that the participant data may be transmitted to the Federal Ministry of Economics and Climate Protection for the purpose of admission control. My consent is voluntary and can be revoked at any time with future effect by email to <a href="mailto:%s">%2$s</a>. I have also read and agree to the]]></source>
+                <target state="final" phase-name="approval-1"><![CDATA[Ja, ich stimme zu, dass %s meine persönlichen Daten und die persönlichen Daten der unten genannten weiteren Teilnehmenden für meine/unsere Teilnahme an der Veranstaltung sowie zur Veranstaltungsnachbereitung und zur Erzeugung eines kostenlosen Nutzendenkontos verwendet. Ferner willige ich ein, dass meine personenbezogenen Daten innerhalb des <a href="https://www.rkw-kompetenzzentrum.de/fileadmin/media/Dateien/ZB/Impulse-2024/202404-Datenschutzhinweis-Impulse-2024.pdf" target="_blank">RKW Netzwerks</a> zur Organisation und Nachbereitung der Veranstaltung weitergegeben und zu diesen Zwecken von dort erhoben und verarbeitet werden dürfen. Ich willige zudem ein, dass die Teilnehmendendaten zwecks Einlasskontrolle an das Bundesministerium für Wirtschaft und Klimaschutz übermittelt werden. Meine Einwilligung ist freiwillig und kann jederzeit mit Wirkung für die Zukunft per Mail an <a href="mailto:%s">%2$s</a> widerrufen werden. Ferner habe ich die]]></target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.events.extended_network.partTwo">
                 <source>data protection declaration</source>
                 <target>Datenschutzerklärung</target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.events.extended_network.partThree">
-                <source>.</source>
-                <target>gelesen und verstanden.</target>
+                <source>and the data protection notice below.</source>
+                <target>sowie den untenstehenden Datenschutzhinweis gelesen und verstanden.</target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.eventsSingle.extended_network.partOne" approved="no">
-                <source><![CDATA[Yes, I agree that %s uses my personal data for my participation in the event, as well as for event follow-up and to create a free user account. Furthermore, I agree that my personal data may be passed on within the <a href="https://www.rkw.de/rkw-landesorganisationen/" target="_blank">RKW network</a> for the purposes mentioned. My consent is voluntary and can be revoked at any time with future effect by email to <a href="mailto:%s">%2$s</a>. I have also read and agree to the]]></source>
-                <target state="final" phase-name="approval-1"><![CDATA[Ja, ich stimme zu, dass %s meine persönlichen Daten für meine Teilnahme an der Veranstaltung sowie zur Veranstaltungsnachbereitung und zur Erzeugung eines kostenlosen Nutzendenkontos verwendet. Ferner willige ich ein, dass meine personenbezogenen Daten zu den genannten Zwecken innerhalb des <a href="https://www.rkw.de/rkw-landesorganisationen/" target="_blank">RKW Netzwerks</a> weitergegeben werden dürfen. Meine Einwilligung ist freiwillig und kann jederzeit mit Wirkung für die Zukunft per Mail an <a href="mailto:%s">%2$s</a> widerrufen werden. Ferner habe ich die]]></target>
+                <source><![CDATA[Yes, I agree that %s uses my personal data for my participation in the event, as well as for event follow-up and to create a free user account. Furthermore, I agree that my personal data may be passed on within the <a href="https://www.rkw-kompetenzzentrum.de/fileadmin/media/Dateien/ZB/Impulse-2024/202404-Datenschutzhinweis-Impulse-2024.pdf" target="_blank">RKW network</a> for the organisation and follow-up of the event and may be collected and processed for these purposes. I also agree that the participant data may be transmitted to the Federal Ministry of Economics and Climate Protection for the purpose of admission control. My consent is voluntary and can be revoked at any time with future effect by email to <a href="mailto:%s">%2$s</a>. I have also read and agree to the]]></source>
+                <target state="final" phase-name="approval-1"><![CDATA[Ja, ich stimme zu, dass %s meine persönlichen Daten für meine Teilnahme an der Veranstaltung sowie zur Veranstaltungsnachbereitung und zur Erzeugung eines kostenlosen Nutzendenkontos verwendet. Ferner willige ich ein, dass meine personenbezogenen Daten innerhalb des <a href="https://www.rkw-kompetenzzentrum.de/fileadmin/media/Dateien/ZB/Impulse-2024/202404-Datenschutzhinweis-Impulse-2024.pdf" target="_blank">RKW Netzwerks</a> zur Organisation und Nachbereitung der Veranstaltung weitergegeben und zu diesen Zwecken von dort erhoben und verarbeitet werden dürfen. Ich willige zudem ein, dass die Teilnehmendendaten zwecks Einlasskontrolle an das Bundesministerium für Wirtschaft und Klimaschutz übermittelt werden. Meine Einwilligung ist freiwillig und kann jederzeit mit Wirkung für die Zukunft per Mail an <a href="mailto:%s">%2$s</a> widerrufen werden. Ferner habe ich die]]></target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.eventsSingle.extended_network.partTwo">
                 <source>data protection declaration</source>
                 <target>Datenschutzerklärung</target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.eventsSingle.extended_network.partThree">
-                <source>.</source>
-                <target>gelesen und verstanden.</target>
+                <source>and the data protection notice below.</source>
+                <target>sowie den untenstehenden Datenschutzhinweis gelesen und verstanden.</target>
             </trans-unit>
             <trans-unit id="templates_viewHelpers_consent_privacy.order.partOne" approved="no">
                 <source><![CDATA[Yes, I agree that %s uses my personal data to process my order and to create a free user account. My consent is voluntary and can be revoked at any time with future effect by email to <a href="mailto:%s">%2$s</a>. Furthermore, I have read and agree to the ]]></source>
@@ -797,8 +808,8 @@
 				<target>AGB</target>
 			</trans-unit>
 			<trans-unit id="templates_viewHelpers_consent_terms.events.partFive">
-				<source>We would like to point out that images, sound and video recordings may be made at this event and published in various media for the purposes of event reporting and general public relations. You will receive further information on this and your rights directly at the start of the event.</source>
-				<target>Wir weisen darauf hin, dass auf dieser Veranstaltung Bild-, Ton- und Videoaufnahmen erstellt und für Zwecke der Veranstaltungsberichterstattung und der allgemeinen Öffentlichkeitsarbeit in verschiedenen Medien veröffentlicht werden können. Weitere Informationen hierzu und zu ihren Rechten erhalten Sie direkt zu Veranstaltungsbeginn.</target>
+				<source>We would like to point out that images, sound and video recordings may be made at this event and published in various media for the purposes of event reporting and general public relations. Further information on this and your rights can be found in the privacy policy and will be given directly at the start of the event.</source>
+				<target>Wir weisen darauf hin, dass auf dieser Veranstaltung Bild-, Ton- und Videoaufnahmen erstellt und für Zwecke der Veranstaltungsberichterstattung und der allgemeinen Öffentlichkeitsarbeit in verschiedenen Medien veröffentlicht werden können. Weitere Informationen hierzu und zu ihren Rechten erhalten Sie in der Datenschutzerklärung sowie direkt zu Veranstaltungsbeginn.</target>
 			</trans-unit>
 
 
@@ -807,6 +818,14 @@
 				<source><![CDATA[I expressly consent to %s sending me satisfaction inquiries regarding our products, survey requests, and advertisements about products of interest. My consent is voluntary and can be revoked at any time with effect for the future by email to <a href="mailto:%s">%2$s</a> with effect for the future.]]></source>
 				<target><![CDATA[Ich willige ausdrücklich ein, dass mir %s Zufriedenheitsanfragen bezüglich unserer Produkte, Umfrageanfragen und Werbung über interessante Produkte zusendet. Meine Einwilligung ist freiwillig und kann jederzeit mit Wirkung für die Zukunft per Mail an <a href="mailto:%s">%2$s</a> widerrufen werden.]]></target>
 			</trans-unit>
+            <trans-unit id="templates_viewHelpers_consent_marketing.topicHeadline">
+                <source>What are you particularly interested in?</source>
+                <target>Wofür interessieren Sie sich besonders?</target>
+            </trans-unit>
+            <trans-unit id="templates_viewHelpers_consent_marketing.saveSelection">
+                <source>Apply selection</source>
+                <target>Auswahl übernehmen</target>
+            </trans-unit>
 
 
             <!-- Partials/LabelSuffix.html -->

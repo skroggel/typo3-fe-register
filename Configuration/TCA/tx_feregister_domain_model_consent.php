@@ -10,11 +10,11 @@ return [
 		'dividers2tabs' => true,
 		'hideTable' => 1,
 		'delete' => 'deleted',
-		'searchFields' => 'crdate, foreign_table, foreign_uid, ip_address, user_agent, extension_name, plugin_name, controller_name, action_name, comment, server_host, server_uri, server_referer_url, consent_privacy, consent_terms, consent_marketing',
+		'searchFields' => 'crdate, foreign_table, foreign_uid, ip_address, user_agent, extension_name, plugin_name, controller_name, action_name, comment, server_host, server_uri, server_referer_url, consent_privacy, consent_terms, consent_marketing, consent_topics',
 		'iconfile' => 'EXT:fe_register/Resources/Public/Icons/tx_feregister_domain_model_consent.gif'
 	],
 	'types' => [
-		'1' => ['showitem' => 'crdate, foreign_table, foreign_uid, ip_address, user_agent, extension_name, plugin_name, controller_name, action_name, comment, server_host, server_uri, server_referer_url, consent_privacy, consent_terms, consent_marketing, sub_type, child'],
+		'1' => ['showitem' => 'crdate, foreign_table, foreign_uid, ip_address, user_agent, extension_name, plugin_name, controller_name, action_name, comment, server_host, server_uri, server_referer_url, consent_privacy, consent_terms, consent_marketing, consent_topics, sub_type, child'],
 	],
 	'palettes' => [
 		'1' => ['showitem' => ''],
@@ -206,6 +206,7 @@ return [
             'label' => 'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_consent.consent_privacy',
             'config' => [
                 'type' => 'check',
+                'readOnly' => 1,
             ],
         ],
         'consent_terms' => [
@@ -214,6 +215,7 @@ return [
             'label' => 'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_consent.consent_terms',
             'config' => [
                 'type' => 'check',
+                'readOnly' => 1,
             ],
         ],
         'consent_marketing' => [
@@ -222,6 +224,25 @@ return [
             'label' => 'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_consent.consent_marketing',
             'config' => [
                 'type' => 'check',
+                'readOnly' => 1,
+            ],
+        ],
+        'consent_topics' => [
+            'exclude' => 1,
+            'label' => 'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_consent.consent_topics',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectTree',
+                'foreign_table' => 'sys_category',
+                'treeConfig' => [
+                    'parentField' => 'parent',
+                    'appearance' => [
+                        'expandAll' => true,
+                        'showHeader' => true,
+                        'maxLevels' => 0
+                    ],
+                ],
+                'readOnly' => 1,
             ],
         ],
         'sub_type' => [

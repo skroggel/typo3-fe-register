@@ -110,6 +110,18 @@ call_user_func(
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
             'Madj2k.' . $extKey,
+            'UserTopics',
+            [
+                'FrontendUser' => 'topic, topicUpdate',
+            ],
+            // non-cacheable actions
+            [
+                'FrontendUser' => 'topic, topicUpdate',
+            ]
+        );
+
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+            'Madj2k.' . $extKey,
             'Group',
             [
                 'FrontendUserGroup' => 'list, show, create, delete',

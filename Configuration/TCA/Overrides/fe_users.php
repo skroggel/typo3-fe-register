@@ -27,10 +27,10 @@ call_user_func(
                     'maxitems' => 1,
                     'default' => 99,
                     'items' => [
-                        ['LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.0', '0'],
-                        ['LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.1', '1'],
-                        ['LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.2', '2'],
-                        ['LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.tx_feregister_gender.I.99', '99'],
+                        ['LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.tx_feregister_gender.0', '0'],
+                        ['LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.tx_feregister_gender.1', '1'],
+                        ['LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.tx_feregister_gender.2', '2'],
+                        ['LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.tx_feregister_gender.99', '99'],
                     ],
                 ],
             ],
@@ -45,7 +45,6 @@ call_user_func(
                     'eval' => 'trim',
                 ],
             ],
-
 
             'tx_feregister_title' => [
                 'label'=>'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.tx_feregister_title',
@@ -139,7 +138,7 @@ call_user_func(
 
             'tx_feregister_consent_privacy' => [
                 'exclude' => 1,
-                'label' => 'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.consent_privacy',
+                'label' => 'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.tx_feregister_consent_privacy',
                 'config' => [
                     'type' => 'check',
                     'readOnly' => 1
@@ -148,23 +147,35 @@ call_user_func(
 
             'tx_feregister_consent_terms' => [
                 'exclude' => 1,
-                'label' => 'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.consent_terms',
+                'label' => 'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.tx_feregister_consent_terms',
                 'config' => [
                     'type' => 'check',
+                    'readOnly' => 1,
                 ],
             ],
 
             'tx_feregister_consent_marketing' => [
                 'exclude' => 1,
-                'label' => 'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.consent_marketing',
+                'label' => 'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.tx_feregister_consent_marketing',
                 'config' => [
                     'type' => 'check',
                 ],
             ],
-
-            'tx_feregister_data_protection_status' => [
-                'config'=>[
-                    'type' => 'passthrough',
+            'tx_feregister_consent_topics' => [
+                'exclude' => 1,
+                'label' => 'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_frontenduser.tx_feregister_consent_topics',
+                'config' => [
+                    'type' => 'select',
+                    'renderType' => 'selectTree',
+                    'foreign_table' => 'sys_category',
+                    'treeConfig' => [
+                        'parentField' => 'parent',
+                        'appearance' => [
+                            'expandAll' => true,
+                            'showHeader' => true,
+                            'maxLevels' => 0
+                        ],
+                    ],
                 ],
             ],
             'tx_feregister_consent' => [
@@ -188,6 +199,11 @@ call_user_func(
                             'new' => FALSE,
                         ],
                     ],
+                ],
+            ],
+            'tx_feregister_data_protection_status' => [
+                'config'=>[
+                    'type' => 'passthrough',
                 ],
             ],
         ];
@@ -237,7 +253,7 @@ call_user_func(
         );
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
             'fe_users',
-            ', tx_feregister_consent_privacy, tx_feregister_consent_terms, tx_feregister_consent_marketing, tx_feregister_consent',
+            ', tx_feregister_consent_privacy, tx_feregister_consent_terms, tx_feregister_consent_marketing, tx_feregister_consent_topics, tx_feregister_consent',
             '0',
             'after:image'
         );
@@ -262,6 +278,34 @@ call_user_func(
                 --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:extended,
             '
         ];
+
+        //=================================================================
+        // Add Category
+        //=================================================================
+        // Add an extra categories selection field to the pages table
+        /*
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::makeCategorizable(
+            'feuser_topics',
+            'fe_users',
+            // Do not use the default field name ("categories") for pages, tt_content, sys_file_metadata, which is already used
+            'tx_feregister_categories_topics',
+            array(
+                // Set a custom label
+                'label' => 'LLL:EXT:examples/Resources/Private/Language/locallang.xlf:additional_categories',
+                // This field should not be an exclude-field
+                'exclude' => FALSE,
+                // Override generic configuration, e.g. sort by title rather than by sorting
+                'fieldConfiguration' => array(
+                    //  'foreign_table_where' => ' AND ((\'###PAGE_TSCONFIG_IDLIST###\' <> \'0\' AND FIND_IN_SET(sys_category.pid,\'###PAGE_TSCONFIG_IDLIST###\')) OR (\'###PAGE_TSCONFIG_IDLIST###\' = \'0\')) AND sys_category.sys_language_uid IN (-1, 0) ORDER BY sys_category.title ASC',
+                ),
+                // string (keyword), see TCA reference for details
+                'l10n_mode' => 'exclude',
+                // list of keywords, see TCA reference for details
+                'l10n_display' => 'hideDiff',
+                'startingPoints' => '144'
+            )
+        );
+        */
     },
     'fe_register'
 );
