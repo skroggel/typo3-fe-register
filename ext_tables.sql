@@ -8,7 +8,7 @@ CREATE TABLE tx_feregister_domain_model_optin
 
 	frontend_user_uid    int(11) DEFAULT '0' NOT NULL,
 	frontend_user_update text,
-	admins  						 varchar(255) DEFAULT '' NOT NULL,
+	admins               varchar(255) DEFAULT '' NOT NULL,
 	token_user           varchar(255) DEFAULT '' NOT NULL,
 	token_yes            varchar(255) DEFAULT '' NOT NULL,
 	token_no             varchar(255) DEFAULT '' NOT NULL,
@@ -58,10 +58,11 @@ CREATE TABLE fe_users
 
 	tx_feregister_login_error_count      tinyint(4) DEFAULT '0' NOT NULL,
 
-	tx_feregister_consent	    			    varchar(255) DEFAULT ''        NOT NULL,
-	tx_feregister_consent_privacy			  tinyint(1) DEFAULT '0' NOT NULL,
-	tx_feregister_consent_terms				  tinyint(1) DEFAULT '0' NOT NULL,
+	tx_feregister_consent                varchar(255) DEFAULT ''        NOT NULL,
+	tx_feregister_consent_privacy        tinyint(1) DEFAULT '0' NOT NULL,
+	tx_feregister_consent_terms          tinyint(1) DEFAULT '0' NOT NULL,
 	tx_feregister_consent_marketing      tinyint(1) DEFAULT '0' NOT NULL,
+	tx_feregister_consent_topics         varchar(255) DEFAULT ''        NOT NULL,
 	tx_feregister_data_protection_status tinyint(4) DEFAULT '0' NOT NULL,
 );
 
@@ -74,7 +75,7 @@ CREATE TABLE fe_groups
 	tx_feregister_membership_mandatory_fields varchar(255) DEFAULT '' NOT NULL,
 	tx_feregister_membership_admins           int(11) unsigned DEFAULT '0' NOT NULL,
 	tx_feregister_membership_pid              int(11) unsigned DEFAULT '0' NOT NULL,
-	KEY  tx_feregister_is_membership (tx_feregister_is_membership),
+	KEY                                       tx_feregister_is_membership (tx_feregister_is_membership),
 );
 
 
@@ -100,39 +101,40 @@ CREATE TABLE tx_feregister_fegroups_beusers_mm
 CREATE TABLE tx_feregister_domain_model_consent
 (
 
-	uid                    int(11) NOT NULL auto_increment,
-	pid                    int(11) DEFAULT '0' NOT NULL,
+	uid                int(11) NOT NULL auto_increment,
+	pid                int(11) DEFAULT '0' NOT NULL,
 
-	parent                 int(11) DEFAULT '0',
-	child                  int(11) DEFAULT '0',
+	parent             int(11) DEFAULT '0',
+	child              int(11) DEFAULT '0',
 
-	frontend_user          int(11) DEFAULT '0',
-	opt_in     						 int(11) DEFAULT '0',
+	frontend_user      int(11) DEFAULT '0',
+	opt_in             int(11) DEFAULT '0',
 
-	foreign_table          varchar(255) DEFAULT '' NOT NULL,
-	foreign_uid            varchar(255) DEFAULT '' NOT NULL,
-	ip_address             varchar(255) DEFAULT '' NOT NULL,
-	user_agent             longtext,
-	extension_name         varchar(255) DEFAULT '' NOT NULL,
-	plugin_name            varchar(255) DEFAULT '' NOT NULL,
-	controller_name        varchar(255) DEFAULT '' NOT NULL,
-	action_name            varchar(255) DEFAULT '' NOT NULL,
-	comment                varchar(255) DEFAULT '' NOT NULL,
-	server_host            varchar(255) DEFAULT '' NOT NULL,
-	server_uri             text,
-	server_referer_url     text,
-	consent_privacy        int(1) DEFAULT '0' NOT NULL,
-	consent_terms          int(1) DEFAULT '0' NOT NULL,
-	consent_marketing      int(1) DEFAULT '0' NOT NULL,
-	sub_type               varchar(255) DEFAULT '' NOT NULL,
+	foreign_table      varchar(255) DEFAULT '' NOT NULL,
+	foreign_uid        varchar(255) DEFAULT '' NOT NULL,
+	ip_address         varchar(255) DEFAULT '' NOT NULL,
+	user_agent         longtext,
+	extension_name     varchar(255) DEFAULT '' NOT NULL,
+	plugin_name        varchar(255) DEFAULT '' NOT NULL,
+	controller_name    varchar(255) DEFAULT '' NOT NULL,
+	action_name        varchar(255) DEFAULT '' NOT NULL,
+	comment            varchar(255) DEFAULT '' NOT NULL,
+	server_host        varchar(255) DEFAULT '' NOT NULL,
+	server_uri         text,
+	server_referer_url text,
+	consent_privacy    int(1) DEFAULT '0' NOT NULL,
+	consent_terms      int(1) DEFAULT '0' NOT NULL,
+	consent_marketing  int(1) DEFAULT '0' NOT NULL,
+	consent_topics     varchar(255) DEFAULT '' NOT NULL,
+	sub_type           varchar(255) DEFAULT '' NOT NULL,
 
-	tstamp                 int(11) unsigned DEFAULT '0' NOT NULL,
-	crdate                 int(11) unsigned DEFAULT '0' NOT NULL,
-	deleted                tinyint(4) unsigned DEFAULT '0' NOT NULL,
+	tstamp             int(11) unsigned DEFAULT '0' NOT NULL,
+	crdate             int(11) unsigned DEFAULT '0' NOT NULL,
+	deleted            tinyint(4) unsigned DEFAULT '0' NOT NULL,
 
 	PRIMARY KEY (uid),
-	KEY                    parent (pid),
-	KEY                    opt_in (opt_in),
+	KEY                parent (pid),
+	KEY                opt_in (opt_in),
 );
 
 #

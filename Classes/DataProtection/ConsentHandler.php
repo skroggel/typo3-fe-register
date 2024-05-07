@@ -18,12 +18,16 @@ namespace Madj2k\FeRegister\DataProtection;
 use Madj2k\FeRegister\Domain\Model\FrontendUser;
 use Madj2k\FeRegister\Domain\Model\OptIn;
 use Madj2k\FeRegister\Domain\Model\Consent;
+use Madj2k\FeRegister\Domain\Repository\CategoryRepository;
 use Madj2k\FeRegister\Domain\Repository\ConsentRepository;
 use Madj2k\FeRegister\Domain\Repository\FrontendUserRepository;
 use Madj2k\FeRegister\Utility\ClientUtility;
 use Madj2k\FeRegister\ViewHelpers\ConsentViewHelper;
+use Madj2k\FeRegister\ViewHelpers\TopicCheckboxViewHelper;
+use Madj2k\FeRegister\ViewHelpers\TopicViewHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Request;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -46,6 +50,7 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
      */
     const CONSENT_EXTENDED_NETWORK = 'extended_network';
 
+
     /**
      * setObject
      * Use this function to set basic data
@@ -63,6 +68,7 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
+     * @throws \TYPO3\CMS\Extbase\Object\Exception
      */
     protected static function setObject(
         Request $request,
@@ -70,6 +76,9 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
         $referenceObject = null,
         string $comment = ''
     ): Consent {
+
+        /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
+        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 
         /** @var \Madj2k\FeRegister\Domain\Model\Consent $consent */
         $consent = GeneralUtility::makeInstance(Consent::class);
@@ -99,17 +108,36 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
         $consent->setActionName((string) $request->getControllerActionName());
 
         // set consent-fields
-        $formData = GeneralUtility::_GP(ConsentViewHelper::NAMESPACE);
-        foreach (['privacy', 'terms', 'marketing'] as $key) {
+        $dirtyFormData = GeneralUtility::_GP(ConsentViewHelper::NAMESPACE);
+        foreach (ConsentViewHelper::IDENTIFIERS as $key) {
 
             $setter = 'setConsent' . ucfirst($key);
-            if ($formData[$key]['confirmed']) {
-                $consent->$setter($formData[$key]['confirmed']);
+            if (isset($dirtyFormData[$key]['confirmed'])) {
+                $consent->$setter(intval($dirtyFormData[$key]['confirmed']));
             }
-            if ($formData[$key]['subType']) {
-                $consent->addSubType($formData[$key]['subType']);
+            if (isset($dirtyFormData[$key]['subType'])) {
+                $consent->addSubType(htmlspecialchars($dirtyFormData[$key]['subType']));
             }
+        }
 
+        // set consent-topics
+        $dirtyFormData = GeneralUtility::_GP(TopicCheckboxViewHelper::NAMESPACE);
+        if (
+            isset($dirtyFormData[TopicCheckboxViewHelper::IDENTIFIER])
+            && is_array($dirtyFormData[TopicCheckboxViewHelper::IDENTIFIER])
+        ){
+            /** @var \Madj2k\FeRegister\Domain\Repository\CategoryRepository $categoryRepository */
+            $categoryRepository = $objectManager->get(CategoryRepository::class);
+            foreach ($dirtyFormData[TopicCheckboxViewHelper::IDENTIFIER] as $categoryId => $subArray) {
+
+                if ($subArray) {
+                    /** @var \Madj2k\FeRegister\Domain\Model\Category $category */
+                    $category = $categoryRepository->findByUid(intval($categoryId));
+                    if ($category) {
+                        $consent->addConsentTopics($category);
+                    }
+                }
+            }
         }
 
         // set informed consent reason - optional freeText field
@@ -118,8 +146,6 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
         // set reference object and maybe override it
         self::setReference($consent, $referenceObject);
 
-        /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 
         // if we have an optIn here, we can differentiate between the optIn and it's approval
         if ($referenceObject instanceof OptIn) {
@@ -152,6 +178,12 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
                     }
                     if ($consentParent->getConsentMarketing()) {
                         $frontendUser->setTxFeregisterConsentMarketing($consentParent->getConsentMarketing());
+                    }
+                    if ($consentParent->getConsentTopics()) {
+                        /** @var \Madj2k\FeRegister\Domain\Model\Category  $category */
+                        foreach ($consentParent->getConsentTopics() as $category) {
+                            $frontendUser->addTxFeregisterConsentTopics($category);
+                        }
                     }
                 }
                 $frontendUserRepository->update($frontendUser);
@@ -186,6 +218,13 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
             if ($consent->getConsentMarketing()) {
                 $frontendUser->setTxFeregisterConsentMarketing($consent->getConsentMarketing());
             }
+            if ($consent->getConsentTopics()) {
+                /** @var \Madj2k\FeRegister\Domain\Model\Category  $category */
+                foreach ($consent->getConsentTopics() as $category) {
+                    $frontendUser->addTxFeregisterConsentTopics($category);
+                }
+            }
+
             $frontendUserRepository->update($frontendUser);
         }
 
@@ -197,13 +236,14 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
      * setReference
      *
      * @param \Madj2k\FeRegister\Domain\Model\Consent $consent
-     * @param \TYPO3\CMS\Extbase\DomainObject\AbstractEntity|\TYPO3\CMS\Extbase\Persistence\ObjectStorage $referenceObject
+     * @param \TYPO3\CMS\Extbase\DomainObject\AbstractEntity|\TYPO3\CMS\Extbase\Persistence\ObjectStorage|null $referenceObject
      * @return void
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
+     * @throws \TYPO3\CMS\Extbase\Object\Exception
      */
     protected static function setReference(
         Consent $consent,
-       $referenceObject
+       $referenceObject = null
     ): void {
 
         /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
@@ -246,19 +286,20 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
      *
      * @param \TYPO3\CMS\Extbase\Mvc\Request $request
      * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
-     * @param \TYPO3\CMS\Extbase\DomainObject\AbstractEntity|\TYPO3\CMS\Extbase\Persistence\ObjectStorage $referenceObject
+     * @param \TYPO3\CMS\Extbase\DomainObject\AbstractEntity|\TYPO3\CMS\Extbase\Persistence\ObjectStorage|null $referenceObject
      * @param string $comment
      * @return \Madj2k\FeRegister\Domain\Model\Consent
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
+     * @throws \TYPO3\CMS\Extbase\Object\Exception
      * @api
      */
     public static function add
     (
         Request $request,
         FrontendUser $frontendUser,
-        $referenceObject,
+        $referenceObject = null,
         string $comment = ''
     ): Consent {
 

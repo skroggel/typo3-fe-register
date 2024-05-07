@@ -16,6 +16,7 @@ namespace Madj2k\FeRegister\Domain\Model;
  */
 
 use Madj2k\CoreExtended\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * Consent
@@ -138,9 +139,36 @@ class Consent extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 
     /**
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>|null
+     */
+    protected ?ObjectStorage $consentTopics = null;
+
+
+    /**
      * @var string
      */
     public string $subType = '';
+
+
+    /**
+     * __construct
+     */
+    public function __construct()
+    {
+        //Do not remove the next line: It would break the functionality
+        $this->initStorageObjects();
+    }
+
+
+    /**
+     * Initializes all ObjectStorage properties
+     *
+     * @return void
+     */
+    protected function initStorageObjects()
+    {
+        $this->consentTopics = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    }
 
 
     /**
@@ -564,6 +592,54 @@ class Consent extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->consentMarketing;
     }
+
+
+    /**
+     * Adds a consentTopics
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\Category $consentTopics
+     * @return void
+     */
+    public function addConsentTopics(\TYPO3\CMS\Extbase\Domain\Model\Category $consentTopics)
+    {
+        $this->consentTopics->attach($consentTopics);
+    }
+
+
+    /**
+     * Removes a consentTopics
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\Category $consentTopicsToRemove The Category to be removed
+     * @return void
+     */
+    public function removeConsentTopics(\TYPO3\CMS\Extbase\Domain\Model\Category $consentTopics)
+    {
+        $this->consentTopics->detach($consentTopics);
+    }
+
+
+    /**
+     * Returns the consentTopics
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category> $consentTopics
+     */
+    public function getConsentTopics()
+    {
+        return $this->consentTopics;
+    }
+
+
+    /**
+     * Sets the consentTopics
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category> $consentTopics
+     * @return void
+     */
+    public function setConsentTopics(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $consentTopics)
+    {
+        $this->consentTopics = $consentTopics;
+    }
+
 
 
     /**

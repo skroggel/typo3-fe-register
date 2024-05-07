@@ -1,5 +1,4 @@
 <?php
-
 namespace Madj2k\FeRegister\ViewHelpers;
 
 /*
@@ -15,12 +14,14 @@ namespace Madj2k\FeRegister\ViewHelpers;
  * The TYPO3 project - inspiring people to share!
  */
 
+use Madj2k\FeRegister\Domain\Model\FrontendUser;
+use Madj2k\FeRegister\Utility\FrontendUserSessionUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use Madj2k\CoreExtended\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * Class ConsentViewHelper
+ * Class TopicCheckboxViewHelper
  *
  * @author Maximilian Fäßler <maximilian@faesslerweb.de>
  * @author Steffen Kroggel <developer@steffenkroggel.de>
@@ -28,7 +29,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  * @package Madj2k_FeRegister
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class ConsentViewHelper extends AbstractViewHelper
+class TopicCheckboxViewHelper extends AbstractViewHelper
 {
 
     /**
@@ -36,11 +37,10 @@ class ConsentViewHelper extends AbstractViewHelper
      */
     const NAMESPACE = 'tx_feregister';
 
-
     /**
      * @const string
      */
-    const IDENTIFIERS = ['privacy', 'terms', 'marketing'];
+    const IDENTIFIER = 'topic';
 
 
     /**
@@ -60,13 +60,9 @@ class ConsentViewHelper extends AbstractViewHelper
     public function initializeArguments(): void
     {
         parent::initializeArguments();
-        $this->registerArgument('key', 'string', 'The key to use for the text.', false, 'default');
-        $this->registerArgument('pageUid', 'int', 'The pid of the first page which will be linked.', false, '0');
-        $this->registerArgument('pageUid2', 'int', 'The pid of the second page which will be linked.', false, '0');
-        $this->registerArgument('type', 'string', 'The type. Allowed values are: privacy, terms, marketing.', false, 'privacy');
-        $this->registerArgument('subType', 'string', 'The subtype of the consent', false, '');
-        $this->registerArgument('companyName', 'string', 'The name of the company. This is inserted into the texts.', false, '');
-        $this->registerArgument('companyEmail', 'string', 'The email of the company for revocation of consent. This is inserted into the texts.', false, '');
+
+        $this->registerArgument('category', \Madj2k\FeRegister\Domain\Model\Category::class, 'The category', true);
+        $this->registerArgument('categoryTree', 'array', 'The category tree array', false, []);
 
     }
 
@@ -84,69 +80,52 @@ class ConsentViewHelper extends AbstractViewHelper
     public function render(): string
     {
         $settings = $this->getSettings(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-
-        /** @var string $type */
-        $type = in_array(strtolower($this->arguments['type']), self::IDENTIFIERS)? strtolower($this->arguments['type']): 'privacy';
-
-        /** @var string $key */
-        $key = $this->arguments['key'];
-
-        /** @var string $subType */
-        $subType = $this->arguments['subType'];
-
-        /** @var string $companyName */
-        $companyName = $this->arguments['companyName'];
-        if (!$companyName) {
-            $companyName = $settings['settings']['consent']['companyName'];
-        }
-
-        /** @var string $companyEmail */
-        $companyEmail = $this->arguments['companyEmail'];
-        if (!$companyEmail) {
-            $companyEmail = $settings['settings']['consent']['companyEmail'];
-        }
-
-        $formData = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP(self::NAMESPACE);
-        $checked = (bool) $formData[$type]['confirmed'];
-
-        /** @var int $pageUid */
-        $pageUid = $this->arguments['pageUid'];
-
-        /** @var int $pageUid2 */
-        $pageUid2 = $this->arguments['pageUid2'];
-
-        // use given privacyPid or just the one which is set in the FeRegister-settings
-        if (!$pageUid) {
-            $pageUid = intval($settings['settings']['consent'][$type . 'Pid']);
-        }
-        if (!$pageUid2) {
-            $pageUid2 = intval($settings['settings']['consent'][$type . '2Pid']);
-        }
+        $category = $this->arguments['category'];
 
         /** @var \TYPO3\CMS\Fluid\View\StandaloneView $standaloneView */
         $standaloneView = GeneralUtility::makeInstance(\TYPO3\CMS\Fluid\View\StandaloneView::class);
         $standaloneView->setLayoutRootPaths($settings['view']['layoutRootPaths']);
         $standaloneView->setPartialRootPaths($settings['view']['partialRootPaths']);
         $standaloneView->setTemplateRootPaths($settings['view']['templateRootPaths']);
+        $standaloneView->setTemplate('ViewHelpers/Topic/Checkbox.html');
 
-        $standaloneView->setTemplate('ViewHelpers/Consent/' . ucfirst($type));
+        $frontendUser = FrontendUserSessionUtility::getLoggedInUser();
+
+        // is there a form request?
+        $args = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP(self::NAMESPACE);
+        $checked = false;
+        if (
+            is_array($args)
+            && key_exists(self::IDENTIFIER, $args)
+        ) {
+
+            if (key_exists($category->getUid(), array_filter($args[self::IDENTIFIER]))) {
+                $checked = true;
+            }
+
+        // else check topics of logged in user
+        } elseif ($frontendUser instanceof FrontendUser) {
+            foreach ($frontendUser->getTxFeregisterConsentTopics() as $userCategory) {
+                if ($userCategory->getUid() == $category->getUid()) {
+                    $checked = true;
+                    break;
+                }
+            }
+        }
+
         $standaloneView->assignMultiple(
             [
                 'namespace' => self::NAMESPACE,
-                'type' => $type,
-                'subType' => $subType,
-                'key' => $key,
-                'checked' => $checked,
-                'pageUid'  => $pageUid,
-                'pageUid2'  => $pageUid2,
-                'companyName' => $companyName,
-                'companyEmail' => $companyEmail,
-                'randomKey' => GeneralUtility::getUniqueRandomString()
+                'identifier' => self::IDENTIFIER,
+                'category' => $category,
+                'categoryTree' => $this->arguments['categoryTree'],
+                'checked' => $checked
             ]
         );
 
         return $standaloneView->render();
     }
+
 
 
     /**

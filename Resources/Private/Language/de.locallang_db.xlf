@@ -10,10 +10,12 @@
                 <target>FE Register: Verschlüsselte Daten (Datenschutz)</target>
             </trans-unit>
 
+
             <!-- tx_feregister_domain_model_registration -->
             <trans-unit id="tx_feregister_domain_model_optin">
                 <source>FE Register: Opt-In</source>
             </trans-unit>
+
 
             <!-- tx_feregister_domain_model_frontenduser -->
             <trans-unit id="tx_feregister_domain_model_frontenduser">
@@ -68,6 +70,10 @@
                 <source>Language Key</source>
                 <target>Sprach-Code (z.B. für E-Mails an den Nutzenden)</target>
             </trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.title">
+				<source>Title (overridden)</source>
+				<target>Titel (wird überschrieben)</target>
+			</trans-unit>
             <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_title">
                 <source>Title</source>
                 <target>Titel</target>
@@ -80,23 +86,22 @@
 				<source>Consents given</source>
 				<target>Getätigte Einwilligungen</target>
 			</trans-unit>
-			<trans-unit id="tx_feregister_domain_model_frontenduser.title">
-				<source>Title (overridden)</source>
-				<target>Titel (wird überschrieben)</target>
-			</trans-unit>
-			<trans-unit id="tx_feregister_domain_model_frontenduser.consent_privacy">
+			<trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_consent_privacy">
 				<source>Consent to Privacy policy</source>
 				<target>Einwilligung zur Datenschutzerklärung erteilt</target>
 			</trans-unit>
-			<trans-unit id="tx_feregister_domain_model_frontenduser.consent_terms">
+			<trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_consent_terms">
 				<source>Consent to Terms of Use given</source>
 				<target>Einwilligung zu Nutzungsbedingungen erteilt</target>
 			</trans-unit>
-			<trans-unit id="tx_feregister_domain_model_frontenduser.consent_marketing">
+			<trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_consent_marketing">
 				<source>Consent to marketing given</source>
 				<target>Einwilligung zum Marketing erteilt</target>
 			</trans-unit>
-
+            <trans-unit id="tx_feregister_domain_model_frontenduser.tx_feregister_consent_topics">
+                <source>Selected Topics</source>
+                <target>Themenauswahl</target>
+            </trans-unit>
 
 
             <!-- tx_feregister_domain_model_frontendusergroup -->
@@ -211,6 +216,10 @@
 				<source>Consent to marketing given</source>
 				<target>Einwilligung zum Marketing erteilt</target>
 			</trans-unit>
+            <trans-unit id="tx_feregister_domain_model_consent.consent_topics">
+                <source>Selected Topics</source>
+                <target>Themenauswahl</target>
+            </trans-unit>
 			<trans-unit id="tx_feregister_domain_model_consent.sub_type">
 				<source>Sub-Type</source>
 				<target>Unter-Typ</target>

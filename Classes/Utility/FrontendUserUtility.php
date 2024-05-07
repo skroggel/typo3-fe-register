@@ -15,7 +15,9 @@ namespace Madj2k\FeRegister\Utility;
  */
 
 use Madj2k\CoreExtended\Utility\GeneralUtility;
+use Madj2k\FeRegister\Domain\Model\Category;
 use Madj2k\FeRegister\Domain\Model\FrontendUser;
+use Madj2k\FeRegister\Domain\Repository\CategoryRepository;
 use Madj2k\FeRegister\Domain\Repository\FrontendUserRepository;
 use TYPO3\CMS\Core\Crypto\PasswordHashing\InvalidPasswordHashException;
 use TYPO3\CMS\Core\Crypto\PasswordHashing\PasswordHashFactory;
@@ -241,6 +243,7 @@ class FrontendUserUtility
      * @param \Madj2k\FeRegister\Domain\Model\FrontendUser|null $frontendUser
      * @return array
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     * @throws \TYPO3\CMS\Extbase\Object\Exception
      */
     public static function getMandatoryFields(FrontendUser $frontendUser = null): array
     {

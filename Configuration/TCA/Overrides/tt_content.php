@@ -52,6 +52,12 @@ call_user_func(
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
             $extKey,
+            'UserTopics',
+            'FE Register: FrontendUser Themen'
+        );
+
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+            $extKey,
             'Group',
             'FE Register: FrontendUserGroup'
         );

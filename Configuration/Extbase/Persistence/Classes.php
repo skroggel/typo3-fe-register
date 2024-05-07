@@ -5,6 +5,9 @@ return [
     \Madj2k\FeRegister\Domain\Model\BackendUser::class => [
         'tableName' => 'be_users',
     ],
+    \Madj2k\FeRegister\Domain\Model\Category::class => [
+        'tableName' => 'sys_category',
+    ],
     \Madj2k\FeRegister\Domain\Model\FrontendUser::class => [
         'tableName' => 'fe_users',
         'recordType' => 0,
