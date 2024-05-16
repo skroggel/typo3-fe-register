@@ -553,6 +553,12 @@ class FrontendUserController extends AbstractController
     {
         // for logged-in users only!
         $this->redirectIfUserNotLoggedIn();
+
+        $this->view->assignMultiple(
+            [
+                'frontendUser'  => $this->getFrontendUser(),
+            ]
+        );
     }
 
 
@@ -579,7 +585,7 @@ class FrontendUserController extends AbstractController
 
         $this->addFlashMessage(
             LocalizationUtility::translate(
-                'frontendUserController.message.updateSuccessful',
+                'frontendUserController.message.updateTopicsSuccessful',
                 'fe_register'
             )
         );
