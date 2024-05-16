@@ -14,10 +14,13 @@ namespace Madj2k\FeRegister\Validation;
  * The TYPO3 project - inspiring people to share!
  */
 
+use Madj2k\CoreExtended\Utility\GeneralUtility;
 use Madj2k\FeRegister\Domain\Model\FrontendUser;
 use Madj2k\FeRegister\Utility\FrontendUserSessionUtility;
 use Madj2k\FeRegister\Utility\FrontendUserUtility;
 use TYPO3\CMS\Extbase\Error\Error;
+use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
@@ -31,6 +34,13 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
  */
 class FrontendUserValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator
 {
+
+    /**
+     * @var \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder
+     * @TYPO3\CMS\Extbase\Annotation\Inject
+     */
+    protected ?UriBuilder $uriBuilder = null;
+
 
     /**
      * @var \Madj2k\FeRegister\Domain\Model\FrontendUser|null
@@ -47,7 +57,22 @@ class FrontendUserValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abst
     /**
      * @var array
      */
-    protected array$requiredFields = [];
+    protected array $requiredFields = [];
+
+
+    /**
+     * @var array
+     */
+    protected array $settings = [];
+
+
+    /**
+     * @param \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder
+     * @return void
+     */
+    public function injectUriBuilder(UriBuilder $uriBuilder): void {
+        $this->uriBuilder = $uriBuilder;
+    }
 
 
     /**
@@ -56,7 +81,7 @@ class FrontendUserValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abst
      * @return boolean
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
      * @throws \TYPO3\CMS\Core\Context\Exception\AspectNotFoundException
-     * @throws \TYPO3\CMS\Core\Context\Exception\AspectNotFoundException
+     * @throws \TYPO3\CMS\Extbase\Object\Exception
      * @var \Madj2k\FeRegister\Domain\Model\FrontendUser $value
      */
     public function isValid($value): bool
@@ -65,6 +90,9 @@ class FrontendUserValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abst
 
         // get required fields of user
         $this->requiredFields = FrontendUserUtility::getMandatoryFields($this->frontendUser);
+
+        $settings = GeneralUtility::getTypoScriptConfiguration('Feregister');
+        $this->settings = $settings;
 
         // is username unique?
         $this->checkUsername();
@@ -90,14 +118,24 @@ class FrontendUserValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abst
      */
     protected function checkUsername()
     {
+
         // we have to take the email from the form because the username is never asked for in forms
         if (! FrontendUserUtility::isUsernameUnique($this->frontendUser->getEmail(), FrontendUserSessionUtility::getLoggedInUser())) {
+
+            // generate link
+            $url = $this->uriBuilder->reset()
+                ->setTargetPageUid($this->settings['loginPid'])
+                ->build();
+
             $this->result->forProperty('email')->addError(
                 new Error(
-                    LocalizationUtility::translate(
-                        'frontendUserValidator.error.usernameExists',
-                        'fe_register'
-                    ), 1628688993
+                    sprintf(
+                        LocalizationUtility::translate(
+                            'frontendUserValidator.error.usernameExists',
+                            'fe_register'
+                        ), $url
+                    ),
+                    1628688993
                 )
             );
             $this->isValid = false;

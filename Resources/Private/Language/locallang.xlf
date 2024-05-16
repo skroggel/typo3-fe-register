@@ -217,7 +217,7 @@
 
 
 			<trans-unit id="frontendUserValidator.error.usernameExists">
-				<source>A login already exists with this email address. Have you possibly registered before?</source>
+         <source><![CDATA[A login already exists with this email address. Have you possibly registered before? You can login <a href="%s">here</a>.]]></source>
 			</trans-unit>
 
 			<!-- Abstract Controller -->
@@ -281,6 +281,9 @@
 			<trans-unit id="frontendUserController.message.updateSuccessful">
 				<source>Woohoo! Your profile data has been updated.</source>
 			</trans-unit>
+			<trans-unit id="frontendUserController.message.updateTopicsSuccessful">
+                <source>Woohoo! Your main topics have been successfully updated.</source>
+            </trans-unit>
 			<trans-unit id="frontendUserController.message.deletedSuccessful">
 				<source>It is a pity that you are leaving us. Your profile has been successfully deleted, but of course we would be happy if you still visit us from time to time.</source>
 			</trans-unit>
