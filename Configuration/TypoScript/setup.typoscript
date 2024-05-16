@@ -386,6 +386,7 @@ plugin.tx_feregister_userdelete < plugin.tx_feregister
 plugin.tx_feregister_group < plugin.tx_feregister
 plugin.tx_feregister_groupoptin < plugin.tx_feregister
 plugin.tx_feregister_info < plugin.tx_feregister
+plugin.tx_feregister_usertopics < plugin.tx_feregister
 
 
 // for cronjob

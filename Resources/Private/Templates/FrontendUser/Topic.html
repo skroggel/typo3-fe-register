@@ -10,12 +10,12 @@
 
         <f:form action="topicUpdate" name="frontendUser" object="{frontendUser}" class="form-fields">
 
-            <feRegister:topic />
+            <feRegister:topicList />
 
             <div class="btn-list btn-list--footer">
-                <f:link.action pageUid="{settings.welcomePid}" action="index" class="btn btn--secondary">
+                <f:link.page pageUid="{settings.welcomePid}" class="btn btn--secondary">
                     <f:translate key="templates_frontendUser_topic.labelBack"/>
-                </f:link.action>
+                </f:link.page>
 
                 <button type="submit" class="btn btn--primary">
                     <f:translate key="templates_frontendUser_topic.labelSave" />

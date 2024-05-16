@@ -126,3 +126,13 @@ routeEnhancers:
       - routePath: '/fe-register/logininfo'
         _controller: 'Info::loginInfo'
     defaultController: 'Info::index'
+
+  FeRegister8:
+    type: Extbase
+    namespace: 'tx_feregister_usertopics'
+    routes:
+      - routePath: '/fe-register/topics'
+        _controller: 'FrontendUser::topic'
+      - routePath: '/fe-register/topicsUpdate'
+        _controller: 'FrontendUser::topicUpdate'
+    defaultController: 'FrontendUser::topic'
