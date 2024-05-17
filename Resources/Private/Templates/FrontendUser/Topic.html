@@ -9,8 +9,16 @@
         <f:render partial="FormErrors" arguments="{for:frontendUser}"/>
 
         <f:form action="topicUpdate" name="frontendUser" object="{frontendUser}" class="form-fields">
-
-            <feRegister:topicList />
+            <f:if condition="{frontendUser.txFeregisterConsentMarketing}">
+                <f:then>
+                    <feRegister:topicList />
+                    <p><f:translate key="templates_frontendUser_topic.activeMarketingConsent"/></p>
+                    <f:render partial="FrontendUser/SingleFields/MarketingConsentField" arguments="{settings: settings}" />
+                </f:then>
+                <f:else>                    
+                    <feRegister:consent type="marketing" />
+                </f:else>
+            </f:if>
 
             <div class="btn-list btn-list--footer">
                 <f:link.page pageUid="{settings.welcomePid}" class="btn btn--secondary">
