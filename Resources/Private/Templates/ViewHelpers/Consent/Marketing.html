@@ -19,7 +19,7 @@
             />
             
             <label for="{namespace}-{type}-{randomKey}" 
-                   class="checkbox-label {f:if(condition:'{settings.consent.topics.enable}', then:'js-open-mdl')}"
+                   class="checkbox-label {f:if(condition:'{settings.consent.topics.enable} && !{disableTopicModal}', then:'js-open-mdl')}"
                    data-modal="{namespace}-{type}-{randomKey}-modal">
                 <span class="text-smaller">
                     <f:format.raw>
@@ -29,7 +29,7 @@
             </label>
         </div>
 
-        <f:if condition="{settings.consent.topics.enable}">
+        <f:if condition="{settings.consent.topics.enable} && !{disableTopicModal}">
             <div id="{namespace}-{type}-{randomKey}-modal" class="mdl">
                 <div class="mdl__inner">
                     <header class="mdl__header">

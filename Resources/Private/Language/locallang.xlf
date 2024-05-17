@@ -296,6 +296,9 @@
 			<trans-unit id="frontendUserController.warning.showIntroduction">
 				<source>Please note that all your data will be deleted. Do you really want to delete your profile?</source>
 			</trans-unit>
+            <trans-unit id="frontendUserController.warning.activateMarketingConsent">
+                <source>We need your consent so that we can send you information on our products tailored to your areas of interest.</source>
+            </trans-unit>
 			<trans-unit id="frontendUserController.error.registrationError">
 				<source>Oops, something must have gone wrong. Have you perhaps already confirmed your registration?</source>
 			</trans-unit>
@@ -443,6 +446,9 @@
             </trans-unit>
             <trans-unit id="templates_frontendUser_topic.labelBack">
                 <source>Back</source>
+            </trans-unit>
+            <trans-unit id="templates_frontendUser_topic.activeMarketingConsent">
+                <source>You have already given us your consent so that we can send you information on our products tailored to your areas of interest:</source>
             </trans-unit>
 
 

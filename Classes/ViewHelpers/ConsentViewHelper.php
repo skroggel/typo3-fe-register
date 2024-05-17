@@ -15,6 +15,7 @@ namespace Madj2k\FeRegister\ViewHelpers;
  * The TYPO3 project - inspiring people to share!
  */
 
+use Madj2k\FeRegister\Domain\Model\FrontendUser;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use Madj2k\CoreExtended\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
@@ -67,6 +68,7 @@ class ConsentViewHelper extends AbstractViewHelper
         $this->registerArgument('subType', 'string', 'The subtype of the consent', false, '');
         $this->registerArgument('companyName', 'string', 'The name of the company. This is inserted into the texts.', false, '');
         $this->registerArgument('companyEmail', 'string', 'The email of the company for revocation of consent. This is inserted into the texts.', false, '');
+        $this->registerArgument('disableTopicModal', 'bool', 'If set to true the topic modal is disabled.', false, false);
 
     }
 
@@ -76,7 +78,6 @@ class ConsentViewHelper extends AbstractViewHelper
      * (not a partial because this is more complicated to use it universally in several extensions)
      *
      * @return string
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException
      * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
      * @throws \Exception
@@ -106,7 +107,10 @@ class ConsentViewHelper extends AbstractViewHelper
             $companyEmail = $settings['settings']['consent']['companyEmail'];
         }
 
+        /** @var array $formData */
         $formData = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP(self::NAMESPACE);
+
+        /** @var bool $checked */
         $checked = (bool) $formData[$type]['confirmed'];
 
         /** @var int $pageUid */
@@ -142,6 +146,7 @@ class ConsentViewHelper extends AbstractViewHelper
                 'companyName' => $companyName,
                 'companyEmail' => $companyEmail,
                 'randomKey' => GeneralUtility::getUniqueRandomString(),
+                'disableTopicModal' => (bool) $this->arguments['disableTopicModal'],
                 'settings' => $settings['settings'] ?? []
             ]
         );
