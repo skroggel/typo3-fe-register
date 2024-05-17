@@ -22,15 +22,18 @@ use Madj2k\FeRegister\Domain\Repository\CategoryRepository;
 use Madj2k\FeRegister\Domain\Repository\ConsentRepository;
 use Madj2k\FeRegister\Domain\Repository\FrontendUserRepository;
 use Madj2k\FeRegister\Utility\ClientUtility;
+use Madj2k\FeRegister\Utility\FrontendUserSessionUtility;
 use Madj2k\FeRegister\ViewHelpers\ConsentViewHelper;
 use Madj2k\FeRegister\ViewHelpers\TopicCheckboxViewHelper;
 use Madj2k\FeRegister\ViewHelpers\TopicViewHelper;
+use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * Class Privacy
@@ -69,6 +72,7 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      * @throws \TYPO3\CMS\Extbase\Object\Exception
+     * @throws \TYPO3\CMS\Core\Context\Exception\AspectNotFoundException
      */
     protected static function setObject(
         Request $request,
@@ -146,7 +150,6 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
         // set reference object and maybe override it
         self::setReference($consent, $referenceObject);
 
-
         // if we have an optIn here, we can differentiate between the optIn and it's approval
         if ($referenceObject instanceof OptIn) {
 
@@ -180,6 +183,12 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
                         $frontendUser->setTxFeregisterConsentMarketing($consentParent->getConsentMarketing());
                     }
                     if ($consentParent->getConsentTopics()) {
+
+                        // if user is logged in, reset selection because in that case the selected topics have been shown in frontend
+                        if (FrontendUserSessionUtility::isUserLoggedIn($frontendUser)) {
+                            $frontendUser->setTxFeregisterConsentTopics(GeneralUtility::makeInstance(ObjectStorage::class));
+                        }
+
                         /** @var \Madj2k\FeRegister\Domain\Model\Category  $category */
                         foreach ($consentParent->getConsentTopics() as $category) {
                             $frontendUser->addTxFeregisterConsentTopics($category);
@@ -219,6 +228,12 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
                 $frontendUser->setTxFeregisterConsentMarketing($consent->getConsentMarketing());
             }
             if ($consent->getConsentTopics()) {
+
+                // if user is logged in, reset selection because in that case the selected topics have been shown in frontend
+                if (FrontendUserSessionUtility::isUserLoggedIn($frontendUser)) {
+                    $frontendUser->setTxFeregisterConsentTopics(GeneralUtility::makeInstance(ObjectStorage::class));
+                }
+
                 /** @var \Madj2k\FeRegister\Domain\Model\Category  $category */
                 foreach ($consent->getConsentTopics() as $category) {
                     $frontendUser->addTxFeregisterConsentTopics($category);
