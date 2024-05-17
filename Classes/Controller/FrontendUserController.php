@@ -554,6 +554,18 @@ class FrontendUserController extends AbstractController
         // for logged-in users only!
         $this->redirectIfUserNotLoggedIn();
 
+        $frontendUser = $this->getFrontendUser();
+        if (! $frontendUser->getTxFeregisterConsentMarketing()) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate(
+                    'frontendUserController.warning.activateMarketingConsent',
+                    'fe_register'
+                ),
+                '',
+                AbstractMessage::WARNING
+            );
+        }
+
         $this->view->assignMultiple(
             [
                 'frontendUser'  => $this->getFrontendUser(),
@@ -571,16 +583,19 @@ class FrontendUserController extends AbstractController
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
+     * @throws \TYPO3\CMS\Extbase\Object\Exception
      */
     public function topicUpdateAction(FrontendUser $frontendUser): void
     {
+
+        $this->frontendUserRepository->update($frontendUser);
 
         // add privacy info
         \Madj2k\FeRegister\DataProtection\ConsentHandler::add(
             $this->request,
             $frontendUser,
             null,
-            'Change in topics'
+            'Change in topics for marketing'
         );
 
         $this->addFlashMessage(

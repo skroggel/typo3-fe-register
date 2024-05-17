@@ -1,0 +1,23 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:feRegister="http://typo3.org/ns/Madj2k/FeRegister/ViewHelpers"
+    data-namespace-typo3-fluid="true">
+
+    <div class="form__field">
+        <f:form.checkbox
+            class="checkbox"
+            id="tx-feregister-content-marketing"
+            property="txFeregisterConsentMarketing"
+            value="1"
+        />
+    
+        <label for="tx-feregister-content-marketing"
+               class="checkbox-label">
+            <span class="text-smaller">
+                <f:format.raw>
+                    <f:translate key="templates_viewHelpers_consent_marketing.default"
+                                 arguments="{0: settings.consent.companyName, 1: settings.consent.companyEmail}" />
+                </f:format.raw>
+            </span>
+        </label>
+    </div>
+</html>

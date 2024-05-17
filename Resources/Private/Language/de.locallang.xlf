@@ -374,10 +374,15 @@
                 <source>Please note that all your data will be deleted. Do you really want to delete your profile?</source>
                 <target>Bitte beachten Sie, dass alle Ihre Daten gelöscht werden. Möchten Sie Ihr Profil wirklich löschen?</target>
             </trans-unit>
+            <trans-unit id="frontendUserController.warning.activateMarketingConsent">
+                <source>We need your consent so that we can send you information on our products tailored to your areas of interest.</source>
+                <target>Damit wir Ihnen auf Ihre Interessensschwerpunkte zugeschnittene Informationen zu unseren Produkten zusenden dürfen, benötigen wir Ihre Einwilligung.</target>
+            </trans-unit>
             <trans-unit id="frontendUserController.error.registrationError">
                 <source>Oops, something must have gone wrong. Have you perhaps already confirmed your registration?</source>
                 <target>Upps, da ist wohl etwas schief gelaufen. Haben Sie Ihre Registrierung vielleicht schon bestätigt?</target>
             </trans-unit>
+
 
 
             <!-- FrontendUserGroupController -->
@@ -569,7 +574,10 @@
                 <source>Back</source>
                 <target>Zurück</target>
             </trans-unit>
-
+            <trans-unit id="templates_frontendUser_topic.activeMarketingConsent">
+                <source>You have already given us your consent so that we can send you information on our products tailored to your areas of interest:</source>
+                <target>Damit wir Ihnen auf Ihre Interessensschwerpunkte zugeschnittene Informationen zu unseren Produkten zusenden dürfen, haben Sie uns bereits Ihre Einwilligung erteilt:</target>
+            </trans-unit>
 
 			<!-- Templates/FrontendUser/Welcome.html -->
 			<trans-unit id="templates_frontendUser_welcome.headline">
