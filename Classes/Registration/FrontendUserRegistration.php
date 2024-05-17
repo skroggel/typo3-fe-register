@@ -155,7 +155,7 @@ class FrontendUserRegistration extends AbstractRegistration
      *          301 = denied by admin
      *          302 = denied by user
      *          399 = denied, already deleted
-     *          999 = Not found
+     *          999 = Not found / Error
      * @throws Exception
      * @throws \TYPO3\CMS\Core\Crypto\PasswordHashing\InvalidPasswordHashException
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
@@ -180,7 +180,7 @@ class FrontendUserRegistration extends AbstractRegistration
             && ($frontendUserPersisted = $this->getFrontendUserPersisted())
         ) {
 
-            $result = $this->checkIfOptInAlreadyDone($optInPersisted, $frontendUserPersisted);
+            $result = $this->checkIfOptInAlreadyDone($optInPersisted, $frontendUserPersisted, $token);
             if ($result > 0) {
                 return $result;
             }
@@ -213,11 +213,13 @@ class FrontendUserRegistration extends AbstractRegistration
      *
      * @param \Madj2k\FeRegister\Domain\Model\OptIn $optInPersisted
      * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUserPersisted
+     * @param string $token
      * @return int
      */
-    protected function checkIfOptInAlreadyDone(OptIn $optInPersisted, FrontendUser $frontendUserPersisted): int
+    protected function checkIfOptInAlreadyDone(OptIn $optInPersisted, FrontendUser $frontendUserPersisted, string $token): int
     {
-        // check if optIn has already been denied
+
+        // check if optIn has already been denied (and deleted - because denied is always deleted)
         if ($optInPersisted->getApproved() == -1) {
             $this->getLogger()->log(
                 LogLevel::WARNING, sprintf(
@@ -238,7 +240,8 @@ class FrontendUserRegistration extends AbstractRegistration
             return 301;
         }
 
-        // check if already processed finally?
+
+        // check if already processed finally after positive decision
         // Then return the status from the former decision process
         if ($optInPersisted->getDeleted()) {
 
@@ -249,15 +252,34 @@ class FrontendUserRegistration extends AbstractRegistration
                 )
             );
 
+            // handling mismatch between current status and clicked linked
+            // e.g. if it has been approved BUT someone clicks a decline-link afterwards
+            if (
+                (
+                    ($optInPersisted->getApproved() == 1)
+                    && ($token == $optInPersisted->getTokenNo())
+                )||
+                (
+                    ($optInPersisted->getAdminApproved() == 1)
+                    && ($token == $optInPersisted->getAdminTokenNo())
+                )
+            ) {
+                return 999;
+            }
+
+            // return old status
             if (
                 ($optInPersisted->getApproved() == 1)
-                && (($optInPersisted->getAdminApproved() == 1))
+                && ($optInPersisted->getAdminApproved() == 1)
             ) {
                 return 299;
             }
 
             return 399;
         }
+
+
+
 
         return 0;
     }

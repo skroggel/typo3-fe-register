@@ -2439,7 +2439,7 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
      * @test
      * @throws \Exception
      */
-    public function validateOptInReturns399IfMatchingTokenYesOnDeleted ()
+    public function validateOptInReturns299IfMatchingTokenYesOnDeleted ()
     {
         /**
          * Scenario:
@@ -2464,6 +2464,40 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
         $this->fixture->setRequest(GeneralUtility::makeInstance(Request::class));
 
         self::assertEquals(399, $this->fixture->validateOptIn('test_yes'));
+        self::assertEquals(0, $this->consentRepository->countAll());
+    }
+
+
+    /**
+     * @test
+     * @throws \Exception
+     */
+    public function validateOptInReturns999IfMatchingTokenNoOnApprovedDeleted ()
+    {
+        /**
+         * Scenario:
+         *
+         * Given a persisted frontendUser-object
+         * Given this object has a valid value for the email-property set
+         * Given a persisted optIn-object
+         * Given this object has a valid tokenUser-property
+         * Given this object has a valid tokenYes-property
+         * Given this object has a valid tokenNo-property
+         * Given this object has been approved
+         * Given this object is deleted
+         * Given a request-object is set
+         * Given the frontendUserId-property refers to the frontendUser-object
+         * Given setFrontendUserToken has been called before with the valid tokenUser-value as parameter
+         * When the method is called with the valid tokenYes-value as parameter
+         * Then 999 is returned
+         * Then no privacy-object is created
+         */
+        $this->importDataSet(self::FIXTURE_PATH .'/Database/Check230.xml');
+
+        $this->fixture->setFrontendUserToken('test');
+        $this->fixture->setRequest(GeneralUtility::makeInstance(Request::class));
+
+        self::assertEquals(999, $this->fixture->validateOptIn('test_no'));
         self::assertEquals(0, $this->consentRepository->countAll());
     }
 
@@ -2912,7 +2946,7 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
          * Given the frontendUserId-property refers to the frontendUser-object
          * Given setFrontendUserToken has been called before with the valid tokenUser-value as parameter
          * When the method is called with the valid tokenNo-value as parameter
-         * Then 300 is returned
+         * Then 301 is returned
          * Then no privacy-object is created
          * Then the approved-property of the optIn-object is still zero
          */
@@ -3035,10 +3069,11 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
         self::assertEquals(0, $this->consentRepository->countAll());
     }
 
+
     #==============================================================================
 
     /**
-     * @test
+     * Not relevant any more
      * @throws \Exception
      */
     public function completeRegistrationThrowsExceptionIfNoFrontendUserPersisted ()
