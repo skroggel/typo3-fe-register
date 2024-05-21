@@ -1,0 +1,54 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:feRegister="http://typo3.org/ns/Madj2k/FeRegister/ViewHelpers"
+      xmlns:postmaster="http://typo3.org/ns/Madj2k/Postmaster/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+    <f:layout name="Email/{mailType}" />
+
+
+    <!-- PLAINTEXT -->
+    <f:section name="Plaintext"><postmaster:email.plaintextLineBreaks>
+        <postmaster:email.recipientSalutation queueRecipient="{queueRecipient}"
+               prependText="{postmaster:email.translate(key:'templates_email_optinUpdate.headline', languageKey:'{queueRecipient.languageCode}', extensionName:'feRegister')}, "
+               appendText="!"
+               fallbackText="{postmaster:email.translate(key:'templates_email_optinUpdate.headline', languageKey:'{queueRecipient.languageCode}', extensionName:'feRegister')}!"
+        />\n\n
+
+        <postmaster:email.translate key="templates_email_optinUpdate.text1" languageKey="{queueRecipient.languageCode}" extensionName="feRegister" />\n\n
+
+        <postmaster:email.translate key="templates_email_optinUpdate.textOptIn" languageKey="{queueRecipient.languageCode}" extensionName="feRegister" />\n
+        <postmaster:email.uri.action action="optIn" controller="FrontendUser" extensionName="feRegister" pluginName="auth"
+             absolute="true" noCacheHash="true" pageUid="{settings.loginPid}"
+             additionalParams="{tx_feregister_auth: {token: tokenYes, user: tokenUser}}"/>
+        
+        <f:if condition="{tokenNo}">\n\n
+            <postmaster:email.translate key="templates_email_optinUpdate.textOptOut" languageKey="{queueRecipient.languageCode}" extensionName="feRegister" arguments="{0: settings.users.daysForOptIn}" />\n
+            <postmaster:email.uri.action action="optIn" controller="FrontendUser" extensionName="feRegister" pluginName="auth"
+                 absolute="true" noCacheHash="true" pageUid="{settings.loginPid}"
+                 additionalParams="{tx_feregister_auth: {token: tokenNo, user: tokenUser}}" />
+        </f:if>
+    </postmaster:email.plaintextLineBreaks></f:section>
+
+
+    <!-- HTML -->
+    <f:section name="Html">
+        <h1>
+            <postmaster:email.recipientSalutation queueRecipient="{queueRecipient}"
+               prependText="{postmaster:email.translate(key:'templates_email_optinUpdate.headline', languageKey:'{queueRecipient.languageCode}', extensionName:'feRegister')}, "
+               appendText="!"
+               fallbackText="{postmaster:email.translate(key:'templates_email_optinUpdate.headline', languageKey:'{queueRecipient.languageCode}', extensionName:'feRegister')}!"
+            />
+        </h1>
+        <p><postmaster:email.translate key="templates_email_optinUpdate.text1" languageKey="{queueRecipient.languageCode}" extensionName="feRegister" /></p>
+        <p>
+            <postmaster:email.translate key="templates_email_optinUpdate.textOptIn" languageKey="{queueRecipient.languageCode}" extensionName="feRegister"/><br>
+            <a href="<postmaster:email.uri.action action='optIn' controller='FrontendUser' extensionName='feRegister' pluginName='auth' absolute='true' noCacheHash='true' pageUid='{settings.loginPid}' additionalParams='{tx_feregister_auth: {token: tokenYes, user: tokenUser}}' />"><postmaster:email.translate key="templates_email_optinUpdate.textOptInLinkLabel" languageKey="{queueRecipient.languageCode}" extensionName="feRegister"/></a>
+        </p>
+        <f:if condition="{tokenNo}">
+            <p>
+                <postmaster:email.translate key="templates_email_optinUpdate.textOptOut" languageKey="{queueRecipient.languageCode}" extensionName="feRegister" arguments="{0: settings.users.daysForOptIn}" /><br>
+                <a href="<postmaster:email.uri.action action='optIn' controller='FrontendUser' extensionName='feRegister' pluginName='auth' absolute='true' noCacheHash='true' pageUid='{settings.loginPid}' additionalParams='{tx_feregister_auth: {token: tokenNo, user: tokenUser}}'  />"><postmaster:email.translate key="templates_email_optinUpdate.textOptOutLinkLabel" languageKey="{queueRecipient.languageCode}" extensionName="feRegister"/></a>
+            </p>
+        </f:if>
+    </f:section>
+</html>

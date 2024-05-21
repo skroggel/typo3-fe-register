@@ -22,7 +22,7 @@ use Madj2k\FeRegister\Utility\FrontendUserSessionUtility;
 use Madj2k\FeRegister\Utility\FrontendUserUtility;
 use Madj2k\FeRegister\Utility\PasswordUtility;
 use TYPO3\CMS\Core\Log\LogLevel;
-use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+
 
 /**
  * FrontendUserRegistration
@@ -71,6 +71,8 @@ class FrontendUserRegistration extends AbstractRegistration
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\NotImplementedException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\TooDirtyException
+     * @throws \TYPO3\CMS\Extbase\Object\Exception
      * @api
      */
     public function startRegistration(): bool
@@ -87,24 +89,25 @@ class FrontendUserRegistration extends AbstractRegistration
         if ($frontendUserPersisted = $this->getFrontendUserPersisted()) {
 
             // add opt in - but only if additional data is set!
-            if ($this->getData()) {
-
-                $this->createOptIn();
-
-                $this->getLogger()->log(
-                    LogLevel::INFO,
-                    sprintf(
-                        'Opt-in for existing user "%s" successfully generated (id=%s, category=%s).',
-                        strtolower($frontendUserPersisted->getUsername()),
-                        $frontendUserPersisted->getUid(),
-                        $this->getCategory()
-                    )
-                );
-
-                return true;
+            // otherwise do update of data!
+            if (! $this->getData()) {
+                $this->setFrontendUserOptInUpdate($frontendUser);
             }
 
-            return false;
+            $this->createOptIn();
+
+            $this->getLogger()->log(
+                LogLevel::INFO,
+                sprintf(
+                    'Opt-in for existing user "%s" successfully generated (id=%s, category=%s).',
+                    strtolower($frontendUserPersisted->getUsername()),
+                    $frontendUserPersisted->getUid(),
+                    $this->getCategory()
+                )
+            );
+
+            return true;
+
         }
 
         // check if a user is logged in. In this case no registration is possible!
@@ -150,6 +153,7 @@ class FrontendUserRegistration extends AbstractRegistration
      *          200 = confirmed
      *          201 = confirmed, approval by admin pending
      *          202 = confirmed, approval by user pending
+     *          210 = confirmed, updated frontendUser
      *          299 = confirmed, already deleted
      *          300 = denied
      *          301 = denied by admin
@@ -166,6 +170,7 @@ class FrontendUserRegistration extends AbstractRegistration
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\NotImplementedException
      * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
      * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
+     * @throws \TYPO3\CMS\Extbase\Object\Exception
      * @api
      */
     public function validateOptIn(string $token): int
@@ -372,18 +377,23 @@ class FrontendUserRegistration extends AbstractRegistration
 
             // else: update frontendUser according to stored data
             // now that we have a valid optIn it is safe to persist the form-data in the frontendUser-object
-            foreach ($optInPersisted->getFrontendUserUpdate() as $property => $value) {
+            $updatedUser = false;
+            if ($optInPersisted->getFrontendUserUpdate()) {
+                $updatedUser = true;
 
-                $setter = 'set' . ucfirst($property);
-                if (method_exists($frontendUserPersisted, $setter)) {
-                    $frontendUserPersisted->$setter($value);
+                foreach ($optInPersisted->getFrontendUserUpdate() as $property => $value) {
 
-                    $this->getLogger()->log(
-                        LogLevel::INFO, sprintf(
-                            'Updating field %s in frontendUser.',
-                            $property
-                        )
-                    );
+                    $setter = 'set' . ucfirst($property);
+                    if (method_exists($frontendUserPersisted, $setter)) {
+                        $frontendUserPersisted->$setter($value);
+
+                        $this->getLogger()->log(
+                            LogLevel::INFO, sprintf(
+                                'Updating field %s in frontendUser.',
+                                $property
+                            )
+                        );
+                    }
                 }
             }
 
@@ -425,7 +435,7 @@ class FrontendUserRegistration extends AbstractRegistration
                 )
             );
 
-            return 200;
+            return ($updatedUser? 210 : 200);
         }
 
         return 0;

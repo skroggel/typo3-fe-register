@@ -208,7 +208,7 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function getFrontendUserUpdate(): array
     {
         if ($this->frontendUserUpdate) {
-            return unserialize($this->frontendUserUpdate);
+            return (unserialize($this->frontendUserUpdate) ?? []);
         }
 
         return [];

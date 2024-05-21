@@ -2158,7 +2158,7 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
      * @test
      * @throws \Exception
      */
-    public function startRegistrationCreatesNoOptInForExistingUser ()
+    public function startRegistrationCreatesOptInForExistingUserForUpdate ()
     {
         /**
          * Scenario:
@@ -2168,8 +2168,9 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
          * Given setFrontendUser has been called with this frontendUser-object as parameter
          * Given no additional data is set
          * When the method is called
-         * Then false is returned
-         * Then no optIn is created
+         * Then true is returned
+         * Then a optIn is created
+         * Then this optIn has the frontendUserUpdate-property set
          */
 
         $this->importDataSet(self::FIXTURE_PATH .'/Database/Check10.xml');
@@ -2179,8 +2180,12 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
 
         $this->fixture->setFrontendUser($frontendUser);
 
-        self::assertFalse($this->fixture->startRegistration());
-        self::assertEquals(0, $this->optInRepository->countAll());
+        self::assertTrue($this->fixture->startRegistration());
+
+        $optIns = $this->optInRepository->findAll()->toArray();
+        self::assertCount(1, $optIns);
+        self::assertGreaterThan(0, count($optIns[0]->getFrontendUserUpdate()));
+
 
     }
 
@@ -2698,8 +2703,6 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
          * Given this object has a valid value for the email-property set
          * Given this object is disabled
          * Given a persisted optIn-object
-         * Given this object has a valid FrontendUserOptInUpdate-property set
-         * Given that FrontendUserOptInUpdate-property contains an array with the city- and the zip-property and new values for them
          * Given this object has a valid tokenUser-property
          * Given this object has a valid tokenYes-property
          * Given this object has a valid tokenNo-property
@@ -2714,7 +2717,6 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
          * Then the optIn-object is marked as deleted
          * Then the approved-property of the optIn-object is set to 1
          * Then the frontendUser is enabled
-         * Then the zip- and the city-property of the frontendUser is update to the values of the array in the FrontendUserOptInUpdate-property
          */
         $this->importDataSet(self::FIXTURE_PATH .'/Database/Check70.xml');
 
@@ -2734,6 +2736,60 @@ class FrontendUserRegistrationTest extends FunctionalTestCase
 
         /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
         $frontendUser = $this->frontendUserRepository->findByIdentifierIncludingDisabled(70);
+        self::assertFalse($frontendUser->getDisable());
+
+    }
+
+
+    /**
+     * @test
+     * @throws \Exception
+     */
+    public function validateOptInReturns210IfMatchingTokenYesWithAdminApproval ()
+    {
+        /**
+         * Scenario:
+         *
+         * Given a persisted frontendUser-object
+         * Given this object has a valid value for the email-property set
+         * Given this object is disabled
+         * Given a persisted optIn-object
+         * Given this object has a valid FrontendUserOptInUpdate-property set
+         * Given that FrontendUserOptInUpdate-property contains an array with the city- and the zip-property and new values for them
+         * Given this object has a valid tokenUser-property
+         * Given this object has a valid tokenYes-property
+         * Given this object has a valid tokenNo-property
+         * Given this object has the adminApproved-property set to 1
+         * Given this object has the approved-property set to zero
+         * Given a request-object is set
+         * Given the frontendUserId-property refers to the frontendUser-object
+         * Given setFrontendUserToken has been called before with the valid tokenUser-value as parameter
+         * When the method is called with the valid tokenYes-value as parameter
+         * Then 200 is returned
+         * Then a privacy-object is created
+         * Then the optIn-object is marked as deleted
+         * Then the approved-property of the optIn-object is set to 1
+         * Then the frontendUser is enabled
+         * Then the zip- and the city-property of the frontendUser is updated to the values of the array in the FrontendUserOptInUpdate-property
+         */
+        $this->importDataSet(self::FIXTURE_PATH .'/Database/Check240.xml');
+
+        $this->fixture->setFrontendUserToken('test');
+        $this->fixture->setRequest(GeneralUtility::makeInstance(Request::class));
+
+        self::assertEquals(210, $this->fixture->validateOptIn('test_yes'));
+        self::assertEquals(1, $this->consentRepository->countAll());
+
+        /** @var \Madj2k\FeRegister\Domain\Model\OptIn $optIn */
+        $optIn = $this->optInRepository->findByIdentifierIncludingDeleted(240);
+        self::assertTrue($optIn->getDeleted());
+
+        /** @var \Madj2k\FeRegister\Domain\Model\OptIn $optIn */
+        $optIn = $this->optInRepository->findByIdentifierIncludingDeleted(240);
+        self::assertEquals(1,$optIn->getApproved());
+
+        /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
+        $frontendUser = $this->frontendUserRepository->findByIdentifierIncludingDisabled(240);
         self::assertFalse($frontendUser->getDisable());
 
         self::assertEquals('Herborn', $frontendUser->getCity());
