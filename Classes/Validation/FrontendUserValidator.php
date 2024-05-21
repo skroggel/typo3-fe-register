@@ -124,7 +124,7 @@ class FrontendUserValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abst
 
             // generate link
             $url = $this->uriBuilder->reset()
-                ->setTargetPageUid($this->settings['loginPid'])
+                ->setTargetPageUid(intval($this->settings['loginPid']))
                 ->build();
 
             $this->result->forProperty('email')->addError(

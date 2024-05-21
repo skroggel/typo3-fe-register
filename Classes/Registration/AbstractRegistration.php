@@ -42,6 +42,7 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Class AbstractRegistration
@@ -434,10 +435,17 @@ abstract class AbstractRegistration implements RegistrationInterface
      */
     public function setFrontendUserOptInUpdate(
         FrontendUser $frontendUser,
-        array $ignoreProperties = [
-            'uid', 'username', 'password', 'disable', 'deleted',
-            'crdate', 'tstamp', 'starttime', 'endtime', 'usergroup'
-        ]): self {
+        array $ignoreProperties = []
+    ): self {
+
+        $ignoreProperties = array_merge($ignoreProperties, [
+            'uid', 'pid', 'username', 'password', 'disable', 'deleted',
+            'crdate', 'tstamp', 'starttime', 'endtime', 'usergroup',
+            'lastlogin', 'lockToDomain', 'captchaResponse',  'txFeregisterDataProtectionStatus',
+            'txFeregisterRegisterRemoteIp', 'txFeregisterLoginErrorCount',
+            'tx_feregister_consent', 'tx_feregister_consent_privacy', 'tx_feregister_consent_terms',
+            'tx_feregister_consent_marketing', 'tx_feregister_consent_topics'
+        ]);
 
         // take array to reduce size in the database
         // remove all evil properties !!!
@@ -456,6 +464,7 @@ abstract class AbstractRegistration implements RegistrationInterface
      * @return \Madj2k\FeRegister\Domain\Model\FrontendUser|null
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\NotImplementedException
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @throws \TYPO3\CMS\Extbase\Object\Exception
      */
     public function getFrontendUserPersisted(): ?FrontendUser
     {

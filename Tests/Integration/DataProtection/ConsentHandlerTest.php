@@ -723,7 +723,7 @@ class ConsentHandlerTest extends FunctionalTestCase
      * @test
      * @throws \Exception
      */
-    public function addGivenApprovedOptInSetsConsentPropertiesOfFrontendUserIfHigherValueOnly ()
+    public function addGivenApprovedOptInSetsConsentPropertiesOfFrontendUserForHigherValueOnly ()
     {
         /**
          * Scenario:
@@ -789,6 +789,77 @@ class ConsentHandlerTest extends FunctionalTestCase
     }
 
 
+    /**
+     * @test
+     * @throws \Exception
+     */
+    public function addGivenApprovedOptInResetsConsentPropertiesOfFrontendUserForRegisterUpdate ()
+    {
+        /**
+         * Scenario:
+         *
+         * Given a persisted frontendUser-object
+         * Given that frontendUser-Object has already the txFeRegisterConsentMarketing-property set to true
+         * Given a persisted optIn-object
+         * Given this optIn-object is approved by the admins
+         * Given this optIn-object is approved by the user
+         * Given this optIn-object has no data-property set
+         * Given this optIn-object has a frontendUserUpdate-array set
+         * Given a request-object
+         * Given the _POST-superglobal has the tx_feregister[privacy][confirmed]-argument set to 1
+         * Given the _POST-superglobal has the tx_feregister[terms][confirmed]-argument set to 1
+         * Given the _POST-superglobal has the tx_feregister[marketing][confirmed]-argument set to 0
+         * Given the method has been called before with the optIn-object as referenceObject-parameter
+         * When the method is called with optIn-object as referenceObject-parameter and final-parameter equals true
+         * Then an instance of Madj2k\FeRegister\Domain\Model\Consent is returned
+         * Then txFeRegisterConsentPrivcay-property of the frontendUser is set to true
+         * Then txFeRegisterConsentTerms-property of the frontendUser is set to true
+         * Then txFeRegisterConsentMarketing-property of the frontendUser is set to false
+         */
+
+        $this->importDataSet(self::FIXTURE_PATH . '/Database/Check50.xml');
+
+        /** @var \Madj2k\FeRegister\DataProtection\ConsentHandler $consentHandler */
+        $consentHandler = $this->objectManager->get(ConsentHandler::class);
+
+        /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
+        $frontendUser = $this->frontendUserRepository->findByIdentifier(50);
+
+        /** @var \Madj2k\FeRegister\Domain\Model\OptIn $optIn */
+        $optIn = $this->optInRepository->findByIdentifier(50);
+
+        /** @var \TYPO3\CMS\Extbase\Mvc\Request $request */
+        $request = $this->objectManager->get(Request::class);
+
+        $_POST['tx_feregister']['privacy']['confirmed'] = 1;
+        $_POST['tx_feregister']['terms']['confirmed'] = 1;
+        $_POST['tx_feregister']['marketing']['confirmed'] = 0;
+
+        $consentHandler->add($request, $frontendUser, $optIn, 'hello');
+
+        // fake approval by clicking the optIn links
+        $optIn->setApproved(true);
+        $optIn->setAdminApproved(true);
+
+        $_POST = [];
+
+        /** @var \Madj2k\FeRegister\Domain\Model\Consent $result */
+        $result = $consentHandler->add($request, $frontendUser, $optIn, 'hello final');
+
+        $persistenceManager = $this->objectManager->get(PersistenceManager::class);
+        $persistenceManager->clearState();
+
+        /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
+        $frontendUser = $this->frontendUserRepository->findByIdentifier(50);
+
+        self::assertInstanceOf(Consent::class, $result);
+
+        self::assertEquals(true, $frontendUser->getTxFeregisterConsentPrivacy());
+        self::assertEquals(true, $frontendUser->getTxFeregisterConsentTerms());
+        self::assertEquals(false, $frontendUser->getTxFeregisterConsentMarketing());
+
+    }
+
 
     /**
      * @test
@@ -852,7 +923,7 @@ class ConsentHandlerTest extends FunctionalTestCase
      * @test
      * @throws \Exception
      */
-    public function addGivenNonOptInSetsConsentPropertiesOfFrontendUserIfHigherValueOnly ()
+    public function addGivenNonOptInSetsConsentPropertiesOfFrontendUserForHigherValueOnly ()
     {
         /**
          * Scenario:

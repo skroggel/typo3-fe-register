@@ -335,8 +335,8 @@
 
             <!-- FrontendUserController -->
 			<trans-unit id="frontendUserController.notice.newIntroduction">
-                <source>Register here for free.</source>
-                <target>Registrieren Sie sich hier kostenlos.</target>
+                <source>Register here free of charge or update the data of your existing account.</source>
+                <target>Registrieren Sie sich hier kostenlos oder aktualisieren Sie die Daten Ihres bestehenden Accounts.</target>
             </trans-unit>
             <trans-unit id="frontendUserController.message.loggedIn">
                 <source>You are logged in with the e-mail address "%s".</source>
@@ -365,6 +365,10 @@
             <trans-unit id="frontendUserController.message.registrationSuccessful">
                 <source><![CDATA[Woohoo! You have been successfully registered. The password for login is on its way to you by e-mail. If you do not receive an email from us within the next 2-3 minutes, please check your spam filter. Our <a href="mailto:%s">Support</a> will be happy to help you if you have any problems.]]></source>
                 <target><![CDATA[Woohoo! Sie wurden erfolgreich registriert. Das Passwort für den Login ist per E-Mail auf dem Weg zu Ihnen. Sollten Sie innerhalb der nächsten 2-3 Minuten keine E-Mail von uns erhalten, prüfen Sie bitte Ihren Spam-Filter. Unser <a href="mailto:%s">Support</a> hilft Ihnen bei Problemen gerne weiter.]]></target>
+            </trans-unit>
+            <trans-unit id="frontendUserController.message.registrationUpdateSuccessful">
+                <source><![CDATA[Woohoo! Your registration has been successfully updated. You can log in here with your known access data. If you have forgotten your password, please use the forgotten password function.]]></source>
+                <target><![CDATA[Woohoo! Ihre Registrierung wurde erfolgreich aktualisiert. Sie können sich hier mit Ihren bekannten Zugangsdaten einloggen. Sollten Sie Ihr Passwort vergessen haben, nutzen Sie bitte die Passwort-Vergessen-Funktion.]]></target>
             </trans-unit>
             <trans-unit id="frontendUserController.message.registrationCanceled">
                 <source>Too bad... Your registration was canceled.</source>
@@ -869,12 +873,39 @@
                 <target>Ja, ich möchte mich registrieren</target>
             </trans-unit>
             <trans-unit id="templates_email_optin.textOptOut">
-                <source>You have changed your mind? After %s days your data will be deleted automatically. To delete your data directly, please click on the following link:</source>
-                <target>Sie haben es sich anders überlegt? Nach %s Tagen werden Ihre Daten automatisch gelöscht. Um Ihre Daten direkt zu löschen, klicken Sie bitte auf den folgenden Link:</target>
+                <source>Have you changed your mind? After %s days the data of your request will be deleted automatically. To delete the data of your request directly, please click on the following link:</source>
+                <target>Sie haben es sich anders überlegt? Nach %s Tagen werden die Daten Ihrer Anfrage automatisch gelöscht. Um die Daten Ihrer Anfrage direkt zu löschen, klicken Sie bitte auf den folgenden Link:</target>
             </trans-unit>
             <trans-unit id="templates_email_optin.textOptOutLinkLabel">
                 <source>No, I do not want to register</source>
                 <target>Nein, ich möchte mich nicht registrieren</target>
+            </trans-unit>
+
+
+  			<!-- Templates/Email/OptInUpdate.html -->
+            <trans-unit id="templates_email_optinUpdate.headline">
+                <source>Nearly done</source>
+                <target>Fast geschafft</target>
+            </trans-unit>
+            <trans-unit id="templates_email_optinUpdate.text1">
+                <source>Thank you for updating your contact details and consents. One last click and the changes will be applied.</source>
+                <target>Vielen Dank für die Aktualisierung Ihrer Kontaktdaten und Einwilligungen. Noch ein letzter Klick und die Änderungen werden übernommen.</target>
+            </trans-unit>
+            <trans-unit id="templates_email_optinUpdate.textOptIn">
+                <source>To complete the update, please click on the following link:</source>
+                <target>Um die Aktualisierung abzuschließen, klicken Sie bitte auf den folgenden Link:</target>
+            </trans-unit>
+            <trans-unit id="templates_email_optinUpdate.textOptInLinkLabel">
+                <source>Yes, I would like to update my data</source>
+                <target>Ja, ich möchte meine Daten aktualisieren</target>
+            </trans-unit>
+            <trans-unit id="templates_email_optinUpdate.textOptOut">
+                <source>Have you changed your mind? After %s days, your update data will be deleted automatically. Your existing account will of course remain intact. To delete your update data directly, please click on the following link:</source>
+                <target>Sie haben es sich anders überlegt? Nach %s Tagen werden die Daten Ihrer Aktualisierung automatisch gelöscht. Ihr bestehender Account bleibt dabei selbstverständlich erhalten. Um die Daten Ihrer Aktualisierung direkt zu löschen, klicken Sie bitte auf den folgenden Link:</target>
+            </trans-unit>
+            <trans-unit id="templates_email_optinUpdate.textOptOutLinkLabel">
+                <source>No, I do not want to update my data</source>
+                <target>Nein, ich möchte meine Daten nicht aktualisieren</target>
             </trans-unit>
 
 
@@ -1031,6 +1062,10 @@
             <trans-unit id="mailService.optIn.subject">
                 <source>Confirm registration</source>
                 <target>Registrierung bestätigen</target>
+            </trans-unit>
+            <trans-unit id="mailService.optInUpdate.subject">
+                <source>Confirm update</source>
+                <target>Aktualisierung bestätigen</target>
             </trans-unit>
             <trans-unit id="mailService.confirmation.subject">
                 <source>Registration successfull</source>

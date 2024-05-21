@@ -217,7 +217,7 @@
 
 
 			<trans-unit id="frontendUserValidator.error.usernameExists">
-         <source><![CDATA[A login already exists with this email address. Have you possibly registered before? You can login <a href="%s">here</a>.]]></source>
+         		<source><![CDATA[A login already exists with this email address. Have you possibly registered before? You can login <a href="%s">here</a>.]]></source>
 			</trans-unit>
 
 			<!-- Abstract Controller -->
@@ -261,8 +261,8 @@
 
 			<!-- FrontendUserController -->
 			<trans-unit id="frontendUserController.notice.newIntroduction">
-				<source>Register here for free.</source>
-			</trans-unit>
+ 				<source>Register here free of charge or update the data of your existing account.</source>
+ 			</trans-unit>
 			<trans-unit id="frontendUserController.message.loggedIn">
 				<source>You are logged in with the e-mail address "%s".</source>
 			</trans-unit>
@@ -290,6 +290,9 @@
 			<trans-unit id="frontendUserController.message.registrationSuccessful">
 				<source><![CDATA[Woohoo! You have been successfully registered. The password for login is on its way to you by e-mail. If you do not receive an email from us within the next 2-3 minutes, please check your spam filter. Our <a href="mailto:%s">Support</a> will be happy to help you if you have any problems.]]></source>
 			</trans-unit>
+            <trans-unit id="frontendUserController.message.registrationUpdateSuccessful">
+                <source><![CDATA[Woohoo! Your registration has been successfully updated. You can log in here with your known access data. If you have forgotten your password, please use the forgotten password function.]]></source>
+            </trans-unit>
 			<trans-unit id="frontendUserController.message.registrationCanceled">
 				<source>Too bad... Your registration was canceled.</source>
 			</trans-unit>
@@ -676,11 +679,32 @@
 				<source>Yes, I would like to register</source>
 			</trans-unit>
 			<trans-unit id="templates_email_optin.textOptOut">
-				<source>You have changed your mind? After %s days your data will be deleted automatically. To delete your data directly, please click on the following link:</source>
+				<source>Have you changed your mind? After %s days the data of your request will be deleted automatically. An existing account will of course remain active. To delete the data of your request directly, please click on the following link:</source>
 			</trans-unit>
 			<trans-unit id="templates_email_optin.textOptOutLinkLabel">
                 <source>No, I do not want to register</source>
 			</trans-unit>
+
+
+  			<!-- Templates/Email/OptInUpdate.html -->
+            <trans-unit id="templates_email_optinUpdate.headline">
+                <source>Nearly done</source>
+            </trans-unit>
+            <trans-unit id="templates_email_optinUpdate.text1">
+                <source>Thank you for updating your contact details and consents. One last click and the changes will be applied.</source>
+            </trans-unit>
+            <trans-unit id="templates_email_optinUpdate.textOptIn">
+                <source>To complete the update, please click on the following link:</source>
+            </trans-unit>
+            <trans-unit id="templates_email_optinUpdate.textOptInLinkLabel">
+                <source>Yes, I would like to update my data</source>
+            </trans-unit>
+            <trans-unit id="templates_email_optinUpdate.textOptOut">
+                <source>Have you changed your mind? After %s days, your update data will be deleted automatically. Your existing account will of course remain intact. To delete your update data directly, please click on the following link:</source>
+            </trans-unit>
+            <trans-unit id="templates_email_optinUpdate.textOptOutLinkLabel">
+                <source>No, I do not want to update my data</source>
+            </trans-unit>
 
 
 			<!-- Templates/Email/Confirmation.html -->
@@ -805,6 +829,9 @@
 			<trans-unit id="mailService.optIn.subject">
 				<source>Confirm registration</source>
 			</trans-unit>
+            <trans-unit id="mailService.optInUpdate.subject">
+                <source>Confirm update</source>
+            </trans-unit>
 			<trans-unit id="mailService.confirmation.subject">
 				<source>Registration successfull</source>
 			</trans-unit>
