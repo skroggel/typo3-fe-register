@@ -161,7 +161,7 @@ class FrontendUserController extends AbstractController
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\NotImplementedException
-     * @TYPO3\CMS\Extbase\Annotation\Validate("Madj2k\FeRegister\Validation\FrontendUserValidator", param="frontendUser")
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\TooDirtyException
      * @TYPO3\CMS\Extbase\Annotation\Validate("Madj2k\FeRegister\Validation\Consent\TermsValidator", param="frontendUser")
      * @TYPO3\CMS\Extbase\Annotation\Validate("Madj2k\FeRegister\Validation\Consent\PrivacyValidator", param="frontendUser")
      * @TYPO3\CMS\Extbase\Annotation\Validate("Madj2k\FeRegister\Validation\Consent\MarketingValidator", param="frontendUser")
@@ -234,15 +234,28 @@ class FrontendUserController extends AbstractController
 
         if ($check < 300) {
 
-            $this->addFlashMessage(
-                LocalizationUtility::translate(
-                    'frontendUserController.message.registrationSuccessful',
-                    'fe_register',
-                    [
-                        $this->settings['companyEmail']
-                    ]
-                )
-            );
+            if ($check == 210) {
+                $this->addFlashMessage(
+                    LocalizationUtility::translate(
+                        'frontendUserController.message.registrationUpdateSuccessful',
+                        'fe_register',
+                        [
+                            $this->settings['companyEmail']
+                        ]
+                    )
+                );
+
+            } else {
+                $this->addFlashMessage(
+                    LocalizationUtility::translate(
+                        'frontendUserController.message.registrationSuccessful',
+                        'fe_register',
+                        [
+                            $this->settings['companyEmail']
+                        ]
+                    )
+                );
+            }
 
         } elseif ($check < 400) {
 

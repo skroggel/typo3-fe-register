@@ -602,7 +602,7 @@ class DataProtectionHandlerTest extends FunctionalTestCase
         self::assertEquals('fe_users', $encryptedData->getForeignTable());
         self::assertEquals('Madj2k\FeRegister\Domain\Model\FrontendUser', $encryptedData->getForeignClass());
 
-        self::assertCount(20, $encryptedDataArray);
+        self::assertCount(21, $encryptedDataArray);
         self::assertEquals(49, strlen($encryptedDataArray['username']));
 
     }

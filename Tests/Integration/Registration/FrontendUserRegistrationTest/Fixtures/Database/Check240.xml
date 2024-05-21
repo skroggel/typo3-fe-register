@@ -2,7 +2,7 @@
 <dataset>
 
     <fe_users>
-        <uid>70</uid>
+        <uid>240</uid>
         <pid>88</pid>
         <crdate>10</crdate>
         <disable>1</disable>
@@ -28,9 +28,10 @@
     </fe_users>
 
     <tx_feregister_domain_model_optin>
-        <uid>70</uid>
+        <uid>240</uid>
         <pid>88</pid>
-        <frontend_user_uid>70</frontend_user_uid>
+        <frontend_user_uid>240</frontend_user_uid>
+        <frontend_user_update>a:2:{s:3:"zip";i:35745;s:4:"city";s:7:"Herborn";}</frontend_user_update>
         <token_user>test</token_user>
         <token_yes>test_yes</token_yes>
         <token_no>test_no</token_no>

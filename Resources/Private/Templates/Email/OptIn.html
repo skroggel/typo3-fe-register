@@ -19,12 +19,14 @@
         <postmaster:email.translate key="templates_email_optin.textOptIn" languageKey="{queueRecipient.languageCode}" extensionName="feRegister" />\n
         <postmaster:email.uri.action action="optIn" controller="FrontendUser" extensionName="feRegister" pluginName="auth"
              absolute="true" noCacheHash="true" pageUid="{settings.loginPid}"
-             additionalParams="{tx_feregister_auth: {token: tokenYes, user: tokenUser}}"/>\n\n
-
-        <postmaster:email.translate key="templates_email_optin.textOptOut" languageKey="{queueRecipient.languageCode}" extensionName="feRegister" arguments="{0: settings.users.daysForOptIn}" />\n
-        <postmaster:email.uri.action action="optIn" controller="FrontendUser" extensionName="feRegister" pluginName="auth"
-             absolute="true" noCacheHash="true" pageUid="{settings.loginPid}"
-             additionalParams="{tx_feregister_auth: {token: tokenNo, user: tokenUser}}" />
+             additionalParams="{tx_feregister_auth: {token: tokenYes, user: tokenUser}}"/>
+        
+        <f:if condition="{tokenNo}">\n\n
+            <postmaster:email.translate key="templates_email_optin.textOptOut" languageKey="{queueRecipient.languageCode}" extensionName="feRegister" arguments="{0: settings.users.daysForOptIn}" />\n
+            <postmaster:email.uri.action action="optIn" controller="FrontendUser" extensionName="feRegister" pluginName="auth"
+                 absolute="true" noCacheHash="true" pageUid="{settings.loginPid}"
+                 additionalParams="{tx_feregister_auth: {token: tokenNo, user: tokenUser}}" />
+        </f:if>
     </postmaster:email.plaintextLineBreaks></f:section>
 
 
@@ -42,9 +44,11 @@
             <postmaster:email.translate key="templates_email_optin.textOptIn" languageKey="{queueRecipient.languageCode}" extensionName="feRegister"/><br>
             <a href="<postmaster:email.uri.action action='optIn' controller='FrontendUser' extensionName='feRegister' pluginName='auth' absolute='true' noCacheHash='true' pageUid='{settings.loginPid}' additionalParams='{tx_feregister_auth: {token: tokenYes, user: tokenUser}}' />"><postmaster:email.translate key="templates_email_optin.textOptInLinkLabel" languageKey="{queueRecipient.languageCode}" extensionName="feRegister"/></a>
         </p>
-        <p>
-            <postmaster:email.translate key="templates_email_optin.textOptOut" languageKey="{queueRecipient.languageCode}" extensionName="feRegister" arguments="{0: settings.users.daysForOptIn}" /><br>
-            <a href="<postmaster:email.uri.action action='optIn' controller='FrontendUser' extensionName='feRegister' pluginName='auth' absolute='true' noCacheHash='true' pageUid='{settings.loginPid}' additionalParams='{tx_feregister_auth: {token: tokenNo, user: tokenUser}}'  />"><postmaster:email.translate key="templates_email_optin.textOptOutLinkLabel" languageKey="{queueRecipient.languageCode}" extensionName="feRegister"/></a>
-        </p>
+        <f:if condition="{tokenNo}">
+            <p>
+                <postmaster:email.translate key="templates_email_optin.textOptOut" languageKey="{queueRecipient.languageCode}" extensionName="feRegister" arguments="{0: settings.users.daysForOptIn}" /><br>
+                <a href="<postmaster:email.uri.action action='optIn' controller='FrontendUser' extensionName='feRegister' pluginName='auth' absolute='true' noCacheHash='true' pageUid='{settings.loginPid}' additionalParams='{tx_feregister_auth: {token: tokenNo, user: tokenUser}}'  />"><postmaster:email.translate key="templates_email_optin.textOptOutLinkLabel" languageKey="{queueRecipient.languageCode}" extensionName="feRegister"/></a>
+            </p>
+        </f:if>
     </f:section>
 </html>
