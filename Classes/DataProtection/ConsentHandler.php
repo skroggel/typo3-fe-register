@@ -173,27 +173,8 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
                 /** @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository $frontendUserRepository */
                 $frontendUserRepository = $objectManager->get(FrontendUserRepository::class);
                 if ($consentParent) {
-                    if ($consentParent->getConsentPrivacy()) {
-                        $frontendUser->setTxFeregisterConsentPrivacy($consentParent->getConsentPrivacy());
-                    }
-                    if ($consentParent->getConsentTerms()) {
-                        $frontendUser->setTxFeregisterConsentTerms($consentParent->getConsentTerms());
-                    }
-                    if ($consentParent->getConsentMarketing()) {
-                        $frontendUser->setTxFeregisterConsentMarketing($consentParent->getConsentMarketing());
-                    }
-                    if ($consentParent->getConsentTopics()) {
-
-                        // if user is logged in, reset selection because in that case the selected topics have been shown in frontend
-                        if (FrontendUserSessionUtility::isUserLoggedIn($frontendUser)) {
-                            $frontendUser->setTxFeregisterConsentTopics(GeneralUtility::makeInstance(ObjectStorage::class));
-                        }
-
-                        /** @var \Madj2k\FeRegister\Domain\Model\Category  $category */
-                        foreach ($consentParent->getConsentTopics() as $category) {
-                            $frontendUser->addTxFeregisterConsentTopics($category);
-                        }
-                    }
+                    $doReset = (bool) ($referenceObject->getFrontendUserUpdate() && !$referenceObject->getData());
+                    self::setConsentProperties($consentParent, $frontendUser, $doReset);
                 }
                 $frontendUserRepository->update($frontendUser);
 
@@ -218,32 +199,50 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
             // set consent in frontendUser
             /** @var \Madj2k\FeRegister\Domain\Repository\FrontendUserRepository $frontendUserRepository */
             $frontendUserRepository = $objectManager->get(FrontendUserRepository::class);
-            if ($consent->getConsentPrivacy()) {
-                $frontendUser->setTxFeregisterConsentPrivacy($consent->getConsentPrivacy());
-            }
-            if ($consent->getConsentTerms()) {
-                $frontendUser->setTxFeregisterConsentTerms($consent->getConsentTerms());
-            }
-            if ($consent->getConsentMarketing()) {
-                $frontendUser->setTxFeregisterConsentMarketing($consent->getConsentMarketing());
-            }
-            if ($consent->getConsentTopics()) {
-
-                // if user is logged in, reset selection because in that case the selected topics have been shown in frontend
-                if (FrontendUserSessionUtility::isUserLoggedIn($frontendUser)) {
-                    $frontendUser->setTxFeregisterConsentTopics(GeneralUtility::makeInstance(ObjectStorage::class));
-                }
-
-                /** @var \Madj2k\FeRegister\Domain\Model\Category  $category */
-                foreach ($consent->getConsentTopics() as $category) {
-                    $frontendUser->addTxFeregisterConsentTopics($category);
-                }
-            }
+            self::setConsentProperties($consent, $frontendUser);
 
             $frontendUserRepository->update($frontendUser);
         }
 
         return $consent;
+    }
+
+
+    /**
+     * @param \Madj2k\FeRegister\Domain\Model\Consent $consent
+     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
+     * @param bool $reset
+     * @return void
+     * @throws \TYPO3\CMS\Core\Context\Exception\AspectNotFoundException
+     */
+    protected static function setConsentProperties(
+        \Madj2k\FeRegister\Domain\Model\Consent $consent,
+        \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser,
+        bool $reset = false
+    ): void {
+
+        if ($consent->getConsentPrivacy()) {
+            $frontendUser->setTxFeregisterConsentPrivacy($consent->getConsentPrivacy());
+        }
+        if ($consent->getConsentTerms()) {
+            $frontendUser->setTxFeregisterConsentTerms($consent->getConsentTerms());
+        }
+        if ($consent->getConsentMarketing() || $reset) {
+            $frontendUser->setTxFeregisterConsentMarketing($consent->getConsentMarketing());
+        }
+
+        if ($consent->getConsentTopics()) {
+
+            // if user is logged in, reset selection because in that case the selected topics have been shown in frontend
+            if (FrontendUserSessionUtility::isUserLoggedIn($frontendUser) || $reset) {
+                $frontendUser->setTxFeregisterConsentTopics(GeneralUtility::makeInstance(ObjectStorage::class));
+            }
+
+            /** @var \Madj2k\FeRegister\Domain\Model\Category  $category */
+            foreach ($consent->getConsentTopics() as $category) {
+                $frontendUser->addTxFeregisterConsentTopics($category);
+            }
+        }
     }
 
 

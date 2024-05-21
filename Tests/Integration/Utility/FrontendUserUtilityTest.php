@@ -202,7 +202,7 @@ class FrontendUserUtilityTest extends FunctionalTestCase
         $result = FrontendUserUtility::convertObjectToArray($frontendUser);
 
         self::assertIsArray($result);
-        self::assertCount(42, $result);
+        self::assertCount(43, $result);
         self::assertEquals('test', $result['username']);
         self::assertEquals(123456, $result['zip']);
     }

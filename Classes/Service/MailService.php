@@ -79,8 +79,23 @@ class MailService implements \TYPO3\CMS\Core\SingletonInterface
             );
 
             $mailService->getQueueMail()->addTemplatePaths($settings['view']['templateRootPaths']);
-            $mailService->getQueueMail()->setPlaintextTemplate('Email/OptIn');
             $mailService->getQueueMail()->setHtmlTemplate('Email/OptIn');
+
+            if ($optIn->getFrontendUserUpdate() && !$optIn->getData()) {
+                $mailService->getQueueMail()->setSubject(
+                    \Madj2k\Postmaster\Utility\FrontendLocalizationUtility::translate(
+                        'mailService.optInUpdate.subject',
+                        'fe_register',
+                        null,
+                        $frontendUser->getTxFeregisterLanguageKey()
+                    )
+                );
+
+                $mailService->getQueueMail()->setPlaintextTemplate('Email/OptInUpdate');
+                $mailService->getQueueMail()->setHtmlTemplate('Email/OptInUpdate');
+            }
+
+
             $mailService->send();
         }
     }

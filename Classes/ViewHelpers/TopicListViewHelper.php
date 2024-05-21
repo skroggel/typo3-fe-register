@@ -102,7 +102,9 @@ class TopicListViewHelper extends AbstractViewHelper
 
             /** @var \Madj2k\FeRegister\Domain\Model\Category $$categoryParent*/
             $categoryParent= $this->categoryRepository->findByUid($settings['settings']['consent']['topics']['categoryParentUid']);
-            $categoryTree = $this->buildCategoryTreeRecursive($categoryParent, intval($settings['settings']['consent']['topics']['categoryMaxDepth']));
+            if ($categoryParent) {
+                $categoryTree = $this->buildCategoryTreeRecursive($categoryParent, intval($settings['settings']['consent']['topics']['categoryMaxDepth']));
+            }
         }
 
         $standaloneView->assignMultiple(
