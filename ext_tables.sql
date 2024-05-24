@@ -45,7 +45,7 @@ CREATE TABLE tx_feregister_domain_model_optin
 #
 CREATE TABLE fe_users
 (
-
+	`company`                            mediumtext                     NOT NULL,
 	tx_feregister_title                  int(11) unsigned DEFAULT '0' NOT NULL,
 	tx_feregister_gender                 tinyint(4) DEFAULT '99' NOT NULL,
 	tx_feregister_mobile                 varchar(255) DEFAULT ''        NOT NULL,
@@ -113,15 +113,15 @@ CREATE TABLE tx_feregister_domain_model_consent
 	foreign_table      varchar(255) DEFAULT '' NOT NULL,
 	foreign_uid        varchar(255) DEFAULT '' NOT NULL,
 	ip_address         varchar(255) DEFAULT '' NOT NULL,
-	user_agent         longtext,
+	user_agent         longtext                NOT NULL,
 	extension_name     varchar(255) DEFAULT '' NOT NULL,
 	plugin_name        varchar(255) DEFAULT '' NOT NULL,
 	controller_name    varchar(255) DEFAULT '' NOT NULL,
 	action_name        varchar(255) DEFAULT '' NOT NULL,
 	comment            varchar(255) DEFAULT '' NOT NULL,
 	server_host        varchar(255) DEFAULT '' NOT NULL,
-	server_uri         text,
-	server_referer_url text,
+	server_uri         text                    NOT NULL,
+	server_referer_url text                    NOT NULL,
 	consent_privacy    int(1) DEFAULT '0' NOT NULL,
 	consent_terms      int(1) DEFAULT '0' NOT NULL,
 	consent_marketing  int(1) DEFAULT '0' NOT NULL,
