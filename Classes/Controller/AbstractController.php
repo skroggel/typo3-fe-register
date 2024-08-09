@@ -292,7 +292,6 @@ abstract class AbstractController extends \Madj2k\AjaxApi\Controller\AjaxAbstrac
      */
     protected function redirectToWelcome(bool $newGuestLogin = false): void
     {
-
         // try redirecting to referrer
         $this->redirectToReferer($newGuestLogin);
 
@@ -304,7 +303,7 @@ abstract class AbstractController extends \Madj2k\AjaxApi\Controller\AjaxAbstrac
         // we need a real redirect for the login to be effective
         /** @var  \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder */
         $uriBuilder = $this->objectManager->get(UriBuilder::class);
-
+$pid = '';
         if ($pid) {
             $url = $uriBuilder->reset()
                 ->setTargetPageUid($pid)
@@ -344,6 +343,8 @@ abstract class AbstractController extends \Madj2k\AjaxApi\Controller\AjaxAbstrac
                 '',
                 AbstractMessage::WARNING
             );
+
+            // @toDo: Email Message Logger Processor
 
             $this->getLogger()->error(
                 sprintf(

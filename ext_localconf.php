@@ -323,6 +323,17 @@ call_user_func(
             ],
         ];
 
+        $GLOBALS['TYPO3_CONF_VARS']['LOG']['Madj2k']['FeRegister']['processorConfiguration'] = [
+            // Configuration for ERROR level log entries
+            \TYPO3\CMS\Core\Log\LogLevel::ERROR => [
+                // Add a NotifyProcessor
+                \Madj2k\FeRegister\Log\Processor\NotifyProcessor::class => [
+                    'sendMails' => true,
+                    'emailAddress' => "xyz@abc.com",
+                ],
+            ],
+        ];
+
 
     },
     'fe_register'

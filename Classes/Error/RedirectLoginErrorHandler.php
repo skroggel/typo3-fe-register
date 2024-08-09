@@ -4,6 +4,19 @@ declare(strict_types=1);
 
 namespace Madj2k\FeRegister\Error;
 
+/*
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ * The TYPO3 project - inspiring people to share!
+ */
+
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -33,16 +46,18 @@ use TYPO3\CMS\Frontend\Page\PageAccessFailureReasons;
  * https://forge.typo3.org/issues/101252
  * https://review.typo3.org/c/Packages/TYPO3.CMS/+/81945/12/typo3/sysext/core/Classes/Error/PageErrorHandler/RedirectLoginErrorHandler.php
  *
- * This file is part of the TYPO3 CMS project.
+ * Example use in config.yaml
+ * -
+ *  errorCode: 403
+ *  errorHandler: PHP
+ *  errorPhpClassFQCN: Madj2k\FeRegister\Error\RedirectLoginErrorHandler
+ *  redirectPidLoggedUser: 10512
+ *  redirectPidNotLoggedUser: 10513
  *
- * It is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License, either version 2
- * of the License, or any later version.
- *
- * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- *
- * The TYPO3 project - inspiring people to share!
+ * @author Maximilian Fäßler <maximilian@faesslerweb.de>
+ * @copyright Steffen Kroggel
+ * @package Madj2k_FeRegister
+ * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 class RedirectLoginErrorHandler implements PageErrorHandlerInterface
 {
