@@ -344,8 +344,6 @@ $pid = '';
                 AbstractMessage::WARNING
             );
 
-            // @toDo: Email Message Logger Processor
-
             $this->getLogger()->error(
                 sprintf(
                     'RedirectToWelcome: No PID set. Using fallback route; user is forwarded to %s',

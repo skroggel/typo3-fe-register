@@ -52,7 +52,6 @@ class SystemMailUtility implements \TYPO3\CMS\Core\SingletonInterface
         // Create the message
         $mail = GeneralUtility::makeInstance(MailMessage::class);
 
-        // @toDo: noreply@rkw.de ?
         $mail->from(new \Symfony\Component\Mime\Address(
             $address,
             $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName']

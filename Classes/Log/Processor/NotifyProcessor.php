@@ -18,7 +18,6 @@ namespace Madj2k\FeRegister\Log\Processor;
 use Madj2k\FeRegister\Utility\SystemMailUtility;
 use TYPO3\CMS\Core\Log\LogRecord;
 use TYPO3\CMS\Core\Log\Processor\AbstractProcessor;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Web log processor to automatically add web request related data to a log
@@ -79,8 +78,7 @@ class NotifyProcessor extends AbstractProcessor
     }
 
     /**
-     * Processes a log record and adds webserver environment data.
-     * We use the usual "Debug System Information"
+     * Sends a log message directly to a given emailAddress
      *
      * @param \TYPO3\CMS\Core\Log\LogRecord $logRecord The log record to process
      * @return \TYPO3\CMS\Core\Log\LogRecord The processed log record with additional data
@@ -88,25 +86,21 @@ class NotifyProcessor extends AbstractProcessor
      */
     public function processLogRecord(LogRecord $logRecord)
     {
+        // outputs something like 'Madj2k.FeRegister.Controller.AbstractController'
+        $logCreatorClassString = $logRecord->getComponent();
 
-
-        // @toDo: how to only activate if its FeRegister extension?
-
-
-        if ($this->getSendMails()) {
-           // $test = 'Sende Mails ist aktiv';
+        // do only handle FeRegister log messages
+        // do only something if 'sendMails' => true (@see ext_localconf.php)
+        if (
+            str_starts_with($logCreatorClassString, 'Madj2k.FeRegister')
+            && $this->getSendMails()
+        ) {
+            // send email to admin
             SystemMailUtility::sendMail(
                 $logRecord->getMessage(),
                 $this->getEmailAddress()
             );
-        } else {
-           // $test = 'Sende Mails ist NICHT aktiv';
         }
-
-
-
-
-        //$logRecord->setMessage($test);
 
         return $logRecord;
     }

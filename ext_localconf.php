@@ -329,7 +329,7 @@ call_user_func(
                 // Add a NotifyProcessor
                 \Madj2k\FeRegister\Log\Processor\NotifyProcessor::class => [
                     'sendMails' => true,
-                    'emailAddress' => "xyz@abc.com",
+                    //'emailAddress' => "xyz@abc.com",
                 ],
             ],
         ];
