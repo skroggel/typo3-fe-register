@@ -227,6 +227,9 @@
 			<trans-unit id="abstractController.error.userNotLoggedIn">
 				<source>Please log in.</source>
 			</trans-unit>
+            <trans-unit id="abstractController.warning.issueLoginPid">
+                <source>Something went wrong on login.</source>
+            </trans-unit>
 
 
 			<!-- AuthController -->

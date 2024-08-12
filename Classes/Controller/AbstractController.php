@@ -30,6 +30,7 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
@@ -291,7 +292,6 @@ abstract class AbstractController extends \Madj2k\AjaxApi\Controller\AjaxAbstrac
      */
     protected function redirectToWelcome(bool $newGuestLogin = false): void
     {
-
         // try redirecting to referrer
         $this->redirectToReferer($newGuestLogin);
 
@@ -299,22 +299,59 @@ abstract class AbstractController extends \Madj2k\AjaxApi\Controller\AjaxAbstrac
             ? intval($this->settings['welcomeGuestPid'])
             : intval($this->settings['welcomePid']));
 
+
         // we need a real redirect for the login to be effective
         /** @var  \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder */
         $uriBuilder = $this->objectManager->get(UriBuilder::class);
-        $url = $uriBuilder->reset()
-            ->setTargetPageUid($pid)
-            ->setLinkAccessRestrictedPages(true)
-            ->setCreateAbsoluteUri(true)
-            ->setArguments(
-                [
-                    'tx_feregister_' . ($pid ? 'welcome' : 'auth') => [
-                        'action' => ($pid ? 'welcome' : 'index'),
-                        'controller' => ($pid ? 'FrontendUser' : 'Auth'),
-                    ],
-                ]
-            )
-            ->build();
+
+        if ($pid) {
+            $url = $uriBuilder->reset()
+                ->setTargetPageUid($pid)
+                ->setLinkAccessRestrictedPages(true)
+                ->setCreateAbsoluteUri(true)
+                ->setArguments(
+                    [
+                        'tx_feregister_welcome' => [
+                            'action' => 'welcome',
+                            'controller' => 'FrontendUser',
+                        ],
+                    ]
+                )
+                ->build();
+        } else {
+
+            // fallback IF PID is not set by any reason (this should never happen!)
+            // Important: Do not forward to the login-Plugin at this point, because the user is logged in and the whole login...
+            // ...page is hidden for logged user! (do NOT forward to AuthController->indexAction)
+            $url = $uriBuilder->reset()
+                ->setTargetPageUid($this->settings['logoutPid'])
+                ->setArguments(
+                    [
+                        'tx_feregister_auth' => [
+                            'action' => 'logout',
+                            'controller' => 'Auth',
+                        ],
+                    ]
+                )
+                ->build();
+
+            $this->addFlashMessage(
+                LocalizationUtility::translate(
+                    'abstractController.warning.issueLoginPid',
+                    'fe_register'
+                ),
+                '',
+                AbstractMessage::WARNING
+            );
+
+            $this->getLogger()->error(
+                sprintf(
+                    'RedirectToWelcome: No PID set. Using fallback route; user is forwarded to %s',
+                    $url
+                )
+            );
+        }
+
 
         $this->redirectToUri($url);
     }
