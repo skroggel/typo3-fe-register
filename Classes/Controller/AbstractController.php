@@ -320,7 +320,7 @@ abstract class AbstractController extends \Madj2k\AjaxApi\Controller\AjaxAbstrac
                 ->build();
         } else {
 
-            // fallback if PID is not set by any reason (should never happen!)
+            // fallback IF PID is not set by any reason (this should never happen!)
             // Important: Do not forward to the login-Plugin at this point, because the user is logged in and the whole login...
             // ...page is hidden for logged user! (do NOT forward to AuthController->indexAction)
             $url = $uriBuilder->reset()
