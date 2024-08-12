@@ -18,6 +18,7 @@ namespace Madj2k\FeRegister\Log\Processor;
 use Madj2k\FeRegister\Utility\SystemMailUtility;
 use TYPO3\CMS\Core\Log\LogRecord;
 use TYPO3\CMS\Core\Log\Processor\AbstractProcessor;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Web log processor to automatically add web request related data to a log
@@ -95,9 +96,19 @@ class NotifyProcessor extends AbstractProcessor
             str_starts_with($logCreatorClassString, 'Madj2k.FeRegister')
             && $this->getSendMails()
         ) {
+            $message = ' ['
+                . strtoupper($logRecord->getLevel())
+                . '] '
+                . date('d.m.Y', $logRecord->getCreated())
+                . ' - '
+                . $logRecord->getComponent()
+                . ': "'
+                . $logRecord->getMessage()
+                . '"';
+
             // send email to admin
             SystemMailUtility::sendMail(
-                $logRecord->getMessage(),
+                $message,
                 $this->getEmailAddress()
             );
         }

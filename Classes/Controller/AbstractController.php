@@ -303,7 +303,7 @@ abstract class AbstractController extends \Madj2k\AjaxApi\Controller\AjaxAbstrac
         // we need a real redirect for the login to be effective
         /** @var  \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder */
         $uriBuilder = $this->objectManager->get(UriBuilder::class);
-$pid = '';
+
         if ($pid) {
             $url = $uriBuilder->reset()
                 ->setTargetPageUid($pid)
