@@ -293,6 +293,10 @@
                 <source>Please log in.</source>
                 <target>Bitte melden Sie sich an.</target>
             </trans-unit>
+            <trans-unit id="abstractController.warning.issueLoginPid">
+                <source>Something went wrong on login.</source>
+                <target><![CDATA[Beim Login ist leider etwas schief gelaufen. Unsere IT wurde über das Problem informiert. Bei weiteren Fragen und Anmerkungen hilft Ihnen unser <a href="mailto:%s">Support</a> gerne weiter.]]></target>
+            </trans-unit>
 
 
             <!-- AuthController -->
