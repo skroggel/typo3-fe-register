@@ -26,8 +26,6 @@ use Madj2k\FeRegister\Service\MailService;
 use Madj2k\FeRegister\Utility\FrontendUserSessionUtility;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
@@ -213,9 +211,9 @@ class FrontendUserGroupController extends AbstractController
         $this->addFlashMessage(
             LocalizationUtility::translate(
                 'frontendUserGroupController.message.registrationWatchForEmail',
-                'fe_register'
+                'fe_register',
                 [
-                    $this->settings['companyEmail']
+                    $this->settings['companyEmail'],
                 ]
             )
         );

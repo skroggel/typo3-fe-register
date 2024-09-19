@@ -76,7 +76,8 @@ call_user_func(
                     'size' => '30',
                     'max' => '256',
                     'eval' => 'trim',
-                    'softref' => 'typolink'
+                    'softref' => 'typolink',
+                    'default' => 0
                 ],
             ],
         ];
