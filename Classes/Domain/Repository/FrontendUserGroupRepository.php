@@ -38,6 +38,10 @@ class FrontendUserGroupRepository extends AbstractRepository
     {
         // return all services which do not pass the closingDate or openingDate
         $query = $this->createQuery();
+
+        //  search globally
+        $query->getQuerySettings()->setRespectStoragePage(false);
+
         $query->matching(
             $query->logicalAnd(
                 $query->logicalOr(
