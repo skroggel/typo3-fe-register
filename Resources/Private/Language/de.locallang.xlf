@@ -42,6 +42,10 @@
 				<source>ZIP</source>
                 <target>PLZ</target>
 			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.zip.accessible">
+				<source>Postal code</source>
+				<target>Postleitzahl</target>
+			</trans-unit>
 			<trans-unit id="tx_feregister_domain_model_frontenduser.city">
 				<source>City</source>
                 <target>Stadt</target>

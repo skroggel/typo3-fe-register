@@ -34,6 +34,9 @@
 			<trans-unit id="tx_feregister_domain_model_frontenduser.zip">
 				<source>ZIP</source>
 			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.zip.accessible">
+				<source>Postal code</source>
+			</trans-unit>
 			<trans-unit id="tx_feregister_domain_model_frontenduser.city">
 				<source>City</source>
 			</trans-unit>
