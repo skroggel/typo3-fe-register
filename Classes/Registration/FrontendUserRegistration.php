@@ -195,10 +195,11 @@ class FrontendUserRegistration extends AbstractRegistration
                 return $result;
             }
 
-            $result = $this->checkIfOptInNo($optInPersisted, $frontendUserPersisted, $token);
-            if ($result > 0) {
-                return $result;
-            }
+//            2025-03-19: Commented out as there occurred some automatic inexplicable cancellations
+//            $result = $this->checkIfOptInNo($optInPersisted, $frontendUserPersisted, $token);
+//            if ($result > 0) {
+//                return $result;
+//            }
         }
 
         $this->getLogger()->log(
