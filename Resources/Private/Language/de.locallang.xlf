@@ -42,6 +42,10 @@
 				<source>ZIP</source>
                 <target>PLZ</target>
 			</trans-unit>
+			<trans-unit id="tx_feregister_domain_model_frontenduser.zip.accessible">
+				<source>Postal code</source>
+				<target>Postleitzahl</target>
+			</trans-unit>
 			<trans-unit id="tx_feregister_domain_model_frontenduser.city">
 				<source>City</source>
                 <target>Stadt</target>
@@ -878,7 +882,7 @@
             </trans-unit>
             <trans-unit id="templates_email_optin.textOptOut">
                 <source>Have you changed your mind? After %s days the data of your request will be deleted automatically. To delete the data of your request directly, please click on the following link:</source>
-                <target>Sie haben es sich anders überlegt? Nach %s Tagen werden die Daten Ihrer Anfrage automatisch gelöscht. Um die Daten Ihrer Anfrage direkt zu löschen, klicken Sie bitte auf den folgenden Link:</target>
+                <target>Sie haben es sich anders überlegt? Nach %s Tagen werden die Daten Ihrer Anfrage automatisch gelöscht. Sie brauchen nichts weiter zu tun.</target>
             </trans-unit>
             <trans-unit id="templates_email_optin.textOptOutLinkLabel">
                 <source>No, I do not want to register</source>
@@ -905,7 +909,7 @@
             </trans-unit>
             <trans-unit id="templates_email_optinUpdate.textOptOut">
                 <source>Have you changed your mind? After %s days, your update data will be deleted automatically. Your existing account will of course remain intact. To delete your update data directly, please click on the following link:</source>
-                <target>Sie haben es sich anders überlegt? Nach %s Tagen werden die Daten Ihrer Aktualisierung automatisch gelöscht. Ihr bestehender Account bleibt dabei selbstverständlich erhalten. Um die Daten Ihrer Aktualisierung direkt zu löschen, klicken Sie bitte auf den folgenden Link:</target>
+                <target>Sie haben es sich anders überlegt? Nach %s Tagen werden die Daten Ihrer Aktualisierung automatisch gelöscht. Ihr bestehender Account bleibt dabei selbstverständlich erhalten. Sie brauchen nichts weiter zu tun.</target>
             </trans-unit>
             <trans-unit id="templates_email_optinUpdate.textOptOutLinkLabel">
                 <source>No, I do not want to update my data</source>
@@ -963,7 +967,7 @@
             </trans-unit>
             <trans-unit id="templates_email_group_optin.textOptOut">
                 <source>You have changed your mind? After %s days your request will be deleted automatically. If you want to delete it directly, please click on the following link:</source>
-                <target>Sie haben es sich anders überlegt? Nach %s Tagen wird Ihr Beitrittswunsch automatisch gelöscht. Möchten Sie ihn direkt löschen, klicken Sie bitte auf den folgenden Link:</target>
+                <target>Sie haben es sich anders überlegt? Nach %s Tagen wird Ihr Beitrittswunsch automatisch gelöscht. Sie brauchen nichts weiter zu tun.</target>
             </trans-unit>
             <trans-unit id="templates_email_group_optin.textOptOutLinkLabel">
                 <source>No, I do not want to join the group</source>

@@ -53,14 +53,20 @@ class FrontendUserGroupUtility
             /** @var \Madj2k\FeRegister\Domain\Repository\FrontendUserGroupRepository $frontendUserGroupRepository */
             $frontendUserGroupRepository = $objectManager->get(FrontendUserGroupRepository::class);
 
+
             if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 10000000) {
                     // nothing to do
             } else {
                 // we need to destroy the session data, since inherited objects with the same extbase_type are handled
                 // as identical objects and hence cached
                 /** @var \TYPO3\CMS\Extbase\Persistence\Generic\Session $persistenceSession */
-                $persistenceSession = $objectManager->get(Session::class);
-                $persistenceSession->destroy();
+
+                // !!! Important: Clearing persistenceSession-Cache produce issue on saving objects: !!!
+                // --> The object of type "Madj2k\FeRegister\Domain\Model\FrontendUser" given to update must be persisted already, but is new.
+                // SK does not remember why he has written this fix. If the error may occur again, maybe we could work here with...
+                // ..."unregisterObject" instead of "destroy" (everything)
+            //    $persistenceSession = $objectManager->get(Session::class);
+            //    $persistenceSession->destroy();
             }
 
             $frontendUserGroup = $frontendUserGroupRepository->findByIdentifier($frontendUserGroup->getUid());
