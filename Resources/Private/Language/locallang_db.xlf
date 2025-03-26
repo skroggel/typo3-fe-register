@@ -173,7 +173,9 @@
 			<trans-unit id="tx_feregister_domain_model_consent.sub_type">
 				<source>Sub-Type</source>
 			</trans-unit>
-
+            <trans-unit id="tx_feregister_domain_model_consent.consent_text">
+                <source>Custom consent text</source>
+            </trans-unit>
 
             <!-- tx_feregister_domain_model_shippingaddress -->
             <trans-unit id="tx_feregister_domain_model_shippingaddress">
