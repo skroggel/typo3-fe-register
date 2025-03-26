@@ -66,6 +66,7 @@ class ConsentViewHelper extends AbstractViewHelper
         $this->registerArgument('pageUid2', 'int', 'The pid of the second page which will be linked.', false, '0');
         $this->registerArgument('type', 'string', 'The type. Allowed values are: privacy, terms, marketing.', false, 'privacy');
         $this->registerArgument('subType', 'string', 'The subtype of the consent', false, '');
+        $this->registerArgument('consentText', 'string', 'The text of the custom consent', false, '');
         $this->registerArgument('companyName', 'string', 'The name of the company. This is inserted into the texts.', false, '');
         $this->registerArgument('companyEmail', 'string', 'The email of the company for revocation of consent. This is inserted into the texts.', false, '');
         $this->registerArgument('disableTopicModal', 'bool', 'If set to true the topic modal is disabled.', false, false);
@@ -94,6 +95,11 @@ class ConsentViewHelper extends AbstractViewHelper
 
         /** @var string $subType */
         $subType = $this->arguments['subType'];
+
+        /** @var string $text */
+        if ($subType === 'custom' && $this->arguments['consentText']) {
+            $consentText = $this->arguments['consentText'];
+        }
 
         /** @var string $companyName */
         $companyName = $this->arguments['companyName'];
@@ -139,6 +145,7 @@ class ConsentViewHelper extends AbstractViewHelper
                 'namespace' => self::NAMESPACE,
                 'type' => $type,
                 'subType' => $subType,
+                'consentText' => $consentText,
                 'key' => $key,
                 'checked' => $checked,
                 'pageUid'  => $pageUid,

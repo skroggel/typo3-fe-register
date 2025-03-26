@@ -224,6 +224,10 @@
 				<source>Sub-Type</source>
 				<target>Unter-Typ</target>
 			</trans-unit>
+            <trans-unit id="tx_feregister_domain_model_consent.consent_text">
+                <source>Custom consent text</source>
+                <target>Abweichende Einwilligungserklärung</target>
+            </trans-unit>
 
 
             <!-- tx_feregister_domain_model_shippingaddress -->
