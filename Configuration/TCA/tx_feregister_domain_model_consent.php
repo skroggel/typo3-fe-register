@@ -14,7 +14,7 @@ return [
 		'iconfile' => 'EXT:fe_register/Resources/Public/Icons/tx_feregister_domain_model_consent.gif'
 	],
 	'types' => [
-		'1' => ['showitem' => 'crdate, foreign_table, foreign_uid, ip_address, user_agent, extension_name, plugin_name, controller_name, action_name, comment, server_host, server_uri, server_referer_url, consent_privacy, consent_terms, consent_marketing, consent_topics, sub_type, child'],
+		'1' => ['showitem' => 'crdate, foreign_table, foreign_uid, ip_address, user_agent, extension_name, plugin_name, controller_name, action_name, comment, server_host, server_uri, server_referer_url, consent_privacy, consent_terms, consent_marketing, consent_topics, sub_type, consent_text, child'],
 	],
 	'palettes' => [
 		'1' => ['showitem' => ''],
@@ -252,6 +252,17 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'max' => 255,
+                'readOnly' => 1,
+            ],
+        ],
+        'consent_text' => [
+            'exclude' => 0,
+            'label' => 'LLL:EXT:fe_register/Resources/Private/Language/locallang_db.xlf:tx_feregister_domain_model_consent.consent_text',
+            'config' => [
+                'type' => 'text',
+                'cols' => 40,
+                'rows' => 15,
+                'enableRichtext' => true,
                 'readOnly' => 1,
             ],
         ],

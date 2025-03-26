@@ -128,6 +128,7 @@ CREATE TABLE tx_feregister_domain_model_consent
 	consent_marketing  int(1) DEFAULT '0' NOT NULL,
 	consent_topics     varchar(255) DEFAULT '' NOT NULL,
 	sub_type           varchar(255) DEFAULT '' NOT NULL,
+	consent_text       text,
 
 	tstamp             int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate             int(11) unsigned DEFAULT '0' NOT NULL,

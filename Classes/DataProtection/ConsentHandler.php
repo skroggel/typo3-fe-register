@@ -121,6 +121,9 @@ class ConsentHandler implements \TYPO3\CMS\Core\SingletonInterface
             }
             if (isset($dirtyFormData[$key]['subType'])) {
                 $consent->addSubType(htmlspecialchars($dirtyFormData[$key]['subType']));
+                if ($dirtyFormData[$key]['subType'] === 'custom') {
+                    $consent->setConsentText($dirtyFormData[$key]['consentText']);
+                }
             }
         }
 

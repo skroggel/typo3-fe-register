@@ -151,6 +151,12 @@ class Consent extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 
     /**
+     * @var string
+     */
+    public string $consentText = '';
+
+
+    /**
      * __construct
      */
     public function __construct()
@@ -681,6 +687,24 @@ class Consent extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function getSubType(): string
     {
         return $this->subType;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getConsentText(): string
+    {
+        return $this->consentText;
+    }
+
+
+    /**
+     * @param string $consentText
+     */
+    public function setConsentText(string $consentText): void
+    {
+        $this->consentText = $consentText;
     }
 
 }
