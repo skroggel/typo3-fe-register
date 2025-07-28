@@ -850,9 +850,13 @@
                 <source>Apply selection</source>
                 <target>Auswahl übernehmen</target>
             </trans-unit>
+			<trans-unit id="templates_viewHelpers_consent_marketing.closeButtonAriaLabel">
+				<source>Close dialog</source>
+				<target>Dialog schließen</target>
+			</trans-unit>
 
 
-            <!-- Partials/LabelSuffix.html -->
+			<!-- Partials/LabelSuffix.html -->
             <trans-unit id="partials_labelSuffix.labelOptional">
                 <source>(Optional)</source>
                 <target>(Optional)</target>
