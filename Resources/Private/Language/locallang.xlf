@@ -660,6 +660,9 @@
             <trans-unit id="templates_viewHelpers_consent_marketing.saveSelection">
                 <source>Apply selection</source>
             </trans-unit>
+            <trans-unit id="templates_viewHelpers_consent_marketing.closeButtonAriaLabel">
+                <source>Close dialog</source>
+            </trans-unit>
 
 
 			<!-- Partials/LabelSuffix.html -->
