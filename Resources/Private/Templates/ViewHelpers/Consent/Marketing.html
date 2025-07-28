@@ -20,7 +20,11 @@
             
             <label for="{namespace}-{type}-{randomKey}" 
                    class="checkbox-label {f:if(condition:'{settings.consent.topics.enable} && !{disableTopicModal}', then:'js-open-mdl')}"
-                   data-modal="{namespace}-{type}-{randomKey}-modal">
+                   data-modal="{namespace}-{type}-{randomKey}-modal"
+                   aria-haspopup="dialog"
+                   aria-expanded="false"
+                   aria-controls="{namespace}-{type}-{randomKey}-modal"
+            >
                 <span class="text-smaller">
                     <f:format.raw>
                         <f:translate key="templates_viewHelpers_consent_{type}.{key}" extensionName="feRegister" arguments="{0: companyName, 1: companyEmail}" />
@@ -30,10 +34,18 @@
         </div>
 
         <f:if condition="{settings.consent.topics.enable} && !{disableTopicModal}">
-            <div id="{namespace}-{type}-{randomKey}-modal" class="mdl">
+            <div
+                id="{namespace}-{type}-{randomKey}-modal" 
+                class="mdl"
+                tabindex="-1"
+                aria-labelledby="{namespace}-{type}-{randomKey}-modal-header-id"
+            >
                 <div class="mdl__inner">
                     <header class="mdl__header">
-                        <span class="h4 mdl__headline">
+                        <span
+                            class="h4 mdl__headline"
+                            id="{namespace}-{type}-{randomKey}-modal-header-id"
+                        >
                             <f:translate key="templates_viewHelpers_consent_marketing.topicHeadline" extensionName="fe_register" />
                         </span>
                     </header>
@@ -45,8 +57,14 @@
                         </button>
                     </div>
                 </div>
-                <button class="mdl-close js-close-mdl"><svg class="icon icon--48">
-                    <use xlink:href="#ic-mobile-menu-close" /></svg></button>
+                <button
+                    class="mdl-close js-close-mdl"
+                    aria-label="{f:translate(key: 'templates_viewHelpers_consent_marketing.closeButtonAriaLabel', extensionName: 'fe_register')}"
+                >
+                    <svg class="icon icon--48">
+                        <use xlink:href="#ic-mobile-menu-close" />
+                    </svg>
+                </button>
             </div>
             <div class="mdl-layer js-mdl-layer"></div>
         </f:if>
